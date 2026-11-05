@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+:root {
+  /* Modern Digital Reading Platform Palette (Clean, Fresh, Colorful) */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  
+  /* Primary: Noble Monk Robe / Saffron Amber */
+  --primary: #c2410c; /* Tailwind orange-700 */
+  --primary-foreground: #FFFFFF;
+  
+  /* Warm Amber Accent */
+  --secondary: #f59e0b; /* Tailwind amber-500 */
+  --secondary-foreground: #451a03;
+  
+  --accent: #d97706; /* Tailwind amber-600 */
+  --accent-foreground: #FFFFFF;
+  
+  --surface: #FFFFFF;
+  --surface-raised: #FFFFFF;
+  --border: #e4e4e7;
+  --border-subtle: #f4f4f5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --font-sans: var(--font-mitr), var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Modern Card & Book 3D Spine Effects */
+.book-cover-3d {
+  position: relative;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.book-cover-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(to right, rgba(0,0,0,0.3) 0%, rgba(255,255,255,0.2) 50%, rgba(0,0,0,0.1) 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.book-cover-3d:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.22), 0 10px 15px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Glassmorphism Utilities */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(228, 228, 231, 0.8);
+}
+
+/* Ranking Number Outline / Webtoon Style */
+.rank-number {
+  font-family: var(--font-mitr), var(--font-geist-sans), sans-serif;
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: #d97706;
+  text-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
+}
+
+/* Hide Scrollbar */
+.hide-scrollbar,
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Flying Coins Animation (Lazada / TikTok Reward Style) */
+@keyframes flyToWallet {
+  0% {
+    transform: translate(0, 0) scale(1.3) rotate(0deg);
+    opacity: 1;
+  }
+  35% {
+    transform: translate(calc((100vw - 120px - var(--start-x, 50vw)) * 0.45), calc((95px - var(--start-y, 50vh)) * 0.25 - 70px)) scale(1.35) rotate(180deg);
+    opacity: 1;
+  }
+  85% {
+    transform: translate(calc(100vw - 120px - var(--start-x, 50vw)), calc(95px - var(--start-y, 50vh))) scale(0.9) rotate(360deg);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(calc(100vw - 100px - var(--start-x, 50vw)), calc(95px - var(--start-y, 50vh))) scale(0.2) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Premium E-book Reader: 3D Realistic Page Flip Animations & Paper Shading
+   ========================================================================== */
+@keyframes flipForwardSpread {
+  0% {
+    transform: rotateY(0deg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
+  30% {
+    box-shadow: -15px 25px 45px rgba(0, 0, 0, 0.35);
+  }
+  100% {
+    transform: rotateY(-180deg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@keyframes flipBackwardSpread {
+  0% {
+    transform: rotateY(0deg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
+  30% {
+    box-shadow: 15px 25px 45px rgba(0, 0, 0, 0.35);
+  }
+  100% {
+    transform: rotateY(180deg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@keyframes singleFlipForward {
+  0% {
+    transform: perspective(1600px) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+  45% {
+    transform: perspective(1600px) rotateY(-28deg) scale(0.97);
+    opacity: 0.92;
+    box-shadow: -15px 20px 35px rgba(0, 0, 0, 0.25);
+  }
+  100% {
+    transform: perspective(1600px) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes singleFlipBackward {
+  0% {
+    transform: perspective(1600px) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+  45% {
+    transform: perspective(1600px) rotateY(28deg) scale(0.97);
+    opacity: 0.92;
+    box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.25);
+  }
+  100% {
+    transform: perspective(1600px) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-flip-forward {
+  animation: flipForwardSpread 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transform-origin: left center;
+}
+
+.animate-flip-backward {
+  animation: flipBackwardSpread 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transform-origin: right center;
+}
+
+.animate-single-flip-forward {
+  animation: singleFlipForward 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  transform-style: preserve-3d;
+}
+
+.animate-single-flip-backward {
+  animation: singleFlipBackward 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  transform-style: preserve-3d;
+}
+
+/* Reduced motion preference override */
+@media (prefers-reduced-motion: reduce) {
+  .animate-flip-forward,
+  .animate-flip-backward,
+  .animate-single-flip-forward,
+  .animate-single-flip-backward {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

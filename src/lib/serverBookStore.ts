@@ -1,0 +1,150 @@
+import fs from 'fs';
+import path from 'path';
+import { Book } from '@/types';
+import { books as baseBooks } from '@/data/mockData';
+
+const DATA_DIR = path.join(process.cwd(), 'src', 'data');
+const BOOKS_FILE = path.join(DATA_DIR, 'persistentBooks.json');
+
+// Ensure persistent storage exists
+function ensureStorageExists() {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+  if (!fs.existsSync(BOOKS_FILE)) {
+    fs.writeFileSync(BOOKS_FILE, JSON.stringify([], null, 2), 'utf-8');
+  }
+}
+
+// Read all custom imported books
+export function getCustomBooks(): Book[] {
+  ensureStorageExists();
+  try {
+    const data = fs.readFileSync(BOOKS_FILE, 'utf-8');
+    return JSON.parse(data) || [];
+  } catch (err) {
+    console.error('Failed to read persistentBooks file:', err);
+    return [];
+  }
+}
+
+// Read combined books (base + custom)
+export function getAllCombinedBooks(): Book[] {
+  const custom = getCustomBooks();
+  const customIds = new Set(custom.map(b => b.id));
+  const filteredBase = (baseBooks as Book[]).filter(b => !customIds.has(b.id));
+  return [...custom, ...filteredBase];
+}
+
+// Save custom books
+export function saveCustomBooks(books: Book[]) {
+  ensureStorageExists();
+  try {
+    fs.writeFileSync(BOOKS_FILE, JSON.stringify(books, null, 2), 'utf-8');
+  } catch (err) {
+    console.error('Failed to save persistentBooks file:', err);
+  }
+}
+
+// Normalize text for duplicate comparison
+export function normalizeText(text: string): string {
+  return (text || '')
+    .toLowerCase()
+    .replace(/[^\u0E00-\u0E7Fa-z0-9]/g, '')
+    .trim();
+}
+
+// Check if a book is duplicate
+export function checkDuplicateBook(title: string, isbn?: string, id?: string): { isDuplicate: boolean; matchedBook?: Book; reason?: string } {
+  const all = getAllCombinedBooks();
+  const normTitle = normalizeText(title);
+  const cleanIsbn = (isbn || '').replace(/[^0-9]/g, '');
+
+  for (const b of all) {
+    if (id && b.id === id) {
+      return { isDuplicate: true, matchedBook: b, reason: 'รหัสหนังสือ (ID) ตรงกันในระบบ' };
+    }
+    if (cleanIsbn && b.isbn && b.isbn.replace(/[^0-9]/g, '') === cleanIsbn) {
+      return { isDuplicate: true, matchedBook: b, reason: `หมายเลข ISBN ตรงกับ "${b.title}"` };
+    }
+    const bNorm = normalizeText(b.title);
+    if (normTitle && bNorm && (normTitle === bNorm || normTitle.includes(bNorm) || bNorm.includes(normTitle))) {
+      return { isDuplicate: true, matchedBook: b, reason: `ชื่อหนังสือตรงหรือใกล้เคียงกับ "${b.title}"` };
+    }
+  }
+
+  return { isDuplicate: false };
+}
+
+// Add or update a book
+export function upsertCustomBook(book: Book): { success: boolean; book: Book } {
+  const custom = getCustomBooks();
+  const existingIndex = custom.findIndex(b => b.id === book.id || normalizeText(b.title) === normalizeText(book.title));
+
+  if (existingIndex >= 0) {
+    custom[existingIndex] = { ...custom[existingIndex], ...book };
+  } else {
+    custom.unshift(book);
+  }
+
+  saveCustomBooks(custom);
+  return { success: true, book };
+}
+
+// ----------------------------------------------------
+// Real-time Book Read Statistics Tracking (Persistent)
+// ----------------------------------------------------
+const STATS_FILE = path.join(DATA_DIR, 'bookReadStats.json');
+
+export interface BookReadStatItem {
+  readCount: number;
+  readers: string[]; // List of user emails or user IDs who opened to read
+  lastReadAt: string;
+}
+
+export function getBookReadStats(): Record<string, BookReadStatItem> {
+  ensureStorageExists();
+  try {
+    if (!fs.existsSync(STATS_FILE)) {
+      fs.writeFileSync(STATS_FILE, JSON.stringify({}, null, 2), 'utf-8');
+      return {};
+    }
+    const data = fs.readFileSync(STATS_FILE, 'utf-8');
+    return JSON.parse(data) || {};
+  } catch (err) {
+    console.error('Failed to read bookReadStats:', err);
+    return {};
+  }
+}
+
+export function recordBookRead(bookId: string, userEmail?: string, userName?: string): { success: boolean; readCount: number } {
+  if (!bookId) return { success: false, readCount: 0 };
+  ensureStorageExists();
+  const stats = getBookReadStats();
+
+  const currentItem = stats[bookId] || {
+    readCount: 0,
+    readers: [],
+    lastReadAt: new Date().toISOString()
+  };
+
+  // Increment real read count
+  currentItem.readCount = (currentItem.readCount || 0) + 1;
+  currentItem.lastReadAt = new Date().toISOString();
+
+  const readerIdentifier = userEmail || userName || 'guest';
+  if (!currentItem.readers.includes(readerIdentifier)) {
+    currentItem.readers.push(readerIdentifier);
+  }
+
+  stats[bookId] = currentItem;
+
+  try {
+    fs.writeFileSync(STATS_FILE, JSON.stringify(stats, null, 2), 'utf-8');
+  } catch (err) {
+    console.error('Failed to save bookReadStats:', err);
+  }
+
+  return { success: true, readCount: currentItem.readCount };
+}
+

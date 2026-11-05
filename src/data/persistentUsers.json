@@ -1,0 +1,68 @@
+{
+  "thanavuddho.dhamma@gmail.com": {
+    "id": "usr_340072579",
+    "email": "thanavuddho.dhamma@gmail.com",
+    "name": "Phra Maha Bunchu",
+    "picture": "https://api.dicebear.com/7.x/identicon/svg?seed=thanavuddho.dhamma%40gmail.com",
+    "email_verified": true,
+    "points": 80,
+    "loans": [
+      {
+        "id": "loan-test-1",
+        "user_id": "usr_340072579",
+        "media_id": "b1",
+        "media_type": "book",
+        "media_title": "บวชเพื่ออะไร",
+        "media_cover": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500",
+        "borrowed_at": "2026-10-18T11:49:00.607Z",
+        "due_date": "2026-11-01T11:49:00.607Z",
+        "returned_at": null,
+        "renewal_count": 0,
+        "status": "active"
+      }
+    ],
+    "createdAt": "2026-10-18T11:48:19.559Z",
+    "lastLoginAt": "2026-10-18T11:49:00.638Z"
+  },
+  "asaneebas4567@gmail.com": {
+    "id": "usr_654319960",
+    "email": "asaneebas4567@gmail.com",
+    "name": "asaneebas4567",
+    "picture": "https://api.dicebear.com/7.x/identicon/svg?seed=asaneebas4567%40gmail.com",
+    "email_verified": true,
+    "points": 70,
+    "loans": [
+      {
+        "id": "loan-1792560475223",
+        "user_id": "usr_654319960",
+        "media_id": "book_tam_jai_hai_prom_buak",
+        "media_type": "book",
+        "media_title": "ทำใจให้พร้อมบวก",
+        "media_cover": "/images/books/tam-jai-hai-prom-buak.jpg",
+        "borrowed_at": "2026-10-21T05:27:55.223Z",
+        "due_date": "2026-11-04T05:27:55.223Z",
+        "returned_at": "2026-11-04T14:27:37.029Z",
+        "renewal_count": 0,
+        "status": "returned"
+      }
+    ],
+    "createdAt": "2026-10-18T11:51:09.539Z",
+    "lastLoginAt": "2026-11-05T06:56:50.122Z"
+  },
+  "test.student@univ.ac.th": {
+    "id": "usr_1792673068656",
+    "memberCardId": "LIB-2026-4954",
+    "email": "test.student@univ.ac.th",
+    "name": "ทดสอบ สมาชิก",
+    "phone": "0891234567",
+    "ageRange": "18-25 ปี",
+    "picture": "https://api.dicebear.com/7.x/identicon/svg?seed=test.student%40univ.ac.th",
+    "email_verified": true,
+    "points": 50,
+    "loans": [],
+    "boundType": "email_and_phone",
+    "passwordHash": "47e0cd25fb8068308d8a3f2043f4397b06e334d7161e5ad611776735714f2f59",
+    "createdAt": "2026-10-22T12:44:28.656Z",
+    "lastLoginAt": "2026-10-22T12:44:40.807Z"
+  }
+}

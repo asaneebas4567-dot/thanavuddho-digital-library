@@ -1,0 +1,39 @@
+{
+  "book_mongkol_chiwit_124": {
+    "readCount": 26,
+    "readers": [
+      "asaneebas4567@gmail.com",
+      "guest"
+    ],
+    "lastReadAt": "2026-11-05T06:54:00.092Z"
+  },
+  "book_tam_jai_hai_prom_buak": {
+    "readCount": 22,
+    "readers": [
+      "guest",
+      "asaneebas4567@gmail.com"
+    ],
+    "lastReadAt": "2026-11-04T07:18:54.961Z"
+  },
+  "book_อย่ามโน": {
+    "readCount": 6,
+    "readers": [
+      "asaneebas4567@gmail.com"
+    ],
+    "lastReadAt": "2026-11-02T14:40:52.798Z"
+  },
+  "book_สมดุลเท่ากับดี": {
+    "readCount": 10,
+    "readers": [
+      "asaneebas4567@gmail.com"
+    ],
+    "lastReadAt": "2026-11-05T06:07:06.019Z"
+  },
+  "book_khao_kor_sook_rao_kor_sook": {
+    "readCount": 2,
+    "readers": [
+      "asaneebas4567@gmail.com"
+    ],
+    "lastReadAt": "2026-11-04T07:18:25.914Z"
+  }
+}
