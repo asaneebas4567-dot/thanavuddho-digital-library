@@ -1,8 +1,10 @@
 {
   "thanavuddho.dhamma@gmail.com": {
     "id": "usr_340072579",
+    "memberCardId": "69000",
     "email": "thanavuddho.dhamma@gmail.com",
-    "name": "Phra Maha Bunchu",
+    "name": "พระมหาบุญชู ฐานวุฑโฒ",
+    "role": "admin",
     "picture": "https://api.dicebear.com/7.x/identicon/svg?seed=thanavuddho.dhamma%40gmail.com",
     "email_verified": true,
     "points": 80,
@@ -26,8 +28,10 @@
   },
   "asaneebas4567@gmail.com": {
     "id": "usr_654319960",
+    "memberCardId": "69001",
     "email": "asaneebas4567@gmail.com",
     "name": "asaneebas4567",
+    "role": "admin",
     "picture": "https://api.dicebear.com/7.x/identicon/svg?seed=asaneebas4567%40gmail.com",
     "email_verified": true,
     "points": 70,
@@ -51,9 +55,10 @@
   },
   "test.student@univ.ac.th": {
     "id": "usr_1792673068656",
-    "memberCardId": "LIB-2026-4954",
+    "memberCardId": "69002",
     "email": "test.student@univ.ac.th",
     "name": "ทดสอบ สมาชิก",
+    "role": "member",
     "phone": "0891234567",
     "ageRange": "18-25 ปี",
     "picture": "https://api.dicebear.com/7.x/identicon/svg?seed=test.student%40univ.ac.th",
