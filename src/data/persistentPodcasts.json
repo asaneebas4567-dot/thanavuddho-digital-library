@@ -1,0 +1,47 @@
+[
+  {
+    "id": "pod-001",
+    "title": "Thanavuddho Daily Dhamma (ธรรมะรับอรุณ)",
+    "host": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "description": "พอดแคสต์ธรรมะสั้นๆ 10-15 นาที ฟังก่อนเริ่มวันใหม่ เติมพลังบวก สติ และปัญญา เพื่อการใช้ชีวิตอย่างมีความสุขและไม่ประมาท",
+    "cover": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&q=80&w=800",
+    "audio_url": "https://actions.google.com/sounds/v1/ambiences/outdoor_morning.ogg",
+    "duration": "14:15",
+    "category_id": "cat_mind",
+    "tags": ["Podcast", "ธรรมะรับอรุณ", "สติ", "แรงบันดาลใจ"],
+    "total_episodes": 8,
+    "status": "published",
+    "featured": true,
+    "published_at": "14 ต.ค. 2569"
+  },
+  {
+    "id": "pod-002",
+    "title": "Dhamma & Leadership (ผู้นำหัวใจพุทธ)",
+    "host": "พระครูปลัดสุวัฒนโพธิคุณ & คณะบัณฑิต",
+    "description": "รายการเจาะลึกภาวะผู้นำ จิตวิทยาองค์กร และการบริหารทรัพยากรมนุษย์ตามหลักทศพิธราชธรรมและสังคหวัตถุ 4",
+    "cover": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800",
+    "audio_url": "https://actions.google.com/sounds/v1/ambiences/outdoor_morning.ogg",
+    "duration": "18:30",
+    "category_id": "cat_work",
+    "tags": ["Podcast", "ผู้นำ", "การบริหารงาน", "ทศพิธราชธรรม"],
+    "total_episodes": 5,
+    "status": "published",
+    "featured": true,
+    "published_at": "01 ต.ค. 2569"
+  },
+  {
+    "id": "pod-003",
+    "title": "Mindful Family (ครอบครัวอบอุ่นใจ)",
+    "host": "พระครูปลัดสุวัฒนโพธิคุณ",
+    "description": "ธรรมะเพื่อการสร้างสายสัมพันธ์ที่แน่นแฟ้นในบ้าน ศิลปะการเลี้ยงดูลูกด้วยความเข้าใจ และการดูแลใจพ่อแม่",
+    "cover": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&q=80&w=800",
+    "audio_url": "https://actions.google.com/sounds/v1/ambiences/gentle_rain.ogg",
+    "duration": "16:20",
+    "category_id": "cat_family",
+    "tags": ["Podcast", "ครอบครัว", "ความรัก", "สังคหวัตถุ 4"],
+    "total_episodes": 6,
+    "status": "published",
+    "featured": false,
+    "published_at": "20 ก.ย. 2569"
+  }
+]

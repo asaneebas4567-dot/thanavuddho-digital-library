@@ -26,6 +26,7 @@ export interface Book {
   id: string;
   title: string;
   author_id: string;
+  author?: string;
   description: string;
   cover_image?: string;
   cover?: string;
@@ -53,6 +54,7 @@ export interface Book {
   read_count?: number;
   like_count?: number;
   is_finished?: boolean;
+  status?: 'published' | 'draft' | 'archived' | string;
 }
 
 export interface Article {
@@ -71,6 +73,7 @@ export interface Article {
   view_count: number;
   like_count?: number;
   is_finished?: boolean;
+  status?: 'published' | 'draft' | 'archived' | string;
 }
 
 export interface Dhamma {
@@ -105,6 +108,7 @@ export interface Audio {
   view_count: number;
   like_count?: number;
   is_finished?: boolean;
+  status?: 'published' | 'draft' | 'archived' | string;
 }
 
 export type VideoOrientation = 'horizontal' | 'vertical';

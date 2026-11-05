@@ -1,0 +1,15 @@
+{
+  "announcementTitle": "ยินดีต้อนรับสู่ Thanavuddho Digital Library",
+  "announcementSubtitle": "คลังธรรมะดิจิทัล รวบรวมหนังสือ บทความ พอดแคสต์ และวิดีโอธรรมบรรยาย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+  "bannerImageUrl": "/public/hero-image-modern.jpg",
+  "bannerLink": "/books",
+  "bannerButtonText": "สำรวจคลังหนังสือธรรมะ",
+  "featuredBookIds": [
+    "book_mongkol_chiwit_124",
+    "book_อย่ามโน",
+    "book_สมดุลเท่ากับดี",
+    "book_tam_jai_hai_prom_buak"
+  ],
+  "featuredVideoId": "vid-01",
+  "updatedAt": "2026-11-05T15:20:00.000Z"
+}
