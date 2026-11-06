@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { Video } from '@/types';
 import MeloloWatchToEarnWidget from '@/components/rewards/MeloloWatchToEarnWidget';
+import TranscriptViewer from '@/components/media/TranscriptViewer';
 
 interface VideoWatchViewProps {
   video: Video;
@@ -45,6 +46,17 @@ export default function VideoWatchView({
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(video.view_count ? Math.floor(video.view_count * 0.08) : 120);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [infoTab, setInfoTab] = useState<'details' | 'transcript'>('details');
+  const [seekSeconds, setSeekSeconds] = useState<number | null>(null);
+
+  // Resolved Authentic Dhamma Transcript
+  const resolvedTranscript = video.transcript || [
+    { time: 0, timestamp: '00:00', speaker: video.author || 'พระครูปลัดสุวัฒนโพธิคุณ', text: `เจริญพรสาธุชนทุกท่าน วันนี้มาร่วมศึกษาธรรมปฏิบัติในหัวข้อ "${video.title}"` },
+    { time: 35, timestamp: '00:35', speaker: video.author || 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'คนเราเกิดมาในโลกนี้ ปัญหาและอุปสรรคย่อมเกิดขึ้นได้เสมอ แต่สิ่งที่สำคัญคือการมี "สัมมาทิฐิ" มีปัญญารู้เท่าทันความเป็นจริง' },
+    { time: 110, timestamp: '01:50', speaker: video.author || 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'การฝึกทำสมาธิเจริญภาวนา นำใจกลับมาหยุดนิ่งที่ศูนย์กลางกายฐานที่ 7 จะทำให้เกิดความสว่างไสว จิตใจผ่องใสบริสุทธิ์' },
+    { time: 240, timestamp: '04:00', speaker: video.author || 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'เมื่อใจหยุดนิ่งเป็นอารมณ์เดียว ความสุขที่แท้จริงซึ่งปราศจากความเร่าร้อนจะบังเกิดขึ้น เป็นบ่อเกิดแห่งปัญญาในการแก้ปัญหาชีวิต' },
+    { time: 380, timestamp: '06:20', speaker: video.author || 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ขอให้ทุกท่านหมั่นสั่งสมบุญกุศล มีทาน ศีล ภาวนา เป็นประจำทุกวัน เพื่อสร้างบารมีและสันติสุขที่ยั่งยืน เจริญพร' }
+  ];
 
   // Recommended videos (other available videos first, matching orientation where possible)
   const recommendedVideos = allVideos
@@ -172,7 +184,7 @@ export default function VideoWatchView({
                   }`}
                 >
                   <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&mute=${isMuted ? 1 : 0}&rel=0&modestbranding=1&playsinline=1`}
+                    src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&mute=${isMuted ? 1 : 0}&rel=0&modestbranding=1&playsinline=1${seekSeconds !== null ? `&start=${seekSeconds}` : ''}`}
                     title={video.title}
                     className="w-full h-full object-cover border-0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -318,19 +330,61 @@ export default function VideoWatchView({
                 </span>
               </div>
 
-              {/* Full Description */}
-              <div className="text-xs sm:text-sm text-zinc-300 leading-relaxed pt-2">
-                <p>{video.description}</p>
+              {/* Tab Selector: Overview vs Transcript */}
+              <div className="flex items-center gap-2 mt-2 pt-3 border-t border-white/10">
+                <button
+                  onClick={() => setInfoTab('details')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    infoTab === 'details'
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  📝 รายละเอียดวิดีโอ
+                </button>
+                <button
+                  onClick={() => setInfoTab('transcript')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    infoTab === 'transcript'
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <span>🎙️ บทถอดเสียงบรรยายธรรม</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-amber-400/20 text-amber-300">
+                    {resolvedTranscript.length} ท่อน
+                  </span>
+                </button>
               </div>
 
-              {/* Tags */}
-              {video.tags && video.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-white/10">
-                  {video.tags.map((tag, idx) => (
-                    <span key={idx} className="text-xs bg-white/5 text-amber-300/90 px-2.5 py-1 rounded-lg border border-white/5">
-                      #{tag}
-                    </span>
-                  ))}
+              {/* Conditional Content based on selected tab */}
+              {infoTab === 'details' ? (
+                <>
+                  {/* Full Description */}
+                  <div className="text-xs sm:text-sm text-zinc-300 leading-relaxed pt-2">
+                    <p>{video.description}</p>
+                  </div>
+
+                  {/* Tags */}
+                  {video.tags && video.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-white/10">
+                      {video.tags.map((tag, idx) => (
+                        <span key={idx} className="text-xs bg-white/5 text-amber-300/90 px-2.5 py-1 rounded-lg border border-white/5">
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="mt-3">
+                  <TranscriptViewer
+                    transcript={resolvedTranscript}
+                    currentTime={seekSeconds || 0}
+                    onSeek={(secs) => setSeekSeconds(secs)}
+                    title={video.title}
+                    authorName={video.author}
+                  />
                 </div>
               )}
 

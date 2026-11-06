@@ -27,10 +27,17 @@ import {
   ArrowRight,
   ExternalLink,
   Compass,
-  Sparkles
+  Sparkles,
+  Timer,
+  Coins,
+  Flame,
+  Award
 } from 'lucide-react';
 import { loadPdfDocument, renderPdfPageToCanvas, unloadPdfDocument, searchPdfText, SearchMatch } from '@/lib/pdfReaderHelper';
 import BookQuestManager from '@/components/gamification/BookQuestManager';
+import LazadaRewardPopup, { RewardCelebrationData } from '@/components/rewards/LazadaRewardPopup';
+import { detectBookDimension, BookDimensionInfo, calculateReadingPoints } from '@/lib/readingPacingEngine';
+import { useLearningPoints } from '@/lib/useLearningPoints';
 
 export type ReaderTheme = 'white' | 'sepia' | 'night';
 export type ReadingMode = 'flip' | 'scroll';
@@ -171,6 +178,16 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
   const [savedLastPage, setSavedLastPage] = useState<number | null>(null);
   const [hasMounted, setHasMounted] = useState<boolean>(false);
 
+  // 5. Reading Pacing, Book Dimension & Gamified Reward State
+  const { recordEarn } = useLearningPoints();
+  const [detectedDimension, setDetectedDimension] = useState<BookDimensionInfo | null>(null);
+  const [pageReadingSeconds, setPageReadingSeconds] = useState<number>(0);
+  const [totalSessionSeconds, setTotalSessionSeconds] = useState<number>(0);
+  const [pagesReadSession, setPagesReadSession] = useState<number>(1);
+  const [isRewardPopupOpen, setIsRewardPopupOpen] = useState<boolean>(false);
+  const [rewardData, setRewardData] = useState<RewardCelebrationData>({ points: 15 });
+  const [hasRewardedCurrentPage, setHasRewardedCurrentPage] = useState<boolean>(false);
+
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -284,7 +301,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
   }, [book.id, currentPage, effectiveTotalPages, mode]);
 
   // -------------------------------------------------------------------------
-  // STEP 2: LOAD PDF.JS DOCUMENT
+  // STEP 2: LOAD PDF.JS DOCUMENT & DETECT BOOK DIMENSIONS (A4, A5, B5, POCKET)
   // -------------------------------------------------------------------------
   const loadPdf = useCallback(() => {
     if (!rawPdfUrl) return;
@@ -296,6 +313,15 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
         setPdfDoc(doc);
         setPdfActualPageCount(doc.numPages);
         setIsPdfLoading(false);
+
+        // Detect real paper dimension from Page 1 viewport
+        doc.getPage(1)
+          .then((p: any) => {
+            const vp = p.getViewport({ scale: 1 });
+            const dim = detectBookDimension(vp.width, vp.height);
+            setDetectedDimension(dim);
+          })
+          .catch(() => {});
       })
       .catch(err => {
         console.error('Failed to load PDF in reader:', err);
@@ -303,6 +329,63 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
         setIsPdfLoading(false);
       });
   }, [rawPdfUrl]);
+
+  // Reading Pacing Timer
+  useEffect(() => {
+    if (!hasMounted) return;
+
+    const interval = setInterval(() => {
+      if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return;
+      setPageReadingSeconds(prev => prev + 1);
+      setTotalSessionSeconds(prev => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [hasMounted]);
+
+  // Page Navigation Transition & Pacing Check
+  useEffect(() => {
+    setPageReadingSeconds(0);
+    setPagesReadSession(prev => prev + 1);
+  }, [currentPage]);
+
+  // Trigger gamified reward popup (Lazada/Shopee Coin Burst)
+  const triggerReadingReward = useCallback((bonusReason?: string) => {
+    const calc = calculateReadingPoints({
+      secondsSpent: totalSessionSeconds,
+      pagesRead: Math.max(1, pagesReadSession),
+      dimension: detectedDimension?.code || 'A5',
+      streakDays: 3
+    });
+
+    setRewardData({
+      points: calc.totalPoints,
+      title: bonusReason || 'เซอร์ไพรส์แต้มปัญญา! (Reading Bonus)',
+      subtitle: `อ่านหนังสือสะสม ${pagesReadSession} หน้า (${Math.max(1, Math.floor(totalSessionSeconds / 60))} นาที)`,
+      bonusMultiplier: calc.streakMultiplier,
+      streakDays: 3,
+      pagesRead: pagesReadSession,
+      secondsSpent: totalSessionSeconds
+    });
+
+    setIsRewardPopupOpen(true);
+    setHasRewardedCurrentPage(true);
+
+    // Persist real points to server
+    recordEarn({
+      type: 'read_chapter',
+      chapterIndex: currentPage,
+      chapterTitle: `หน้า ${currentPage}`,
+      durationSeconds: totalSessionSeconds
+    });
+  }, [totalSessionSeconds, pagesReadSession, detectedDimension, currentPage, recordEarn]);
+
+  // Auto-trigger surprise reward at milestones (e.g. 3 minutes of reading, or every 10 pages)
+  useEffect(() => {
+    if (totalSessionSeconds > 0 && totalSessionSeconds % 180 === 0 && !hasRewardedCurrentPage) {
+      triggerReadingReward('อ่านครบ 3 นาทีต่อเนื่อง! ปัญญาบารมีเพิ่มพูน');
+    }
+  }, [totalSessionSeconds, hasRewardedCurrentPage, triggerReadingReward]);
 
   useEffect(() => {
     loadPdf();
@@ -595,17 +678,49 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
           </button>
 
           <div className="min-w-0">
-            <h1 className="font-extrabold line-clamp-1 text-xs sm:text-sm tracking-tight text-white">
-              {book.title}
-            </h1>
+            <div className="flex items-center gap-1.5">
+              <h1 className="font-extrabold line-clamp-1 text-xs sm:text-sm tracking-tight text-white">
+                {book.title}
+              </h1>
+              {detectedDimension && (
+                <span 
+                  className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.2 rounded-md text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                  title={`${detectedDimension.labelTh}: ${detectedDimension.descriptionTh}`}
+                >
+                  📐 {detectedDimension.code}
+                </span>
+              )}
+            </div>
             <div className="text-[10px] text-zinc-400 hidden md:block truncate">
               {book.author_name || 'พระครูปลัดสุวัฒนโพธิคุณ'} • รวม {effectiveTotalPages} หน้า
             </div>
           </div>
         </div>
 
-        {/* Right: Controls & Reading Modes */}
+        {/* Right: Controls, Reading Pacing & Modes */}
         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+
+          {/* Reading Timer per page */}
+          <div 
+            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/5 border border-white/10 text-[11px] font-mono text-zinc-300"
+            title="ตัวจับเวลาการอ่านหน้านี้ (วินาที)"
+          >
+            <Timer size={13} className="text-amber-400 animate-pulse" />
+            <span>
+              {String(Math.floor(pageReadingSeconds / 60)).padStart(2, '0')}:
+              {String(pageReadingSeconds % 60).padStart(2, '0')}
+            </span>
+          </div>
+
+          {/* Lazada / Shopee Surprise Reward Streak Button */}
+          <button
+            onClick={() => triggerReadingReward('กดรับแต้มอ่านหนังสือ (Lazada Reward Style)')}
+            className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-amber-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 border border-amber-400/40 text-amber-300 text-xs font-bold transition-all shadow-xs cursor-pointer"
+            title="เซอร์ไพรส์รับแต้มสะสมปัญญาบารมี (Lazada / Shopee Gamified Streak)"
+          >
+            <Coins size={14} className="text-yellow-400 animate-bounce" />
+            <span className="hidden md:inline">รับแต้ม</span>
+          </button>
           
           {/* Mode Switcher: 📖 หน้าต่อหน้า (Flip) vs 📜 เลื่อนอ่าน (Scroll) */}
           <div className="flex items-center rounded-xl p-0.5 border border-white/15 bg-white/5 shrink-0">
@@ -1215,6 +1330,15 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
         onJumpToPage={(p) => turnToPage(p)}
         isQuestDrawerOpen={isQuestDrawerOpen}
         onToggleQuestDrawer={setIsQuestDrawerOpen}
+      />
+
+      {/* =========================================================================
+          GAMIFIED REWARD CELEBRATION (Lazada / Shopee Coin Streak Style)
+         ========================================================================= */}
+      <LazadaRewardPopup
+        isOpen={isRewardPopupOpen}
+        onClose={() => setIsRewardPopupOpen(false)}
+        data={rewardData}
       />
 
     </div>

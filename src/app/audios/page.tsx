@@ -18,12 +18,15 @@ import {
   ListMusic, 
   CheckCircle2, 
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Quote,
+  X
 } from 'lucide-react';
 import { audios as initialAudios } from '@/data/mockData';
 import { audiobooks, podcasts } from '@/data/multimediaAndGamificationData';
 import BorrowButton from '@/components/common/BorrowButton';
 import MeloloWatchToEarnWidget from '@/components/rewards/MeloloWatchToEarnWidget';
+import TranscriptViewer from '@/components/media/TranscriptViewer';
 
 interface CurrentTrack {
   id: string;
@@ -53,6 +56,17 @@ export default function AudiosPage() {
   const [isMuted, setIsMuted] = useState(false);
   const [selectedAudiobookId, setSelectedAudiobookId] = useState<string>(audiobooks[0].id);
   const [selectedPodcastId, setSelectedPodcastId] = useState<string>(podcasts[0].id);
+  const [isTranscriptOpen, setIsTranscriptOpen] = useState(false);
+
+  // Dynamic Audio Transcript
+  const audioTranscript = currentTrack ? [
+    { time: 0, timestamp: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: `ขอเจริญพรสาธุชนผู้รับฟังทุกท่าน ยินดีต้อนรับสู่เสียงธรรมบรรยาย "${currentTrack.title}"` },
+    { time: 40, timestamp: '00:40', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ธรรมะของพระสัมมาสัมพุทธเจ้านั้น เป็นอกาลิโก คือไม่จำกัดกาลเวลา เมื่อนำมาน้อมปฏิบัติตามเมื่อใด ย่อมเกิดความร่มเย็นเป็นสุขเมื่อนั้น' },
+    { time: 110, timestamp: '01:50', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ใจของเราเหมือนน้ำนิ่ง ถ้าน้ำกระเพื่อมเพราะคลื่นลมตะกอนก็จะฟุ้งขึ้นมา แต่น้ำที่สงบนิ่งจะสะท้อนความจริงได้ชัดเจนที่สุด สมาธิคือการทำใจให้นิ่ง' },
+    { time: 180, timestamp: '03:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ให้กำหนดนิมิตเป็นดวงแก้วใสบริสุทธิ์ หรือองค์พระแก้วใส หยุดนิ่งไว้ ณ ศูนย์กลางกายฐานที่ 7 เหนือระดับสะดือขึ้นมา 2 นิ้วมือ' },
+    { time: 260, timestamp: '04:20', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ภาวนาในใจอย่างสบายๆ ว่า สัมมา อะระหัง... สัมมา อะระหัง... ให้เสียงคำภาวดังขึ้นมาจากศูนย์กลางกายอย่างต่อเนื่องและแผ่วเบา' },
+    { time: 350, timestamp: '05:50', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ขออำนวยอวยพรให้ทุกท่านมีความสุขความเจริญ รุ่งเรืองในชีวิตและการปฏิบัติธรรมทุกประการเทอญ' }
+  ] : [];
 
   const selectedAudiobook = audiobooks.find(a => a.id === selectedAudiobookId) || audiobooks[0];
   const selectedPodcast = podcasts.find(p => p.id === selectedPodcastId) || podcasts[0];
@@ -510,8 +524,8 @@ export default function AudiosPage() {
               </div>
             </div>
 
-            {/* Right: Melolo-style Listen-to-Earn, Volume & Speed */}
-            <div className="flex items-center justify-end gap-2.5 sm:gap-3 w-full sm:w-1/3">
+            {/* Right: Melolo-style Listen-to-Earn, Transcript, Volume & Speed */}
+            <div className="flex items-center justify-end gap-2 sm:gap-3 w-full sm:w-1/3">
               <MeloloWatchToEarnWidget
                 mediaType="audio"
                 isPlaying={isPlaying}
@@ -519,9 +533,23 @@ export default function AudiosPage() {
                 sourceId={currentTrack.id}
               />
 
+              {/* Transcript Drawer Toggle Button */}
+              <button
+                onClick={() => setIsTranscriptOpen(prev => !prev)}
+                className={`px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  isTranscriptOpen
+                    ? 'bg-amber-600 border-amber-500 text-white shadow-xs'
+                    : 'bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-900'
+                }`}
+                title="เปิดบทถอดเสียงบรรยายธรรม (Transcript)"
+              >
+                <Quote size={13} />
+                <span className="hidden md:inline">บทถอดเสียง</span>
+              </button>
+
               <button 
                 onClick={cycleSpeed}
-                className="px-2.5 py-1 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-mono font-semibold transition-colors cursor-pointer"
+                className="px-2 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-mono font-semibold transition-colors cursor-pointer"
                 title="ความเร็วในการเล่น"
               >
                 {playbackSpeed}x
@@ -529,13 +557,44 @@ export default function AudiosPage() {
 
               <button 
                 onClick={() => setIsMuted(m => !m)}
-                className="p-2 text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
+                className="p-1.5 text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
                 title={isMuted ? 'เปิดเสียง' : 'ปิดเสียง'}
               >
                 {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
               </button>
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* Slide-over Drawer for Audio Transcript */}
+      {isTranscriptOpen && currentTrack && (
+        <div className="fixed inset-0 z-[60] flex justify-end bg-black/40 backdrop-blur-xs animate-fadeIn">
+          <div className="w-full max-w-md bg-slate-900 text-white h-full shadow-2xl flex flex-col border-l border-white/10 animate-slideLeft">
+            <div className="p-4 border-b border-white/10 flex items-center justify-between">
+              <div>
+                <h3 className="font-extrabold text-sm text-white">บทถอดเสียงบรรยายธรรม</h3>
+                <p className="text-xs text-amber-300 truncate max-w-[280px]">{currentTrack.title}</p>
+              </div>
+              <button
+                onClick={() => setIsTranscriptOpen(false)}
+                className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="flex-1 p-3 overflow-hidden">
+              <TranscriptViewer
+                transcript={audioTranscript}
+                title={currentTrack.title}
+                onSeek={(secs) => {
+                  setProgress(Math.min(100, Math.round((secs / 360) * 100)));
+                  setIsPlaying(true);
+                }}
+              />
+            </div>
           </div>
         </div>
       )}

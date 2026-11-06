@@ -46,6 +46,8 @@ CREATE TABLE IF NOT EXISTS public.books (
     pdf_storage_path TEXT, -- เส้นทางไฟล์ใน Supabase Storage Bucket 'library-pdfs'
     reader_url TEXT,
     page_count INT DEFAULT 0,
+    dimension VARCHAR(50) DEFAULT 'A5', -- รูปเล่ม เช่น 'A5' (พ็อกเก็ตบุ๊ก), 'A4' (วิชาการ), 'Pocket'
+    file_size_mb NUMERIC(6,2),
     publication_year INT DEFAULT 2567,
     language VARCHAR(10) DEFAULT 'th',
     is_copyright BOOLEAN DEFAULT TRUE,
@@ -86,6 +88,7 @@ CREATE TABLE IF NOT EXISTS public.videos (
     category_id VARCHAR(50) REFERENCES public.categories(id) ON DELETE SET NULL,
     thumbnail_url TEXT,
     view_count INT DEFAULT 0,
+    transcript JSONB, -- บทถอดเสียงบรรยายธรรม พร้อม Timestamp
     created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
 
@@ -100,6 +103,7 @@ CREATE TABLE IF NOT EXISTS public.podcasts (
     duration VARCHAR(50),
     total_episodes INT DEFAULT 1,
     category_id VARCHAR(50) REFERENCES public.categories(id) ON DELETE SET NULL,
+    transcript JSONB, -- บทถอดเสียงพอดแคสต์ พร้อม Timestamp
     created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
 

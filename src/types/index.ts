@@ -22,6 +22,13 @@ export interface Tag {
   name: string;
 }
 
+export interface TranscriptSegment {
+  time: number; // in seconds
+  timestamp: string; // e.g. "01:25"
+  speaker?: string;
+  text: string;
+}
+
 export interface Book {
   id: string;
   title: string;
@@ -37,6 +44,8 @@ export interface Book {
   publication_year?: number | null;
   page_count?: number | null;
   pages?: number | null;
+  dimension?: 'A4' | 'A5' | 'B5' | 'Pocket' | string;
+  file_size?: string;
   language?: string;
   pdf_url?: string;
   reader_url?: string;
@@ -108,6 +117,7 @@ export interface Audio {
   view_count: number;
   like_count?: number;
   is_finished?: boolean;
+  transcript?: TranscriptSegment[] | string;
   status?: 'published' | 'draft' | 'archived' | string;
 }
 
@@ -139,6 +149,7 @@ export interface Video {
   unavailable_reason?: string;
   related_book_id?: string;
   related_book_title?: string;
+  transcript?: TranscriptSegment[] | string;
 }
 
 export interface VideoChannelProfile {
