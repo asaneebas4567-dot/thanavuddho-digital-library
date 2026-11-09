@@ -68,6 +68,15 @@ next-env.d.ts
 !/public/books/pdf/the-lover-rak-pen-ja-hen-jai.pdf
 !/public/books/pdf/yoo-nai-lok-mai.pdf
 !/public/books/pdf/อย่ามโน.pdf
+!/public/books/pdf/สมดุลเท่ากับดี.pdf
+!/public/books/pdf/กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น.pdf
+!/public/books/pdf/ความรักรสอูมามิ.pdf
+!/public/books/pdf/ความลับของความรัก.pdf
+!/public/books/pdf/เส้นทางพระบรมฯ.pdf
+!/public/books/pdf/yoo-sook-nai-yook-digital.pdf
+!/public/books/pdf/ความสุข-360-องศา.pdf
+!/public/books/pdf/ตามหลวงพี่ไปโกอินเตอร์.pdf
+!/public/books/pdf/perfectionist-สไตล์พุทธะ.pdf
 /public/audios/*
 !/public/audios/sample.mp3
 /public/videos/*
