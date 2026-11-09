@@ -513,17 +513,17 @@ export default function BookQuestManager({
     <>
       {/* Chapter Completion Reward Notification Toast */}
       {chapterToast && chapterToast.show && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 max-w-md w-[92vw] sm:w-auto p-4 rounded-2xl bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white shadow-2xl border-2 border-amber-300 flex items-center gap-3.5 animate-in slide-in-from-top-4 fade-in duration-300">
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 max-w-md w-[92vw] sm:w-auto p-4 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 text-white shadow-2xl border-2 border-sky-300 flex items-center gap-3.5 animate-in slide-in-from-top-4 fade-in duration-300">
           <div className="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl shadow-inner shrink-0">
             📖
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-xs text-amber-200 font-bold flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <div className="text-xs text-sky-100 font-bold flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-sky-200" />
               <span>อ่านจบบทสำเร็จ (Thanavuddho Learning Points)</span>
             </div>
-            <div className="text-sm font-black text-white truncate mt-0.5">{chapterToast.title}</div>
-            <div className="text-xs text-amber-100/90 mt-0.5">{chapterToast.detail}</div>
+            <div className="text-sm font-bold text-white truncate mt-0.5">{chapterToast.title}</div>
+            <div className="text-xs text-sky-100/90 mt-0.5">{chapterToast.detail}</div>
           </div>
           <button 
             onClick={() => setChapterToast(null)}
@@ -639,10 +639,10 @@ export default function BookQuestManager({
       <div className="fixed top-14 sm:top-16 right-3 sm:right-5 z-40 flex flex-col gap-1.5 items-end">
         <button
           onClick={() => setDrawerOpen(true)}
-          className="group flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white border border-amber-400 shadow-lg text-xs font-extrabold transition-all cursor-pointer hover:scale-105 active:scale-95"
+          className="group flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white border border-sky-300 shadow-md text-xs font-bold transition-all cursor-pointer hover:scale-105 active:scale-95"
           title="เปิดสมุดภารกิจ Quest Journal & Easter Eggs"
         >
-          <Compass size={14} className="text-amber-200 group-hover:rotate-45 transition-transform" />
+          <Compass size={14} className="text-sky-100 group-hover:rotate-45 transition-transform" />
           <span>เควส ({completedQuestIds.length}/{allBookQuests.length})</span>
         </button>
       </div>
@@ -655,25 +655,25 @@ export default function BookQuestManager({
           {/* Backdrop */}
           <div 
             onClick={closeQuestModal}
-            className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity" 
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity" 
           />
 
-          {/* Modal Container: Clean, Warm, High-Contrast Theme Matching Web Aesthetic */}
-          <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl shadow-2xl border-2 border-amber-200 z-10 text-slate-900 flex flex-col bg-white transition-all duration-300">
-            {/* Modal Header: Warm Amber Buddhist Gradient */}
-            <div className="p-5 sm:p-6 bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white relative overflow-hidden border-b border-amber-500/30">
+          {/* Modal Container: Clean, Sky Blue & Crisp White Aesthetic Matching Web */}
+          <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl shadow-2xl border border-sky-200 z-10 text-slate-900 flex flex-col bg-white transition-all duration-300">
+            {/* Modal Header: Sky Blue Buddhist Library Gradient */}
+            <div className="p-5 sm:p-6 bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 text-white relative overflow-hidden border-b border-sky-400/30">
               {/* Soft decorative glow */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-amber-400/20 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-white/15 rounded-full blur-2xl pointer-events-none" />
 
               {/* Top Controls */}
               <div className="flex items-center justify-between mb-2 relative z-10">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 text-white border border-white/30 backdrop-blur-md flex items-center gap-1.5 shadow-xs">
-                    <Sparkles size={13} className="text-amber-200" />
+                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 text-white border border-white/30 backdrop-blur-md flex items-center gap-1.5 shadow-xs">
+                    <Sparkles size={13} className="text-sky-200" />
                     <span>{activeQuest.categoryTag || 'ภารกิจทดสอบปัญญาธรรม'}</span>
                   </span>
                   {activeQuest.isLegendary && (
-                    <div className="flex items-center text-amber-200 text-xs">
+                    <div className="flex items-center text-amber-300 text-xs">
                       <Star size={13} className="fill-amber-300 text-amber-300" />
                       <Star size={13} className="fill-amber-300 text-amber-300" />
                       <Star size={13} className="fill-amber-300 text-amber-300" />
@@ -701,30 +701,30 @@ export default function BookQuestManager({
                 </div>
               </div>
 
-              {/* Title & Subtitle: High-Contrast & Big Typography */}
-              <h2 className="text-xl sm:text-2xl font-black text-white leading-tight tracking-tight mt-1 relative z-10">
+              {/* Title & Subtitle */}
+              <h2 className="text-xl sm:text-2xl font-bold text-white leading-tight tracking-tight mt-1 relative z-10">
                 {activeQuest.title}
               </h2>
-              <p className="text-sm sm:text-base text-amber-100 font-semibold mt-1 relative z-10">
+              <p className="text-sm sm:text-base text-sky-100 font-normal mt-1 relative z-10">
                 {activeQuest.subtitle}
               </p>
             </div>
 
-            {/* Modal Body: Focus strictly on the Questions & Choices */}
-            <div className="p-5 sm:p-7 space-y-5 overflow-y-auto flex-1 bg-stone-50/50">
+            {/* Modal Body */}
+            <div className="p-5 sm:p-7 space-y-5 overflow-y-auto flex-1 bg-slate-50/60">
               
               {/* Question Header & Points Reward Pill */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1 border-b border-amber-200/60">
-                <div className="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
-                  <HelpCircle size={20} className="text-amber-600 shrink-0" />
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1 border-b border-slate-200">
+                <div className="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+                  <HelpCircle size={20} className="text-sky-600 shrink-0" />
                   <span>คำถามไขปริศนาธรรม</span>
                   {currentQuestions.length > 1 && (
-                    <span className="text-xs sm:text-sm font-bold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-lg border border-amber-300/60">
+                    <span className="text-xs sm:text-sm font-semibold text-sky-700 bg-sky-100 px-2.5 py-0.5 rounded-lg border border-sky-200">
                       ข้อ {currentQuestionIndex + 1}/{currentQuestions.length}
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-1.5 text-xs sm:text-sm text-amber-900 font-extrabold bg-amber-100/90 border border-amber-300/80 px-3 py-1 rounded-full w-fit">
+                <div className="flex items-center gap-1.5 text-xs sm:text-sm text-sky-900 font-bold bg-sky-100/80 border border-sky-200 px-3 py-1 rounded-full w-fit">
                   <span>🪙 รางวัลเมื่อผ่าน: +{activeQuest.loot.points} แต้ม</span>
                 </div>
               </div>
@@ -737,21 +737,21 @@ export default function BookQuestManager({
                     const isAnswered = multiAnswers[qIdx] !== undefined;
                     const isCorrectQ = quizSubmitted ? multiAnswers[qIdx] === q.correctIndex : null;
 
-                    let tabStyle = 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100 font-bold';
+                    let tabStyle = 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100 font-medium';
                     if (quizSubmitted) {
                       if (isCorrectQ) {
                         tabStyle = isCurrent 
-                          ? 'bg-emerald-600 text-white border-emerald-600 font-black ring-2 ring-emerald-400' 
-                          : 'bg-emerald-100 text-emerald-800 border-emerald-300 font-bold';
+                          ? 'bg-emerald-600 text-white border-emerald-600 font-bold ring-2 ring-emerald-400' 
+                          : 'bg-emerald-100 text-emerald-800 border-emerald-300 font-medium';
                       } else {
                         tabStyle = isCurrent 
-                          ? 'bg-rose-600 text-white border-rose-600 font-black ring-2 ring-rose-400' 
-                          : 'bg-rose-100 text-rose-800 border-rose-300 font-bold';
+                          ? 'bg-rose-600 text-white border-rose-600 font-bold ring-2 ring-rose-400' 
+                          : 'bg-rose-100 text-rose-800 border-rose-300 font-medium';
                       }
                     } else if (isCurrent) {
-                      tabStyle = 'bg-amber-600 text-white border-amber-600 font-black shadow-md scale-105';
+                      tabStyle = 'bg-sky-600 text-white border-sky-600 font-bold shadow-md scale-105';
                     } else if (isAnswered) {
-                      tabStyle = 'bg-amber-100 text-amber-900 border-amber-300 font-extrabold';
+                      tabStyle = 'bg-sky-100 text-sky-900 border-sky-300 font-semibold';
                     }
 
                     return (
@@ -772,7 +772,7 @@ export default function BookQuestManager({
                             <X size={14} className={isCurrent ? 'text-white' : 'text-rose-700'} />
                           )
                         ) : isAnswered ? (
-                          <span className="w-2 h-2 rounded-full bg-amber-600" />
+                          <span className="w-2 h-2 rounded-full bg-sky-600" />
                         ) : null}
                       </button>
                     );
@@ -780,32 +780,32 @@ export default function BookQuestManager({
                 </div>
               )}
 
-              {/* Active Question Box: Big, Clear, High-Contrast Typography */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/90 border-2 border-amber-200 text-slate-900 shadow-xs">
-                <div className="text-amber-800 font-black text-xs sm:text-sm uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              {/* Active Question Box: Comfortable, Clear, Legible Typography (font-semibold, relaxed leading) */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-sky-50/70 border border-sky-200/80 text-slate-800 shadow-xs">
+                <div className="text-sky-700 font-bold text-xs sm:text-sm uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                   <span>คำถามข้อที่ {activeQuestionItem?.questionNumber || currentQuestionIndex + 1} จาก {currentQuestions.length}:</span>
                 </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-black text-slate-900 leading-relaxed">
+                <h3 className="text-base sm:text-lg font-semibold text-slate-800 leading-relaxed tracking-normal">
                   {activeQuestionItem?.question}
                 </h3>
               </div>
 
-              {/* Options for Active Question: Spacious, Big, Legible Cards */}
+              {/* Options for Active Question: Spacious, Clean Cards */}
               <div className="space-y-3">
                 {activeQuestionItem?.options.map((opt, oIdx) => {
                   const isSelected = multiAnswers[currentQuestionIndex] === oIdx;
-                  let optionStyle = 'bg-white hover:bg-amber-50/60 border-2 border-slate-200 hover:border-amber-400 text-slate-850 shadow-xs';
+                  let optionStyle = 'bg-white hover:bg-sky-50/40 border border-slate-200 hover:border-sky-300 text-slate-700 shadow-xs';
 
                   if (quizSubmitted) {
                     if (oIdx === activeQuestionItem.correctIndex) {
-                      optionStyle = 'bg-emerald-50 border-2 border-emerald-500 text-emerald-950 font-bold ring-2 ring-emerald-400/40 shadow-sm';
+                      optionStyle = 'bg-emerald-50 border-2 border-emerald-500 text-emerald-950 font-semibold ring-2 ring-emerald-400/40 shadow-xs';
                     } else if (isSelected && !isAnswerCorrect) {
-                      optionStyle = 'bg-rose-50 border-2 border-rose-500 text-rose-950 font-bold';
+                      optionStyle = 'bg-rose-50 border-2 border-rose-500 text-rose-950 font-semibold';
                     } else {
                       optionStyle = 'bg-slate-50 border border-slate-200 text-slate-400 opacity-60';
                     }
                   } else if (isSelected) {
-                    optionStyle = 'bg-gradient-to-r from-amber-100 to-amber-50 border-2 border-amber-600 text-amber-950 font-extrabold shadow-md ring-2 ring-amber-400/40';
+                    optionStyle = 'bg-sky-50 border-2 border-sky-600 text-sky-950 font-semibold shadow-sm ring-2 ring-sky-300/40';
                   }
 
                   return (
@@ -814,7 +814,7 @@ export default function BookQuestManager({
                       type="button"
                       onClick={() => handleSelectOption(oIdx)}
                       disabled={quizSubmitted}
-                      className={`w-full text-left p-4 sm:p-4.5 rounded-2xl text-sm sm:text-base font-semibold leading-relaxed transition-all duration-200 flex items-center justify-between gap-3.5 ${
+                      className={`w-full text-left p-4 sm:p-4.5 rounded-2xl text-sm sm:text-base font-normal sm:font-medium leading-relaxed transition-all duration-200 flex items-center justify-between gap-3.5 ${
                         quizSubmitted ? 'cursor-not-allowed' : 'cursor-pointer active:scale-99'
                       } ${optionStyle}`}
                     >
@@ -840,11 +840,11 @@ export default function BookQuestManager({
                       setCurrentQuestionIndex(prev => Math.max(0, prev - 1));
                       playWebAudioSound('click', soundEnabled);
                     }}
-                    className="px-4 py-2 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-xs sm:text-sm font-bold text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all shadow-xs"
+                    className="px-4 py-2 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-xs sm:text-sm font-semibold text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all shadow-xs"
                   >
                     ← ข้อก่อนหน้า
                   </button>
-                  <span className="text-xs sm:text-sm font-bold text-slate-500">
+                  <span className="text-xs sm:text-sm font-semibold text-slate-500">
                     ตอบแล้ว {Object.keys(multiAnswers).length}/{currentQuestions.length} ข้อ
                   </span>
                   <button
@@ -854,7 +854,7 @@ export default function BookQuestManager({
                       setCurrentQuestionIndex(prev => Math.min(currentQuestions.length - 1, prev + 1));
                       playWebAudioSound('click', soundEnabled);
                     }}
-                    className="px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 border border-amber-300 text-xs sm:text-sm font-bold text-amber-900 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all shadow-xs"
+                    className="px-4 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 border border-sky-200 text-xs sm:text-sm font-semibold text-sky-800 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all shadow-xs"
                   >
                     ข้อถัดไป →
                   </button>
@@ -868,7 +868,7 @@ export default function BookQuestManager({
                     type="button"
                     onClick={handleSubmitQuiz}
                     disabled={Object.keys(multiAnswers).length < currentQuestions.length}
-                    className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 disabled:bg-slate-200 text-white disabled:text-slate-400 font-black text-sm sm:text-base shadow-lg hover:shadow-xl transition-all cursor-pointer disabled:cursor-not-allowed active:scale-98 flex items-center justify-center gap-2"
+                    className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 disabled:bg-slate-200 text-white disabled:text-slate-400 font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all cursor-pointer disabled:cursor-not-allowed active:scale-98 flex items-center justify-center gap-2"
                   >
                     <CheckCircle2 size={18} />
                     <span>
@@ -878,7 +878,7 @@ export default function BookQuestManager({
                     </span>
                   </button>
                 ) : isAnswerCorrect ? (
-                  <div className="w-full py-3.5 px-4 rounded-2xl bg-emerald-100 border-2 border-emerald-500 text-emerald-900 font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs">
+                  <div className="w-full py-3.5 px-4 rounded-2xl bg-emerald-100 border-2 border-emerald-500 text-emerald-900 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs">
                     <CheckCircle2 size={18} className="text-emerald-700" />
                     <span>
                       ผ่านภารกิจสำเร็จแล้ว!
@@ -891,7 +891,7 @@ export default function BookQuestManager({
                     </span>
                   </div>
                 ) : (
-                  <div className="w-full py-3.5 px-4 rounded-2xl bg-rose-100 border-2 border-rose-400 text-rose-900 font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs">
+                  <div className="w-full py-3.5 px-4 rounded-2xl bg-rose-100 border-2 border-rose-400 text-rose-900 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs">
                     <X size={18} className="text-rose-700" />
                     <span>
                       ตอบถูก {attempts[activeQuest.id]?.correctCount ?? 0}/{currentQuestions.length} ข้อ (ไม่ผ่านเกณฑ์) — สิ้นสุดภารกิจนี้ (0 แต้ม)
@@ -900,45 +900,45 @@ export default function BookQuestManager({
                 )}
               </div>
 
-              {/* Feedback & Explanation Box: High-Contrast and Easy to Read */}
+              {/* Feedback & Explanation Box: Clear and Easy to Read */}
               {quizSubmitted && (
-                <div className={`p-5 rounded-2xl border-2 text-xs sm:text-sm leading-relaxed animate-in fade-in duration-300 shadow-xs ${
+                <div className={`p-5 rounded-2xl border text-xs sm:text-sm leading-relaxed animate-in fade-in duration-300 shadow-xs ${
                   isAnswerCorrect 
                     ? 'bg-emerald-50 border-emerald-300 text-emerald-950'
                     : 'bg-rose-50 border-rose-300 text-rose-950'
                 }`}>
                   {isAnswerCorrect ? (
                     <div className="space-y-2">
-                      <div className="font-black text-base flex items-center gap-2 text-emerald-800">
+                      <div className="font-bold text-base flex items-center gap-2 text-emerald-800">
                         <Award size={18} />
                         <span>ถูกต้องยอดเยี่ยม! ปลดล็อกปัญญาธรรม</span>
                       </div>
-                      <p className="text-sm sm:text-base text-emerald-900 leading-relaxed font-medium">
+                      <p className="text-sm sm:text-base text-emerald-900 leading-relaxed font-normal">
                         {activeQuestionItem?.explanation || activeQuest.explanation}
                       </p>
                       {currentQuestions.length > 1 && (
-                        <p className="text-xs text-emerald-700 font-semibold pt-1">
+                        <p className="text-xs text-emerald-700 font-medium pt-1">
                           💡 ท่านสามารถคลิกเปลี่ยนแถบข้อ 1-{currentQuestions.length} ด้านบน เพื่อตรวจดูคำเฉลยของแต่ละข้อได้
                         </p>
                       )}
-                      <div className="pt-2 flex items-center gap-2 text-xs font-bold text-emerald-800">
+                      <div className="pt-2 flex items-center gap-2 text-xs font-semibold text-emerald-800">
                         <Check size={14} />
                         <span>ได้รับเหรียญตรา: {activeQuest.loot.badgeIcon} {activeQuest.loot.badgeName} (+{activeQuest.loot.points} แต้ม)</span>
                       </div>
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <div className="font-black text-base text-rose-800 flex items-center gap-2">
+                      <div className="font-bold text-base text-rose-800 flex items-center gap-2">
                         <AlertCircle size={18} />
                         <span>ผลการทดสอบยังไม่ผ่านเกณฑ์</span>
                       </div>
                       <div className="pt-1 border-t border-rose-200 text-slate-800">
-                        <strong className="text-amber-900 block mb-1 text-sm font-bold">คติธรรมและคำเฉลยจากหนังสือ (ข้อ {currentQuestionIndex + 1}):</strong>
-                        <p className="text-sm sm:text-base leading-relaxed text-slate-800 font-medium">
+                        <strong className="text-slate-800 block mb-1 text-sm font-semibold">คติธรรมและคำเฉลยจากหนังสือ (ข้อ {currentQuestionIndex + 1}):</strong>
+                        <p className="text-sm sm:text-base leading-relaxed text-slate-700 font-normal">
                           {activeQuestionItem?.explanation || activeQuest.explanation}
                         </p>
                         {currentQuestions.length > 1 && (
-                          <p className="text-xs text-amber-800 font-semibold pt-1.5">
+                          <p className="text-xs text-sky-800 font-medium pt-1.5">
                             💡 ท่านสามารถคลิกเปลี่ยนแถบข้อ 1-{currentQuestions.length} ด้านบน เพื่อตรวจดูคำเฉลยของแต่ละข้อได้
                           </p>
                         )}
@@ -956,7 +956,7 @@ export default function BookQuestManager({
                   onJumpToPage(activeQuest.triggerPage);
                   closeQuestModal();
                 }}
-                className="flex items-center gap-2 text-amber-700 hover:text-amber-800 font-extrabold transition-colors cursor-pointer"
+                className="flex items-center gap-2 text-sky-700 hover:text-sky-800 font-semibold transition-colors cursor-pointer"
               >
                 <BookOpen size={16} />
                 <span>เปิดดูเนื้อหาหน้านี้ในหนังสือ (PDF หน้า {activeQuest.triggerPage})</span>
@@ -967,7 +967,7 @@ export default function BookQuestManager({
                   closeQuestModal();
                   setDrawerOpen(true);
                 }}
-                className="flex items-center gap-1.5 text-slate-600 hover:text-slate-900 font-bold transition-colors cursor-pointer"
+                className="flex items-center gap-1.5 text-slate-600 hover:text-slate-900 font-semibold transition-colors cursor-pointer"
               >
                 <span>ดูสมุดภารกิจทั้งหมด</span>
                 <ArrowRight size={15} />
@@ -988,15 +988,15 @@ export default function BookQuestManager({
             className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity" 
           />
 
-          {/* Drawer Body: Clean, Warm Buddhist Library Style */}
-          <div className="relative w-full max-w-md h-full bg-white border-l-2 border-amber-200 text-slate-900 shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-300">
+          {/* Drawer Body: Clean, Sky Blue & Crisp White Library Style */}
+          <div className="relative w-full max-w-md h-full bg-white border-l border-sky-100 text-slate-900 shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-300">
             {/* Header */}
-            <div className="p-4 sm:p-5 border-b border-amber-500/30 flex items-center justify-between bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white">
+            <div className="p-4 sm:p-5 border-b border-sky-400/30 flex items-center justify-between bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 text-white">
               <div className="flex items-center gap-2">
-                <Compass size={20} className="text-amber-200" />
+                <Compass size={20} className="text-sky-200" />
                 <div>
-                  <h3 className="font-black text-sm sm:text-base text-white">สมุดภารกิจ (Quest Journal)</h3>
-                  <p className="text-[11px] text-amber-100 font-medium">
+                  <h3 className="font-bold text-sm sm:text-base text-white">สมุดภารกิจ (Quest Journal)</h3>
+                  <p className="text-[11px] text-sky-100 font-normal">
                     {bookInfo?.title || 'หนังสือและ Easter Eggs ธรรมะ'}
                   </p>
                 </div>
@@ -1010,23 +1010,23 @@ export default function BookQuestManager({
             </div>
 
             {/* Progress Summary Pill */}
-            <div className="p-4 border-b border-amber-100 bg-stone-50/70">
-              <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200/90 flex items-center justify-between shadow-xs">
+            <div className="p-4 border-b border-slate-100 bg-slate-50/70">
+              <div className="p-3.5 rounded-2xl bg-sky-50/60 border border-sky-200/80 flex items-center justify-between shadow-xs">
                 <div>
-                  <div className="text-[11px] font-bold text-amber-800 uppercase">ความคืบหน้าการสำรวจ</div>
-                  <div className="text-sm font-black text-slate-900 mt-0.5">
+                  <div className="text-[11px] font-bold text-sky-800 uppercase">ความคืบหน้าการสำรวจ</div>
+                  <div className="text-sm font-bold text-slate-900 mt-0.5">
                     สำเร็จ {completedQuestIds.length} จาก {allBookQuests.length} ภารกิจ
                   </div>
                   {/* Progress bar */}
-                  <div className="w-36 h-2 bg-amber-200/70 rounded-full mt-1.5 overflow-hidden">
+                  <div className="w-36 h-2 bg-sky-200/70 rounded-full mt-1.5 overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-amber-500 to-amber-600 rounded-full transition-all duration-300"
+                      className="h-full bg-gradient-to-r from-sky-500 to-blue-600 rounded-full transition-all duration-300"
                       style={{ width: `${allBookQuests.length > 0 ? (completedQuestIds.length / allBookQuests.length) * 100 : 0}%` }}
                     />
                   </div>
                 </div>
                 <div className="text-right font-mono">
-                  <div className="text-xs font-black text-amber-700">
+                  <div className="text-xs font-bold text-sky-700">
                     {totalEarnedPoints} แต้ม
                   </div>
                   <div className="text-[10px] text-slate-500 font-sans">แต้มสะสมทั้งหมด</div>
@@ -1034,11 +1034,11 @@ export default function BookQuestManager({
               </div>
 
               {/* Navigation Tabs */}
-              <div className="flex items-center gap-1 mt-3 bg-amber-100/60 p-1 rounded-xl border border-amber-200 text-xs font-bold">
+              <div className="flex items-center gap-1 mt-3 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-medium">
                 <button
                   onClick={() => setDrawerTab('all')}
                   className={`flex-1 py-1.5 rounded-lg transition-colors cursor-pointer text-center ${
-                    drawerTab === 'all' ? 'bg-amber-600 text-white font-black shadow-xs' : 'text-slate-700 hover:text-amber-900 hover:bg-amber-200/50'
+                    drawerTab === 'all' ? 'bg-sky-600 text-white font-bold shadow-xs' : 'text-slate-700 hover:text-sky-900 hover:bg-slate-200/60'
                   }`}
                 >
                   ทั้งหมด ({allBookQuests.length})
@@ -1046,7 +1046,7 @@ export default function BookQuestManager({
                 <button
                   onClick={() => setDrawerTab('active')}
                   className={`flex-1 py-1.5 rounded-lg transition-colors cursor-pointer text-center ${
-                    drawerTab === 'active' ? 'bg-amber-600 text-white font-black shadow-xs' : 'text-slate-700 hover:text-amber-900 hover:bg-amber-200/50'
+                    drawerTab === 'active' ? 'bg-sky-600 text-white font-bold shadow-xs' : 'text-slate-700 hover:text-sky-900 hover:bg-slate-200/60'
                   }`}
                 >
                   กำลังทำ ({allBookQuests.length - completedQuestIds.length})
@@ -1054,7 +1054,7 @@ export default function BookQuestManager({
                 <button
                   onClick={() => setDrawerTab('completed')}
                   className={`flex-1 py-1.5 rounded-lg transition-colors cursor-pointer text-center ${
-                    drawerTab === 'completed' ? 'bg-amber-600 text-white font-black shadow-xs' : 'text-slate-700 hover:text-amber-900 hover:bg-amber-200/50'
+                    drawerTab === 'completed' ? 'bg-sky-600 text-white font-bold shadow-xs' : 'text-slate-700 hover:text-sky-900 hover:bg-slate-200/60'
                   }`}
                 >
                   สำเร็จ ({completedQuestIds.length})
@@ -1062,7 +1062,7 @@ export default function BookQuestManager({
                 <button
                   onClick={() => setDrawerTab('badges')}
                   className={`flex-1 py-1.5 rounded-lg transition-colors cursor-pointer text-center ${
-                    drawerTab === 'badges' ? 'bg-amber-600 text-white font-black shadow-xs' : 'text-slate-700 hover:text-amber-900 hover:bg-amber-200/50'
+                    drawerTab === 'badges' ? 'bg-sky-600 text-white font-bold shadow-xs' : 'text-slate-700 hover:text-sky-900 hover:bg-slate-200/60'
                   }`}
                 >
                   ตราสะสม 🏆
@@ -1071,28 +1071,28 @@ export default function BookQuestManager({
             </div>
 
             {/* Quests List or Badges View */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-stone-50/40">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50/50">
               {drawerTab === 'badges' ? (
                 /* Collection / Badges View */
                 <div className="space-y-3">
                   <div className="text-xs font-bold text-slate-700 flex items-center justify-between">
                     <span>ตราความสำเร็จที่ได้รับ ({completedQuestsList.length})</span>
-                    <span className="text-amber-700 font-mono font-bold">{totalEarnedPoints} แต้ม</span>
+                    <span className="text-sky-700 font-mono font-bold">{totalEarnedPoints} แต้ม</span>
                   </div>
 
                   {completedQuestsList.length === 0 ? (
-                    <div className="p-8 text-center text-slate-400 text-xs bg-white rounded-2xl border border-dashed border-amber-200">
-                      <Lock size={28} className="mx-auto mb-2 opacity-40 text-amber-600" />
+                    <div className="p-8 text-center text-slate-400 text-xs bg-white rounded-2xl border border-dashed border-sky-200">
+                      <Lock size={28} className="mx-auto mb-2 opacity-40 text-sky-600" />
                       <p className="font-bold text-slate-600">ยังไม่มีตราความสำเร็จ</p>
                       <p className="text-[11px] mt-1 text-slate-500">อ่านหนังสือไปถึงหน้าที่กำหนดและตอบคำถามเพื่อปลดล็อกตราแรกของคุณ</p>
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 gap-2.5">
                       {completedQuestsList.map(q => (
-                        <div key={q.id} className="p-3 rounded-2xl bg-white border border-amber-200 flex flex-col items-center text-center gap-1.5 shadow-xs">
-                          <span className="text-3xl p-2 rounded-xl bg-amber-50 border border-amber-200">{q.loot.badgeIcon}</span>
+                        <div key={q.id} className="p-3 rounded-2xl bg-white border border-sky-200 flex flex-col items-center text-center gap-1.5 shadow-xs">
+                          <span className="text-3xl p-2 rounded-xl bg-sky-50 border border-sky-200">{q.loot.badgeIcon}</span>
                           <span className="text-xs font-bold text-slate-900 line-clamp-1">{q.loot.badgeName}</span>
-                          <span className="text-[10px] text-amber-700 font-mono font-bold">+{q.loot.points} แต้ม</span>
+                          <span className="text-[10px] text-sky-700 font-mono font-bold">+{q.loot.points} แต้ม</span>
                           <span className="text-[9px] text-slate-500 font-medium">น. {q.printedPageStart || q.triggerPage}</span>
                         </div>
                       ))}
@@ -1103,7 +1103,7 @@ export default function BookQuestManager({
                 /* Standard Quests Cards View */
                 <div className="space-y-2.5">
                   {filteredQuests.length === 0 ? (
-                    <div className="p-8 text-center text-slate-500 text-xs bg-white rounded-2xl border border-dashed border-amber-200">
+                    <div className="p-8 text-center text-slate-500 text-xs bg-white rounded-2xl border border-dashed border-slate-200">
                       <CheckCircle2 size={28} className="mx-auto mb-2 text-emerald-500" />
                       <p className="font-bold text-slate-700">ไม่มีภารกิจในหมวดหมู่นี้</p>
                     </div>
@@ -1116,26 +1116,26 @@ export default function BookQuestManager({
                       return (
                         <div
                           key={quest.id}
-                          className={`p-3.5 rounded-2xl border-2 transition-all duration-200 flex flex-col gap-2 ${
+                          className={`p-3.5 rounded-2xl border transition-all duration-200 flex flex-col gap-2 ${
                             isCurrent
-                              ? 'bg-amber-50 border-amber-500 text-slate-900 shadow-md ring-2 ring-amber-400/30'
+                              ? 'bg-sky-50/80 border-sky-500 text-slate-900 shadow-md ring-2 ring-sky-400/30'
                               : quest.isLegendary
                               ? 'bg-amber-50/60 border-amber-300 text-slate-900 shadow-xs'
                               : quest.questType === 'main'
-                              ? 'bg-white border-amber-200 text-slate-900 shadow-xs hover:border-amber-300'
-                              : 'bg-white border-slate-200 text-slate-800 hover:border-amber-200 shadow-xs'
+                              ? 'bg-white border-sky-200 text-slate-900 shadow-xs hover:border-sky-300'
+                              : 'bg-white border-slate-200 text-slate-800 hover:border-sky-200 shadow-xs'
                           }`}
                         >
                           {/* Quest Title & Tag */}
                           <div className="flex items-start justify-between gap-2">
                             <div className="min-w-0">
                               <div className="flex items-center gap-1.5 flex-wrap">
-                                <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-md ${
+                                <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-md ${
                                   quest.isLegendary
                                     ? 'bg-amber-500 text-white'
                                     : quest.questType === 'main'
-                                    ? 'bg-amber-600 text-white'
-                                    : 'bg-amber-100 text-amber-900 border border-amber-200'
+                                    ? 'bg-sky-600 text-white'
+                                    : 'bg-sky-100 text-sky-900 border border-sky-200'
                                 }`}>
                                   {quest.categoryTag}
                                 </span>
@@ -1148,20 +1148,20 @@ export default function BookQuestManager({
                                     <X size={11} /> ตอบไม่ถูก (0 แต้ม)
                                   </span>
                                 ) : (
-                                  <span className="text-[10px] text-amber-800 font-mono font-bold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                                  <span className="text-[10px] text-sky-800 font-mono font-bold bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200">
                                     +{quest.loot.points} แต้ม
                                   </span>
                                 )}
                               </div>
-                              <div className="font-black text-xs sm:text-sm text-slate-900 mt-1 leading-snug">
+                              <div className="font-bold text-xs sm:text-sm text-slate-900 mt-1 leading-snug">
                                 {quest.title}
                               </div>
-                              <div className="text-[11px] text-amber-800 font-medium truncate mt-0.5">
+                              <div className="text-[11px] text-sky-800 font-medium truncate mt-0.5">
                                 {quest.subtitle}
                               </div>
                             </div>
 
-                            <span className="text-xl shrink-0 p-1.5 rounded-xl bg-amber-50 border border-amber-200">
+                            <span className="text-xl shrink-0 p-1.5 rounded-xl bg-sky-50 border border-sky-200">
                               {quest.loot.badgeIcon}
                             </span>
                           </div>

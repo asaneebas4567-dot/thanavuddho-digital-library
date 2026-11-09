@@ -132,3 +132,4 @@ ON CONFLICT (id) DO UPDATE SET
     questionText = EXCLUDED.questionText,
     categoryTitleTh = EXCLUDED.categoryTitleTh,
     displayOrder = EXCLUDED.displayOrder;
+
