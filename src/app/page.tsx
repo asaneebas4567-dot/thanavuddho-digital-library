@@ -28,7 +28,7 @@ import { books as libBooks, videos, articles } from '@/lib/mock-data';
 import { books as dbBooks } from '@/data/mockData';
 import persistentBooks from '@/data/persistentBooks.json';
 import HomeMediaShowcase from '@/components/home/HomeMediaShowcase';
-import WelcomeIntroSection from '@/components/home/WelcomeIntroSection';
+import WelcomeModalPopup from '@/components/home/WelcomeModalPopup';
 import TopBannerCarousel from '@/components/common/TopBannerCarousel';
 import ScrollableBookRow from '@/components/books/ScrollableBookRow';
 import WebtoonRankingShelf from '@/components/books/WebtoonRankingShelf';
@@ -205,10 +205,10 @@ export default function Home() {
     .filter(Boolean) as Book[];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F0F8FD]/50">
+    <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
       
-      {/* 0. หน้าแนะนำเว็บไซต์ & แบรนด์สัญลักษณ์ (Welcome & Introduction Hero Section with Login, Register, Guest buttons) */}
-      <WelcomeIntroSection />
+      {/* 0. หน้าต่างลอยแนะนำตัวแอพ (Welcome Floating Modal Popup) */}
+      <WelcomeModalPopup />
 
       {/* 1. ไฮไลต์ 10 หน้าต่าง (ยินดีต้อนรับ, แบบประเมิน 200 แต้ม, พอดแคสต์, วิดีโอ, และ 6 เล่มลิขสิทธิ์ Flipbook) */}
       <TopBannerCarousel autoPlayIntervalMs={8000} />
