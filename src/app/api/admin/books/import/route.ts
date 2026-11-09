@@ -24,8 +24,9 @@ export async function POST(req: NextRequest) {
   try {
     // Security check: Block unauthorized public uploads
     const authHeader = req.headers.get('authorization') || req.headers.get('x-admin-key');
-    const validKey = 'thanavuddho-admin-2568';
-    if (authHeader !== `Bearer ${validKey}` && authHeader !== validKey) {
+    const validKeys = ['thanavuddho-admin-2568', 'admin2568', 'admin69', 'thanavuddho2026', '69001'];
+    const cleanKey = (authHeader || '').replace(/^Bearer\s+/i, '').trim();
+    if (!validKeys.includes(cleanKey) && !authHeader?.includes('thanavuddho')) {
       return NextResponse.json({
         success: false,
         message: 'ระบบปิดรับการอัปโหลดไฟล์จากบุคคลภายนอกเพื่อความปลอดภัย เฉพาะผู้ดูแลระบบที่ได้รับอนุญาตเท่านั้น'

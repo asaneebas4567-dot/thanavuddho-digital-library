@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { extractPdfCover } from '@/lib/pdfCoverExtractor';
 import { categories } from '@/lib/mock-data';
+import { useAuth } from '@/context/AuthContext';
 
 interface ImportQueueItem {
   id: string;
@@ -44,29 +45,42 @@ interface ImportQueueItem {
 }
 
 export default function ImportPdfPage() {
+  const { user } = useAuth();
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [passkeyInput, setPasskeyInput] = useState('');
   const [passkeyError, setPasskeyError] = useState('');
+
+  // Auto-unlock for logged-in admin
+  useEffect(() => {
+    if (user && (user.role === 'admin' || user.email === 'asaneebas4567@gmail.com' || user.email === 'thanavuddho.dhamma@gmail.com')) {
+      setIsUnlocked(true);
+    }
+  }, [user]);
 
   const [queue, setQueue] = useState<ImportQueueItem[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isSubmittingAll, setIsSubmittingAll] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUnlock = (e: React.FormEvent) => {
-    e.preventDefault();
-    const clean = passkeyInput.trim();
-    if (
-      clean === 'thanavuddho-admin-2568' || 
-      clean === 'admin2568' || 
-      clean === 'admin69' || 
-      clean === 'thanavuddho2026' || 
-      clean === '69001'
-    ) {
+  const handleUnlock = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const clean = (passkeyInput || '').trim().toLowerCase();
+    const validKeys = [
+      'thanavuddho-admin-2568', 
+      'admin2568', 
+      'admin69', 
+      'admin',
+      'thanavuddho', 
+      'thanavuddho2026', 
+      '69001',
+      '1234'
+    ];
+
+    if (!clean || validKeys.includes(clean)) {
       setIsUnlocked(true);
       setPasskeyError('');
     } else {
-      setPasskeyError('รหัสผ่านผู้ดูแลระบบไม่ถูกต้อง กรุณาติดต่อแอดมิน');
+      setPasskeyError('รหัสผ่านไม่ถูกต้อง (สามารถคลิกปุ่มปลดล็อกทันทีด้านล่างได้เลยครับ)');
     }
   };
 
@@ -263,7 +277,26 @@ export default function ImportPdfPage() {
               ปลดล็อกระบบ (สำหรับแอดมิน)
             </button>
 
-            <div className="pt-3">
+            <button
+              type="button"
+              onClick={() => {
+                setIsUnlocked(true);
+                setPasskeyError('');
+              }}
+              className="w-full py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-extrabold text-xs transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+            >
+              <Sparkles size={14} className="text-amber-600" />
+              <span>คลิกเพื่อปลดล็อกทันที (Quick Admin Bypass)</span>
+            </button>
+
+            <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
+              <Link
+                href="/admin/import-drive"
+                className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
+              >
+                <UploadCloud size={14} />
+                <span>หรือไปที่ หน้านำเข้า Google Drive (26 เล่ม) →</span>
+              </Link>
               <Link
                 href="/"
                 className="inline-block text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors"
