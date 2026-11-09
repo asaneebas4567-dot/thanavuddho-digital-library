@@ -456,7 +456,7 @@ export default function TopBannerCarousel({
       ref={containerRef}
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      className="bg-stone-50/70 border-b border-slate-200/80 py-3.5 sm:py-4.5 relative select-none focus:outline-none"
+      className="relative bg-gradient-to-r from-[#073B65] via-[#0A4D82] to-[#079FE8] border-b border-[#073B65]/40 py-4 sm:py-5.5 select-none focus:outline-none shadow-md"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
         setIsHovered(false);
@@ -477,20 +477,20 @@ export default function TopBannerCarousel({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* 1. Header Bar: Decorative Dot + Title + Badge + Right-side Controls */}
-        <div className="flex items-center justify-between gap-2.5 mb-3">
+        <div className="flex items-center justify-between gap-2.5 mb-3.5">
           
           {/* Left: Dot + Title + Badge */}
           <div className="flex items-center gap-2 min-w-0">
             <span className="relative flex h-2.5 w-2.5 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-sky-500 ring-2 ring-sky-100" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D9A441] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D9A441] ring-2 ring-amber-200/50" />
             </span>
-            <h2 className="text-sm sm:text-base md:text-lg font-black text-slate-800 tracking-tight flex items-center gap-2 truncate">
+            <h2 className="text-sm sm:text-base md:text-lg font-black text-white tracking-tight flex items-center gap-2 truncate">
               <span>{title}</span>
-              <span className="text-[11px] font-bold text-sky-800 bg-sky-50 border border-sky-200/90 px-2.5 py-0.5 rounded-full hidden sm:inline-flex items-center gap-1 shadow-2xs">
-                <Sparkles size={11} className="text-sky-600" />
+              <span className="text-[11px] font-bold text-white bg-white/20 border border-white/30 px-2.5 py-0.5 rounded-full hidden sm:inline-flex items-center gap-1 shadow-2xs backdrop-blur-xs">
+                <Sparkles size={11} className="text-[#D9A441]" />
                 <span>{badge}</span>
-                <span className="text-slate-400 font-normal">({totalCards} เล่ม)</span>
+                <span className="text-sky-100 font-normal">({totalCards} เล่ม)</span>
               </span>
             </h2>
           </div>
@@ -500,7 +500,7 @@ export default function TopBannerCarousel({
             
             {/* Position Counter Chip */}
             <span 
-              className="text-[11px] sm:text-xs font-mono font-bold text-slate-700 bg-white border border-slate-200/90 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-2xs tabular-nums"
+              className="text-[11px] sm:text-xs font-mono font-bold text-[#073B65] bg-white/95 border border-white/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-2xs tabular-nums"
               title="ตำแหน่งสไลด์ปัจจุบัน"
             >
               {currentIndex + 1}{visibleCount > 1 ? ` - ${Math.min(currentIndex + visibleCount, totalCards)}` : ''} / {totalCards}
@@ -509,7 +509,7 @@ export default function TopBannerCarousel({
             {/* Play / Pause Toggle Button */}
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white hover:bg-slate-50 border border-slate-200/90 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors shadow-2xs cursor-pointer active:scale-95"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 hover:bg-white text-[#073B65] flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95"
               title={isPlaying ? 'หยุดเล่นอัตโนมัติ' : 'เล่นอัตโนมัติ'}
               aria-label={isPlaying ? 'หยุดเล่นอัตโนมัติ' : 'เล่นอัตโนมัติ'}
             >
@@ -519,7 +519,7 @@ export default function TopBannerCarousel({
             {/* Prev Button */}
             <button
               onClick={prevSlide}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white hover:bg-sky-500 hover:text-white hover:border-sky-500 border border-slate-200/90 flex items-center justify-center text-slate-700 transition-all shadow-2xs cursor-pointer active:scale-95"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 hover:bg-white text-[#073B65] flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95 hover:scale-105"
               title="ก่อนหน้า"
               aria-label="เลื่อนไปก่อนหน้า"
             >
@@ -529,7 +529,7 @@ export default function TopBannerCarousel({
             {/* Next Button */}
             <button
               onClick={nextSlide}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white hover:bg-sky-500 hover:text-white hover:border-sky-500 border border-slate-200/90 flex items-center justify-center text-slate-700 transition-all shadow-2xs cursor-pointer active:scale-95"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 hover:bg-white text-[#073B65] flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95 hover:scale-105"
               title="ถัดไป"
               aria-label="เลื่อนไปถัดไป"
             >

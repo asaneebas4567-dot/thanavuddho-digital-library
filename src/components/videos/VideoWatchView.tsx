@@ -114,9 +114,9 @@ export default function VideoWatchView({
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#0d0f12] text-white">
-      {/* Top Floating Control Bar */}
-      <header className="sticky top-0 z-40 bg-zinc-950/85 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 py-3 flex items-center justify-between">
+    <div className="w-full min-h-screen bg-[#051C30] text-white">
+      {/* Top Floating Control Bar (Deep Navy Header) */}
+      <header className="sticky top-0 z-40 bg-[#073B65]/95 backdrop-blur-md border-b border-white/15 px-4 sm:px-6 py-3 flex items-center justify-between shadow-md">
         <button
           onClick={onBackToGrid}
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold transition-all group cursor-pointer border border-white/15"

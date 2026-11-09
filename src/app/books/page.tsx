@@ -161,28 +161,28 @@ function BooksContent() {
   };
 
   return (
-    <div className="bg-[#fbfbfa] min-h-screen py-8 sm:py-12">
+    <div className="bg-[#F0F8FD]/40 min-h-screen py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-sky-50 text-sky-800 border border-sky-200/60 inline-flex items-center gap-1.5 mb-2">
-                <Sparkles size={13} className="text-sky-600" />
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#F0F8FD] text-[#073B65] border border-[#DCEAF3] inline-flex items-center gap-1.5 mb-2">
+                <Sparkles size={13} className="text-[#079FE8]" />
                 คลังหนังสือธรรมะและวิชาการ
               </span>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#073B65] tracking-tight">
                 ห้องสมุดดิจิทัล (Digital Library)
               </h1>
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-[#64748B]">
                 รวมหนังสือธรรมะ ประวัติศาสตร์ และการพัฒนาตนเอง รวม {allBooks.length} เล่ม
               </p>
             </div>
 
             {/* Quick Stats Pill */}
-            <div className="flex items-center gap-3 text-xs text-gray-500 font-semibold bg-white px-4 py-2 rounded-2xl border border-gray-200/80 shadow-xs">
-              <span>กำลังแสดง: <strong className="text-sky-700">{filteredBooks.length}</strong> เล่ม</span>
+            <div className="flex items-center gap-3 text-xs text-[#64748B] font-semibold bg-white px-4 py-2 rounded-2xl border border-[#DCEAF3] shadow-xs">
+              <span>กำลังแสดง: <strong className="text-[#079FE8]">{filteredBooks.length}</strong> เล่ม</span>
               <span>•</span>
               <span>อ่านฟรีทุกอุปกรณ์</span>
             </div>
@@ -190,13 +190,13 @@ function BooksContent() {
         </div>
 
         {/* Webtoon-Style Category Navigation Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-2 mb-6 border-b border-gray-200/60">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-2 mb-6 border-b border-[#DCEAF3]">
           <button
             onClick={() => setSelectedCategory('')}
             className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
               selectedCategory === ''
-                ? 'bg-gray-900 text-white shadow-xs'
-                : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200/80'
+                ? 'bg-[#073B65] text-white shadow-xs'
+                : 'bg-white text-[#243447] hover:bg-[#F0F8FD] border border-[#DCEAF3]'
             }`}
           >
             🌟 ทั้งหมด ({allBooks.length})
@@ -214,8 +214,8 @@ function BooksContent() {
                 onClick={() => setSelectedCategory(isSelected ? '' : cat.id)}
                 className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                   isSelected
-                    ? 'bg-sky-600 text-white shadow-xs'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200/80'
+                    ? 'bg-[#079FE8] text-white shadow-xs'
+                    : 'bg-white text-[#243447] hover:bg-[#F0F8FD] border border-[#DCEAF3]'
                 }`}
               >
                 {cat.name} ({count})
@@ -225,14 +225,14 @@ function BooksContent() {
         </div>
 
         {/* Search & Sort Controls Bar */}
-        <div className="bg-white p-3.5 sm:p-4 rounded-2xl shadow-xs border border-gray-200/70 flex flex-col md:flex-row gap-3 mb-8">
+        <div className="bg-white p-3.5 sm:p-4 rounded-2xl shadow-xs border border-[#DCEAF3] flex flex-col md:flex-row gap-3 mb-8">
           <div className="relative flex-grow">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="ค้นหาชื่อเรื่อง, ผู้แต่ง, หรือคำค้น..."
-              className="w-full pl-9 pr-4 py-2.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 text-sm text-gray-800 placeholder-gray-400 font-medium transition-all"
+              className="w-full pl-9 pr-4 py-2.5 bg-[#F0F8FD]/50 border border-[#DCEAF3] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#079FE8] text-sm text-[#243447] placeholder-slate-400 font-medium transition-all"
             />
             <Search className="absolute left-3 top-3 text-gray-400" size={17} />
             {searchQuery && (

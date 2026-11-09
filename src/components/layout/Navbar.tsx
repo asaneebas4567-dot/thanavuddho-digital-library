@@ -108,7 +108,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-gradient-to-r from-sky-400 via-sky-500 to-sky-400 shadow-md transition-colors select-none text-white">
+    <header className="sticky top-0 z-40 bg-gradient-to-r from-[#079FE8] via-[#068fd1] to-[#073B65] shadow-md transition-colors select-none text-white">
       
       {/* 1. Top Bar: Logo, Centered Search, and User Controls */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2.5 pb-2.5 sm:pt-3 sm:pb-3">
@@ -116,12 +116,12 @@ export default function Navbar() {
           
           {/* Left: Brand Identity (Logo + Thanavuddho Library) */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white text-sky-600 rounded-xl flex items-center justify-center font-black text-lg sm:text-xl shadow-sm group-hover:scale-105 transition-transform border border-sky-200/60">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white text-[#079FE8] rounded-xl flex items-center justify-center font-black text-lg sm:text-xl shadow-sm group-hover:scale-105 transition-transform border border-white/80">
               ถ
             </div>
             <div className="block">
               <span className="font-extrabold text-sm sm:text-base md:text-lg text-white tracking-tight block leading-tight">
-                Thanavuddho <span className="text-sky-100 font-black">Library</span>
+                Thanavuddho <span className="text-sky-200 font-black">Library</span>
               </span>
               <span className="text-[10px] sm:text-[11px] text-white/90 font-medium block">
                 พระครูปลัดสุวัฒนโพธิคุณ
@@ -129,7 +129,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Center: Search Bar (BKK Book Style: Clean White Pill) */}
+          {/* Center: Search Bar (Clean White Pill with soft border) */}
           <div className="flex-1 max-w-xl mx-1 sm:mx-4">
             <form onSubmit={handleSearchSubmit} className="relative w-full">
               <input
@@ -137,12 +137,12 @@ export default function Navbar() {
                 placeholder="ค้นหาหนังสือ, บทความ, พอดแคสต์, วิดีโอ..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                className="w-full bg-white text-slate-800 placeholder-slate-400 pl-4 pr-10 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-sky-300 transition-all border border-sky-100"
+                className="w-full bg-white text-[#243447] placeholder-slate-400 pl-4 pr-10 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-[#079FE8] transition-all border border-[#DCEAF3]"
               />
               <button 
                 type="submit"
                 aria-label="ค้นหา"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-sky-500 hover:text-sky-600 transition-colors cursor-pointer p-1"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#079FE8] hover:text-[#073B65] transition-colors cursor-pointer p-1"
               >
                 <Search size={17} />
               </button>
@@ -152,25 +152,25 @@ export default function Navbar() {
           {/* Right: AI Quick Pill & User Shelf & Mobile Toggle */}
           <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
 
-            {/* Live Rewards Points Quick Pill */}
+            {/* Live Rewards Points Quick Pill (Gold Coin & Accent Gold Number) */}
             <Link 
               href="/rewards" 
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-sky-900 bg-white/90 hover:bg-white shadow-xs transition-all cursor-pointer border border-white/60 active:scale-95"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-[#073B65] bg-white hover:bg-[#FDF6E9] shadow-xs transition-all cursor-pointer border border-[#DCEAF3] active:scale-95"
               title="ร้านแลกของรางวัลธรรมะ (Thanavuddho Learning Points)"
             >
-              <span>🪙</span>
-              <span className="font-mono" suppressHydrationWarning>
+              <span className="text-sm">🪙</span>
+              <span className="font-mono text-[#D9A441] font-extrabold" suppressHydrationWarning>
                 {mounted ? availablePoints.toLocaleString() : '0'}
               </span>
-              <span className="text-[10px] opacity-75">P</span>
+              <span className="text-[10px] text-[#64748B]">P</span>
             </Link>
 
             {/* AI Assistant Quick Pill */}
             <Link 
               href="/chatbot" 
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-sky-700 bg-white hover:bg-sky-50 hover:text-sky-800 transition-all shadow-xs cursor-pointer border border-sky-200/80 active:scale-95"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-[#073B65] bg-white hover:bg-sky-50 hover:text-[#079FE8] transition-all shadow-xs cursor-pointer border border-[#DCEAF3] active:scale-95"
             >
-              <Bot size={14} className="text-sky-500" />
+              <Bot size={14} className="text-[#079FE8]" />
               <span>ถาม AI ธรรมะ</span>
             </Link>
 
@@ -231,8 +231,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* 2. Sub-Nav Bar (Desktop: Eye-catching tabs with distinct icons and clear contrast) */}
-      <div className="hidden lg:block border-t border-sky-400/40 bg-sky-700/25 backdrop-blur-md shadow-inner">
+      {/* 2. Sub-Nav Bar (Deep Navy with high-contrast active tabs) */}
+      <div className="hidden lg:block border-t border-white/15 bg-[#073B65]/90 backdrop-blur-md shadow-inner">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center space-x-2 py-2">
             {navLinks.map((link) => {
@@ -244,11 +244,11 @@ export default function Navbar() {
                   href={link.href}
                   className={`group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black transition-all duration-200 cursor-pointer ${
                     active
-                      ? 'bg-white text-slate-900 shadow-md ring-2 ring-white/60 scale-[1.03]'
-                      : 'bg-white/15 hover:bg-white/25 text-white border border-white/25 hover:border-white/50 shadow-xs'
+                      ? 'bg-white text-[#073B65] shadow-md ring-2 ring-white/60 scale-[1.03]'
+                      : 'bg-white/10 hover:bg-white/20 text-white/90 hover:text-white border border-white/15 hover:border-white/40 shadow-xs'
                   }`}
                 >
-                  <Icon size={14} className={active ? link.activeIconColor : link.iconColor} />
+                  <Icon size={14} className={active ? 'text-[#079FE8]' : 'text-white/80 group-hover:text-white'} />
                   <span>{link.label}</span>
                 </Link>
               );

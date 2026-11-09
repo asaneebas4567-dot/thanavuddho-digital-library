@@ -74,11 +74,11 @@ export default function PdfBooksPage() {
   }, [allPdfBooks, searchQuery, selectedCategory]);
 
   return (
-    <div className="bg-gray-50 min-h-screen py-10">
+    <div className="bg-[#F0F8FD]/40 min-h-screen py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Page Banner Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-600 via-sky-700 to-blue-800 text-white p-8 md:p-12 mb-10 shadow-xl shadow-sky-600/10">
+        {/* Page Banner Header (Deep Navy to Primary Blue) */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#073B65] via-[#0B4E85] to-[#079FE8] text-white p-8 md:p-12 mb-10 shadow-xl shadow-sky-950/10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
           
           <div className="relative z-10 max-w-3xl">
@@ -87,7 +87,7 @@ export default function PdfBooksPage() {
               <span>คลังเอกสาร & หนังสือ PDF ออนไลน์</span>
             </div>
             
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-4 drop-shadow">
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-4 drop-shadow">
               ศูนย์รวมหนังสือ PDF ธรรมะ
             </h1>
             
@@ -107,14 +107,14 @@ export default function PdfBooksPage() {
         </div>
 
         {/* 3-Slot Recommended Section (สุ่ม 3 เล่มเด่น) */}
-        <section className="mb-12 bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-gray-100">
+        <section className="mb-12 bg-white rounded-3xl p-6 sm:p-8 border border-[#DCEAF3] shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#DCEAF3]">
             <div>
               <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-600 flex items-center justify-center">
+                <span className="w-8 h-8 rounded-lg bg-[#F0F8FD] text-[#079FE8] flex items-center justify-center">
                   <Sparkles size={18} />
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+                <h2 className="text-xl sm:text-2xl font-black text-[#073B65]">
                   หนังสือแนะนำ (สุ่ม 3 เล่มเด่น)
                 </h2>
               </div>

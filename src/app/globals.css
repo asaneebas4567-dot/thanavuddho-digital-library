@@ -1,45 +1,74 @@
 @import "tailwindcss";
 
 :root {
-  /* Modern Digital Reading Platform Palette (Clean, Fresh, Colorful) */
-  --background: #ffffff;
-  --foreground: #0f172a;
+  /* ==========================================================================
+     Thanavuddho Digital Library: Blue & White Premium Design System
+     Palette Standard:
+       White: 60% (#FFFFFF)
+       Primary Blue: 25% (#079FE8)
+       Deep Navy: 10% (#073B65)
+       Accent Gold: 5% (#D9A441)
+       Light Blue Background: #F0F8FD
+       Main Text: #243447
+       Secondary Text: #64748B
+       Border: #DCEAF3
+     ========================================================================== */
+  --background: #FFFFFF;
+  --background-soft: #F0F8FD;
+  --foreground: #243447;
+  --text-main: #243447;
+  --text-muted: #64748B;
   
-  /* Primary: Noble Monk Robe / Saffron Amber */
-  --primary: #c2410c; /* Tailwind orange-700 */
+  --primary: #079FE8;
+  --primary-hover: #0588c7;
   --primary-foreground: #FFFFFF;
   
-  /* Warm Amber Accent */
-  --secondary: #f59e0b; /* Tailwind amber-500 */
-  --secondary-foreground: #451a03;
+  --navy: #073B65;
+  --navy-dark: #052946;
+  --navy-light: #0B4E85;
+  --navy-foreground: #FFFFFF;
   
-  --accent: #d97706; /* Tailwind amber-600 */
-  --accent-foreground: #FFFFFF;
+  --gold: #D9A441;
+  --gold-light: #FDF6E9;
+  --gold-hover: #C59132;
+  --gold-foreground: #FFFFFF;
   
   --surface: #FFFFFF;
   --surface-raised: #FFFFFF;
-  --border: #e4e4e7;
-  --border-subtle: #f4f4f5;
+  --border: #DCEAF3;
+  --border-subtle: #EBF3F8;
+
+  --status-success: #10B981;
+  --status-error: #EF4444;
+  --status-warning: #F59E0B;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-surface: var(--surface);
-  --color-border: var(--border);
+  --color-background-soft: #F0F8FD;
+  --color-foreground: #243447;
+  --color-text-main: #243447;
+  --color-text-muted: #64748B;
+  --color-primary: #079FE8;
+  --color-primary-hover: #0588c7;
+  --color-primary-foreground: #FFFFFF;
+  --color-navy: #073B65;
+  --color-navy-dark: #052946;
+  --color-navy-light: #0B4E85;
+  --color-navy-foreground: #FFFFFF;
+  --color-gold: #D9A441;
+  --color-gold-light: #FDF6E9;
+  --color-gold-hover: #C59132;
+  --color-surface: #FFFFFF;
+  --color-border: #DCEAF3;
+  --color-border-subtle: #EBF3F8;
   --font-sans: var(--font-mitr), var(--font-geist-sans), sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: #243447;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -84,8 +113,8 @@ body {
   font-weight: 900;
   line-height: 0.85;
   letter-spacing: -0.05em;
-  color: #d97706;
-  text-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
+  color: #073B65;
+  text-shadow: 0 2px 8px rgba(7, 59, 101, 0.2);
 }
 
 /* Hide Scrollbar */

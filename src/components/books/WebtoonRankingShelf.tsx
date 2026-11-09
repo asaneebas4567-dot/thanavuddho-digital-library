@@ -47,30 +47,30 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
     .filter(Boolean)
     .slice(0, 5) as Book[];
 
-  // Colorful Rank Badges
+  // Colorful Rank Badges (Gold for #1, Navy for #2, Sky Blue for #3)
   const rankBadges = [
-    { rank: '1', badge: 'bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 font-black shadow-amber-400/30', crown: true },
-    { rank: '2', badge: 'bg-gradient-to-br from-sky-400 to-blue-600 text-white font-black shadow-sky-400/30', crown: false },
-    { rank: '3', badge: 'bg-gradient-to-br from-rose-400 to-pink-600 text-white font-black shadow-rose-400/30', crown: false },
-    { rank: '4', badge: 'bg-gradient-to-br from-emerald-400 to-teal-600 text-white font-black shadow-emerald-400/30', crown: false },
-    { rank: '5', badge: 'bg-gradient-to-br from-purple-400 to-indigo-600 text-white font-black shadow-purple-400/30', crown: false },
+    { rank: '1', badge: 'bg-gradient-to-br from-[#D9A441] to-[#B88328] text-white font-black shadow-[#D9A441]/30', crown: true },
+    { rank: '2', badge: 'bg-gradient-to-br from-[#073B65] to-[#0A4D82] text-white font-black shadow-[#073B65]/30', crown: false },
+    { rank: '3', badge: 'bg-gradient-to-br from-[#079FE8] to-[#0588c7] text-white font-black shadow-[#079FE8]/30', crown: false },
+    { rank: '4', badge: 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-black shadow-emerald-400/30', crown: false },
+    { rank: '5', badge: 'bg-gradient-to-br from-purple-500 to-indigo-600 text-white font-black shadow-purple-400/30', crown: false },
   ];
 
   return (
-    <section className="w-full bg-gradient-to-b from-[#f8f9fc] via-white to-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+    <section className="w-full bg-white rounded-3xl p-6 sm:p-8 border border-[#DCEAF3] shadow-xs">
       
       {/* Header & Genre Filter Tabs */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-gray-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#DCEAF3]">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="p-1.5 rounded-xl bg-rose-50 text-rose-600">
+            <span className="p-1.5 rounded-xl bg-[#FDF6E9] text-[#D9A441]">
               <Flame size={19} />
             </span>
-            <h2 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-black text-[#073B65] tracking-tight">
               จัดอันดับหนังสือยอดนิยม (Weekly TOP 5)
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-gray-500 font-medium">
+          <p className="text-xs sm:text-sm text-[#64748B] font-medium">
             คัดเลือกหนังสือที่มีผู้อ่านและศึกษาต่อเนื่องสูงสุด พร้อมสีสันและภาพปกคุณภาพสูง
           </p>
         </div>
@@ -88,8 +88,8 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
               onClick={() => setActiveTab(tab.id as any)}
               className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'bg-gray-100/80 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-[#073B65] text-white shadow-xs'
+                  : 'bg-[#F0F8FD] text-[#243447] border border-[#DCEAF3] hover:bg-sky-50'
               }`}
             >
               {tab.label}

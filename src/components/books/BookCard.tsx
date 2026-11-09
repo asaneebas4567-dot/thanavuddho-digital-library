@@ -41,10 +41,10 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
   const theme = cardFallbackThemes[hash % cardFallbackThemes.length];
 
   return (
-    <div className="group relative bg-white border border-slate-200/80 rounded-2xl shadow-xs hover:shadow-xl hover:border-slate-400 transition-all duration-300 flex flex-col h-full hover:-translate-y-1 overflow-hidden">
+    <div className="group relative bg-white border border-[#DCEAF3] rounded-2xl shadow-xs hover:shadow-xl hover:border-[#079FE8]/40 transition-all duration-300 flex flex-col h-full hover:-translate-y-1 overflow-hidden">
       
       {/* Cover Artwork Container */}
-      <div className="relative aspect-[3/4] w-full bg-slate-50 overflow-hidden flex items-center justify-center p-4 sm:p-5 border-b border-gray-100">
+      <div className="relative aspect-[3/4] w-full bg-[#F0F8FD]/50 overflow-hidden flex items-center justify-center p-4 sm:p-5 border-b border-[#DCEAF3]">
         
         {/* Ambient glow */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
@@ -100,9 +100,9 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 opacity-0 group-hover:opacity-100 transition-all duration-200">
           <Link
             href={`/reader/${book.id}?from=/books`}
-            className="px-4 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-lg flex items-center gap-1.5 whitespace-nowrap active:scale-95"
+            className="px-4 py-1.5 rounded-full bg-[#073B65] hover:bg-[#052946] text-white font-bold text-xs shadow-lg flex items-center gap-1.5 whitespace-nowrap active:scale-95"
           >
-            <BookOpen size={13} className="text-amber-400" />
+            <BookOpen size={13} className="text-[#D9A441]" />
             <span>อ่านทันที</span>
           </Link>
         </div>
@@ -114,7 +114,7 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
         <div>
           {/* Tags / Meta Pill */}
           <div className="flex items-center text-xs text-gray-500 mb-2 gap-2 flex-wrap">
-            <span className="bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+            <span className="bg-[#F0F8FD] text-[#073B65] border border-[#DCEAF3] px-2 py-0.5 rounded-md font-semibold text-[11px]">
               {year ? `ปี ${year}` : 'ธรรมบรรณาการ'}
             </span>
             <span className="text-gray-300">•</span>

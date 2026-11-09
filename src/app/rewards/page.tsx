@@ -153,40 +153,40 @@ export default function RewardsShopPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafaf9] text-foreground font-sans pb-24">
-      {/* 1. Shop Top Header & Points Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-sky-700 via-sky-800 to-blue-900 text-white pt-10 pb-16 px-4 sm:px-6 lg:px-8 border-b border-sky-800/40">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-500/20 via-transparent to-transparent pointer-events-none" />
+    <div className="min-h-screen bg-[#F0F8FD]/50 text-[#243447] font-sans pb-24">
+      {/* 1. Shop Top Header & Points Banner (Deep Navy to Primary Blue Gradient) */}
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#073B65] via-[#0B4E85] to-[#079FE8] text-white pt-10 pb-16 px-4 sm:px-6 lg:px-8 border-b border-[#073B65]/40 shadow-md">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             
             {/* Title & Tagline */}
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/25 border border-sky-400/40 text-sky-200 text-xs font-bold mb-3 shadow-inner">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/20 text-white text-xs font-bold mb-3 shadow-inner">
+                <Sparkles className="w-3.5 h-3.5 text-[#D9A441]" />
                 <span>Thanavuddho Learning Points & Rewards Shop</span>
               </div>
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">
                 ร้านแลกของรางวัลธรรมะ
               </h1>
-              <p className="text-xs sm:text-sm text-sky-100/80 mt-1 max-w-xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-sky-100/90 mt-1 max-w-xl leading-relaxed">
                 สะสมคะแนนจากการอ่านหนังสือ บทความ ดูวิดีโอ และฟังพอดแคสต์ เพื่อนำมาแลกของที่ระลึก พระของขวัญ และหนังสือเล่มจริงฉบับพิเศษ
               </p>
             </div>
 
-            {/* Points Showcase Card */}
+            {/* Points Showcase Card with Accent Gold */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <div className="p-4 sm:p-5 rounded-3xl bg-black/40 border border-white/20 backdrop-blur-md shadow-2xl flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-500 via-sky-400 to-blue-200 flex items-center justify-center text-zinc-950 text-2xl font-black shadow-lg shrink-0">
+              <div className="p-4 sm:p-5 rounded-3xl bg-black/35 border border-white/20 backdrop-blur-md shadow-2xl flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#D9A441] via-[#FDF6E9] to-[#B88328] flex items-center justify-center text-2xl font-black shadow-lg shrink-0">
                   🪙
                 </div>
                 <div>
                   <div className="text-xs text-sky-200 font-semibold">คะแนนสะสมของคุณ</div>
-                  <div className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                    {availablePoints.toLocaleString()} <span className="text-sm font-bold text-sky-300">P</span>
+                  <div className="text-2xl sm:text-3xl font-black text-[#D9A441] tracking-tight">
+                    {availablePoints.toLocaleString()} <span className="text-sm font-bold text-white/80">P</span>
                   </div>
-                  <div className="text-[11px] text-sky-200/80">
+                  <div className="text-[11px] text-sky-200/90">
                     วันนี้ได้รับ: +{todayPoints.toLocaleString()} P (กิจกรรมประจำวัน: {dailyLearningPoints}/{dailyLearningCap} P)
                   </div>
                 </div>
@@ -196,9 +196,9 @@ export default function RewardsShopPage() {
               <div className="flex flex-col gap-2">
                 <button
                   onClick={() => setShowDailyModal(true)}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white hover:bg-sky-50 text-sky-950 font-extrabold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white hover:bg-[#FDF6E9] text-[#073B65] font-extrabold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
                 >
-                  <Flame className="w-4 h-4 text-sky-600" />
+                  <Flame className="w-4 h-4 text-[#D9A441]" />
                   <span>กิจกรรมวันนี้ ({dailyLearningPoints}/100 P)</span>
                   {isDailyCapReached && (
                     <span className="text-[10px] bg-emerald-600 text-white px-1.5 py-0.5 rounded-full font-bold">เต็ม</span>
@@ -207,7 +207,7 @@ export default function RewardsShopPage() {
 
                 <button
                   onClick={() => setActiveTab(activeTab === 'catalog' ? 'history' : 'catalog')}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/15 transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 transition-all cursor-pointer"
                 >
                   <History className="w-3.5 h-3.5" />
                   <span>{activeTab === 'catalog' ? `ประวัติการแลก (${myRedemptions.length})` : 'กลับไปหน้าร้านค้า'}</span>
@@ -334,12 +334,12 @@ export default function RewardsShopPage() {
 
                         {/* Top Badges */}
                         <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
-                          <span className="px-2.5 py-1 rounded-full bg-zinc-950/75 backdrop-blur-md text-sky-300 text-[11px] font-mono font-extrabold border border-sky-400/30 shadow-md">
+                          <span className="px-2.5 py-1 rounded-full bg-zinc-950/80 backdrop-blur-md text-[#D9A441] text-[11px] font-mono font-extrabold border border-[#D9A441]/40 shadow-md">
                             🪙 {item.points.toLocaleString()} P
                           </span>
 
                           {item.badge && (
-                            <span className="px-2.5 py-1 rounded-full bg-sky-500 text-zinc-950 text-[10px] font-black shadow-md">
+                            <span className="px-2.5 py-1 rounded-full bg-[#D9A441] text-white text-[10px] font-black shadow-md">
                               {item.badge}
                             </span>
                           )}
@@ -400,9 +400,9 @@ export default function RewardsShopPage() {
                           ) : (
                             <button
                               onClick={() => handleOpenRedeemModal(item)}
-                              className="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-98 text-white font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              className="w-full py-2.5 px-4 rounded-xl bg-[#079FE8] hover:bg-[#0588c7] active:scale-98 text-white font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                             >
-                              <Gift className="w-4 h-4" />
+                              <Gift className="w-4 h-4 text-[#D9A441]" />
                               <span>แลกของรางวัลนี้ ({item.points.toLocaleString()} P)</span>
                             </button>
                           )}

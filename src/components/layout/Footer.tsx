@@ -15,19 +15,19 @@ const TiktokIcon = ({ size = 20, className = "" }) => (
 
 export default function Footer() {
   return (
-    <footer className="bg-white/20 backdrop-blur-xl border-t border-white/40 pt-12 pb-16 sm:pb-20 mt-auto relative z-10">
+    <footer className="bg-white border-t border-[#DCEAF3] pt-12 pb-16 sm:pb-20 mt-auto relative z-10 text-[#243447]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-4 group">
-              <div className="w-8 h-8 bg-sky-500 text-white rounded-xl flex items-center justify-center font-black text-base shadow-sm group-hover:scale-105 transition-transform border border-sky-200/60">
+              <div className="w-8 h-8 bg-[#079FE8] text-white rounded-xl flex items-center justify-center font-black text-base shadow-sm group-hover:scale-105 transition-transform border border-white/80">
                 ถ
               </div>
-              <span className="font-bold text-xl text-gray-900 tracking-tight">
-                Thanavuddho <span className="text-sky-600 font-extrabold">Library</span>
+              <span className="font-extrabold text-xl text-[#073B65] tracking-tight">
+                Thanavuddho <span className="text-[#079FE8] font-black">Library</span>
               </span>
             </Link>
-            <p className="text-gray-500 text-sm mb-6">
+            <p className="text-[#64748B] text-sm mb-6 leading-relaxed">
               รวบรวมองค์ความรู้และผลงานของ พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ) เพื่อการศึกษาและพัฒนาจิตใจ
             </p>
             <div className="flex space-x-4">
@@ -37,47 +37,44 @@ export default function Footer() {
               <a href="https://www.tiktok.com/@thanavuddhostory" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-black transition-colors" title="TikTok">
                 <TiktokIcon size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-sky-600">
+              <a href="#" className="text-gray-400 hover:text-[#079FE8]">
                 <Mail size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-sky-600">
+              <a href="#" className="text-gray-400 hover:text-[#079FE8]">
                 <Phone size={20} />
               </a>
             </div>
           </div>
           
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">คลังสื่อการเรียนรู้</h3>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li><Link href="/books" className="hover:text-sky-600">หนังสือธรรมะดิจิทัล</Link></li>
-              <li><Link href="/audios" className="hover:text-sky-600">หนังสือเสียง & Podcast</Link></li>
-              <li><Link href="/videos" className="hover:text-sky-600">วิดีโอเทศนา (พร้อม Timestamps)</Link></li>
-              <li><Link href="/articles" className="hover:text-sky-600">บทความธรรมะสร้างปัญญา</Link></li>
+            <h3 className="font-bold text-[#073B65] mb-4">คลังสื่อการเรียนรู้</h3>
+            <ul className="space-y-2 text-sm text-[#64748B]">
+              <li><Link href="/books" className="hover:text-[#079FE8] transition-colors">หนังสือธรรมะดิจิทัล</Link></li>
+              <li><Link href="/audios" className="hover:text-[#079FE8] transition-colors">หนังสือเสียง & Podcast</Link></li>
+              <li><Link href="/videos" className="hover:text-[#079FE8] transition-colors">วิดีโอเทศนา (พร้อม Timestamps)</Link></li>
+              <li><Link href="/articles" className="hover:text-[#079FE8] transition-colors">บทความธรรมะสร้างปัญญา</Link></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">ระบบและนวัตกรรม</h3>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li><Link href="/quiz" className="hover:text-sky-600 font-semibold text-sky-700">เกมมิฟิเคชัน & Quiz 4 ระดับ</Link></li>
-              <li><Link href="/search" className="hover:text-sky-600">ระบบค้นหาอัจฉริยะ (Smart Search)</Link></li>
-              <li><Link href="/chatbot" className="hover:text-sky-600">ผู้ช่วยธรรมะ AI (AI Chatbot)</Link></li>
-              <li><Link href="/dashboard" className="hover:text-sky-600">ระบบยืม-คืนสื่อดิจิทัล (Digital Loan)</Link></li>
+            <h3 className="font-bold text-[#073B65] mb-4">ระบบและนวัตกรรม</h3>
+            <ul className="space-y-2 text-sm text-[#64748B]">
+              <li><Link href="/quiz" className="hover:text-[#079FE8] transition-colors">แบบทดสอบ XP & เกียรติบัตร</Link></li>
+              <li><Link href="/rewards" className="hover:text-[#079FE8] transition-colors">ร้านแลกของรางวัลธรรมะ</Link></li>
+              <li><Link href="/chatbot" className="hover:text-[#079FE8] transition-colors">AI ธรรมะถามตอบอัจฉริยะ</Link></li>
+              <li><Link href="/dashboard" className="hover:text-[#079FE8] transition-colors">ชั้นหนังสือส่วนบุคคล</Link></li>
             </ul>
           </div>
-          
+
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">สมาชิกและข้อมูลส่วนตัว</h3>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li><Link href="/dashboard" className="hover:text-sky-600">แดชบอร์ดผู้ใช้งาน</Link></li>
-              <li><Link href="/dashboard" className="hover:text-sky-600">รายการสื่อที่ยืมอยู่</Link></li>
-              <li><Link href="/quiz" className="hover:text-sky-600">เหรียญรางวัล & วุฒิบัตรดิจิทัล</Link></li>
-            </ul>
+            <h3 className="font-bold text-[#073B65] mb-4">ติดต่อและการใช้งาน</h3>
+            <p className="text-sm text-[#64748B] mb-2">
+              เปิดอ่านออนไลน์ฟรีเพื่อการศึกษาและเผยแผ่พระพุทธศาสนา
+            </p>
+            <p className="text-xs text-slate-400">
+              © {new Date().getFullYear()} Thanavuddho Digital Library. All rights reserved.
+            </p>
           </div>
-        </div>
-        
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} Thanavuddho Digital Library. All rights reserved.</p>
         </div>
       </div>
     </footer>

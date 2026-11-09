@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="th">
       <body
-        className={`${inter.variable} ${mitr.variable} font-sans antialiased min-h-screen flex flex-col bg-[#fbfbfa] text-foreground`}
+        className={`${inter.variable} ${mitr.variable} font-sans antialiased min-h-screen flex flex-col bg-[#F0F8FD]/40 text-[#243447]`}
       >
         <AppProviders>
           <Navbar />

@@ -226,7 +226,7 @@ export default function HomeQuestWidget() {
       {/* 1. Sleek, Compact Quest & Wallet Bar (Clean, Elegant, Low Visual Clutter) */}
       <div 
         id="quests"
-        className="w-full bg-white border border-sky-200/90 rounded-2xl p-4 sm:px-6 sm:py-3.5 shadow-xs font-sans select-none"
+        className="w-full bg-white border border-[#DCEAF3] rounded-2xl p-4 sm:px-6 sm:py-3.5 shadow-xs font-sans select-none"
       >
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
           
@@ -240,19 +240,20 @@ export default function HomeQuestWidget() {
               className="flex items-center gap-3 cursor-pointer group"
               title="คลิกเพื่อเปิดสมุดเควสและแลกของขวัญ"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white flex items-center justify-center font-bold shadow-xs group-hover:scale-105 transition-transform shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D9A441] to-[#B88328] text-white flex items-center justify-center font-bold shadow-xs group-hover:scale-105 transition-transform shrink-0">
                 <Coins size={20} />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-gray-800">กระเป๋าแต้มสะสม</span>
-                  <span className="text-xs font-bold text-sky-700 bg-sky-100/80 px-2 py-0.5 rounded-full">
-                    {totalPoints} แต้ม 🪙
+                  <span className="text-xs font-bold text-[#073B65]">กระเป๋าแต้มสะสม</span>
+                  <span className="text-xs font-bold text-[#B88328] bg-[#FDF6E9] border border-[#F5E6C8] px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <span>🪙</span>
+                    <span>{totalPoints} แต้ม</span>
                   </span>
                 </div>
-                <div className="text-[11px] text-gray-500 mt-0.5 flex items-center gap-2">
+                <div className="text-[11px] text-[#64748B] mt-0.5 flex items-center gap-2">
                   <span>สำเร็จ {completedQuestIds.length}/{allAcrossBooks.length} เควส</span>
-                  <span className="text-sky-700 font-semibold group-hover:underline flex items-center gap-0.5">
+                  <span className="text-[#079FE8] font-semibold group-hover:underline flex items-center gap-0.5">
                     <Gift size={11} /> แลกของรางวัล
                   </span>
                 </div>
@@ -261,20 +262,20 @@ export default function HomeQuestWidget() {
 
             {/* Mobile Pager */}
             {discoveredQuests.length > 1 && (
-              <div className="lg:hidden flex items-center gap-1 bg-white px-2 py-1 rounded-full border border-slate-200 text-xs">
+              <div className="lg:hidden flex items-center gap-1 bg-[#F0F8FD] px-2 py-1 rounded-full border border-[#DCEAF3] text-xs">
                 <button
                   onClick={() => setActiveQuestIndex(prev => (prev > 0 ? prev - 1 : discoveredQuests.length - 1))}
-                  className="p-1 hover:bg-sky-50 rounded text-slate-700 hover:text-sky-800"
+                  className="p-1 hover:bg-sky-100 rounded text-[#073B65]"
                   title="เควสก่อนหน้า"
                 >
                   <ChevronLeft size={13} />
                 </button>
-                <span className="font-bold text-[11px] px-1 text-slate-700">
+                <span className="font-bold text-[11px] px-1 text-[#073B65]">
                   {((activeQuestIndex % discoveredQuests.length) + 1)}/{discoveredQuests.length}
                 </span>
                 <button
                   onClick={() => setActiveQuestIndex(prev => (prev + 1) % discoveredQuests.length)}
-                  className="p-1 hover:bg-sky-50 rounded text-slate-700 hover:text-sky-800"
+                  className="p-1 hover:bg-sky-100 rounded text-[#073B65]"
                   title="เควสถัดไป"
                 >
                   <ChevronRight size={13} />
@@ -284,7 +285,7 @@ export default function HomeQuestWidget() {
           </div>
 
           {/* Divider on desktop */}
-          <div className="hidden lg:block w-px h-8 bg-slate-200" />
+          <div className="hidden lg:block w-px h-8 bg-[#DCEAF3]" />
 
           {/* Center: Recommended Active Quest */}
           <div className="flex-1 min-w-0 w-full lg:w-auto">
@@ -362,19 +363,19 @@ export default function HomeQuestWidget() {
       {/* 2. Full Quest Codex & Rewards Modal ("สมุดบันทึกเควส & แลกของขวัญ") */}
       {isCodexOpen && (
         <div className="fixed inset-0 z-[250] bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
-          <div className="bg-white border-2 border-sky-200 rounded-3xl w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden font-sans">
+          <div className="bg-white border border-[#DCEAF3] rounded-3xl w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden font-sans">
             
-            {/* Header */}
-            <div className="px-6 py-4 border-b border-sky-400/30 flex items-center justify-between bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 text-white shrink-0">
+            {/* Header: White Background with Deep Navy Title */}
+            <div className="px-6 py-4 border-b border-[#DCEAF3] flex items-center justify-between bg-white text-[#243447] shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center shadow-md">
-                  <Compass size={24} className="text-white" />
+                <div className="w-10 h-10 rounded-2xl bg-[#F0F8FD] border border-[#DCEAF3] text-[#079FE8] flex items-center justify-center shadow-xs">
+                  <Compass size={22} className="text-[#079FE8]" />
                 </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#073B65] flex items-center gap-2">
                     สมุดบันทึกเควสธรรมะ & กระเป๋าแลกของขวัญ
                   </h3>
-                  <p className="text-xs text-sky-100">
+                  <p className="text-xs text-[#64748B]">
                     ติดตามภารกิจโลก ปริศนาธรรมที่ค้นพบ และแลกของที่ระลึก
                   </p>
                 </div>
@@ -383,33 +384,33 @@ export default function HomeQuestWidget() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setSoundEnabled(!soundEnabled)}
-                  className="p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-full transition-colors cursor-pointer"
+                  className="p-2 text-[#64748B] hover:text-[#073B65] hover:bg-[#F0F8FD] rounded-full transition-colors cursor-pointer"
                   title={soundEnabled ? 'ปิดเสียง' : 'เปิดเสียง'}
                 >
                   {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
                 </button>
                 <button
                   onClick={() => setIsCodexOpen(false)}
-                  className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors cursor-pointer"
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors cursor-pointer"
                   title="ปิด"
                 >
-                  <X size={19} />
+                  <X size={17} />
                 </button>
               </div>
             </div>
 
-            {/* Wallet Summary Banner */}
-            <div className="px-6 py-3 bg-sky-50/70 border-b border-sky-100 flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
-              <div className="flex items-center gap-2 text-sky-950">
-                <Coins size={18} className="text-sky-600 shrink-0" />
+            {/* Wallet Summary Banner (Soft Light Blue Background with Gold Points) */}
+            <div className="px-6 py-3 bg-[#F0F8FD] border-b border-[#DCEAF3] flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
+              <div className="flex items-center gap-2 text-[#073B65]">
+                <Coins size={18} className="text-[#D9A441] shrink-0" />
                 <span className="font-semibold">แต้มสะสมในกระเป๋า:</span>
-                <strong className="text-lg text-sky-700 font-extrabold">{totalPoints}</strong> แต้ม 🪙
+                <strong className="text-lg text-[#D9A441] font-extrabold">{totalPoints}</strong> แต้ม 🪙
               </div>
 
-              <div className="flex items-center gap-3 text-xs font-semibold text-sky-900">
-                <span>สำเร็จแล้ว: <strong>{completedQuestIds.length}</strong>/{allAcrossBooks.length} เควส</span>
-                <span className="text-sky-300">|</span>
-                <span>ค้นพบแล้ว: <strong>{discoveredQuests.length}</strong> เควส</span>
+              <div className="flex items-center gap-3 text-xs font-semibold text-[#073B65]">
+                <span>สำเร็จแล้ว: <strong className="text-[#079FE8]">{completedQuestIds.length}</strong>/{allAcrossBooks.length} เควส</span>
+                <span className="text-[#DCEAF3]">|</span>
+                <span>ค้นพบแล้ว: <strong className="text-[#079FE8]">{discoveredQuests.length}</strong> เควส</span>
               </div>
             </div>
 

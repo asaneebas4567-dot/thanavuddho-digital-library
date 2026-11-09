@@ -91,11 +91,11 @@ export default function AudiosPage() {
     <div className="min-h-screen bg-slate-50/50 pb-36 pt-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-600 via-sky-700 to-blue-800 text-white p-8 sm:p-12 mb-10 shadow-xl shadow-sky-950/10">
-          <div className="absolute -right-16 -top-16 w-80 h-80 bg-sky-400/20 rounded-full blur-3xl pointer-events-none"></div>
+        {/* Header Banner (Deep Navy to Primary Blue Gradient) */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#073B65] via-[#0B4E85] to-[#079FE8] text-white p-8 sm:p-12 mb-10 shadow-xl shadow-sky-950/10">
+          <div className="absolute -right-16 -top-16 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
           <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/20 text-sky-200 text-xs font-semibold backdrop-blur-md border border-sky-400/20 mb-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 text-white text-xs font-semibold backdrop-blur-md border border-white/20 mb-4">
               <Headphones size={15} /> คลังเสียงธรรมะมัลติมีเดีย (Audio & Podcasts)
             </div>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
@@ -461,19 +461,19 @@ export default function AudiosPage() {
 
       </div>
 
-      {/* Floating Bottom Audio Player Bar */}
+      {/* Floating Bottom Audio Player Bar (Deep Navy Player for Multimedia Separation) */}
       {currentTrack && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-gray-200/80 shadow-2xl px-4 py-3 sm:py-3.5 transition-all">
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#073B65] text-white shadow-2xl px-4 py-3 sm:py-3.5 transition-all border-t border-white/10">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
             
             {/* Left: Track Info */}
             <div className="flex items-center gap-3 w-full sm:w-1/3 min-w-0">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-sm shrink-0 ring-1 ring-black/5">
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-sm shrink-0 ring-1 ring-white/20">
                 <Image src={currentTrack.cover} alt={currentTrack.title} fill className="object-cover" unoptimized />
               </div>
               <div className="min-w-0">
-                <h5 className="font-bold text-gray-900 text-sm truncate leading-tight">{currentTrack.title}</h5>
-                <p className="text-xs text-sky-700 font-medium truncate mt-0.5">{currentTrack.subtitle}</p>
+                <h5 className="font-bold text-white text-sm truncate leading-tight">{currentTrack.title}</h5>
+                <p className="text-xs text-sky-200 font-medium truncate mt-0.5">{currentTrack.subtitle}</p>
               </div>
             </div>
 
@@ -482,7 +482,7 @@ export default function AudiosPage() {
               <div className="flex items-center gap-4">
                 <button 
                   onClick={() => setProgress(p => Math.max(0, p - 10))}
-                  className="p-1.5 text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
+                  className="p-1.5 text-sky-200 hover:text-white transition-colors cursor-pointer"
                   title="ย้อนหลัง 10 วินาที"
                 >
                   <SkipBack size={18} />
@@ -490,14 +490,14 @@ export default function AudiosPage() {
 
                 <button 
                   onClick={togglePlay}
-                  className="w-10 h-10 rounded-full bg-sky-600 hover:bg-sky-700 text-white flex items-center justify-center shadow-md shadow-sky-600/30 transition-transform active:scale-95 cursor-pointer"
+                  className="w-10 h-10 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white flex items-center justify-center shadow-md shadow-[#079FE8]/40 transition-transform active:scale-95 cursor-pointer"
                 >
                   {isPlaying ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
                 </button>
 
                 <button 
                   onClick={() => setProgress(p => Math.min(100, p + 10))}
-                  className="p-1.5 text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
+                  className="p-1.5 text-sky-200 hover:text-white transition-colors cursor-pointer"
                   title="ข้ามไปข้างหน้า 10 วินาที"
                 >
                   <SkipForward size={18} />
@@ -506,21 +506,21 @@ export default function AudiosPage() {
 
               {/* Progress Bar */}
               <div className="w-full flex items-center gap-2 max-w-md">
-                <span className="text-[10px] font-mono text-gray-400">02:15</span>
+                <span className="text-[10px] font-mono text-sky-300">02:15</span>
                 <div 
                   onClick={(e) => {
                     const rect = e.currentTarget.getBoundingClientRect();
                     const clickX = e.clientX - rect.left;
                     setProgress(Math.round((clickX / rect.width) * 100));
                   }}
-                  className="flex-grow h-1.5 bg-gray-200 rounded-full overflow-hidden cursor-pointer relative"
+                  className="flex-grow h-1.5 bg-white/20 rounded-full overflow-hidden cursor-pointer relative"
                 >
                   <div 
-                    className="h-full bg-sky-600 rounded-full transition-all"
+                    className="h-full bg-[#079FE8] rounded-full transition-all"
                     style={{ width: `${progress}%` }}
                   ></div>
                 </div>
-                <span className="text-[10px] font-mono text-gray-400">{currentTrack.duration}</span>
+                <span className="text-[10px] font-mono text-sky-300">{currentTrack.duration}</span>
               </div>
             </div>
 
@@ -538,8 +538,8 @@ export default function AudiosPage() {
                 onClick={() => setIsTranscriptOpen(prev => !prev)}
                 className={`px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   isTranscriptOpen
-                    ? 'bg-sky-600 border-sky-500 text-white shadow-xs'
-                    : 'bg-sky-50 hover:bg-sky-100 border-sky-200 text-sky-900'
+                    ? 'bg-[#079FE8] border-[#079FE8] text-white shadow-xs'
+                    : 'bg-white/10 hover:bg-white/20 border-white/20 text-white'
                 }`}
                 title="เปิดบทถอดเสียงบรรยายธรรม (Transcript)"
               >
@@ -549,7 +549,7 @@ export default function AudiosPage() {
 
               <button 
                 onClick={cycleSpeed}
-                className="px-2 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-mono font-semibold transition-colors cursor-pointer"
+                className="px-2 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-mono font-semibold transition-colors cursor-pointer"
                 title="ความเร็วในการเล่น"
               >
                 {playbackSpeed}x
@@ -557,7 +557,7 @@ export default function AudiosPage() {
 
               <button 
                 onClick={() => setIsMuted(m => !m)}
-                className="p-1.5 text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
+                className="p-1.5 text-sky-200 hover:text-white transition-colors cursor-pointer"
                 title={isMuted ? 'เปิดเสียง' : 'ปิดเสียง'}
               >
                 {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}

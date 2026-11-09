@@ -155,16 +155,16 @@ function QuizGamificationContent() {
   const currentQ: QuizQuestion | undefined = activeQuiz?.questions[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen bg-slate-50/50 py-10 pb-28">
+    <div className="min-h-screen bg-[#F0F8FD]/40 py-10 pb-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header Hero */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-600 via-sky-700 to-blue-800 text-white p-8 sm:p-12 mb-10 shadow-xl shadow-sky-900/10">
+        {/* Header Hero (Deep Navy to Primary Blue) */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#073B65] via-[#0B4E85] to-[#079FE8] text-white p-8 sm:p-12 mb-10 shadow-xl shadow-sky-950/10">
           <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-500/20 text-sky-200 text-xs font-bold border border-sky-400/20 mb-3">
-              <Trophy size={14} /> ระบบเกมมิฟิเคชัน & แบบทดสอบความรู้ (Gamification & Quiz)
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/15 text-white text-xs font-bold border border-white/20 mb-3">
+              <Trophy size={14} className="text-[#D9A441]" /> ระบบเกมมิฟิเคชัน & แบบทดสอบความรู้ (Gamification & Quiz)
             </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight mb-4">
               ทดสอบปัญญาธรรม <span className="text-sky-200">4 ระดับสู่ความรู้แจ้ง</span>
             </h1>
             <p className="text-sky-100/90 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
@@ -173,17 +173,17 @@ function QuizGamificationContent() {
 
             {/* User Gamification Stats Bar */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
-              <div className="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+              <div className="bg-black/30 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/20 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D9A441] to-[#B88328] text-white flex items-center justify-center font-bold text-lg shadow-sm">
                   ⚡
                 </div>
                 <div>
                   <div className="text-[11px] text-sky-200">คะแนนสะสม (Total XP)</div>
-                  <div className="text-lg font-black text-white">{userXP.toLocaleString()} XP</div>
+                  <div className="text-lg font-black text-[#D9A441]">{userXP.toLocaleString()} XP</div>
                 </div>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 flex items-center gap-3">
+              <div className="bg-black/30 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/20 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center font-bold text-lg shadow-sm">
                   🏅
                 </div>
@@ -448,8 +448,8 @@ function QuizGamificationContent() {
                 onClick={() => setSelectedLevel(lvl.id as any)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
                   isActive 
-                    ? 'bg-sky-600 text-white shadow-md shadow-sky-600/20' 
-                    : 'bg-white border border-gray-200 text-gray-700 hover:border-sky-300'
+                    ? 'bg-[#073B65] text-white shadow-md shadow-[#073B65]/20' 
+                    : 'bg-white border border-[#DCEAF3] text-[#243447] hover:border-[#079FE8]'
                 }`}
               >
                 <Icon size={16} />

@@ -71,15 +71,15 @@ export default function BookPreviewModal({ book, isOpen, onClose }: BookPreviewM
 
       {/* Modal Dialog (Webtoon Style Series Window) */}
       <div 
-        className="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden z-10 animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-3xl shadow-2xl border border-[#DCEAF3] flex flex-col overflow-hidden z-10 animate-in zoom-in-95 duration-200"
         role="dialog"
         aria-modal="true"
       >
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white/95 backdrop-blur-md z-20">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#DCEAF3] bg-white/95 backdrop-blur-md z-20">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800 border border-slate-200">
-              <BookMarked size={14} className="text-sky-600" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#F0F8FD] text-[#073B65] border border-[#DCEAF3]">
+              <BookMarked size={14} className="text-[#079FE8]" />
               ข้อมูลหนังสือดิจิทัล
             </span>
           </div>
@@ -135,7 +135,7 @@ export default function BookPreviewModal({ book, isOpen, onClose }: BookPreviewM
                   {readCount > 0 ? `${readCount.toLocaleString()} ครั้งที่อ่าน` : '0 ครั้งที่อ่าน'}
                 </span>
                 <span>•</span>
-                <span className="flex items-center gap-1 text-amber-600 font-bold">
+                <span className="flex items-center gap-1 text-[#D9A441] font-bold">
                   <Star size={13} fill="currentColor" />
                   4.9
                 </span>
@@ -145,7 +145,7 @@ export default function BookPreviewModal({ book, isOpen, onClose }: BookPreviewM
             {/* Book Details */}
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-2 text-xs text-gray-500 font-medium">
-                <span className="font-bold px-2.5 py-0.5 rounded-md bg-sky-50 text-sky-800 border border-sky-200/60">
+                <span className="font-bold px-2.5 py-0.5 rounded-md bg-[#F0F8FD] text-[#073B65] border border-[#DCEAF3]">
                   ธรรมบรรณาการ
                 </span>
                 <span>•</span>
@@ -156,14 +156,14 @@ export default function BookPreviewModal({ book, isOpen, onClose }: BookPreviewM
                 <span className="font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">ฉบับสมบูรณ์</span>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug tracking-tight mb-2">
+              <h2 className="text-xl sm:text-2xl font-black text-[#073B65] leading-snug tracking-tight mb-2">
                 {book.title}
               </h2>
 
               <p className="text-xs sm:text-sm text-slate-600 font-medium mb-4 flex items-center gap-1.5">
                 <span>ประพันธ์โดย:</span>
                 <span className="text-slate-900 font-bold">{author}</span>
-                <CheckCircle2 size={15} className="text-blue-600" />
+                <CheckCircle2 size={15} className="text-[#079FE8]" />
               </p>
 
               {/* Copyright Notice Banner - เด่นสะดุดตา ตัวแดงชัดเจน */}
@@ -202,7 +202,7 @@ export default function BookPreviewModal({ book, isOpen, onClose }: BookPreviewM
               <div className="flex flex-wrap items-center gap-3">
                 <Link
                   href={`/reader/${book.id}?from=/books`}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs sm:text-sm shadow-md transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#079FE8] hover:bg-[#0588c7] text-white font-extrabold text-xs sm:text-sm shadow-md transition-all cursor-pointer active:scale-95"
                 >
                   <BookOpen size={16} />
                   <span>เปิดอ่านฉบับเต็ม ({totalPages} หน้า)</span>

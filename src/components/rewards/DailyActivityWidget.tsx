@@ -47,21 +47,21 @@ export default function DailyActivityWidget({ onClose, isModal = false }: DailyA
   }).format(new Date());
 
   const content = (
-    <div className="w-full bg-white rounded-3xl p-5 sm:p-6 border border-sky-200/60 shadow-xl overflow-hidden relative">
+    <div className="w-full bg-white rounded-3xl p-5 sm:p-6 border border-[#DCEAF3] shadow-xl overflow-hidden relative">
       {/* Decorative background glow */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-sky-100/50 rounded-full blur-3xl -z-10 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#F0F8FD] rounded-full blur-3xl -z-10 pointer-events-none" />
 
       {/* Header */}
-      <div className="flex items-start justify-between gap-4 pb-4 border-b border-sky-100">
+      <div className="flex items-start justify-between gap-4 pb-4 border-b border-[#DCEAF3]">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-sky-700 uppercase tracking-wider">
-            <Flame className="w-4 h-4 text-sky-500 fill-sky-500" />
+          <div className="flex items-center gap-2 text-xs font-bold text-[#079FE8] uppercase tracking-wider">
+            <Flame className="w-4 h-4 text-[#D9A441] fill-[#D9A441]" />
             <span>กิจกรรมวันนี้ (Daily Learning Progress)</span>
           </div>
-          <h2 className="text-lg sm:text-xl font-extrabold text-foreground mt-1">
+          <h2 className="text-lg sm:text-xl font-black text-[#073B65] mt-1">
             บันทึกการเรียนรู้ประจำวัน
           </h2>
-          <p className="text-xs text-muted-foreground mt-0.5">
+          <p className="text-xs text-[#64748B] mt-0.5">
             {todayThai} • คุณ{userName}
           </p>
         </div>
@@ -69,23 +69,23 @@ export default function DailyActivityWidget({ onClose, isModal = false }: DailyA
         {isModal && onClose && (
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-zinc-100 text-muted-foreground hover:text-foreground transition-all cursor-pointer"
+            className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-all cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         )}
       </div>
 
-      {/* Today Points Highlight Banner */}
-      <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 text-white shadow-md flex items-center justify-between">
+      {/* Today Points Highlight Banner (Deep Navy + Accent Gold) */}
+      <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-[#073B65] via-[#0B4E85] to-[#073B65] text-white shadow-md flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-sky-200 text-xl font-black shadow-inner">
+          <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center text-2xl font-black shadow-inner">
             🪙
           </div>
           <div>
-            <div className="text-xs text-sky-100 font-medium">คะแนนที่ได้รับวันนี้</div>
-            <div className="text-2xl font-black tracking-tight">
-              +{todayPoints.toLocaleString()} <span className="text-sm font-semibold opacity-90">P</span>
+            <div className="text-xs text-sky-200 font-medium">คะแนนที่ได้รับวันนี้</div>
+            <div className="text-2xl font-black tracking-tight text-[#D9A441]">
+              +{todayPoints.toLocaleString()} <span className="text-sm font-semibold text-white/90">P</span>
             </div>
             <div className="text-[10px] text-sky-200/80">
               กิจกรรมทั่วไป {dailyLearningPoints} P • โบนัสเควส {Math.max(0, todayPoints - dailyLearningPoints)} P
@@ -94,26 +94,26 @@ export default function DailyActivityWidget({ onClose, isModal = false }: DailyA
         </div>
 
         <div className="text-right">
-          <div className="text-xs text-sky-100 font-medium">คะแนนคงเหลือทั้งหมด</div>
-          <div className="text-lg font-extrabold text-sky-200">{availablePoints.toLocaleString()} P</div>
+          <div className="text-xs text-sky-200 font-medium">คะแนนคงเหลือทั้งหมด</div>
+          <div className="text-lg font-black text-[#D9A441]">{availablePoints.toLocaleString()} P</div>
         </div>
       </div>
 
       {/* Daily Learning Activities Quota Progress Bar (100 P / Day Cap) */}
-      <div className="mt-3.5 p-4 rounded-2xl bg-gradient-to-br from-sky-50/80 via-blue-50/40 to-sky-100/30 border border-sky-200/80 shadow-xs">
+      <div className="mt-3.5 p-4 rounded-2xl bg-[#F0F8FD] border border-[#DCEAF3] shadow-xs">
         <div className="flex items-center justify-between text-xs mb-2">
           <div className="flex items-center gap-2">
-            <span className="p-1 rounded-lg bg-sky-500 text-white shadow-xs">
+            <span className="p-1 rounded-lg bg-[#079FE8] text-white shadow-xs">
               <Sparkles className="w-3.5 h-3.5" />
             </span>
             <div>
-              <span className="font-extrabold text-sky-950 block">โควตาคะแนนกิจกรรมประจำวัน</span>
-              <span className="text-[10px] text-sky-700/80">อ่านจบบท, บทความ, วิดีโอ, พอดแคสต์ (ไม่ต้องตอบคำถาม)</span>
+              <span className="font-extrabold text-[#073B65] block">โควตาคะแนนกิจกรรมประจำวัน</span>
+              <span className="text-[10px] text-[#64748B]">อ่านจบบท, บทความ, วิดีโอ, พอดแคสต์ (ไม่ต้องตอบคำถาม)</span>
             </div>
           </div>
           <div className="text-right">
-            <span className="text-sm font-black text-sky-900 font-mono">
-              {dailyLearningPoints} <span className="text-xs font-bold text-sky-600">/ {dailyLearningCap} P</span>
+            <span className="text-sm font-black text-[#073B65] font-mono">
+              {dailyLearningPoints} <span className="text-xs font-bold text-[#079FE8]">/ {dailyLearningCap} P</span>
             </span>
           </div>
         </div>

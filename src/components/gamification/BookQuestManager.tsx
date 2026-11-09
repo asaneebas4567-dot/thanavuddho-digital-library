@@ -658,27 +658,24 @@ export default function BookQuestManager({
             className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity" 
           />
 
-          {/* Modal Container: Clean, Sky Blue & Crisp White Aesthetic Matching Web */}
-          <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl shadow-2xl border border-sky-200 z-10 text-slate-900 flex flex-col bg-white transition-all duration-300">
-            {/* Modal Header: Sky Blue Buddhist Library Gradient */}
-            <div className="p-5 sm:p-6 bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 text-white relative overflow-hidden border-b border-sky-400/30">
-              {/* Soft decorative glow */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-white/15 rounded-full blur-2xl pointer-events-none" />
-
+          {/* Modal Container: Clean White, Deep Navy Header & Soft Border */}
+          <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl shadow-2xl border border-[#DCEAF3] z-10 text-[#243447] flex flex-col bg-white transition-all duration-300">
+            {/* Modal Header: Crisp White Background with Deep Navy Title */}
+            <div className="p-5 sm:p-6 bg-white border-b border-[#DCEAF3] relative text-[#243447]">
               {/* Top Controls */}
-              <div className="flex items-center justify-between mb-2 relative z-10">
+              <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 text-white border border-white/30 backdrop-blur-md flex items-center gap-1.5 shadow-xs">
-                    <Sparkles size={13} className="text-sky-200" />
+                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#F0F8FD] text-[#079FE8] border border-[#DCEAF3] flex items-center gap-1.5 shadow-2xs">
+                    <Sparkles size={13} className="text-[#079FE8]" />
                     <span>{activeQuest.categoryTag || 'ภารกิจทดสอบปัญญาธรรม'}</span>
                   </span>
                   {activeQuest.isLegendary && (
-                    <div className="flex items-center text-amber-300 text-xs">
-                      <Star size={13} className="fill-amber-300 text-amber-300" />
-                      <Star size={13} className="fill-amber-300 text-amber-300" />
-                      <Star size={13} className="fill-amber-300 text-amber-300" />
-                      <Star size={13} className="fill-amber-300 text-amber-300" />
-                      <Star size={13} className="fill-amber-300 text-amber-300" />
+                    <div className="flex items-center text-[#D9A441] text-xs">
+                      <Star size={13} className="fill-[#D9A441] text-[#D9A441]" />
+                      <Star size={13} className="fill-[#D9A441] text-[#D9A441]" />
+                      <Star size={13} className="fill-[#D9A441] text-[#D9A441]" />
+                      <Star size={13} className="fill-[#D9A441] text-[#D9A441]" />
+                      <Star size={13} className="fill-[#D9A441] text-[#D9A441]" />
                     </div>
                   )}
                 </div>
@@ -686,14 +683,14 @@ export default function BookQuestManager({
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={toggleSound}
-                    className="p-2 rounded-xl hover:bg-white/20 text-white/80 hover:text-white transition-colors cursor-pointer"
+                    className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
                     title={soundEnabled ? 'ปิดเสียงเอฟเฟกต์' : 'เปิดเสียงเอฟเฟกต์'}
                   >
                     {soundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
                   </button>
                   <button 
                     onClick={closeQuestModal}
-                    className="p-2 rounded-xl hover:bg-white/20 text-white/80 hover:text-white transition-colors cursor-pointer"
+                    className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
                     aria-label="ปิดหน้าต่างเควส"
                   >
                     <X size={20} />
@@ -701,30 +698,30 @@ export default function BookQuestManager({
                 </div>
               </div>
 
-              {/* Title & Subtitle */}
-              <h2 className="text-xl sm:text-2xl font-bold text-white leading-tight tracking-tight mt-1 relative z-10">
+              {/* Title & Subtitle in Deep Navy */}
+              <h2 className="text-xl sm:text-2xl font-black text-[#073B65] leading-tight tracking-tight mt-1">
                 {activeQuest.title}
               </h2>
-              <p className="text-sm sm:text-base text-sky-100 font-normal mt-1 relative z-10">
+              <p className="text-xs sm:text-sm text-[#64748B] font-normal mt-1">
                 {activeQuest.subtitle}
               </p>
             </div>
 
             {/* Modal Body */}
-            <div className="p-5 sm:p-7 space-y-5 overflow-y-auto flex-1 bg-slate-50/60">
+            <div className="p-5 sm:p-7 space-y-5 overflow-y-auto flex-1 bg-[#F0F8FD]/30">
               
               {/* Question Header & Points Reward Pill */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1 border-b border-slate-200">
-                <div className="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
-                  <HelpCircle size={20} className="text-sky-600 shrink-0" />
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1 border-b border-[#DCEAF3]">
+                <div className="text-base sm:text-lg font-bold text-[#073B65] flex items-center gap-2">
+                  <HelpCircle size={20} className="text-[#079FE8] shrink-0" />
                   <span>คำถามไขปริศนาธรรม</span>
                   {currentQuestions.length > 1 && (
-                    <span className="text-xs sm:text-sm font-semibold text-sky-700 bg-sky-100 px-2.5 py-0.5 rounded-lg border border-sky-200">
+                    <span className="text-xs sm:text-sm font-semibold text-[#079FE8] bg-[#F0F8FD] px-2.5 py-0.5 rounded-lg border border-[#DCEAF3]">
                       ข้อ {currentQuestionIndex + 1}/{currentQuestions.length}
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-1.5 text-xs sm:text-sm text-sky-900 font-bold bg-sky-100/80 border border-sky-200 px-3 py-1 rounded-full w-fit">
+                <div className="flex items-center gap-1.5 text-xs sm:text-sm text-[#B88328] font-bold bg-[#FDF6E9] border border-[#F5E6C8] px-3 py-1 rounded-full w-fit">
                   <span>🪙 รางวัลเมื่อผ่าน: +{activeQuest.loot.points} แต้ม</span>
                 </div>
               </div>

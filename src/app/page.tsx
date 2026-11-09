@@ -204,7 +204,7 @@ export default function Home() {
     .filter(Boolean) as Book[];
 
   return (
-    <div className="flex flex-col min-h-screen bg-stone-50/40">
+    <div className="flex flex-col min-h-screen bg-[#F0F8FD]/50">
       
       {/* 1. ไฮไลต์ชุดหนังสือดิจิทัล Carousel Showcase (BKK Book Style) */}
       <TopBannerCarousel books={featuredHighlightBooks.length > 0 ? featuredHighlightBooks : undefined} />

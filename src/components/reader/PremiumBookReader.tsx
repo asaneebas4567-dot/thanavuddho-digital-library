@@ -614,39 +614,39 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
     }
   };
 
-  // Theme Styling
+  // Theme Styling (Deep Navy Toolbars with Cream/Soft-White Paper for Reading Comfort)
   const themeClasses = useMemo(() => {
     switch (theme) {
       case 'sepia':
         return {
-          viewportBg: 'bg-[#f4ebd0] text-[#382b1d]',
-          stageBg: 'bg-[#e8dec0]',
-          paperBg: 'bg-[#fbf7eb] text-[#382b1d] border-[#dfcd9e]',
-          headerBg: 'bg-[#f4ebd0]/95 border-[#dfcd9e] text-[#382b1d]',
-          footerBg: 'bg-[#f4ebd0]/95 border-[#dfcd9e] text-[#382b1d]',
-          accent: 'text-amber-800',
-          accentBg: 'bg-amber-700 hover:bg-amber-800 text-white',
+          viewportBg: 'bg-[#F5EEDB] text-[#382b1d]',
+          stageBg: 'bg-[#EBDDC3]',
+          paperBg: 'bg-[#FAF4E6] text-[#382b1d] border-[#DECFA9] shadow-[0_12px_36px_rgba(56,43,29,0.08)]',
+          headerBg: 'bg-[#073B65] border-white/10 text-white shadow-md',
+          footerBg: 'bg-[#073B65] border-white/10 text-white shadow-md',
+          accent: 'text-[#D9A441]',
+          accentBg: 'bg-[#D9A441] hover:bg-[#C59132] text-white',
         };
       case 'night':
         return {
           viewportBg: 'bg-zinc-950 text-zinc-100',
           stageBg: 'bg-zinc-900',
-          paperBg: 'bg-zinc-900 text-zinc-100 border-zinc-800',
-          headerBg: 'bg-zinc-950/95 border-zinc-800 text-zinc-100',
-          footerBg: 'bg-zinc-950/95 border-zinc-800 text-zinc-100',
+          paperBg: 'bg-zinc-900 text-zinc-100 border-zinc-800 shadow-2xl',
+          headerBg: 'bg-[#052946] border-white/10 text-white shadow-md',
+          footerBg: 'bg-[#052946] border-white/10 text-white shadow-md',
           accent: 'text-sky-400',
-          accentBg: 'bg-sky-500 hover:bg-sky-400 text-slate-950',
+          accentBg: 'bg-[#079FE8] hover:bg-[#0588c7] text-white',
         };
       case 'white':
       default:
         return {
-          viewportBg: 'bg-[#181d20] text-zinc-100', // Calm Dark Stage for maximum contrast on white paper (PUB HTML5 style)
-          stageBg: 'bg-[#22282d]',
-          paperBg: 'bg-white text-zinc-900 border-zinc-300',
-          headerBg: 'bg-[#121618]/95 border-white/10 text-white',
-          footerBg: 'bg-[#121618]/95 border-white/10 text-white',
-          accent: 'text-sky-400',
-          accentBg: 'bg-sky-600 hover:bg-sky-500 text-white',
+          viewportBg: 'bg-[#F0F4F8] text-[#243447]',
+          stageBg: 'bg-[#F0F4F8]',
+          paperBg: 'bg-[#FFFDF9] text-[#243447] border-[#E8DFC8] shadow-[0_12px_36px_rgba(7,59,101,0.08)]',
+          headerBg: 'bg-[#073B65] border-white/10 text-white shadow-md',
+          footerBg: 'bg-[#073B65] border-white/10 text-white shadow-md',
+          accent: 'text-[#079FE8]',
+          accentBg: 'bg-[#079FE8] hover:bg-[#0588c7] text-white',
         };
     }
   }, [theme]);

@@ -60,24 +60,24 @@ export default function UserDashboard() {
   };
 
   return (
-    <div className="bg-slate-50/60 min-h-screen py-10">
+    <div className="bg-[#F0F8FD]/40 min-h-screen py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Profile Banner: Shows Real Logged-in Member or Guest State */}
         {!isAuthenticated || !authUser ? (
-          <div className="bg-white rounded-3xl shadow-sm border border-sky-200/80 p-6 sm:p-8 mb-8 flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden">
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-sky-100 to-sky-200 text-sky-800 flex items-center justify-center font-black text-2xl shadow-inner shrink-0">
+          <div className="bg-white rounded-3xl shadow-sm border border-[#DCEAF3] p-6 sm:p-8 mb-8 flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden">
+            <div className="w-20 h-20 rounded-2xl bg-[#F0F8FD] text-[#079FE8] border border-[#DCEAF3] flex items-center justify-center font-black text-2xl shadow-inner shrink-0">
               <Lock size={32} />
             </div>
 
             <div className="text-center md:text-left flex-grow">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                <h1 className="text-2xl font-black text-gray-900">ชั้นหนังสือส่วนบุคคล (Guest)</h1>
+                <h1 className="text-2xl font-black text-[#073B65]">ชั้นหนังสือส่วนบุคคล (Guest)</h1>
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">
                   ยังไม่ได้เข้าสู่ระบบ
                 </span>
               </div>
-              <p className="text-gray-600 text-xs sm:text-sm mb-4 max-w-xl">
+              <p className="text-[#64748B] text-xs sm:text-sm mb-4 max-w-xl">
                 เข้าสู่ระบบหรือสมัครสมาชิกห้องสมุด เพื่อดูรายการหนังสือที่ยืม คืนสื่อ บันทึกประวัติการอ่าน และสะสมแต้มคะแนนการเรียนรู้
               </p>
             </div>
@@ -85,7 +85,7 @@ export default function UserDashboard() {
             <div className="flex flex-col sm:flex-row items-center gap-2 shrink-0">
               <Link 
                 href="/login?redirect=/dashboard"
-                className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold transition-all shadow-md active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2 bg-[#079FE8] hover:bg-[#0588c7] text-white px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold transition-all shadow-md active:scale-95 cursor-pointer"
               >
                 <LogIn size={16} />
                 <span>เข้าสู่ระบบ / สมัครสมาชิก</span>
@@ -93,8 +93,8 @@ export default function UserDashboard() {
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8 flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden">
-            <div className="relative w-24 h-24 rounded-2xl overflow-hidden ring-4 ring-sky-50 shrink-0 shadow-md bg-sky-500 text-white flex items-center justify-center font-black text-2xl">
+          <div className="bg-white rounded-3xl shadow-sm border border-[#DCEAF3] p-6 sm:p-8 mb-8 flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden">
+            <div className="relative w-24 h-24 rounded-2xl overflow-hidden ring-4 ring-[#F0F8FD] shrink-0 shadow-md bg-[#079FE8] text-white flex items-center justify-center font-black text-2xl">
               {authUser.picture ? (
                 <Image src={authUser.picture} alt={authUser.name} fill className="object-cover" unoptimized />
               ) : (
@@ -104,30 +104,30 @@ export default function UserDashboard() {
 
             <div className="text-center md:text-left flex-grow min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                <h1 className="text-2xl font-bold text-gray-900 truncate">{authUser.name}</h1>
+                <h1 className="text-2xl font-black text-[#073B65] truncate">{authUser.name}</h1>
                 {authUser.role === 'admin' || authUser.email === 'asaneebas4567@gmail.com' || authUser.email === 'thanavuddho.dhamma@gmail.com' ? (
                   <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-xs font-black shadow-xs">
                     <ShieldCheck size={13} /> ผู้ดูแลระบบ (Admin)
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 text-white text-xs font-bold shadow-xs">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#079FE8] text-white text-xs font-bold shadow-xs">
                     <Sparkles size={12} /> สมาชิกห้องสมุด
                   </span>
                 )}
               </div>
-              <p className="text-gray-500 text-sm mb-4 truncate">{authUser.email}</p>
+              <p className="text-[#64748B] text-sm mb-4 truncate">{authUser.email}</p>
               
               <div className="flex flex-wrap justify-center md:justify-start gap-3">
-                <div className="bg-sky-50 text-sky-900 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-sky-200/60">
-                  <span className="text-[10px] text-sky-700">รหัสสมาชิก:</span>
-                  <span className="font-mono text-sky-950 font-black">{authUser.memberCardId || '69001'}</span>
+                <div className="bg-[#F0F8FD] text-[#073B65] px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-[#DCEAF3]">
+                  <span className="text-[10px] text-[#64748B]">รหัสสมาชิก:</span>
+                  <span className="font-mono text-[#073B65] font-black">{authUser.memberCardId || '69001'}</span>
                 </div>
-                <div className="bg-sky-50 text-sky-800 px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-sky-200/60">
-                  <BookMarked size={14} className="text-sky-600" />
+                <div className="bg-[#F0F8FD] text-[#073B65] px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-[#DCEAF3]">
+                  <BookMarked size={14} className="text-[#079FE8]" />
                   <span>ยืมสื่ออยู่: {activeLoanCount} / {maxLoans} ชิ้น</span>
                 </div>
-                <div className="bg-purple-50 text-purple-800 px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-purple-200/60">
-                  <Award size={14} className="text-purple-600" />
+                <div className="bg-[#FDF6E9] text-[#B88328] px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-[#F5E6C8]">
+                  <Award size={14} className="text-[#D9A441]" />
                   <span>คะแนนสะสม: {availablePoints.toLocaleString()} P</span>
                 </div>
               </div>
