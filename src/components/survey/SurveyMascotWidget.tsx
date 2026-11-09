@@ -197,6 +197,13 @@ export default function SurveyMascotWidget() {
     checkStatus();
   }, [user?.email]);
 
+  // Listen for global open-survey-modal event (e.g. from TopBannerCarousel)
+  useEffect(() => {
+    const handleOpen = () => setIsModalOpen(true);
+    window.addEventListener('open-survey-modal', handleOpen);
+    return () => window.removeEventListener('open-survey-modal', handleOpen);
+  }, []);
+
   // Audio Chime
   const playRewardChime = () => {
     try {

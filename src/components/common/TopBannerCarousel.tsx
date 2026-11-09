@@ -9,7 +9,11 @@ import {
   Pause, 
   Play,
   BookOpen,
-  Sparkles
+  Sparkles,
+  Coins,
+  Headphones,
+  Video,
+  Compass
 } from 'lucide-react';
 import { Book } from '@/types';
 
@@ -24,6 +28,7 @@ export interface PastelTheme {
   accentText: string;         // accent label text
   dotColor: string;           // decorative tiny badge dot
   glowShadow: string;         // hover shadow hue
+  btnBg: string;              // button background style
 }
 
 export const PASTEL_THEMES: Record<PastelThemeKey, PastelTheme> = {
@@ -35,6 +40,7 @@ export const PASTEL_THEMES: Record<PastelThemeKey, PastelTheme> = {
     accentText: 'text-emerald-700',
     dotColor: 'bg-emerald-500',
     glowShadow: 'hover:shadow-emerald-200/40',
+    btnBg: 'bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600 hover:from-emerald-700 hover:to-sky-700 text-white',
   },
   sky: {
     name: 'ฟ้าอ่อน',
@@ -44,6 +50,7 @@ export const PASTEL_THEMES: Record<PastelThemeKey, PastelTheme> = {
     accentText: 'text-sky-700',
     dotColor: 'bg-sky-500',
     glowShadow: 'hover:shadow-sky-200/40',
+    btnBg: 'bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white',
   },
   rose: {
     name: 'ชมพูอ่อน',
@@ -53,15 +60,17 @@ export const PASTEL_THEMES: Record<PastelThemeKey, PastelTheme> = {
     accentText: 'text-rose-700',
     dotColor: 'bg-rose-500',
     glowShadow: 'hover:shadow-rose-200/40',
+    btnBg: 'bg-gradient-to-r from-rose-500 via-pink-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white',
   },
   cream: {
-    name: 'ครีม',
-    cardBg: 'bg-slate-50/70 hover:bg-slate-100/80',
-    cardBorder: 'border-slate-200 hover:border-slate-300',
-    badgeBg: 'bg-slate-100 text-slate-700 border-slate-200',
-    accentText: 'text-slate-700',
-    dotColor: 'bg-slate-400',
-    glowShadow: 'hover:shadow-slate-200/40',
+    name: 'ครีมทอง',
+    cardBg: 'bg-amber-50/75 hover:bg-amber-50/95',
+    cardBorder: 'border-amber-200/80 hover:border-amber-300',
+    badgeBg: 'bg-amber-100/90 text-amber-900 border-amber-300/90',
+    accentText: 'text-amber-800',
+    dotColor: 'bg-amber-500',
+    glowShadow: 'hover:shadow-amber-200/40',
+    btnBg: 'bg-gradient-to-r from-[#D9A441] via-amber-500 to-[#B37E22] hover:from-amber-600 hover:to-amber-700 text-white shadow-amber-500/20',
   },
   orange: {
     name: 'ฟ้าครามไซแอน',
@@ -71,6 +80,7 @@ export const PASTEL_THEMES: Record<PastelThemeKey, PastelTheme> = {
     accentText: 'text-cyan-700',
     dotColor: 'bg-cyan-500',
     glowShadow: 'hover:shadow-cyan-200/40',
+    btnBg: 'bg-gradient-to-r from-cyan-600 via-sky-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white',
   },
   indigo: {
     name: 'ม่วงลาเวนเดอร์',
@@ -80,6 +90,7 @@ export const PASTEL_THEMES: Record<PastelThemeKey, PastelTheme> = {
     accentText: 'text-indigo-700',
     dotColor: 'bg-indigo-500',
     glowShadow: 'hover:shadow-indigo-200/40',
+    btnBg: 'bg-gradient-to-r from-indigo-600 via-indigo-700 to-sky-700 hover:from-indigo-700 hover:to-sky-800 text-white',
   },
   teal: {
     name: 'เขียวน้ำทะเล',
@@ -89,183 +100,273 @@ export const PASTEL_THEMES: Record<PastelThemeKey, PastelTheme> = {
     accentText: 'text-teal-700',
     dotColor: 'bg-teal-500',
     glowShadow: 'hover:shadow-teal-200/40',
+    btnBg: 'bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white',
   },
 };
 
-const THEME_KEYS: PastelThemeKey[] = ['mint', 'sky', 'rose', 'cream', 'orange', 'indigo', 'teal'];
-
-export interface FeaturedBookCard {
+export interface ShowcaseCard {
   id: string;
+  type: 'welcome' | 'survey' | 'podcast' | 'video' | 'book';
   title: string;
   description: string;
-  coverImage: string;
+  coverImage?: string;
   categoryName: string;
+  badgeLabel?: string;
   themeKey: PastelThemeKey;
-  readerUrl: string;
-  detailUrl: string;
+  actionUrl: string;
+  actionLabel: string;
   isCopyright?: boolean;
+  isExternal?: boolean;
+  isSurveyTrigger?: boolean;
 }
 
-// 14 Authentic Verified Books from Thanavuddho Digital Library
-const DEFAULT_AUTHENTIC_FEATURED_BOOKS: FeaturedBookCard[] = [
+// 10 Curated Highlight Showcase Items (Welcome, Survey 200pts, Podcast, Video, and 6 Copyright Books)
+export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
+  // 1. Welcome Card
+  {
+    id: 'item-welcome',
+    type: 'welcome',
+    title: 'ยินดีต้อนรับสู่ Thanavuddho Digital Library',
+    description: 'คลังหนังสือธรรมะดิจิทัล เสียงพอดแคสต์ และสื่อการเรียนรู้พระพุทธศาสนาร่วมสมัย โดย พระครูปลัดสุวัฒนโพธิคุณ',
+    categoryName: 'ห้องสมุดธรรมะดิจิทัล',
+    badgeLabel: 'ยินดีต้อนรับ',
+    themeKey: 'sky',
+    actionUrl: '/books',
+    actionLabel: 'สำรวจคลังธรรมะ',
+  },
+
+  // 2. Survey Promotion Card (200 Points)
+  {
+    id: 'item-survey-200',
+    type: 'survey',
+    title: 'ตอบแบบสอบถาม รับทันที 200 แต้ม! 🪙',
+    description: 'ร่วมทำแบบประเมินคุณภาพเว็บไซต์และห้องสมุดดิจิทัล กรอกอีเมลสมาชิกแล้วกดยืนยันรับ 200 แต้มบุญสะสมทันที',
+    categoryName: 'ภารกิจรับแต้มฟรี',
+    badgeLabel: '🪙 รับ 200 แต้มบุญ',
+    themeKey: 'cream',
+    actionUrl: '#',
+    actionLabel: 'ทำแบบประเมิน รับ 200 แต้ม',
+    isSurveyTrigger: true,
+  },
+
+  // 3. Featured Podcast Card
+  {
+    id: 'item-podcast-tamjai',
+    type: 'podcast',
+    title: 'พอดแคสต์ "ทำใจให้พร้อมบวก"',
+    description: 'ซีรีส์ 5 ตอนจบ ฟังเพลิน เติมพลังบวก สติ และปัญญา จากหนังสือยอดนิยม โดย พระครูปลัดสุวัฒนโพธิคุณ',
+    coverImage: '/images/books/tam-jai-hai-prom-buak.jpg',
+    categoryName: 'พอดแคสต์ธรรมะ',
+    badgeLabel: '🎧 พอดแคสต์ 5 ตอน',
+    themeKey: 'rose',
+    actionUrl: '/audios?podcast=pod-tam-jai-hai-prom-buak',
+    actionLabel: 'ฟังพอดแคสต์ธรรมะ',
+  },
+
+  // 4. Featured Video Card
+  {
+    id: 'item-video-thanavuddho',
+    type: 'video',
+    title: 'วิดีโอธรรมบรรยาย พระครูปลัดสุวัฒนโพธิคุณ',
+    description: 'เทศนาธรรมะร่วมสมัย สาระน่ารู้ ตอบโจทย์ชีวิต ข้อคิดเตือนใจ และแนวทางปฏิบัติธรรมสู่ความสุขแท้จริง',
+    coverImage: '/images/books/ตามหลวงพี่ไปโกอินเตอร์.jpg',
+    categoryName: 'สื่อธรรมะวิดีโอ',
+    badgeLabel: '🎬 วิดีโอแนะนำ',
+    themeKey: 'teal',
+    actionUrl: '/videos',
+    actionLabel: 'รับชมวิดีโอธรรมะ',
+  },
+
+  // 5. VIP Book: ทำใจให้พร้อมบวก (Flipbook reader)
   {
     id: 'book_tam_jai_hai_prom_buak',
+    type: 'book',
     title: 'ทำใจให้พร้อมบวก',
     description: 'สร้างสุขที่แท้จริง ด้วยการสร้างความคิดดี ๆ จากการมองสิ่งต่าง ๆ อย่างเข้าใจ ยอมรับ เข้าใจ เกิดประโยชน์',
     coverImage: '/images/books/tam-jai-hai-prom-buak.jpg',
     categoryName: 'จิตวิทยา & พัฒนาตนเอง',
+    badgeLabel: '📖 ยอดนิยม',
     themeKey: 'mint',
-    readerUrl: '/reader/book_tam_jai_hai_prom_buak',
-    detailUrl: '/books/book_tam_jai_hai_prom_buak',
+    actionUrl: '/reader/book_tam_jai_hai_prom_buak',
+    actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
     isCopyright: true,
   },
+
+  // 6. VIP Book: อย่ามโน (Flipbook reader)
   {
     id: 'book_อย่ามโน',
+    type: 'book',
     title: 'อย่ามโน',
     description: 'ดึงสติไม่ให้หลงไปตามอารมณ์ ค้นพบความจริงของชีวิตด้วยสัมมาทิฏฐิและความรู้เท่าทันใจตนเอง',
     coverImage: '/images/books/อย่ามโน.jpg',
     categoryName: 'จิตใจ & สติรู้ทัน',
+    badgeLabel: '📖 หนังสือแนะนำ',
     themeKey: 'sky',
-    readerUrl: '/reader/book_อย่ามโน',
-    detailUrl: '/books/book_อย่ามโน',
+    actionUrl: '/reader/book_อย่ามโน',
+    actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
     isCopyright: true,
   },
+
+  // 7. VIP Book: สมดุลเท่ากับดี (Flipbook reader)
   {
     id: 'book_สมดุลเท่ากับดี',
+    type: 'book',
     title: 'สมดุลเท่ากับดี',
     description: 'ปรับสมดุลกายและใจให้ลงตัว ทำงานอย่างมีความสุข ชีวิตราบรื่นด้วยหลักมัชฌิมาปฏิปทา',
     coverImage: '/images/books/สมดุลเท่ากับดี.jpg',
     categoryName: 'การทำงาน & ความสำเร็จ',
+    badgeLabel: '📖 หนังสือแนะนำ',
     themeKey: 'orange',
-    readerUrl: '/reader/book_สมดุลเท่ากับดี',
-    detailUrl: '/books/book_สมดุลเท่ากับดี',
+    actionUrl: '/reader/book_สมดุลเท่ากับดี',
+    actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
     isCopyright: true,
   },
-  {
-    id: 'book_ความสุข-360-องศา',
-    title: 'ความสุข 360 องศา',
-    description: 'กะเทาะเปลือกความทุกข์ ค้นพบความสุขรอบตัวในทุกมิติของชีวิตอย่างยั่งยืนจากภายใน',
-    coverImage: '/images/books/ความสุข-360-องศา.jpg',
-    categoryName: 'ความสุข & ความสงบใจ',
-    themeKey: 'rose',
-    readerUrl: '/reader/book_ความสุข-360-องศา',
-    detailUrl: '/books/book_ความสุข-360-องศา',
-    isCopyright: true,
-  },
-  {
-    id: 'book_ตามหลวงพี่ไปโกอินเตอร์',
-    title: 'ตามหลวงพี่ไปโกอินเตอร์',
-    description: 'บันทึกเรื่องราวน่าประทับใจ การเผยแผ่พระพุทธศาสนาสู่เวทีโลกและประสบการณ์เดินทางรอบโลก',
-    coverImage: '/images/books/ตามหลวงพี่ไปโกอินเตอร์.jpg',
-    categoryName: 'บันทึกการเดินทาง & สากล',
-    themeKey: 'teal',
-    readerUrl: '/reader/book_ตามหลวงพี่ไปโกอินเตอร์',
-    detailUrl: '/books/book_ตามหลวงพี่ไปโกอินเตอร์',
-    isCopyright: true,
-  },
-  {
-    id: 'book_ความลับของความรัก',
-    title: 'ความลับของความรัก',
-    description: 'ศิลปะการครองเรือน การประคับประคองความรักและความสัมพันธ์ให้ยืนยาวด้วยหลักพุทธวิธี',
-    coverImage: '/images/books/ความลับของความรัก.jpg',
-    categoryName: 'ครอบครัว & ความรัก',
-    themeKey: 'indigo',
-    readerUrl: '/reader/book_ความลับของความรัก',
-    detailUrl: '/books/book_ความลับของความรัก',
-    isCopyright: true,
-  },
-  {
-    id: 'book_perfectionist-สไตล์พุทธะ',
-    title: 'Perfectionist สไตล์พุทธะ',
-    description: 'ทำทุกสิ่งด้วยความตั้งใจแต่ไม่ติดกับดักความสมบูรณ์แบบจนเป็นทุกข์ ปล่อยวางเพื่อความสงบใจ',
-    coverImage: '/images/books/perfectionist-สไตล์พุทธะ.jpg',
-    categoryName: 'การพัฒนาตนเอง',
-    themeKey: 'cream',
-    readerUrl: '/reader/book_perfectionist-สไตล์พุทธะ',
-    detailUrl: '/books/book_perfectionist-สไตล์พุทธะ',
-    isCopyright: true,
-  },
-  {
-    id: 'book_ความรักรสอูมามิ',
-    title: 'ความรักรสอูมามิ',
-    description: 'รสชาติความรักที่กลมกล่อม เติมเต็มความอบอุ่นในใจด้วยความเข้าใจ การให้อภัย และความเมตตา',
-    coverImage: '/images/books/ความรักรสอูมามิ.jpg',
-    categoryName: 'ความรัก & ความสัมพันธ์',
-    themeKey: 'rose',
-    readerUrl: '/reader/book_ความรักรสอูมามิ',
-    detailUrl: '/books/book_ความรักรสอูมามิ',
-    isCopyright: true,
-  },
+
+  // 8. VIP Book: เขาก็สุข เราก็สุข (Flipbook reader)
   {
     id: 'book_khao_kor_sook_rao_kor_sook',
+    type: 'book',
     title: 'เขาก็สุข เราก็สุข',
     description: 'เปลี่ยนศัตรูให้เป็นมิตร ศิลปะป้องกันใจ และสร้างมิตรภาพอันงดงามร่วมกันในสังคม',
     coverImage: '/images/books/khao-kor-sook-rao-kor-sook.jpg',
     categoryName: 'มิตรภาพ & สังคม',
+    badgeLabel: '📖 หนังสือแนะนำ',
     themeKey: 'mint',
-    readerUrl: '/reader/book_khao_kor_sook_rao_kor_sook',
-    detailUrl: '/books/book_khao_kor_sook_rao_kor_sook',
+    actionUrl: '/reader/book_khao_kor_sook_rao_kor_sook',
+    actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
     isCopyright: true,
   },
+
+  // 9. VIP Book: ความสุข 360 องศา (Flipbook reader)
   {
-    id: 'book_กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น',
-    title: 'กะเทาะเปลือกความทุกข์ สุขให้ถึงเเก่น',
-    description: 'กะเทาะเปลือกความทุกข์ที่มาบดบังใจ ก้าวข้ามอุปสรรคชีวิตและเข้าถึงแก่นแท้แห่งความสุขที่แท้จริง',
-    coverImage: '/images/books/กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น.jpg',
-    categoryName: 'ธรรมะบำบัด & กำลังใจ',
-    themeKey: 'sky',
-    readerUrl: '/reader/book_กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น',
-    detailUrl: '/books/book_กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น',
+    id: 'book_ความสุข-360-องศา',
+    type: 'book',
+    title: 'ความสุข 360 องศา',
+    description: 'กะเทาะเปลือกความทุกข์ ค้นพบความสุขรอบตัวในทุกมิติของชีวิตอย่างยั่งยืนจากภายใน',
+    coverImage: '/images/books/ความสุข-360-องศา.jpg',
+    categoryName: 'ความสุข & ความสงบใจ',
+    badgeLabel: '📖 หนังสือแนะนำ',
+    themeKey: 'rose',
+    actionUrl: '/reader/book_ความสุข-360-องศา',
+    actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
     isCopyright: true,
   },
-  {
-    id: 'book_phoo_soon_sia_tee_mai_sin_soon',
-    title: 'ผู้สูญเสีย ที่ไม่เสียศูนย์',
-    description: 'ธรรมะเยียวยาใจเมื่อต้องเผชิญความพลัดพราก ดึงสติกลับมาตั้งมั่น ไม่ให้ชีวิตต้องเสียศูนย์',
-    coverImage: '/images/books/phoo-soon-sia-tee-mai-sin-soon.png',
-    categoryName: 'กำลังใจ & สติ',
-    themeKey: 'teal',
-    readerUrl: '/reader/book_phoo_soon_sia_tee_mai_sin_soon',
-    detailUrl: '/books/book_phoo_soon_sia_tee_mai_sin_soon',
-    isCopyright: true,
-  },
-  {
-    id: 'book_เส้นทางพระบรมฯ',
-    title: 'เส้นทางพระบรมฯ',
-    description: 'ย่ำรอยพระบาทบนเส้นทางธรรม ศึกษาประวัติศาสตร์และแนวทางการสร้างบารมีอันยิ่งใหญ่',
-    coverImage: '/images/books/เส้นทางพระบรมฯ.jpg',
-    categoryName: 'ประวัติศาสตร์ & ปัญญา',
-    themeKey: 'cream',
-    readerUrl: '/reader/book_เส้นทางพระบรมฯ',
-    detailUrl: '/books/book_เส้นทางพระบรมฯ',
-    isCopyright: true,
-  },
-  {
-    id: 'book_lom_hai_jai_khao_ok',
-    title: 'ลมหายใจเข้าออก ของพระพุทธศาสนา',
-    description: 'ธรรมบรรยายว่าด้วยอานาปานสติและสมาธิภาวนา สร้างแสงสว่างและปัญญาให้ชีวิต',
-    coverImage: '/images/books/lom-hai-jai-khao-ok.jpg',
-    categoryName: 'สมาธิ & ปฏิบัติธรรม',
-    themeKey: 'indigo',
-    readerUrl: '/reader/book_lom_hai_jai_khao_ok',
-    detailUrl: '/books/book_lom_hai_jai_khao_ok',
-    isCopyright: true,
-  },
+
+  // 10. VIP Book: มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า (Flipbook reader)
   {
     id: 'book_mongkol_chiwit_124',
+    type: 'book',
     title: 'มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า',
     description: 'หลักธรรม 38 ประการอันเป็นบันไดสู่ความสำเร็จและความเจริญรุ่งเรืองในชีวิต',
     coverImage: '/images/books/mongkol-124.jpg',
     categoryName: 'หลักธรรม & มงคลชีวิต',
-    themeKey: 'mint',
-    readerUrl: '/reader/book_mongkol_chiwit_124',
-    detailUrl: '/books/book_mongkol_chiwit_124',
+    badgeLabel: '📖 มงคลชีวิต',
+    themeKey: 'indigo',
+    actionUrl: '/reader/book_mongkol_chiwit_124',
+    actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
     isCopyright: true,
   },
 ];
 
+// Cute Mini Novice Monk Mascot for the Survey Card
+function MiniNoviceMascot() {
+  return (
+    <svg 
+      viewBox="0 0 160 160" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-full drop-shadow-md select-none"
+    >
+      <defs>
+        <radialGradient id="miniHaloGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FDE68A" stopOpacity="0.8" />
+          <stop offset="70%" stopColor="#F59E0B" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#F59E0B" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="miniSkinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#FFE0B2" />
+          <stop offset="100%" stopColor="#FFCC80" />
+        </linearGradient>
+        <linearGradient id="miniRobeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#F97316" />
+          <stop offset="50%" stopColor="#EA580C" />
+          <stop offset="100%" stopColor="#C2410C" />
+        </linearGradient>
+        <linearGradient id="miniCoinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FDE047" />
+          <stop offset="40%" stopColor="#EAB308" />
+          <stop offset="100%" stopColor="#CA8A04" />
+        </linearGradient>
+      </defs>
+
+      {/* Halo Background */}
+      <circle cx="80" cy="72" r="54" fill="url(#miniHaloGlow)" />
+
+      {/* Body / Saffron Robe */}
+      <path 
+        d="M48 108 C44 122 42 142 40 152 C52 154 108 154 120 152 C118 142 116 122 112 108 C102 116 58 116 48 108 Z" 
+        fill="url(#miniRobeGrad)" 
+      />
+      <path 
+        d="M50 110 C62 125 98 125 110 110 C100 135 60 135 50 110 Z" 
+        fill="#C2410C" 
+        opacity="0.35" 
+      />
+
+      {/* Ears */}
+      <circle cx="45" cy="76" r="8" fill="url(#miniSkinGrad)" />
+      <circle cx="115" cy="76" r="8" fill="url(#miniSkinGrad)" />
+
+      {/* Head */}
+      <circle cx="80" cy="72" r="36" fill="url(#miniSkinGrad)" />
+
+      {/* Eyebrows */}
+      <path d="M60 60 Q68 56 74 60" stroke="#795548" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M86 60 Q92 56 100 60" stroke="#795548" strokeWidth="2.5" strokeLinecap="round" />
+
+      {/* Happy Curved Eyes */}
+      <path d="M60 69 Q67 76 74 69" stroke="#3E2723" strokeWidth="3.2" strokeLinecap="round" fill="none" />
+      <path d="M86 69 Q93 76 100 69" stroke="#3E2723" strokeWidth="3.2" strokeLinecap="round" fill="none" />
+
+      {/* Sweet Smile */}
+      <path d="M72 82 Q80 90 88 82" stroke="#3E2723" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+      <path d="M75 84 Q80 88 85 84" fill="#E57373" />
+
+      {/* Peach Cheeks */}
+      <ellipse cx="57" cy="77" rx="6" ry="4" fill="#FF8A80" opacity="0.65" />
+      <ellipse cx="103" cy="77" rx="6" ry="4" fill="#FF8A80" opacity="0.65" />
+
+      {/* Left Hand holding Dharma Tablet */}
+      <g transform="translate(32, 102)">
+        <rect x="0" y="0" width="22" height="28" rx="3" fill="#073B65" />
+        <rect x="2" y="2" width="18" height="24" rx="2" fill="#FFFFFF" />
+        <circle cx="11" cy="14" r="5" fill="#D9A441" />
+      </g>
+
+      {/* Right Hand Waving & Holding 200 Coin */}
+      <g transform="translate(108, 38)">
+        <circle cx="18" cy="18" r="18" fill="url(#miniCoinGrad)" />
+        <circle cx="18" cy="18" r="14.5" stroke="#FEF08A" strokeWidth="1.5" fill="none" />
+        <text 
+          x="18" 
+          y="23" 
+          textAnchor="middle" 
+          fill="#78350F" 
+          fontSize="11" 
+          fontWeight="900" 
+          fontFamily="sans-serif"
+        >
+          200
+        </text>
+        <path d="M8 8 L9 5 L10 8 L13 9 L10 10 L9 13 L8 10 L5 9 Z" fill="#FFFFFF" />
+      </g>
+    </svg>
+  );
+}
+
 interface TopBannerCarouselProps {
   books?: Book[];
+  showcaseItems?: ShowcaseCard[];
   title?: string;
   badge?: string;
   autoPlayIntervalMs?: number;
@@ -273,34 +374,43 @@ interface TopBannerCarouselProps {
 
 export default function TopBannerCarousel({
   books,
-  title = 'ไฮไลต์ชุดหนังสือดิจิทัล',
-  badge = 'หนังสือแนะนำ',
+  showcaseItems,
+  title = 'ไฮไลต์ห้องสมุดดิจิทัล',
+  badge = 'รายการแนะนำ',
   autoPlayIntervalMs = 8000,
 }: TopBannerCarouselProps) {
-  // Convert incoming books to FeaturedBookCard format if provided
-  const items: FeaturedBookCard[] = React.useMemo(() => {
-    if (!books || books.length === 0) {
-      return DEFAULT_AUTHENTIC_FEATURED_BOOKS;
+  // Use custom showcase items, or default curated 10 items
+  const items: ShowcaseCard[] = React.useMemo(() => {
+    if (showcaseItems && showcaseItems.length > 0) {
+      return showcaseItems;
+    }
+    // If user explicitly provided books and wants them mapped:
+    if (books && books.length > 0 && !showcaseItems) {
+      // Map up to 10 books ensuring readerUrl goes to /reader/[id]
+      const themeKeys: PastelThemeKey[] = ['mint', 'sky', 'rose', 'cream', 'orange', 'indigo', 'teal'];
+      return books.slice(0, 10).map((book, index) => {
+        const themeKey = themeKeys[index % themeKeys.length];
+        const cover = book.cover_image || book.cover || '/images/books/tam-jai-hai-prom-buak.jpg';
+        const category = (book.tags && book.tags[0]) || book.category_id || 'หนังสือธรรมะ';
+        
+        return {
+          id: book.id,
+          type: 'book',
+          title: book.title,
+          description: book.description || 'คำสอนและข้อคิดธรรมะอันทรงคุณค่า เพื่อการดำเนินชีวิตอย่างมีความสุข',
+          coverImage: cover,
+          categoryName: category,
+          badgeLabel: '📖 หนังสือแนะนำ',
+          themeKey,
+          actionUrl: `/reader/${book.id}`,
+          actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
+          isCopyright: book.is_copyright ?? true,
+        };
+      });
     }
 
-    return books.map((book, index) => {
-      const themeKey = THEME_KEYS[index % THEME_KEYS.length];
-      const cover = book.cover_image || book.cover || '/images/books/book-placeholder.jpg';
-      const category = (book.tags && book.tags[0]) || book.category_id || 'หนังสือธรรมะ';
-      
-      return {
-        id: book.id,
-        title: book.title,
-        description: book.description || 'คำสอนและข้อคิดธรรมะอันทรงคุณค่า เพื่อการดำเนินชีวิตอย่างมีความสุข',
-        coverImage: cover,
-        categoryName: category,
-        themeKey,
-        readerUrl: book.reader_url || `/reader/${book.id}`,
-        detailUrl: `/books/${book.id}`,
-        isCopyright: book.is_copyright ?? true,
-      };
-    });
-  }, [books]);
+    return DEFAULT_10_SHOWCASE_CARDS;
+  }, [books, showcaseItems]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -354,7 +464,7 @@ export default function TopBannerCarousel({
     setProgressKey((k) => k + 1);
   }, [maxIndex]);
 
-  // Autoplay handler (pauses on hover and user interaction)
+  // Autoplay handler (8000ms by default, smoothly step-by-step)
   useEffect(() => {
     if (isPlaying && !isHovered && totalCards > visibleCount) {
       timerRef.current = setInterval(() => {
@@ -409,9 +519,8 @@ export default function TopBannerCarousel({
     setIsHovered(true);
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = () => {
     if (!isMouseDownRef.current) return;
-    // user is dragging
   };
 
   const handleMouseUp = (e: React.MouseEvent) => {
@@ -427,25 +536,17 @@ export default function TopBannerCarousel({
     setIsHovered(false);
   };
 
+  // Trigger Survey Modal
+  const handleTriggerSurvey = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('open-survey-modal'));
+    }
+  };
+
   // Empty State handling
   if (totalCards === 0) {
-    return (
-      <section className="bg-stone-50/60 border-b border-slate-200/80 py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="py-10 px-4 text-center bg-white rounded-2xl border border-dashed border-slate-200 shadow-2xs">
-            <BookOpen className="w-10 h-10 text-slate-400 mx-auto mb-2.5" />
-            <h3 className="text-sm font-bold text-slate-800">ยังไม่มีรายการหนังสือแนะนำในขณะนี้</h3>
-            <p className="text-xs text-slate-500 mt-1">ท่านสามารถเลือกอ่านหนังสือเล่มอื่น ๆ ได้จากคลังหนังสือทั้งหมด</p>
-            <Link 
-              href="/books" 
-              className="inline-flex items-center gap-1.5 mt-4 px-4 py-1.5 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition shadow-xs"
-            >
-              สำรวจคลังหนังสือทั้งหมด
-            </Link>
-          </div>
-        </div>
-      </section>
-    );
+    return null;
   }
 
   // Calculate slide percentage width
@@ -462,7 +563,7 @@ export default function TopBannerCarousel({
         setIsHovered(false);
         isMouseDownRef.current = false;
       }}
-      aria-label="ไฮไลต์ชุดหนังสือดิจิทัล Thanavuddho Library"
+      aria-label="ไฮไลต์ 10 หน้าต่าง Thanavuddho Digital Library"
     >
       <style>{`
         @keyframes bannerProgressSmooth {
@@ -476,7 +577,7 @@ export default function TopBannerCarousel({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* 1. Header Bar: Decorative Dot + Title + Badge + Right-side Controls */}
+        {/* 1. Header Bar: Title + Badge (10 รายการ) + Controls */}
         <div className="flex items-center justify-between gap-2.5 mb-3.5">
           
           {/* Left: Dot + Title + Badge */}
@@ -490,14 +591,13 @@ export default function TopBannerCarousel({
               <span className="text-[11px] font-bold text-white bg-white/20 border border-white/30 px-2.5 py-0.5 rounded-full hidden sm:inline-flex items-center gap-1 shadow-2xs backdrop-blur-xs">
                 <Sparkles size={11} className="text-[#D9A441]" />
                 <span>{badge}</span>
-                <span className="text-sky-100 font-normal">({totalCards} เล่ม)</span>
+                <span className="text-sky-100 font-normal">({totalCards} รายการ)</span>
               </span>
             </h2>
           </div>
 
           {/* Right: Counter + Play/Pause + Prev + Next */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            
             {/* Position Counter Chip */}
             <span 
               className="text-[11px] sm:text-xs font-mono font-bold text-[#073B65] bg-white/95 border border-white/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-2xs tabular-nums"
@@ -510,7 +610,7 @@ export default function TopBannerCarousel({
             <button
               onClick={() => setIsPlaying(!isPlaying)}
               className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 hover:bg-white text-[#073B65] flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95"
-              title={isPlaying ? 'หยุดเล่นอัตโนมัติ' : 'เล่นอัตโนมัติ'}
+              title={isPlaying ? 'หยุดเล่นอัตโนมัติ (8 วินาที)' : 'เริ่มเล่นอัตโนมัติ (8 วินาที)'}
               aria-label={isPlaying ? 'หยุดเล่นอัตโนมัติ' : 'เล่นอัตโนมัติ'}
             >
               {isPlaying ? <Pause size={12} /> : <Play size={12} className="translate-x-0.5" />}
@@ -538,7 +638,7 @@ export default function TopBannerCarousel({
           </div>
         </div>
 
-        {/* 2. Carousel Viewport (BKK Book Style: 3 cards desktop, 2 tablet, 1 mobile) */}
+        {/* 2. Carousel Viewport (10 Cards: Desktop 3, Tablet 2, Mobile 1) */}
         <div 
           className="overflow-hidden rounded-2xl cursor-grab active:cursor-grabbing"
           onTouchStart={handleTouchStart}
@@ -564,76 +664,227 @@ export default function TopBannerCarousel({
                   style={{ width: `${cardWidthPercent}%` }}
                 >
                   <div
-                    className={`group relative rounded-2xl overflow-hidden ${theme.cardBg} ${theme.glowShadow} p-3.5 sm:p-4 shadow-xs hover:shadow-md transition-all duration-300 border ${theme.cardBorder} flex flex-row items-center gap-3.5 sm:gap-4 min-h-[170px] sm:min-h-[185px] h-full hover:-translate-y-1`}
+                    className={`group relative rounded-2xl overflow-hidden ${theme.cardBg} ${theme.glowShadow} p-3.5 sm:p-4 shadow-xs hover:shadow-md transition-all duration-300 border ${theme.cardBorder} flex flex-row items-center gap-3.5 sm:gap-4 min-h-[175px] sm:min-h-[190px] h-full hover:-translate-y-1`}
                   >
-                    {/* Left: Authentic Upright Book Cover with Realistic Depth (No Distortion, 100% Readable Title) */}
-                    <Link
-                      href={item.detailUrl}
-                      className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.14)] border border-slate-200/70 group-hover:shadow-[3px_6px_16px_rgba(0,0,0,0.18)] transition-shadow duration-300 block"
-                      title={`ดูรายละเอียดเล่ม: ${item.title}`}
-                    >
-                      {/* Left Book Spine 3D Highlight Line */}
-                      <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-r from-black/25 via-white/20 to-transparent pointer-events-none z-10" />
-                      
-                      {/* Right Edge Page-stack Simulation */}
-                      <div className="absolute right-0 inset-y-0 w-0.5 bg-slate-300/70 pointer-events-none z-10" />
-                      
-                      {/* Genuine Book Cover Image */}
-                      {/* Genuine Book Cover Image */}
-                      <Image
-                        src={encodeURI(item.coverImage)}
-                        alt={`ปกหนังสือ ${item.title}`}
-                        fill
-                        loading={index < 3 ? 'eager' : 'lazy'}
-                        className="object-cover group-hover:scale-103 transition-transform duration-300"
-                        sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 128px"
-                        unoptimized
-                      />
-                    </Link>
+                    
+                    {/* LEFT COLUMN: Customized Visual Slot (Book Spine / Mascot / Video / Welcome / Podcast) */}
+                    {item.type === 'welcome' ? (
+                      /* Welcome Visual: Elegant Emblem */
+                      <Link
+                        href={item.actionUrl}
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-gradient-to-br from-[#073B65] via-[#0A4D82] to-[#079FE8] shadow-md border border-sky-300/40 flex flex-col items-center justify-center p-2 text-center group-hover:scale-102 transition-transform duration-300"
+                        title="สำรวจห้องสมุดดิจิทัล"
+                      >
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.25)_0%,transparent_70%)] pointer-events-none" />
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 border border-white/40 flex items-center justify-center shadow-inner mb-1.5">
+                          <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-[#FDE68A]" />
+                        </div>
+                        <span className="text-[10px] sm:text-[11px] font-black text-white tracking-wide uppercase">Thanavuddho</span>
+                        <span className="text-[8px] sm:text-[9px] text-sky-200 font-medium">Digital Library</span>
+                      </Link>
+                    ) : item.type === 'survey' ? (
+                      /* Survey Visual: Cute Novice Monk with 200 Coin */
+                      <button
+                        type="button"
+                        onClick={handleTriggerSurvey}
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-gradient-to-br from-amber-100 via-orange-50 to-amber-200/90 shadow-md border border-amber-300 flex flex-col items-center justify-center p-1 group-hover:scale-102 transition-transform duration-300 cursor-pointer"
+                        title="คลิกเพื่อทำแบบประเมิน รับทันที 200 แต้ม"
+                      >
+                        <div className="w-full h-full p-1 flex items-center justify-center">
+                          <MiniNoviceMascot />
+                        </div>
+                        <span className="absolute bottom-1 px-1.5 py-0.5 rounded-full bg-[#D9A441] text-white text-[8px] font-extrabold shadow-xs">
+                          🪙 200 P
+                        </span>
+                      </button>
+                    ) : item.type === 'podcast' ? (
+                      /* Podcast Visual: Cover with Pulsing Headphones Overlay */
+                      <Link
+                        href={item.actionUrl}
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-md border border-slate-200/70 group-hover:scale-102 transition-transform duration-300 block"
+                        title={item.title}
+                      >
+                        {item.coverImage && (
+                          <Image
+                            src={encodeURI(item.coverImage)}
+                            alt={item.title}
+                            fill
+                            className="object-cover"
+                            sizes="128px"
+                            unoptimized
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-purple-950/80 via-transparent to-black/20" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-rose-500/90 text-white flex items-center justify-center shadow-lg ring-2 ring-white/80 animate-pulse">
+                            <Headphones className="w-5 h-5" />
+                          </div>
+                        </div>
+                        <span className="absolute bottom-1 inset-x-1 text-center py-0.5 rounded bg-black/70 text-white text-[8px] font-bold">
+                          5 ตอนจบ
+                        </span>
+                      </Link>
+                    ) : item.type === 'video' ? (
+                      /* Video Visual: Cover with Play Badge Overlay */
+                      <Link
+                        href={item.actionUrl}
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-slate-900 shadow-md border border-slate-200/70 group-hover:scale-102 transition-transform duration-300 block"
+                        title={item.title}
+                      >
+                        {item.coverImage && (
+                          <Image
+                            src={encodeURI(item.coverImage)}
+                            alt={item.title}
+                            fill
+                            className="object-cover opacity-85"
+                            sizes="128px"
+                            unoptimized
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-teal-950/80 via-transparent to-black/20" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-cyan-500 text-white flex items-center justify-center shadow-lg ring-2 ring-white/90">
+                            <Play className="w-5 h-5 translate-x-0.5 fill-current" />
+                          </div>
+                        </div>
+                        <span className="absolute bottom-1 inset-x-1 text-center py-0.5 rounded bg-black/70 text-teal-300 text-[8px] font-bold">
+                          วิดีโอ HD
+                        </span>
+                      </Link>
+                    ) : (
+                      /* Standard Book Visual: 3D Book Cover with Spine Line */
+                      <Link
+                        href={item.actionUrl}
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.14)] border border-slate-200/70 group-hover:shadow-[3px_6px_16px_rgba(0,0,0,0.18)] transition-shadow duration-300 block"
+                        title={`เปิดอ่านหนังสือ: ${item.title}`}
+                      >
+                        {/* 3D Spine Highlight */}
+                        <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-r from-black/25 via-white/20 to-transparent pointer-events-none z-10" />
+                        {/* Right Edge Page-stack Simulation */}
+                        <div className="absolute right-0 inset-y-0 w-0.5 bg-slate-300/70 pointer-events-none z-10" />
+                        
+                        {item.coverImage && (
+                          <Image
+                            src={encodeURI(item.coverImage)}
+                            alt={`ปกหนังสือ ${item.title}`}
+                            fill
+                            loading={index < 3 ? 'eager' : 'lazy'}
+                            className="object-cover group-hover:scale-103 transition-transform duration-300"
+                            sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 128px"
+                            unoptimized
+                          />
+                        )}
+                      </Link>
+                    )}
 
-                    {/* Right: Book Details & Vibrant Orange Read Button */}
+                    {/* RIGHT COLUMN: Details & Clear Action Button */}
                     <div className="flex-1 min-w-0 flex flex-col justify-between h-full py-0.5">
                       <div>
-                        {/* Top: Category Badge & Copyright Indicator */}
+                        {/* Top: Category Badge & Badges */}
                         <div className="flex items-center flex-wrap gap-1.5 mb-1.5">
                           <span className={`text-[10px] sm:text-[11px] font-semibold px-2 sm:px-2.5 py-0.5 rounded-full border shadow-2xs flex items-center gap-1 ${theme.badgeBg}`}>
                             <span className={`w-1.5 h-1.5 rounded-full ${theme.dotColor}`} />
                             <span className="truncate max-w-[130px] sm:max-w-none">{item.categoryName}</span>
                           </span>
+
+                          {item.badgeLabel && (
+                            <span className="text-[9.5px] font-bold text-sky-800 bg-sky-100/90 border border-sky-200/90 px-1.5 py-0.5 rounded-full">
+                              {item.badgeLabel}
+                            </span>
+                          )}
+
                           {item.isCopyright && (
-                            <span className="text-[9.5px] font-bold text-sky-800 bg-sky-100/80 border border-sky-200/90 px-1.5 py-0.5 rounded-full">
+                            <span className="text-[9.5px] font-bold text-sky-900 bg-sky-200/70 border border-sky-300/80 px-1.5 py-0.5 rounded-full">
                               ลิขสิทธิ์
                             </span>
                           )}
                         </div>
 
-                        {/* Title: Legible, High Contrast, Dark Slate */}
-                        <Link href={item.detailUrl}>
-                          <h3 
-                            className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-sky-700 transition-colors line-clamp-1 sm:line-clamp-2 leading-snug"
-                            title={item.title}
+                        {/* Title: High Contrast Slate-800 */}
+                        {item.isSurveyTrigger ? (
+                          <button
+                            type="button"
+                            onClick={handleTriggerSurvey}
+                            className="text-left cursor-pointer"
                           >
-                            {item.title}
-                          </h3>
-                        </Link>
+                            <h3 
+                              className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-amber-800 transition-colors line-clamp-1 sm:line-clamp-2 leading-snug"
+                              title={item.title}
+                            >
+                              {item.title}
+                            </h3>
+                          </button>
+                        ) : (
+                          <Link href={item.actionUrl}>
+                            <h3 
+                              className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-sky-700 transition-colors line-clamp-1 sm:line-clamp-2 leading-snug"
+                              title={item.title}
+                            >
+                              {item.title}
+                            </h3>
+                          </Link>
+                        )}
 
-                        {/* Description: 2-line preview, accessible slate color */}
+                        {/* Description: 2 lines */}
                         <p className="text-[11px] sm:text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
                           {item.description}
                         </p>
                       </div>
 
-                      {/* Bottom Action: Sky Blue "เปิดอ่านหนังสือ" Button */}
+                      {/* Bottom Action: Prominent Action Button for Every Card */}
                       <div className="mt-2.5 sm:mt-3 flex items-center justify-start">
-                        <Link
-                          href={item.readerUrl}
-                          className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-600 hover:to-blue-700 active:scale-95 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all group-hover:scale-102 cursor-pointer"
-                          title={`เปิดอ่านหนังสือ: ${item.title}`}
-                        >
-                          <BookOpen size={12} className="shrink-0" />
-                          <span>เปิดอ่านหนังสือ</span>
-                          <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                        </Link>
+                        {item.isSurveyTrigger ? (
+                          <button
+                            type="button"
+                            onClick={handleTriggerSurvey}
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            title="ทำแบบประเมิน รับทันที 200 แต้ม"
+                          >
+                            <Coins size={12} className="shrink-0 text-yellow-200" />
+                            <span>{item.actionLabel}</span>
+                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                          </button>
+                        ) : item.type === 'podcast' ? (
+                          <Link
+                            href={item.actionUrl}
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-rose-500 via-pink-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            title={item.title}
+                          >
+                            <Headphones size={12} className="shrink-0 text-pink-200" />
+                            <span>{item.actionLabel}</span>
+                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                          </Link>
+                        ) : item.type === 'video' ? (
+                          <Link
+                            href={item.actionUrl}
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-teal-600 via-cyan-600 to-sky-600 hover:from-teal-700 hover:to-sky-700 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            title={item.title}
+                          >
+                            <Play size={12} className="shrink-0 text-cyan-200 fill-current" />
+                            <span>{item.actionLabel}</span>
+                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                          </Link>
+                        ) : item.type === 'welcome' ? (
+                          <Link
+                            href={item.actionUrl}
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#073B65] via-[#0A4D82] to-[#079FE8] hover:from-[#052946] hover:to-[#079FE8] text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            title={item.title}
+                          >
+                            <Compass size={12} className="shrink-0 text-sky-200" />
+                            <span>{item.actionLabel}</span>
+                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                          </Link>
+                        ) : (
+                          <Link
+                            href={item.actionUrl}
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            title={`เปิดอ่านหนังสือ: ${item.title}`}
+                          >
+                            <BookOpen size={12} className="shrink-0" />
+                            <span>{item.actionLabel}</span>
+                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                          </Link>
+                        )}
                       </div>
 
                     </div>
@@ -656,22 +907,22 @@ export default function TopBannerCarousel({
                 }}
                 className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${
                   idx === currentIndex
-                    ? 'w-7 bg-sky-500 shadow-2xs'
-                    : 'w-2 bg-slate-300 hover:bg-slate-400'
+                    ? 'w-7 bg-sky-400 shadow-2xs'
+                    : 'w-2 bg-white/40 hover:bg-white/70'
                 }`}
-                title={`ไปที่หน้า ${idx + 1}`}
-                aria-label={`ไปที่หน้า ${idx + 1}`}
+                title={`ไปที่หน้าต่างชุดที่ ${idx + 1}`}
+                aria-label={`ไปที่หน้าต่างชุดที่ ${idx + 1}`}
               />
             ))}
           </div>
         )}
 
-        {/* 4. Autoplay Progress Countdown Bar (Smooth & Polite) */}
+        {/* 4. Autoplay Progress Countdown Bar (8s per slide) */}
         {isPlaying && !isHovered && totalCards > visibleCount && (
-          <div className="max-w-[160px] mx-auto h-0.5 bg-slate-200/80 rounded-full overflow-hidden mt-1.5">
+          <div className="max-w-[160px] mx-auto h-0.5 bg-white/20 rounded-full overflow-hidden mt-1.5">
             <div 
               key={progressKey}
-              className="h-full bg-gradient-to-r from-sky-400 via-sky-500 to-blue-500 banner-progress-bar-active rounded-full"
+              className="h-full bg-gradient-to-r from-amber-300 via-sky-300 to-white banner-progress-bar-active rounded-full"
             />
           </div>
         )}

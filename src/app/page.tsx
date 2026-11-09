@@ -206,8 +206,8 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-[#F0F8FD]/50">
       
-      {/* 1. ไฮไลต์ชุดหนังสือดิจิทัล Carousel Showcase (BKK Book Style) */}
-      <TopBannerCarousel books={featuredHighlightBooks.length > 0 ? featuredHighlightBooks : undefined} />
+      {/* 1. ไฮไลต์ 10 หน้าต่าง (ยินดีต้อนรับ, แบบประเมิน 200 แต้ม, พอดแคสต์, วิดีโอ, และ 6 เล่มลิขสิทธิ์ Flipbook) */}
+      <TopBannerCarousel autoPlayIntervalMs={8000} />
 
       {/* 2. Main Content Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full space-y-7 pt-4 pb-16">
