@@ -84,17 +84,81 @@ function BookReaderContent({ bookId }: { bookId: string }) {
   const searchParams = useSearchParams();
   const pageParam = parseInt(searchParams.get('page') || '1', 10);
   const initialPage = !isNaN(pageParam) && pageParam >= 1 ? pageParam : 1;
+  const modeParam = searchParams.get('mode'); // 'flip' | 'embed'
 
-  const isPubHtml5 = Boolean(
+  // Check if book has an authentic local PDF file in the repository
+  const rawId = (book.id || '').toLowerCase();
+  const rawTitle = (book.title || '').toLowerCase();
+  const hasLocalPdf = Boolean(
+    rawId.includes('tam_jai') ||
+    rawId.includes('tham_jai') ||
+    rawTitle.includes('ทำใจให้พร้อมบวก') ||
+    rawId.includes('mongkol') ||
+    rawTitle.includes('มงคลชีวิต') ||
+    rawId.includes('lom_hai_jai') ||
+    rawTitle.includes('ลมหายใจ') ||
+    rawId.includes('khao_kor_sook') ||
+    rawTitle.includes('เขาก็สุข') ||
+    rawId.includes('rak_thae') ||
+    rawTitle.includes('รักแท้') ||
+    rawId.includes('hope_for_life') ||
+    rawId.includes('kho_khit') ||
+    rawTitle.includes('ข้อคิดรอบตัว') ||
+    rawId.includes('the_science_of_meditation') ||
+    rawTitle.includes('ศาสตร์แห่งสมาธิ') ||
+    rawId.includes('phoo_soon_sia') ||
+    rawTitle.includes('ผู้สูญเสีย') ||
+    rawId.includes('phro_mai_roo') ||
+    rawTitle.includes('เพราะไม่รู้') ||
+    rawId.includes('secret_of_love') ||
+    rawTitle.includes('รักลูก') ||
+    rawId.includes('love_myself') ||
+    rawTitle.includes('รักในตัวตน') ||
+    rawId.includes('perd_promdan') ||
+    rawTitle.includes('เปิดพรมแดน') ||
+    rawId.includes('the_lover') ||
+    rawTitle.includes('รักเป็นจะเห็นใจ') ||
+    rawId.includes('yoo_nai_lok_mai') ||
+    rawTitle.includes('อยู่ในโลกใหม่') ||
+    rawTitle.includes('อย่ามโน') ||
+    (book.pdf_url && (book.pdf_url.startsWith('/books/pdf/') || book.pdf_url.endsWith('.pdf')) && !book.pdf_url.includes('drive.google.com'))
+  );
+
+  // Check if book has an embed link (PubHTML5, Google Drive /preview, World Civ courseware, etc.)
+  const isEmbedBook = Boolean(
     book.id?.startsWith('pubhtml5_') ||
     book.reader_url?.includes('pubhtml5.com') ||
     book.source_url?.includes('pubhtml5.com') ||
+    book.reader_url?.includes('drive.google.com') ||
+    book.source_url?.includes('drive.google.com') ||
+    book.pdf_url?.includes('drive.google.com') ||
+    book.reader_url?.includes('docs.google.com') ||
     book.category_id === 'cat_world_civ' ||
     (book.category_ids && book.category_ids.includes('cat_world_civ'))
   );
 
-  if (isPubHtml5 && (book.reader_url || book.source_url)) {
-    return <PubHtml5Reader book={book} />;
+  // 1. Explicit mode requested via query parameter
+  if (modeParam === 'embed' && (book.reader_url || book.source_url || book.pdf_url)) {
+    return <PubHtml5Reader book={book} hasLocalPdf={hasLocalPdf} />;
+  }
+  if (modeParam === 'flip' && hasLocalPdf) {
+    return <PremiumBookReader book={book} initialPage={initialPage} />;
+  }
+
+  // 2. If it is a Cloud Embed / Drive / PubHTML5 book AND has no local PDF:
+  // Open directly via the Cloud Embed Reader (without PDF.js) so it NEVER errors!
+  if (isEmbedBook && !hasLocalPdf && (book.reader_url || book.source_url || book.pdf_url)) {
+    return <PubHtml5Reader book={book} hasLocalPdf={false} />;
+  }
+
+  // 3. If book has a verified local PDF -> use realistic 3D Flipbook Reader
+  if (hasLocalPdf) {
+    return <PremiumBookReader book={book} initialPage={initialPage} />;
+  }
+
+  // 4. Default fallback: If any embed link exists, use Cloud Embed Reader
+  if (book.reader_url || book.source_url || book.pdf_url) {
+    return <PubHtml5Reader book={book} hasLocalPdf={hasLocalPdf} />;
   }
 
   return <PremiumBookReader book={book} initialPage={initialPage} />;

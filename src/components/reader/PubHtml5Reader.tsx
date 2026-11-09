@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ChevronLeft, Maximize, Minimize, ExternalLink, BookOpen, Sparkles } from 'lucide-react';
+import { ChevronLeft, Maximize, Minimize, ExternalLink, BookOpen, Sparkles, Clock, BookMarked } from 'lucide-react';
 
 interface PubHtml5ReaderProps {
   book: {
@@ -11,19 +12,54 @@ interface PubHtml5ReaderProps {
     author_name?: string;
     reader_url?: string;
     source_url?: string;
+    pdf_url?: string;
     pages?: number;
     page_count?: number;
     category_id?: string;
+    category_ids?: string[];
   };
+  hasLocalPdf?: boolean;
 }
 
-export default function PubHtml5Reader({ book }: PubHtml5ReaderProps) {
+export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const rawUrl = book.reader_url || book.source_url || '';
-  // Ensure HTTPS to prevent mixed-content blocks
-  const secureUrl = rawUrl.startsWith('http://') ? rawUrl.replace('http://', 'https://') : rawUrl;
+  const [sessionSeconds, setSessionSeconds] = useState(0);
+
+  // Timer tracking for reading session
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSessionSeconds(s => s + 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTimer = (secs: number) => {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  };
+
+  const rawUrl = book.reader_url || book.source_url || book.pdf_url || '';
+  let secureUrl = rawUrl.startsWith('http://') ? rawUrl.replace('http://', 'https://') : rawUrl;
+
+  // Convert Google Drive links to /preview for clean, reliable iframe embedding
+  if (secureUrl.includes('drive.google.com')) {
+    const fileIdMatch = secureUrl.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (fileIdMatch && fileIdMatch[1]) {
+      secureUrl = `https://drive.google.com/file/d/${fileIdMatch[1]}/preview`;
+    } else {
+      const idParamMatch = secureUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (idParamMatch && idParamMatch[1]) {
+        secureUrl = `https://drive.google.com/file/d/${idParamMatch[1]}/preview`;
+      }
+    }
+  }
+
+  const isDrive = secureUrl.includes('drive.google.com') || secureUrl.includes('docs.google.com');
+  const isPubHtml5 = secureUrl.includes('pubhtml5.com');
+  const isWorldCiv = book.category_id === 'cat_world_civ' || (book.category_ids && book.category_ids.includes('cat_world_civ'));
 
   const handleGoBack = useCallback(() => {
     // 1. If explicit 'from' parameter provided in URL
@@ -73,7 +109,7 @@ export default function PubHtml5Reader({ book }: PubHtml5ReaderProps) {
           <button
             onClick={handleGoBack}
             className="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer shrink-0 flex items-center gap-1 font-bold text-xs"
-            title="กลับไปหน้าที่มาก่อนหน้า (คลิกเดียว)"
+            title="กลับไปหน้าที่มาก่อนหน้า"
           >
             <ChevronLeft size={18} />
             <span className="hidden sm:inline">ย้อนกลับ</span>
@@ -81,22 +117,46 @@ export default function PubHtml5Reader({ book }: PubHtml5ReaderProps) {
 
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <h1 className="font-extrabold text-xs sm:text-sm tracking-tight truncate text-slate-100">
+              <h1 className="font-extrabold text-xs sm:text-sm tracking-tight truncate text-slate-100 max-w-[180px] sm:max-w-xs md:max-w-md">
                 {book.title}
               </h1>
-              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600/90 text-white shrink-0 shadow-2xs">
+              <span className={`hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold shrink-0 shadow-2xs ${
+                isWorldCiv 
+                  ? 'bg-emerald-600/90 text-white' 
+                  : isDrive 
+                  ? 'bg-sky-600/90 text-white' 
+                  : 'bg-amber-600/90 text-white'
+              }`}>
                 <BookOpen size={11} />
-                ห้องเรียน อารยธรรมโลก
+                {isWorldCiv ? 'ห้องเรียน อารยธรรมโลก' : isDrive ? 'Cloud Viewer' : 'PubHTML5 Flipbook'}
               </span>
             </div>
             <div className="text-[10px] text-slate-400 hidden md:block truncate">
-              หนังสือฉบับเปิดอ่านออนไลน์ (PubHTML5 Flipbook) • รวม {book.pages || book.page_count || 1} หน้า
+              หนังสือฉบับเปิดอ่านออนไลน์ • รวม {book.pages || book.page_count || 1} หน้า
             </div>
           </div>
         </div>
 
         {/* Right: Actions */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Reading Timer */}
+          <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white/10 text-sky-200 text-xs font-mono font-bold">
+            <Clock size={12} className="text-[#079FE8]" />
+            <span>{formatTimer(sessionSeconds)}</span>
+          </div>
+
+          {/* Switch to Flipbook Mode (if local PDF is available) */}
+          {hasLocalPdf && (
+            <Link
+              href={`/reader/${book.id}?mode=flip`}
+              className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition-all shadow-xs"
+              title="สลับไปโหมดพลิกหน้าสมจริง (Flipbook)"
+            >
+              <BookMarked size={13} />
+              <span>โหมดพลิกหน้า 3D</span>
+            </Link>
+          )}
+
           <a
             href={secureUrl}
             target="_blank"
@@ -125,7 +185,7 @@ export default function PubHtml5Reader({ book }: PubHtml5ReaderProps) {
             src={secureUrl}
             className="w-full h-full border-0 block"
             allowFullScreen
-            allow="clipboard-write; encrypted-media"
+            allow="clipboard-write; encrypted-media; autoplay"
             title={book.title}
           />
         ) : (
