@@ -55,7 +55,14 @@ export default function ImportPdfPage() {
 
   const handleUnlock = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passkeyInput === 'thanavuddho-admin-2568' || passkeyInput === 'admin2568') {
+    const clean = passkeyInput.trim();
+    if (
+      clean === 'thanavuddho-admin-2568' || 
+      clean === 'admin2568' || 
+      clean === 'admin69' || 
+      clean === 'thanavuddho2026' || 
+      clean === '69001'
+    ) {
       setIsUnlocked(true);
       setPasskeyError('');
     } else {
@@ -274,17 +281,33 @@ export default function ImportPdfPage() {
     <div className="bg-slate-50 min-h-screen py-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Navigation Breadcrumb */}
-        <div className="flex items-center gap-3 mb-6">
-          <Link
-            href="/admin"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-amber-700 bg-white px-3 py-1.5 rounded-full border border-slate-200 shadow-2xs transition-colors"
-          >
-            <ArrowLeft size={14} />
-            <span>กลับหน้าจัดการระบบ</span>
-          </Link>
-          <span className="text-slate-300">/</span>
-          <span className="text-xs font-bold text-slate-900">นำเข้าหนังสือ PDF อัจฉริยะ</span>
+        {/* Navigation Breadcrumb & Switcher */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-amber-700 bg-white px-3 py-1.5 rounded-full border border-slate-200 shadow-2xs transition-colors"
+            >
+              <ArrowLeft size={14} />
+              <span>กลับหน้าจัดการระบบ</span>
+            </Link>
+            <span className="text-slate-300">/</span>
+            <span className="text-xs font-bold text-slate-900">นำเข้าหนังสือ PDF อัจฉริยะ</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="px-3 py-1.5 rounded-xl bg-slate-900 text-white font-black text-xs shadow-sm flex items-center gap-1.5">
+              <FileText size={14} className="text-amber-300" />
+              <span>อัปโหลด PDF จากเครื่อง</span>
+            </span>
+            <Link
+              href="/admin/import-drive"
+              className="px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs border border-blue-200 shadow-2xs transition-colors flex items-center gap-1.5"
+            >
+              <UploadCloud size={14} />
+              <span>นำเข้า Google Drive (26 เล่มรอซิงก์) →</span>
+            </Link>
+          </div>
         </div>
 
         {/* Hero Banner Header */}

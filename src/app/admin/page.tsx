@@ -32,7 +32,8 @@ import {
   KeyRound,
   ArrowRight,
   FileSpreadsheet,
-  BarChart3
+  BarChart3,
+  UploadCloud
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
@@ -514,6 +515,13 @@ export default function AdminDashboardPage() {
               <span>ฐานข้อมูล Supabase (Schema) 🗄️</span>
             </Link>
             <Link
+              href="/admin/import-drive"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs shadow-md transition-all active:scale-95"
+            >
+              <UploadCloud size={15} className="text-amber-300" />
+              <span>นำเข้า Google Drive (26 เล่มรอซิงก์) ☁️</span>
+            </Link>
+            <Link
               href="/admin/import-pdf"
               className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-all active:scale-95"
             >
@@ -795,13 +803,21 @@ export default function AdminDashboardPage() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2.5 flex-wrap">
+                  <Link
+                    href="/admin/import-drive"
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs shadow-md transition-all active:scale-95"
+                  >
+                    <UploadCloud size={16} className="text-amber-300" />
+                    <span>นำเข้า Google Drive (26 เล่ม)</span>
+                  </Link>
+
                   <button
                     onClick={() => {
                       setEditingBook(null);
                       setBookModalOpen(true);
                     }}
-                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-md transition-all active:scale-95 cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-black text-xs shadow-md transition-all active:scale-95 cursor-pointer"
                   >
                     <Plus size={16} />
                     <span>เพิ่มหนังสือ / แนบ Link</span>
