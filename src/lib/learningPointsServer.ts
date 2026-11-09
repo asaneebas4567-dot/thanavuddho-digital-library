@@ -57,6 +57,7 @@ export interface PointTransaction {
     | 'quiz_chapter' 
     | 'quiz_book_finish' 
     | 'redeem_reward' 
+    | 'website_survey'
     | 'admin_adjust';
   points: number; // positive = earn, negative = spend
   title: string;

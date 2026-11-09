@@ -162,3 +162,4 @@ export function calculateReadingPoints(params: ReadingPointParams): ReadingPoint
     formulaNote: `สูตร: (หน้า(${pagesRead}) x 2 + เวลา(${minutes}น.)) x สตรีค(${streakMultiplier}x)`
   };
 }
+

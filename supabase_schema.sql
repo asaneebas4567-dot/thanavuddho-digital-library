@@ -378,3 +378,66 @@ ON public.user_points FOR SELECT USING (auth.jwt() ->> 'email' = user_email);
 CREATE POLICY "Users view own loans" 
 ON public.loans FOR SELECT USING (auth.jwt() ->> 'email' = user_email);
 
+-- ==============================================================================
+-- 9. SYSTEM 6: QUALITY ASSESSMENT & SURVEY FEEDBACK SYSTEM (EVALUATION & DATA TESTING)
+-- ==============================================================================
+
+-- Table: survey_questions (ชุดข้อคำถามประเมินคุณภาพเว็บไซต์และสื่อดิจิทัล)
+CREATE TABLE IF NOT EXISTS public.survey_questions (
+    id VARCHAR(50) PRIMARY KEY,
+    category VARCHAR(50) NOT NULL CHECK (category IN ('website', 'books', 'video', 'podcast', 'article', 'general')),
+    category_title_th VARCHAR(100) NOT NULL,
+    question_text TEXT NOT NULL,
+    question_type VARCHAR(20) DEFAULT 'rating' CHECK (question_type IN ('rating', 'text', 'choice')),
+    scale_min INT DEFAULT 1,
+    scale_max INT DEFAULT 5,
+    display_order INT DEFAULT 0,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
+);
+
+-- Table: survey_responses (การส่งแบบประเมินรายบุคคล เชื่อมต่อสมาชิกและ Google Forms)
+CREATE TABLE IF NOT EXISTS public.survey_responses (
+    id VARCHAR(100) PRIMARY KEY,
+    form_response_id VARCHAR(100) UNIQUE NOT NULL,
+    user_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
+    respondent_email VARCHAR(255) NOT NULL,
+    submitted_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    status VARCHAR(20) DEFAULT 'completed' CHECK (status IN ('completed', 'verified', 'rejected')),
+    points_awarded BOOLEAN DEFAULT FALSE,
+    points_awarded_at TIMESTAMP WITH TIME ZONE,
+    is_test BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
+);
+
+-- Table: survey_answers (คำตอบรายข้อ เชื่อมโยง response_id และ question_id)
+CREATE TABLE IF NOT EXISTS public.survey_answers (
+    id VARCHAR(100) PRIMARY KEY,
+    response_id VARCHAR(100) NOT NULL REFERENCES public.survey_responses(id) ON DELETE CASCADE,
+    question_id VARCHAR(50) NOT NULL REFERENCES public.survey_questions(id) ON DELETE CASCADE,
+    rating_value NUMERIC(3,1) CHECK (rating_value >= 1 AND rating_value <= 5),
+    text_value TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+    UNIQUE (response_id, question_id)
+);
+
+-- Anti-Duplicate 200 Points Awarding Constraint
+CREATE UNIQUE INDEX IF NOT EXISTS idx_single_survey_reward
+ON public.point_transactions (user_email, activity_type)
+WHERE activity_type = 'website_survey';
+
+-- Survey RLS Policies
+ALTER TABLE public.survey_questions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.survey_responses ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.survey_answers ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public can view active survey questions"
+ON public.survey_questions FOR SELECT USING (is_active = true);
+
+CREATE POLICY "Users can insert survey responses"
+ON public.survey_responses FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Users can insert survey answers"
+ON public.survey_answers FOR INSERT WITH CHECK (true);
+
+

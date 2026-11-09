@@ -24,7 +24,9 @@ import {
   FileCode, 
   ArrowLeft,
   GraduationCap,
-  Sparkles
+  Sparkles,
+  BarChart3,
+  FileSpreadsheet
 } from 'lucide-react';
 import persistentBooks from '@/data/persistentBooks.json';
 import persistentUsers from '@/data/persistentUsers.json';
@@ -269,6 +271,75 @@ export default function AdminDatabasePage() {
         stock: r.stock,
         is_active: r.isActive ? 'TRUE' : 'FALSE'
       }))
+    },
+    survey_questions: {
+      name: 'survey_questions',
+      system: '6. Quality Assessment & Survey Feedback',
+      systemColor: 'bg-teal-50 text-teal-700 border-teal-200',
+      icon: FileSpreadsheet,
+      description: 'ชุดข้อคำถามประเมินคุณภาพเว็บไซต์และสื่อดิจิทัล เชื่อมโยง Google Forms',
+      primaryKey: 'id (VARCHAR)',
+      foreignKeys: [],
+      fields: [
+        { name: 'id', type: 'VARCHAR(50)', desc: 'รหัสข้อคำถาม (PK)', isKey: true },
+        { name: 'category', type: 'VARCHAR(50)', desc: 'books, website, video, podcast, article' },
+        { name: 'question_text', type: 'TEXT', desc: 'ข้อความคำถามแบบประเมิน' },
+        { name: 'question_type', type: 'VARCHAR(20)', desc: 'rating (1-5) หรือ text' },
+        { name: 'scale_max', type: 'INT', desc: 'คะแนนเต็ม (5 ดาว)' },
+        { name: 'is_active', type: 'BOOLEAN', desc: 'เปิดใช้งานอยู่หรือไม่' }
+      ],
+      sampleData: [
+        { id: 'q_book_search', category: 'books', question_text: 'ความสะดวกในการค้นหาหนังสือ', question_type: 'rating', scale_max: 5, is_active: 'TRUE' },
+        { id: 'q_book_reader', category: 'books', question_text: 'ความคมชัดของ PDF & Flipbook', question_type: 'rating', scale_max: 5, is_active: 'TRUE' },
+        { id: 'q_web_design', category: 'website', question_text: 'ความสวยงามของหน้าตาเว็บไซต์ UI/UX', question_type: 'rating', scale_max: 5, is_active: 'TRUE' },
+        { id: 'q_media_video', category: 'video', question_text: 'ความคมชัดและระบบบทถอดเสียง', question_type: 'rating', scale_max: 5, is_active: 'TRUE' }
+      ]
+    },
+    survey_responses: {
+      name: 'survey_responses',
+      system: '6. Quality Assessment & Survey Feedback',
+      systemColor: 'bg-teal-50 text-teal-700 border-teal-200',
+      icon: BarChart3,
+      description: 'ผลการส่งแบบประเมินรายบุคคล ตรวจสอบความซ้ำ และบันทึกคะแนน 200 แต้ม',
+      primaryKey: 'id (VARCHAR)',
+      foreignKeys: ['user_id -> profiles.id'],
+      fields: [
+        { name: 'id', type: 'VARCHAR(100)', desc: 'รหัสการตอบแบบประเมิน (PK)', isKey: true },
+        { name: 'form_response_id', type: 'VARCHAR(100)', desc: 'Token จาก Google Forms ป้องกันซ้ำ', isKey: true },
+        { name: 'user_id', type: 'UUID', desc: 'รหัสสมาชิก (FK -> profiles)' },
+        { name: 'respondent_email', type: 'VARCHAR(255)', desc: 'อีเมลผู้ตอบแบบประเมิน' },
+        { name: 'submitted_at', type: 'TIMESTAMP', desc: 'วัน-เวลาที่ส่งแบบประเมิน' },
+        { name: 'status', type: 'VARCHAR(20)', desc: 'completed / verified' },
+        { name: 'points_awarded', type: 'BOOLEAN', desc: 'ได้รับ 200 คะแนนแล้วหรือไม่' },
+        { name: 'is_test', type: 'BOOLEAN', desc: 'แยกชุดข้อมูลทดสอบออกจากผลจริง' }
+      ],
+      sampleData: [
+        { id: 'resp-001', form_response_id: 'gform_20261108_1420', respondent_email: 'asaneebas4567@gmail.com', submitted_at: '2026-11-08 14:20', status: 'verified', points_awarded: 'TRUE', is_test: 'FALSE' },
+        { id: 'resp-002', form_response_id: 'gform_20261108_1545', respondent_email: 'thanavuddho.dhamma@gmail.com', submitted_at: '2026-11-08 15:45', status: 'verified', points_awarded: 'TRUE', is_test: 'FALSE' },
+        { id: 'resp-003', form_response_id: 'gform_20261108_0800', respondent_email: 'test.student@univ.ac.th', submitted_at: '2026-11-08 08:00', status: 'completed', points_awarded: 'FALSE', is_test: 'TRUE' }
+      ]
+    },
+    survey_answers: {
+      name: 'survey_answers',
+      system: '6. Quality Assessment & Survey Feedback',
+      systemColor: 'bg-teal-50 text-teal-700 border-teal-200',
+      icon: Table,
+      description: 'คำตอบรายข้อ เชื่อมโยง response_id และ question_id พร้อมคะแนน Likert Scale 1-5',
+      primaryKey: 'id (VARCHAR)',
+      foreignKeys: ['response_id -> survey_responses.id', 'question_id -> survey_questions.id'],
+      fields: [
+        { name: 'id', type: 'VARCHAR(100)', desc: 'รหัสคำตอบเฉพาะ (PK)', isKey: true },
+        { name: 'response_id', type: 'VARCHAR(100)', desc: 'FK -> survey_responses.id' },
+        { name: 'question_id', type: 'VARCHAR(50)', desc: 'FK -> survey_questions.id' },
+        { name: 'rating_value', type: 'NUMERIC(3,1)', desc: 'คะแนนประเมิน (1-5)' },
+        { name: 'text_value', type: 'TEXT', desc: 'ข้อความข้อเสนอแนะเพิ่มเติม' }
+      ],
+      sampleData: [
+        { id: 'ans-001', response_id: 'resp-001', question_id: 'q_book_search', rating_value: 5.0, text_value: '-' },
+        { id: 'ans-002', response_id: 'resp-001', question_id: 'q_book_reader', rating_value: 5.0, text_value: '-' },
+        { id: 'ans-003', response_id: 'resp-001', question_id: 'q_web_design', rating_value: 5.0, text_value: '-' },
+        { id: 'ans-004', response_id: 'resp-001', question_id: 'q_overall_recommendation', rating_value: null, text_value: 'ระบบ Flipbook ใช้งานสะดวก คมชัดมากครับ' }
+      ]
     }
   };
 

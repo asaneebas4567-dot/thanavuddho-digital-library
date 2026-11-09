@@ -30,7 +30,9 @@ import {
   Flame, 
   Lock, 
   KeyRound,
-  ArrowRight
+  ArrowRight,
+  FileSpreadsheet,
+  BarChart3
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
@@ -497,6 +499,13 @@ export default function AdminDashboardPage() {
           </div>
 
           <div className="flex items-center gap-2.5 flex-wrap">
+            <Link
+              href="/admin/surveys"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white font-extrabold text-xs shadow-md hover:from-amber-500 hover:to-amber-600 transition-all active:scale-95"
+            >
+              <FileSpreadsheet size={15} />
+              <span>ผลแบบประเมิน & 200 แต้ม 📊</span>
+            </Link>
             <Link
               href="/admin/database"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-extrabold text-xs shadow-md hover:from-emerald-500 hover:to-teal-600 transition-all active:scale-95"
