@@ -13,7 +13,7 @@ const MEDIA_PROGRESS_FILE = path.join(DATA_DIR, 'userMediaProgress.json');
 export interface RewardItem {
   id: string;
   title: string;
-  tier: 1000 | 2500 | 4000 | 5000 | 7000 | 10000;
+  tier: number;
   category: 'souvenir' | 'special_souvenir' | 'sacred_gift' | 'book' | 'signed_book' | 'vip';
   points: number;
   description: string;
@@ -22,6 +22,11 @@ export interface RewardItem {
   isActive: boolean;
   requiresShipping: boolean;
   badge?: string;
+  isBookCover?: boolean;
+  bookCover?: string;
+  pastelTheme?: string;
+  isBoxset?: boolean;
+  boxsetCovers?: string[];
 }
 
 export interface RewardRedemption {
