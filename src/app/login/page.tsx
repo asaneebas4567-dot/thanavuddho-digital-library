@@ -17,7 +17,8 @@ import {
   BookMarked,
   KeyRound,
   Sparkles,
-  Settings
+  Settings,
+  Compass
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
@@ -586,6 +587,20 @@ function LoginPageContent() {
                     <div ref={googleBtnRef} className="flex justify-center" />
                   )}
                 </div>
+              </div>
+
+              {/* Guest Exploration Option */}
+              <div className="mt-4 pt-3 border-t border-slate-100 text-center">
+                <Link
+                  href="/"
+                  className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs transition-all cursor-pointer border border-slate-200 shadow-2xs"
+                >
+                  <Compass size={15} className="text-sky-600" />
+                  <span>เข้าชมเนื้อหาสาธารณะแบบผู้เยี่ยมชม (Guest) โดยไม่ต้องล็อกอิน →</span>
+                </Link>
+                <p className="text-[10.5px] text-slate-400 mt-1.5">
+                  บุคคลทั่วไปสามารถอ่านหนังสือสาธารณะ ชมวิดีโอ และฟังพอดแคสต์ได้ฟรี
+                </p>
               </div>
 
             </div>

@@ -19,7 +19,8 @@ import {
   Award,
   Gift,
   LogIn,
-  LogOut
+  LogOut,
+  Compass
 } from 'lucide-react';
 import Image from 'next/image';
 import { useLoan } from '@/context/LoanContext';
@@ -195,14 +196,24 @@ export default function Navbar() {
                 )}
               </Link>
             ) : (
-              <Link 
-                href="/login" 
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-white bg-white/15 hover:bg-white/25 transition-all cursor-pointer border border-white/25 active:scale-95"
-                title="เข้าสู่ระบบ / สมัครสมาชิก"
-              >
-                <LogIn size={14} />
-                <span>เข้าสู่ระบบ</span>
-              </Link>
+              <div className="flex items-center gap-1.5">
+                <Link
+                  href="/welcome"
+                  className="hidden lg:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold text-sky-200 hover:text-white bg-white/10 hover:bg-white/20 transition-all border border-white/15"
+                  title="หน้าแนะนำเว็บไซต์ & สิทธิ์การใช้งาน"
+                >
+                  <Compass size={12} className="text-[#FEF08A]" />
+                  <span>แนะนำบริการ</span>
+                </Link>
+                <Link 
+                  href="/login" 
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-white bg-white/15 hover:bg-white/25 transition-all cursor-pointer border border-white/25 active:scale-95"
+                  title="เข้าสู่ระบบ / สมัครสมาชิก"
+                >
+                  <LogIn size={14} />
+                  <span>เข้าสู่ระบบ</span>
+                </Link>
+              </div>
             )}
 
             {/* Mobile Menu Toggle Button */}
@@ -313,13 +324,22 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <Link
-                href="/login"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-2.5 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs text-center flex items-center justify-center gap-1.5 shadow-md"
-              >
-                <LogIn size={15} /> เข้าสู่ระบบ / สมัครสมาชิก
-              </Link>
+              <div className="space-y-2">
+                <Link
+                  href="/welcome"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full py-2.5 px-3 rounded-xl bg-sky-50 text-sky-800 border border-sky-200 font-extrabold text-xs text-center flex items-center justify-center gap-1.5 shadow-2xs"
+                >
+                  <Compass size={15} className="text-sky-600" /> แนะนำบริการ & สิทธิ์การใช้งาน
+                </Link>
+                <Link
+                  href="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#D9A441] to-amber-500 text-[#073B65] font-black text-xs text-center flex items-center justify-center gap-1.5 shadow-md"
+                >
+                  <LogIn size={15} /> เข้าสู่ระบบ / สมัครสมาชิก
+                </Link>
+              </div>
             )}
           </div>
         </div>

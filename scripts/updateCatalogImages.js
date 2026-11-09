@@ -44,3 +44,4 @@ catalog.forEach(item => {
 
 fs.writeFileSync(catalogFile, JSON.stringify(catalog, null, 2), 'utf-8');
 console.log('Successfully updated rewardsCatalog.json with photorealistic images!');
+
