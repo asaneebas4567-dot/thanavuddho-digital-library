@@ -6,36 +6,66 @@ import { LoanRecord } from '@/types';
 
 const DATA_DIR = path.join(process.cwd(), 'src', 'data');
 const USERS_FILE = path.join(DATA_DIR, 'persistentUsers.json');
+const TMP_USERS_FILE = path.join('/tmp', 'persistentUsers.json');
+
+let inMemoryUsersStore: Record<string, UserSession> | null = null;
 
 // Ensure data directory and file exist
 function ensureStorageExists() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(USERS_FILE)) {
-    fs.writeFileSync(USERS_FILE, JSON.stringify({}, null, 2), 'utf-8');
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(USERS_FILE)) {
+      fs.writeFileSync(USERS_FILE, JSON.stringify({}, null, 2), 'utf-8');
+    }
+  } catch {
+    // Read-only filesystem on Vercel / AWS Lambda
   }
 }
 
 // Read all users from disk
 export function getAllUsers(): Record<string, UserSession> {
+  if (inMemoryUsersStore) {
+    return inMemoryUsersStore;
+  }
   ensureStorageExists();
   try {
-    const data = fs.readFileSync(USERS_FILE, 'utf-8');
-    return JSON.parse(data) || {};
+    if (fs.existsSync(USERS_FILE)) {
+      const data = fs.readFileSync(USERS_FILE, 'utf-8');
+      inMemoryUsersStore = JSON.parse(data) || {};
+      return inMemoryUsersStore!;
+    }
   } catch (err) {
-    console.error('Failed to read users file:', err);
-    return {};
+    console.warn('Failed to read users file from project dir:', err);
   }
+
+  try {
+    if (fs.existsSync(TMP_USERS_FILE)) {
+      const data = fs.readFileSync(TMP_USERS_FILE, 'utf-8');
+      inMemoryUsersStore = JSON.parse(data) || {};
+      return inMemoryUsersStore!;
+    }
+  } catch {
+    // ignore
+  }
+
+  inMemoryUsersStore = {};
+  return inMemoryUsersStore;
 }
 
 // Save all users to disk
 export function saveAllUsers(users: Record<string, UserSession>) {
+  inMemoryUsersStore = users;
   ensureStorageExists();
   try {
     fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
   } catch (err) {
-    console.error('Failed to save users file:', err);
+    try {
+      fs.writeFileSync(TMP_USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
+    } catch {
+      // ignore
+    }
   }
 }
 

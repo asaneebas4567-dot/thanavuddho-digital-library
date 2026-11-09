@@ -90,22 +90,48 @@ export interface MediaProgressRecord {
 // ---------------------------------------------------------
 // Helper: File Reads & Writes
 // ---------------------------------------------------------
+// In-memory cache map to avoid repeated disk reads and survive read-only environments
+const memoryCache = new Map<string, any>();
+
 function readJson<T>(filePath: string, fallback: T): T {
+  if (memoryCache.has(filePath)) {
+    return memoryCache.get(filePath) as T;
+  }
   try {
-    if (!fs.existsSync(filePath)) return fallback;
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(raw) as T;
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      const parsed = JSON.parse(raw) as T;
+      memoryCache.set(filePath, parsed);
+      return parsed;
+    }
+    // Check /tmp fallback on serverless
+    const filename = path.basename(filePath);
+    const tmpPath = path.join('/tmp', filename);
+    if (fs.existsSync(tmpPath)) {
+      const raw = fs.readFileSync(tmpPath, 'utf-8');
+      const parsed = JSON.parse(raw) as T;
+      memoryCache.set(filePath, parsed);
+      return parsed;
+    }
+    return fallback;
   } catch (err) {
-    console.error(`Error reading ${filePath}:`, err);
     return fallback;
   }
 }
 
 function writeJson(filePath: string, data: any) {
+  memoryCache.set(filePath, data);
   try {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
   } catch (err) {
-    console.error(`Error writing ${filePath}:`, err);
+    // If read-only filesystem (Vercel / AWS Lambda), write to /tmp
+    try {
+      const filename = path.basename(filePath);
+      const tmpPath = path.join('/tmp', filename);
+      fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf-8');
+    } catch {
+      // ignore
+    }
   }
 }
 

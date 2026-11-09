@@ -19,20 +19,29 @@ function resolveReaderBook(rawId: string): any {
   const customList = (persistentBooks as any[]) || [];
   const allPool: any[] = [...customList, ...dbBooks, ...mockBooks];
 
+  // Helper to merge multiple matching entries so cloud URLs / PDF URLs are fully preserved
+  const mergeMatches = (matches: any[]) => {
+    let merged: any = {};
+    for (let i = matches.length - 1; i >= 0; i--) {
+      merged = { ...merged, ...matches[i] };
+    }
+    return merged;
+  };
+
   // 1. Direct ID match
-  let found = allPool.find(b => b.id === trimmedRaw || b.id === decodedId);
-  if (found) return found;
+  const idMatches = allPool.filter(b => b.id === trimmedRaw || b.id === decodedId);
+  if (idMatches.length > 0) return mergeMatches(idMatches);
 
   // 2. Prefix variation match
-  found = allPool.find(b => b.id.replace(/^book_/, '') === cleanId || b.id === `book_${cleanId}`);
-  if (found) return found;
+  const prefixMatches = allPool.filter(b => b.id.replace(/^book_/, '') === cleanId || b.id === `book_${cleanId}`);
+  if (prefixMatches.length > 0) return mergeMatches(prefixMatches);
 
   // 3. Exact Title match
-  found = allPool.find(b => b.title === decodedId || b.title === cleanId);
-  if (found) return found;
+  const titleMatches = allPool.filter(b => b.title === decodedId || b.title === cleanId);
+  if (titleMatches.length > 0) return mergeMatches(titleMatches);
 
   // 4. Substring Title match
-  found = allPool.find(b => b.title && (b.title.includes(cleanId) || cleanId.includes(b.title)));
+  let found = allPool.find(b => b.title && (b.title.includes(cleanId) || cleanId.includes(b.title)));
   if (found) return found;
 
   // 5. Normalized match
@@ -138,25 +147,25 @@ function BookReaderContent({ bookId }: { bookId: string }) {
   );
 
   // 1. Explicit mode requested via query parameter
-  if (modeParam === 'embed' && (book.reader_url || book.source_url || book.pdf_url)) {
-    return <PubHtml5Reader book={book} hasLocalPdf={hasLocalPdf} />;
-  }
   if (modeParam === 'flip' && hasLocalPdf) {
     return <PremiumBookReader book={book} initialPage={initialPage} />;
   }
-
-  // 2. If it is a Cloud Embed / Drive / PubHTML5 book AND has no local PDF:
-  // Open directly via the Cloud Embed Reader (without PDF.js) so it NEVER errors!
-  if (isEmbedBook && !hasLocalPdf && (book.reader_url || book.source_url || book.pdf_url)) {
-    return <PubHtml5Reader book={book} hasLocalPdf={false} />;
+  if (modeParam === 'embed' && (book.reader_url || book.source_url || book.pdf_url)) {
+    return <PubHtml5Reader book={book} hasLocalPdf={hasLocalPdf} />;
   }
 
-  // 3. If book has a verified local PDF -> use realistic 3D Flipbook Reader
+  // 2. Default: If book has ANY Cloud Embed / Google Drive / PubHTML5 link,
+  // open directly in Cloud Viewer (without loading heavy PDF.js) so it NEVER errors!
+  if (isEmbedBook && (book.reader_url || book.source_url || book.pdf_url)) {
+    return <PubHtml5Reader book={book} hasLocalPdf={hasLocalPdf} />;
+  }
+
+  // 3. If book has a verified local PDF and no cloud link, use 3D Flipbook Reader
   if (hasLocalPdf) {
     return <PremiumBookReader book={book} initialPage={initialPage} />;
   }
 
-  // 4. Default fallback: If any embed link exists, use Cloud Embed Reader
+  // 4. Default fallback: If any URL exists at all, try Cloud Viewer first
   if (book.reader_url || book.source_url || book.pdf_url) {
     return <PubHtml5Reader book={book} hasLocalPdf={hasLocalPdf} />;
   }

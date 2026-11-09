@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ChevronLeft, Maximize, Minimize, ExternalLink, BookOpen, Sparkles, Clock, BookMarked } from 'lucide-react';
+import { ChevronLeft, Maximize, Minimize, ExternalLink, BookOpen, Sparkles, Clock, BookMarked, Coins } from 'lucide-react';
+import { useLearningPoints } from '@/lib/useLearningPoints';
+import LazadaRewardPopup, { RewardCelebrationData } from '@/components/rewards/LazadaRewardPopup';
 
 interface PubHtml5ReaderProps {
   book: {
@@ -26,6 +28,10 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
   const searchParams = useSearchParams();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [sessionSeconds, setSessionSeconds] = useState(0);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [celebrationData, setCelebrationData] = useState<RewardCelebrationData>({ points: 15 });
+  const hasRewardedRef = useRef<boolean>(false);
+  const { recordEarn } = useLearningPoints();
 
   // Timer tracking for reading session
   useEffect(() => {
@@ -35,13 +41,35 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
     return () => clearInterval(timer);
   }, []);
 
+  // Gamified reading bonus at 2 minutes
+  useEffect(() => {
+    if (sessionSeconds >= 120 && !hasRewardedRef.current) {
+      hasRewardedRef.current = true;
+      recordEarn({
+        type: 'read_chapter',
+        chapterIndex: 1,
+        chapterTitle: book.title,
+        durationSeconds: sessionSeconds
+      });
+      setCelebrationData({
+        points: 15,
+        title: 'อ่านต่อเนื่อง 2 นาที! 🪙',
+        subtitle: `ปัญญาบารมีเพิ่มพูนจากการศึกษาหนังสือ "${book.title}" (+15 P)`
+      });
+      setShowCelebration(true);
+    }
+  }, [sessionSeconds, book.title, recordEarn]);
+
   const formatTimer = (secs: number) => {
     const m = Math.floor(secs / 60);
     const s = secs % 60;
     return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
   };
 
-  const rawUrl = book.reader_url || book.source_url || book.pdf_url || '';
+  let rawUrl = (book as any).drive_file_id 
+    ? `https://drive.google.com/file/d/${(book as any).drive_file_id}/preview`
+    : (book.reader_url || book.source_url || book.pdf_url || '');
+
   let secureUrl = rawUrl.startsWith('http://') ? rawUrl.replace('http://', 'https://') : rawUrl;
 
   // Convert Google Drive links to /preview for clean, reliable iframe embedding
@@ -195,6 +223,13 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
           </div>
         )}
       </main>
+
+      {/* Gamified Reward Celebration Popup */}
+      <LazadaRewardPopup
+        isOpen={showCelebration}
+        onClose={() => setShowCelebration(false)}
+        data={celebrationData}
+      />
     </div>
   );
 }

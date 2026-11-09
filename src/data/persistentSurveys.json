@@ -1,0 +1,92 @@
+{
+  "questions": [
+    {
+      "id": "q_book_search",
+      "category": "books",
+      "categoryTitleTh": "หนังสือดิจิทัล & E-Books",
+      "questionText": "ความพึงพอใจต่อระบบสืบค้นหนังสือ ค้นหาตามหมวดหมู่ คำค้นหา และความรวดเร็วในการแสดงผล",
+      "questionType": "rating",
+      "scaleMin": 1,
+      "scaleMax": 5,
+      "displayOrder": 1,
+      "isActive": true
+    },
+    {
+      "id": "q_book_reader",
+      "category": "books",
+      "categoryTitleTh": "หนังสือดิจิทัล & E-Books",
+      "questionText": "ความพึงพอใจต่อระบบเปิดอ่านหนังสือออนไลน์ (Book Reader, โหมดพลิกหน้า 3D, ขนาดตัวอักษร และความคมชัด)",
+      "questionType": "rating",
+      "scaleMin": 1,
+      "scaleMax": 5,
+      "displayOrder": 2,
+      "isActive": true
+    },
+    {
+      "id": "q_web_design",
+      "category": "website",
+      "categoryTitleTh": "ระบบเว็บไซต์ & UI/UX",
+      "questionText": "ความสวยงาม ความสบายตา และความสะดวกในการใช้งานของหน้าตาเว็บไซต์ (โทนสีฟ้า-ขาว-ทอง, เมนู, ความเป็นมิตรต่อผู้ใช้)",
+      "questionType": "rating",
+      "scaleMin": 1,
+      "scaleMax": 5,
+      "displayOrder": 3,
+      "isActive": true
+    },
+    {
+      "id": "q_media_video",
+      "category": "video",
+      "categoryTitleTh": "สื่อวิดีโอธรรมบรรยาย",
+      "questionText": "ความพึงพอใจต่อระบบรับชมวิดีโอธรรมบรรยาย ความคมชัด และการจัดหมวดหมู่วิดีโอ",
+      "questionType": "rating",
+      "scaleMin": 1,
+      "scaleMax": 5,
+      "displayOrder": 4,
+      "isActive": true
+    },
+    {
+      "id": "q_media_podcast",
+      "category": "podcast",
+      "categoryTitleTh": "พอดแคสต์ & หนังสือเสียง",
+      "questionText": "ความพึงพอใจต่อระบบฟังพอดแคสต์ธรรมะ หนังสือเสียง และระบบเพลย์ลิสต์",
+      "questionType": "rating",
+      "scaleMin": 1,
+      "scaleMax": 5,
+      "displayOrder": 5,
+      "isActive": true
+    },
+    {
+      "id": "q_articles_knowledge",
+      "category": "article",
+      "categoryTitleTh": "คลังบทความธรรมะ",
+      "questionText": "ความน่าสนใจและความครบถ้วนของคลังบทความธรรมะ สาระความรู้ และมุมมองชีวิต",
+      "questionType": "rating",
+      "scaleMin": 1,
+      "scaleMax": 5,
+      "displayOrder": 6,
+      "isActive": true
+    },
+    {
+      "id": "q_gamification_rewards",
+      "category": "website",
+      "categoryTitleTh": "ระบบแต้มสะสมและของรางวัล",
+      "questionText": "ความพึงพอใจต่อระบบสะสมแต้มปัญญาบารมี เควสธรรมะ และการแลกของที่ระลึก",
+      "questionType": "rating",
+      "scaleMin": 1,
+      "scaleMax": 5,
+      "displayOrder": 7,
+      "isActive": true
+    },
+    {
+      "id": "q_overall_recommendation",
+      "category": "general",
+      "categoryTitleTh": "ภาพรวม & ข้อเสนอแนะ",
+      "questionText": "ข้อเสนอแนะเพิ่มเติมเพื่อการปรับปรุงและพัฒนาห้องสมุดดิจิทัล Thanavuddho Library",
+      "questionType": "text",
+      "displayOrder": 8,
+      "isActive": true
+    }
+  ],
+  "responses": [],
+  "answers": []
+}

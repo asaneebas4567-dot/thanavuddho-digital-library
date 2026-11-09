@@ -331,10 +331,16 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
       })
       .catch(err => {
         console.error('Failed to load PDF in reader:', err);
+        // Seamless automatic fallback to Cloud Viewer iframe if link exists
+        if (book.reader_url || book.source_url) {
+          setUseIframeFallback(true);
+          setIsPdfLoading(false);
+          return;
+        }
         setPdfError('ไม่สามารถโหลดเอกสาร PDF ได้ หรือไฟล์ยังไม่พร้อมใช้งานในระบบ');
         setIsPdfLoading(false);
       });
-  }, [rawPdfUrl]);
+  }, [rawPdfUrl, book.reader_url, book.source_url]);
 
   // Reading Pacing Timer
   useEffect(() => {

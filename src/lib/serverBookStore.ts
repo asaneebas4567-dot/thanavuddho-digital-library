@@ -8,24 +8,37 @@ const BOOKS_FILE = path.join(DATA_DIR, 'persistentBooks.json');
 
 // Ensure persistent storage exists
 function ensureStorageExists() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(BOOKS_FILE)) {
-    fs.writeFileSync(BOOKS_FILE, JSON.stringify([], null, 2), 'utf-8');
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(BOOKS_FILE)) {
+      fs.writeFileSync(BOOKS_FILE, JSON.stringify([], null, 2), 'utf-8');
+    }
+  } catch {
+    // Read-only filesystem on Vercel / AWS Lambda
   }
 }
 
+let inMemoryCustomBooks: Book[] | null = null;
+
 // Read all custom imported books
 export function getCustomBooks(): Book[] {
+  if (inMemoryCustomBooks) {
+    return inMemoryCustomBooks;
+  }
   ensureStorageExists();
   try {
-    const data = fs.readFileSync(BOOKS_FILE, 'utf-8');
-    return JSON.parse(data) || [];
+    if (fs.existsSync(BOOKS_FILE)) {
+      const data = fs.readFileSync(BOOKS_FILE, 'utf-8');
+      inMemoryCustomBooks = JSON.parse(data) || [];
+      return inMemoryCustomBooks!;
+    }
   } catch (err) {
-    console.error('Failed to read persistentBooks file:', err);
-    return [];
+    console.warn('Failed to read persistentBooks file:', err);
   }
+  inMemoryCustomBooks = [];
+  return [];
 }
 
 // Read combined books (base + custom)
@@ -38,11 +51,17 @@ export function getAllCombinedBooks(): Book[] {
 
 // Save custom books
 export function saveCustomBooks(books: Book[]) {
+  inMemoryCustomBooks = books;
   ensureStorageExists();
   try {
     fs.writeFileSync(BOOKS_FILE, JSON.stringify(books, null, 2), 'utf-8');
   } catch (err) {
-    console.error('Failed to save persistentBooks file:', err);
+    try {
+      const tmpPath = path.join('/tmp', 'persistentBooks.json');
+      fs.writeFileSync(tmpPath, JSON.stringify(books, null, 2), 'utf-8');
+    } catch {
+      // ignore
+    }
   }
 }
 
