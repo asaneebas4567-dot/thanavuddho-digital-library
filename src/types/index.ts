@@ -266,6 +266,8 @@ export interface PodcastEpisode {
   audio_url: string;
   published_at: string;
   description: string;
+  youtube_id?: string;
+  youtube_url?: string;
 }
 
 export interface Podcast {
@@ -278,6 +280,9 @@ export interface Podcast {
   tags: string[];
   episodes: PodcastEpisode[];
   total_episodes: number;
+  book_id?: string;
+  playlist_url?: string;
+  featured?: boolean;
 }
 
 export interface LoanRecord {

@@ -47,7 +47,7 @@ export const books: T.Book[] = [
     pdf_url: '/books/pdf/tam-jai-hai-prom-buak.pdf',
     reader_url: 'https://drive.google.com/file/d/1ja1JlULVFOiernaH9vzkVlRSLA2MUmpS/preview',
     source_url: 'https://drive.google.com/file/d/1ja1JlULVFOiernaH9vzkVlRSLA2MUmpS/view',
-    audio_id: null,
+    audio_id: 'pod-tam-jai-hai-prom-buak',
     video_ids: [],
     copyright_status: 'approved',
     is_copyright: true,

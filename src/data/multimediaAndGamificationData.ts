@@ -75,6 +75,76 @@ export const audiobooks: Audiobook[] = [
 // ==========================================
 export const podcasts: Podcast[] = [
   {
+    id: 'pod-tam-jai-hai-prom-buak',
+    title: 'Podcast ทำใจให้พร้อมบวก (Tam Jai Hai Prom Buak)',
+    host: 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ) & YoKaWaJor',
+    description: 'ชวนคุณมาพักสายตาจิบกาแฟอุ่นๆ ไปกับพอดแคสต์ฟังสบาย เติมพลังบวก สติ และปัญญา จากหนังสือลิขสิทธิ์ "ทำใจให้พร้อมบวก" เพราะการคิดบวกไม่ใช่การหลอกตัวเอง แต่คือการมองหาโอกาสและแง่คิดดีๆ ในทุกสถานการณ์',
+    cover: '/images/books/tam-jai-hai-prom-buak.jpg',
+    category_id: 'cat_mind',
+    tags: ['Podcast', 'ทำใจให้พร้อมบวก', 'คิดบวก', 'เติมพลังใจ', 'สมาธิ', 'YouTube Playlist'],
+    total_episodes: 5,
+    book_id: 'book_tam_jai_hai_prom_buak',
+    playlist_url: 'https://www.youtube.com/watch?v=COag-KtzVmY&list=PLdd3jOoGr_Ts',
+    featured: true,
+    episodes: [
+      {
+        id: 'ep-tj-01',
+        episode_number: 1,
+        title: 'ตอนพิเศษ: คิดบวกไม่ใช่การหลอกตัวเอง 🎧 ฟังเพลิน เติมพลังใจ',
+        duration: '24:31',
+        audio_url: 'https://www.youtube-nocookie.com/embed/COag-KtzVmY',
+        youtube_id: 'COag-KtzVmY',
+        youtube_url: 'https://www.youtube.com/watch?v=COag-KtzVmY',
+        published_at: 'พ.ย. 2569',
+        description: 'ชวนคุณมาพักสายตาจิบกาแฟอุ่นๆ ไปกับพอดแคสต์ฟังสบายที่จะช่วยเติมพลังบวกให้กับชีวิต เพราะการ "คิดบวก" ไม่ใช่การหลอกตัวเอง แต่คือการมองหาโอกาสและแง่คิดดีๆ ในทุกสถานการณ์'
+      },
+      {
+        id: 'ep-tj-02',
+        episode_number: 2,
+        title: 'บทที่ 1: ปกติของมนุษย์ ปกติของผู้มีศีล 🎧 ฟังเพลิน เติมพลังใจ',
+        duration: '19:38',
+        audio_url: 'https://www.youtube-nocookie.com/embed/0-MHKservjk',
+        youtube_id: '0-MHKservjk',
+        youtube_url: 'https://www.youtube.com/watch?v=0-MHKservjk',
+        published_at: 'พ.ย. 2569',
+        description: 'เรียนรู้ธรรมชาติความเป็นจริงของมนุษย์ ความสำคัญของการรักษาศีลเพื่อเป็นเกราะคุ้มครองใจให้สงบเย็นและมั่นคงในทุกการดำเนินชีวิต'
+      },
+      {
+        id: 'ep-tj-03',
+        episode_number: 3,
+        title: 'บทที่ 2: วิกฤต เป็น โอกาส 🎧 ฟังเพลิน เติมพลังใจ',
+        duration: '22:08',
+        audio_url: 'https://www.youtube-nocookie.com/embed/KM6twDHD6yQ',
+        youtube_id: 'KM6twDHD6yQ',
+        youtube_url: 'https://www.youtube.com/watch?v=KM6twDHD6yQ',
+        published_at: 'พ.ย. 2569',
+        description: 'ยินดีต้อนรับกลับเข้าสู่ ทำใจให้พร้อมบวก Podcast ชวนคุยสบายๆ เติมพลังใจ เปลี่ยนมุมมองเมื่อเผชิญหน้ากับอุปสรรค ทุกวิกฤตมีเมล็ดพันธุ์แห่งโอกาสซ่อนอยู่เสมอ'
+      },
+      {
+        id: 'ep-tj-04',
+        episode_number: 4,
+        title: 'บทที่ 3: ความลับของความสุข 🎧 ฟังเพลิน เติมพลังใจ',
+        duration: '21:45',
+        audio_url: 'https://www.youtube-nocookie.com/embed/bUHJ_fzyJBU',
+        youtube_id: 'bUHJ_fzyJBU',
+        youtube_url: 'https://www.youtube.com/watch?v=bUHJ_fzyJBU',
+        published_at: 'พ.ย. 2569',
+        description: 'ค้นพบความลับของสิ่งที่ทุกคนล้วนปรารถนาและออกตามหา นั่นคือเรื่องของ "ความสุข" ที่ไม่ได้อยู่ไกลตัว แต่อยู่ที่ใจที่สงบ นิ่ง และรู้จักพอดีจากภายใน'
+      },
+      {
+        id: 'ep-tj-05',
+        episode_number: 5,
+        title: 'บทที่ 4: คนสุข คนไม่หลงโลก 🎧 ฟังเพลิน เติมพลังใจ',
+        duration: '21:02',
+        audio_url: 'https://www.youtube-nocookie.com/embed/CigtAiorDEI',
+        youtube_id: 'CigtAiorDEI',
+        youtube_url: 'https://www.youtube.com/watch?v=CigtAiorDEI',
+        published_at: 'พ.ย. 2569',
+        description: 'สำรวจการใช้ชีวิตในสังคมปัจจุบันที่เต็มไปด้วยความวุ่นวายและการแข่งขัน ใช้ชีวิตอย่างมีความสุขโดยไม่หลงใหลไปตามกระแสกิเลสของโลก เข้าใจความเป็นไปตามธรรมชาติและวางใจให้เป็นสุข'
+      }
+    ]
+  },
+  {
     id: 'pod-001',
     title: 'Thanavuddho Daily Dhamma (ธรรมะรับอรุณ)',
     host: 'พระครูปลัดสุวัฒนโพธิคุณ',

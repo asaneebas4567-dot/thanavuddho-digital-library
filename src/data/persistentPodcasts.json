@@ -1,5 +1,21 @@
 [
   {
+    "id": "pod-tam-jai-hai-prom-buak",
+    "title": "Podcast ทำใจให้พร้อมบวก (คิดบวกไม่ใช่การหลอกตัวเอง)",
+    "host": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ) & YoKaWaJor",
+    "description": "พอดแคสต์ธรรมะฟังสบาย เติมพลังบวก สติ และปัญญา จากหนังสือลิขสิทธิ์ \"ทำใจให้พร้อมบวก\" เพราะการคิดบวกไม่ใช่การหลอกตัวเอง แต่คือการมองหาโอกาสและแง่คิดดีๆ ในทุกสถานการณ์",
+    "cover": "/images/books/tam-jai-hai-prom-buak.jpg",
+    "audio_url": "https://www.youtube.com/watch?v=COag-KtzVmY&list=PLdd3jOoGr_Ts",
+    "duration": "1:49:04",
+    "category_id": "cat_mind",
+    "tags": ["Podcast", "ทำใจให้พร้อมบวก", "คิดบวก", "กำลังใจ", "YouTube Playlist"],
+    "total_episodes": 5,
+    "status": "published",
+    "featured": true,
+    "playlist_url": "https://www.youtube.com/watch?v=COag-KtzVmY&list=PLdd3jOoGr_Ts",
+    "published_at": "09 พ.ย. 2569"
+  },
+  {
     "id": "pod-001",
     "title": "Thanavuddho Daily Dhamma (ธรรมะรับอรุณ)",
     "host": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",

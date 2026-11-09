@@ -130,7 +130,7 @@ export default function HomeMediaShowcase() {
                   
                   {isPlayable ? (
                     <Link
-                      href={`/audios`}
+                      href={`/audios?podcast=${pod.id}`}
                       className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold transition shadow-2xs"
                     >
                       <Play size={11} fill="currentColor" />

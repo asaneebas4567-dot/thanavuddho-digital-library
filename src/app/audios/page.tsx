@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import { 
   Headphones, 
   Play, 
@@ -20,7 +21,9 @@ import {
   Sparkles,
   ArrowRight,
   Quote,
-  X
+  X,
+  ExternalLink,
+  Tv
 } from 'lucide-react';
 import { audios as initialAudios } from '@/data/mockData';
 import { audiobooks, podcasts } from '@/data/multimediaAndGamificationData';
@@ -36,18 +39,25 @@ interface CurrentTrack {
   audio_url: string;
   duration: string;
   type: 'audio' | 'audiobook' | 'podcast';
+  youtube_id?: string;
+  youtube_url?: string;
 }
 
-export default function AudiosPage() {
+function AudiosPageContent() {
+  const searchParams = useSearchParams();
+  const podcastParam = searchParams.get('podcast');
+
   const [activeTab, setActiveTab] = useState<'all' | 'audios' | 'audiobooks' | 'podcasts'>('all');
   const [currentTrack, setCurrentTrack] = useState<CurrentTrack | null>({
-    id: audiobooks[0].tracks[0].title,
-    title: audiobooks[0].tracks[0].title,
-    subtitle: audiobooks[0].title,
-    cover: audiobooks[0].cover,
-    audio_url: audiobooks[0].tracks[0].audio_url,
-    duration: audiobooks[0].tracks[0].duration,
-    type: 'audiobook'
+    id: podcasts[0].episodes[0].id,
+    title: podcasts[0].episodes[0].title,
+    subtitle: podcasts[0].title,
+    cover: podcasts[0].cover,
+    audio_url: podcasts[0].episodes[0].audio_url,
+    duration: podcasts[0].episodes[0].duration,
+    type: 'podcast',
+    youtube_id: podcasts[0].episodes[0].youtube_id,
+    youtube_url: podcasts[0].episodes[0].youtube_url
   });
   
   const [isPlaying, setIsPlaying] = useState(false);
@@ -58,15 +68,49 @@ export default function AudiosPage() {
   const [selectedPodcastId, setSelectedPodcastId] = useState<string>(podcasts[0].id);
   const [isTranscriptOpen, setIsTranscriptOpen] = useState(false);
 
-  // Dynamic Audio Transcript
-  const audioTranscript = currentTrack ? [
-    { time: 0, timestamp: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: `ขอเจริญพรสาธุชนผู้รับฟังทุกท่าน ยินดีต้อนรับสู่เสียงธรรมบรรยาย "${currentTrack.title}"` },
-    { time: 40, timestamp: '00:40', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ธรรมะของพระสัมมาสัมพุทธเจ้านั้น เป็นอกาลิโก คือไม่จำกัดกาลเวลา เมื่อนำมาน้อมปฏิบัติตามเมื่อใด ย่อมเกิดความร่มเย็นเป็นสุขเมื่อนั้น' },
-    { time: 110, timestamp: '01:50', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ใจของเราเหมือนน้ำนิ่ง ถ้าน้ำกระเพื่อมเพราะคลื่นลมตะกอนก็จะฟุ้งขึ้นมา แต่น้ำที่สงบนิ่งจะสะท้อนความจริงได้ชัดเจนที่สุด สมาธิคือการทำใจให้นิ่ง' },
-    { time: 180, timestamp: '03:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ให้กำหนดนิมิตเป็นดวงแก้วใสบริสุทธิ์ หรือองค์พระแก้วใส หยุดนิ่งไว้ ณ ศูนย์กลางกายฐานที่ 7 เหนือระดับสะดือขึ้นมา 2 นิ้วมือ' },
-    { time: 260, timestamp: '04:20', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ภาวนาในใจอย่างสบายๆ ว่า สัมมา อะระหัง... สัมมา อะระหัง... ให้เสียงคำภาวดังขึ้นมาจากศูนย์กลางกายอย่างต่อเนื่องและแผ่วเบา' },
-    { time: 350, timestamp: '05:50', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ขออำนวยอวยพรให้ทุกท่านมีความสุขความเจริญ รุ่งเรืองในชีวิตและการปฏิบัติธรรมทุกประการเทอญ' }
-  ] : [];
+  // Sync with URL query parameter
+  useEffect(() => {
+    if (podcastParam) {
+      const found = podcasts.find(p => p.id === podcastParam || p.book_id === podcastParam || p.title.includes(podcastParam));
+      if (found) {
+        setSelectedPodcastId(found.id);
+        setActiveTab('podcasts');
+        if (found.episodes && found.episodes.length > 0) {
+          const firstEp = found.episodes[0];
+          setCurrentTrack({
+            id: firstEp.id,
+            title: firstEp.title,
+            subtitle: found.title,
+            cover: found.cover,
+            audio_url: firstEp.audio_url,
+            duration: firstEp.duration,
+            type: 'podcast',
+            youtube_id: firstEp.youtube_id,
+            youtube_url: firstEp.youtube_url
+          });
+        }
+      }
+    }
+  }, [podcastParam]);
+
+  // Dynamic Audio Transcript based on current track
+  const audioTranscript = currentTrack ? (
+    currentTrack.subtitle?.includes('ทำใจให้พร้อมบวก') || currentTrack.title?.includes('ทำใจให้พร้อมบวก') ? [
+      { time: 0, timestamp: '00:00', speaker: 'ผู้บรรยาย & พระครูปลัดสุวัฒนโพธิคุณ', text: `ขอต้อนรับเข้าสู่ "ทำใจให้พร้อมบวก Podcast" ตอน "${currentTrack.title}" ผลงานธรรมะประพันธ์โดย พระครูปลัดสุวัฒนโพธิคุณ` },
+      { time: 30, timestamp: '00:30', speaker: 'ผู้บรรยาย', text: 'ชวนคุณมาพักสายตาจิบกาแฟอุ่นๆ ไปกับพอดแคสต์ฟังสบายที่จะช่วยเติมพลังบวก สติ และปัญญาให้กับชีวิต' },
+      { time: 90, timestamp: '01:30', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'การคิดบวกไม่ใช่การหลอกตัวเอง ไม่ใช่การปฏิเสธความจริง แต่คือการมองหาโอกาสและแง่คิดดีๆ ในทุกสถานการณ์' },
+      { time: 180, timestamp: '03:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ใจของเราเปรียบเสมือนแม่ทัพ หากใจมีพลัง สติปัญญาและความสงบเย็นย่อมเป็นเกราะคุ้มกันอุปสรรคทั้งปวง' },
+      { time: 300, timestamp: '05:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยอมรับ เข้าใจ เกิดประโยชน์ เมื่อเรายอมรับความจริง เข้าใจความเป็นไป และนำมาใช้ให้เกิดประโยชน์ ใจจะเบาสบาย' },
+      { time: 480, timestamp: '08:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ขอให้ทุกท่านมีความสุขและพลังใจที่เข้มแข็ง พร้อมเผชิญทุกเรื่องราวในชีวิตด้วยใจที่เป็นบวกและสงบเย็นเทอญ' }
+    ] : [
+      { time: 0, timestamp: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: `ขอเจริญพรสาธุชนผู้รับฟังทุกท่าน ยินดีต้อนรับสู่เสียงธรรมบรรยาย "${currentTrack.title}"` },
+      { time: 40, timestamp: '00:40', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ธรรมะของพระสัมมาสัมพุทธเจ้านั้น เป็นอกาลิโก คือไม่จำกัดกาลเวลา เมื่อนำมาน้อมปฏิบัติตามเมื่อใด ย่อมเกิดความร่มเย็นเป็นสุขเมื่อนั้น' },
+      { time: 110, timestamp: '01:50', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ใจของเราเหมือนน้ำนิ่ง ถ้าน้ำกระเพื่อมเพราะคลื่นลมตะกอนก็จะฟุ้งขึ้นมา แต่น้ำที่สงบนิ่งจะสะท้อนความจริงได้ชัดเจนที่สุด สมาธิคือการทำใจให้นิ่ง' },
+      { time: 180, timestamp: '03:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ให้กำหนดนิมิตเป็นดวงแก้วใสบริสุทธิ์ หรือองค์พระแก้วใส หยุดนิ่งไว้ ณ ศูนย์กลางกายฐานที่ 7 เหนือระดับสะดือขึ้นมา 2 นิ้วมือ' },
+      { time: 260, timestamp: '04:20', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ภาวนาในใจอย่างสบายๆ ว่า สัมมา อะระหัง... สัมมา อะระหัง... ให้เสียงคำภาวดังขึ้นมาจากศูนย์กลางกายอย่างต่อเนื่องและแผ่วเบา' },
+      { time: 350, timestamp: '05:50', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ขออำนวยอวยพรให้ทุกท่านมีความสุขความเจริญ รุ่งเรืองในชีวิตและการปฏิบัติธรรมทุกประการเทอญ' }
+    ]
+  ) : [];
 
   const selectedAudiobook = audiobooks.find(a => a.id === selectedAudiobookId) || audiobooks[0];
   const selectedPodcast = podcasts.find(p => p.id === selectedPodcastId) || podcasts[0];
@@ -341,6 +385,85 @@ export default function AudiosPage() {
 
               {/* Podcast Episode Feed */}
               <div className="lg:col-span-8 bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8">
+                
+                {/* Embedded YouTube Player when currentTrack has youtube_id and is podcast */}
+                {currentTrack?.youtube_id && currentTrack?.type === 'podcast' && (
+                  <div className="mb-6 rounded-2xl overflow-hidden border border-[#DCEAF3] shadow-md bg-slate-900">
+                    <div className="bg-gradient-to-r from-[#073B65] via-[#084c82] to-[#079FE8] text-white px-4 py-2.5 flex items-center justify-between text-xs">
+                      <span className="font-bold flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+                        <span className="truncate max-w-[220px] sm:max-w-md">กำลังเล่น: {currentTrack.title}</span>
+                      </span>
+                      <a
+                        href={currentTrack.youtube_url || `https://www.youtube.com/watch?v=${currentTrack.youtube_id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-yellow-300 hover:text-white flex items-center gap-1 font-semibold transition-colors shrink-0"
+                      >
+                        <span>เปิดบน YouTube</span>
+                        <ExternalLink size={12} />
+                      </a>
+                    </div>
+                    <div className="relative aspect-video w-full bg-black">
+                      <iframe
+                        src={`https://www.youtube-nocookie.com/embed/${currentTrack.youtube_id}?autoplay=1&rel=0`}
+                        title={currentTrack.title}
+                        className="w-full h-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Official YouTube Playlist Banner */}
+                {selectedPodcast.playlist_url && (
+                  <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-red-50 via-rose-50 to-amber-50 border border-red-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-2xl bg-red-600 text-white flex items-center justify-center font-black text-lg shadow-md shrink-0">
+                        ▶
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-bold text-red-700 bg-red-100/90 px-2 py-0.5 rounded-full uppercase tracking-wide">
+                            Official YouTube Playlist
+                          </span>
+                          <span className="text-xs text-slate-500 font-semibold">
+                            รวมทั้งหมด {selectedPodcast.total_episodes} ตอนจบชุด
+                          </span>
+                        </div>
+                        <h4 className="font-extrabold text-slate-900 text-sm mt-0.5">
+                          เพลย์ลิสต์ทางการ: {selectedPodcast.title}
+                        </h4>
+                        <p className="text-xs text-slate-500 line-clamp-1">
+                          สร้างสรรค์เนื้อหาเสียงและภาพโดยทีมงานมูลนิธิฯ & YoKaWaJor
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+                      <a
+                        href={selectedPodcast.playlist_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                      >
+                        <span>เปิด Playlist บน YouTube</span>
+                        <ExternalLink size={13} />
+                      </a>
+                      {selectedPodcast.book_id && (
+                        <Link
+                          href={`/reader/${selectedPodcast.book_id}`}
+                          className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-[#073B65] font-bold text-xs transition-all flex items-center gap-1 shadow-2xs"
+                        >
+                          <BookOpen size={13} className="text-[#079FE8]" />
+                          <span>อ่านเล่มนี้</span>
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex items-center justify-between mb-6 pb-3 border-b border-gray-100">
                   <div>
                     <span className="text-xs text-sky-600 font-bold uppercase">ตอนทั้งหมดในรายการ</span>
@@ -370,7 +493,9 @@ export default function AudiosPage() {
                               cover: selectedPodcast.cover,
                               audio_url: ep.audio_url,
                               duration: ep.duration,
-                              type: 'podcast'
+                              type: 'podcast',
+                              youtube_id: ep.youtube_id,
+                              youtube_url: ep.youtube_url
                             })}
                             className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm transition-all cursor-pointer ${
                               isTrackActive 
@@ -381,10 +506,15 @@ export default function AudiosPage() {
                             {isTrackActive && isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
                           </button>
                           <div>
-                            <div className="flex items-center gap-2 mb-1">
+                            <div className="flex items-center gap-2 mb-1 flex-wrap">
                               <span className="text-xs font-semibold px-2 py-0.5 rounded bg-gray-200 text-gray-700">
                                 EP.{ep.episode_number}
                               </span>
+                              {ep.youtube_id && (
+                                <span className="text-[10px] font-bold text-red-600 bg-red-50 border border-red-200/80 px-2 py-0.5 rounded flex items-center gap-1">
+                                  <span>YouTube Podcast</span>
+                                </span>
+                              )}
                               <span className="text-xs text-gray-400">{ep.published_at}</span>
                             </div>
                             <h5 className="font-bold text-gray-900 text-sm sm:text-base leading-tight mb-1">
@@ -400,6 +530,17 @@ export default function AudiosPage() {
                           <span className="text-xs text-gray-400 font-mono flex items-center gap-1">
                             <Clock size={12} /> {ep.duration}
                           </span>
+                          {ep.youtube_id && (
+                            <a
+                              href={ep.youtube_url || `https://www.youtube.com/watch?v=${ep.youtube_id}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                              title="เปิดดูบน YouTube"
+                            >
+                              <ExternalLink size={14} />
+                            </a>
+                          )}
                         </div>
                       </div>
                     );
@@ -600,5 +741,18 @@ export default function AudiosPage() {
       )}
 
     </div>
+  );
+}
+
+export default function AudiosPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-50/50 flex flex-col items-center justify-center gap-3">
+        <div className="w-8 h-8 border-3 border-[#079FE8] border-t-transparent rounded-full animate-spin" />
+        <span className="text-sm font-bold text-[#073B65]">กำลังโหลดคลังเสียงและพอดแคสต์...</span>
+      </div>
+    }>
+      <AudiosPageContent />
+    </Suspense>
   );
 }

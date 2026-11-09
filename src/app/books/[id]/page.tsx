@@ -11,7 +11,8 @@ import {
   FileCheck,
   Bookmark,
   Award,
-  ArrowRight
+  ArrowRight,
+  Headphones
 } from 'lucide-react';
 import { books as mockBooks, authors, categories } from '@/lib/mock-data';
 import { books as dbBooks, author as dbAuthor, categories as dbCategories } from '@/data/mockData';
@@ -249,6 +250,16 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
                   mediaCover={book.cover}
                   className="py-3 px-5 text-sm"
                 />
+
+                {(book.audio_id || book.id === 'book_tam_jai_hai_prom_buak' || book.title?.includes('ทำใจให้พร้อมบวก')) && (
+                  <Link
+                    href="/audios?podcast=pod-tam-jai-hai-prom-buak"
+                    className="flex items-center justify-center gap-2 bg-[#F0F8FD] hover:bg-sky-100 text-[#073B65] border border-[#DCEAF3] px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-xs w-full sm:w-auto"
+                  >
+                    <Headphones size={18} className="text-[#079FE8]" />
+                    <span>ฟังพอดแคสต์ (5 ตอน) 🎧</span>
+                  </Link>
+                )}
               </div>
             </div>
 
