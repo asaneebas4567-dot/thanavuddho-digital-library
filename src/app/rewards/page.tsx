@@ -155,22 +155,22 @@ export default function RewardsShopPage() {
   return (
     <div className="min-h-screen bg-[#fafaf9] text-foreground font-sans pb-24">
       {/* 1. Shop Top Header & Points Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-amber-800 via-amber-900 to-amber-950 text-white pt-10 pb-16 px-4 sm:px-6 lg:px-8 border-b border-amber-800/40">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/20 via-transparent to-transparent pointer-events-none" />
+      <section className="relative overflow-hidden bg-gradient-to-r from-sky-700 via-sky-800 to-blue-900 text-white pt-10 pb-16 px-4 sm:px-6 lg:px-8 border-b border-sky-800/40">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-500/20 via-transparent to-transparent pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             
             {/* Title & Tagline */}
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/25 border border-amber-400/40 text-amber-200 text-xs font-bold mb-3 shadow-inner">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/25 border border-sky-400/40 text-sky-200 text-xs font-bold mb-3 shadow-inner">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Thanavuddho Learning Points & Rewards Shop</span>
               </div>
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">
                 ร้านแลกของรางวัลธรรมะ
               </h1>
-              <p className="text-xs sm:text-sm text-amber-100/80 mt-1 max-w-xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-sky-100/80 mt-1 max-w-xl leading-relaxed">
                 สะสมคะแนนจากการอ่านหนังสือ บทความ ดูวิดีโอ และฟังพอดแคสต์ เพื่อนำมาแลกของที่ระลึก พระของขวัญ และหนังสือเล่มจริงฉบับพิเศษ
               </p>
             </div>
@@ -178,15 +178,15 @@ export default function RewardsShopPage() {
             {/* Points Showcase Card */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <div className="p-4 sm:p-5 rounded-3xl bg-black/40 border border-white/20 backdrop-blur-md shadow-2xl flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-200 flex items-center justify-center text-zinc-950 text-2xl font-black shadow-lg shrink-0">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-500 via-sky-400 to-blue-200 flex items-center justify-center text-zinc-950 text-2xl font-black shadow-lg shrink-0">
                   🪙
                 </div>
                 <div>
-                  <div className="text-xs text-amber-200 font-semibold">คะแนนสะสมของคุณ</div>
+                  <div className="text-xs text-sky-200 font-semibold">คะแนนสะสมของคุณ</div>
                   <div className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                    {availablePoints.toLocaleString()} <span className="text-sm font-bold text-amber-300">P</span>
+                    {availablePoints.toLocaleString()} <span className="text-sm font-bold text-sky-300">P</span>
                   </div>
-                  <div className="text-[11px] text-amber-200/80">
+                  <div className="text-[11px] text-sky-200/80">
                     วันนี้ได้รับ: +{todayPoints.toLocaleString()} P (กิจกรรมประจำวัน: {dailyLearningPoints}/{dailyLearningCap} P)
                   </div>
                 </div>
@@ -196,9 +196,9 @@ export default function RewardsShopPage() {
               <div className="flex flex-col gap-2">
                 <button
                   onClick={() => setShowDailyModal(true)}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-extrabold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white hover:bg-sky-50 text-sky-950 font-extrabold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
                 >
-                  <Flame className="w-4 h-4 text-amber-950" />
+                  <Flame className="w-4 h-4 text-sky-600" />
                   <span>กิจกรรมวันนี้ ({dailyLearningPoints}/100 P)</span>
                   {isDailyCapReached && (
                     <span className="text-[10px] bg-emerald-600 text-white px-1.5 py-0.5 rounded-full font-bold">เต็ม</span>
@@ -230,7 +230,7 @@ export default function RewardsShopPage() {
               onClick={() => setActiveTab('catalog')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 ${
                 activeTab === 'catalog'
-                  ? 'bg-amber-600 text-white shadow-sm'
+                  ? 'bg-sky-600 text-white shadow-sm'
                   : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
               }`}
             >
@@ -242,7 +242,7 @@ export default function RewardsShopPage() {
               onClick={() => setActiveTab('history')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 ${
                 activeTab === 'history'
-                  ? 'bg-amber-600 text-white shadow-sm'
+                  ? 'bg-sky-600 text-white shadow-sm'
                   : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
               }`}
             >
@@ -257,7 +257,7 @@ export default function RewardsShopPage() {
           </div>
 
           <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground font-medium pr-2">
-            <Coins className="w-4 h-4 text-amber-600" />
+            <Coins className="w-4 h-4 text-sky-600" />
             <span>คะแนนไม่มีวันหมดอายุ • แลกได้ไม่จำกัดจำนวนครั้ง</span>
           </div>
         </div>
@@ -287,7 +287,7 @@ export default function RewardsShopPage() {
                     onClick={() => setSelectedTier(tier.val as any)}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border ${
                       isSelected
-                        ? 'bg-amber-500 text-zinc-950 border-amber-500 font-extrabold shadow-sm'
+                        ? 'bg-sky-600 text-white border-sky-600 font-extrabold shadow-sm'
                         : 'bg-white hover:bg-zinc-50 text-zinc-700 border-zinc-200'
                     }`}
                   >
@@ -319,7 +319,7 @@ export default function RewardsShopPage() {
                   return (
                     <div
                       key={item.id}
-                      className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-zinc-200/80 hover:border-amber-400/80 shadow-sm hover:shadow-xl transition-all duration-300"
+                      className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-zinc-200/80 hover:border-sky-400/80 shadow-sm hover:shadow-xl transition-all duration-300"
                     >
                       {/* Product Image */}
                       <div className="relative aspect-[4/3] w-full bg-zinc-100 overflow-hidden">
@@ -334,12 +334,12 @@ export default function RewardsShopPage() {
 
                         {/* Top Badges */}
                         <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
-                          <span className="px-2.5 py-1 rounded-full bg-zinc-950/75 backdrop-blur-md text-amber-300 text-[11px] font-mono font-extrabold border border-amber-400/30 shadow-md">
+                          <span className="px-2.5 py-1 rounded-full bg-zinc-950/75 backdrop-blur-md text-sky-300 text-[11px] font-mono font-extrabold border border-sky-400/30 shadow-md">
                             🪙 {item.points.toLocaleString()} P
                           </span>
 
                           {item.badge && (
-                            <span className="px-2.5 py-1 rounded-full bg-amber-500 text-zinc-950 text-[10px] font-black shadow-md">
+                            <span className="px-2.5 py-1 rounded-full bg-sky-500 text-zinc-950 text-[10px] font-black shadow-md">
                               {item.badge}
                             </span>
                           )}
@@ -360,7 +360,7 @@ export default function RewardsShopPage() {
                       {/* Card Content */}
                       <div className="p-4 sm:p-5 flex flex-col flex-grow justify-between gap-4">
                         <div>
-                          <h3 className="text-base font-extrabold text-foreground group-hover:text-amber-700 transition-colors line-clamp-2 leading-snug">
+                          <h3 className="text-base font-extrabold text-foreground group-hover:text-sky-700 transition-colors line-clamp-2 leading-snug">
                             {item.title}
                           </h3>
                           <p className="text-xs text-muted-foreground line-clamp-2 mt-1.5 leading-relaxed font-normal">
@@ -374,12 +374,12 @@ export default function RewardsShopPage() {
                             /* Progress bar showing deficit */
                             <div className="space-y-1.5">
                               <div className="flex items-center justify-between text-[11px] font-semibold">
-                                <span className="text-amber-700">ขาดอีก {neededPoints.toLocaleString()} P</span>
+                                <span className="text-sky-700">ขาดอีก {neededPoints.toLocaleString()} P</span>
                                 <span className="text-zinc-400 font-mono">{progressPct}%</span>
                               </div>
                               <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
                                 <div
-                                  className="h-full bg-gradient-to-r from-amber-400 to-amber-600 rounded-full"
+                                  className="h-full bg-gradient-to-r from-sky-400 to-sky-600 rounded-full"
                                   style={{ width: `${progressPct}%` }}
                                 />
                               </div>
@@ -400,7 +400,7 @@ export default function RewardsShopPage() {
                           ) : (
                             <button
                               onClick={() => handleOpenRedeemModal(item)}
-                              className="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 active:scale-98 text-white font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                              className="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-98 text-white font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                             >
                               <Gift className="w-4 h-4" />
                               <span>แลกของรางวัลนี้ ({item.points.toLocaleString()} P)</span>
@@ -431,7 +431,7 @@ export default function RewardsShopPage() {
               </div>
               <button
                 onClick={() => setActiveTab('catalog')}
-                className="text-xs font-bold text-amber-600 hover:text-amber-700 cursor-pointer"
+                className="text-xs font-bold text-sky-600 hover:text-sky-700 cursor-pointer"
               >
                 ← กลับไปเลือกของรางวัล
               </button>
@@ -446,7 +446,7 @@ export default function RewardsShopPage() {
                 </p>
                 <button
                   onClick={() => setActiveTab('catalog')}
-                  className="mt-4 px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition-all cursor-pointer"
+                  className="mt-4 px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs transition-all cursor-pointer"
                 >
                   เลือกดูของรางวัล
                 </button>
@@ -455,7 +455,7 @@ export default function RewardsShopPage() {
               <div className="space-y-4">
                 {myRedemptions.map((order) => {
                   let statusBadge = (
-                    <span className="px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold flex items-center gap-1">
+                    <span className="px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200 text-xs font-bold flex items-center gap-1">
                       <Clock size={13} />
                       รอตรวจสอบ
                     </span>
@@ -490,7 +490,7 @@ export default function RewardsShopPage() {
                           <h4 className="font-extrabold text-foreground text-sm sm:text-base mt-0.5">
                             {order.rewardTitle}
                           </h4>
-                          <div className="text-xs text-amber-700 font-semibold mt-1">
+                          <div className="text-xs text-sky-700 font-semibold mt-1">
                             หักคะแนน: {order.pointsDeducted.toLocaleString()} P
                           </div>
                           <div className="text-xs text-zinc-500 mt-1">
@@ -526,7 +526,7 @@ export default function RewardsShopPage() {
       {/* 3. REDEEM CONFIRMATION MODAL */}
       {selectedReward && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="max-w-lg w-full bg-white rounded-3xl p-6 sm:p-8 border border-amber-200 shadow-2xl relative overflow-hidden">
+          <div className="max-w-lg w-full bg-white rounded-3xl p-6 sm:p-8 border border-sky-200 shadow-2xl relative overflow-hidden">
             
             <button
               onClick={() => setSelectedReward(null)}
@@ -561,7 +561,7 @@ export default function RewardsShopPage() {
                       setSelectedReward(null);
                       setActiveTab('history');
                     }}
-                    className="flex-1 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs transition-all cursor-pointer"
+                    className="flex-1 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs transition-all cursor-pointer"
                   >
                     ดูประวัติการแลกของฉัน
                   </button>
@@ -581,11 +581,11 @@ export default function RewardsShopPage() {
                     <Image src={selectedReward.image} alt={selectedReward.title} fill unoptimized className="object-cover" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">ยืนยันการแลกของรางวัล</span>
+                    <span className="text-[10px] font-bold text-sky-700 uppercase tracking-wider">ยืนยันการแลกของรางวัล</span>
                     <h3 className="font-extrabold text-foreground text-sm sm:text-base leading-snug">
                       {selectedReward.title}
                     </h3>
-                    <div className="text-xs font-bold text-amber-600 mt-1">
+                    <div className="text-xs font-bold text-sky-600 mt-1">
                       ใช้คะแนน: {selectedReward.points.toLocaleString()} P (คงเหลือหลังแลก: {(availablePoints - selectedReward.points).toLocaleString()} P)
                     </div>
                   </div>
@@ -609,7 +609,7 @@ export default function RewardsShopPage() {
                       value={recipientName}
                       onChange={(e) => setRecipientName(e.target.value)}
                       placeholder="เช่น สมชาย ใจดี"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-sky-500 text-xs"
                     />
                   </div>
 
@@ -623,7 +623,7 @@ export default function RewardsShopPage() {
                       value={recipientPhone}
                       onChange={(e) => setRecipientPhone(e.target.value)}
                       placeholder="เช่น 0812345678"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-sky-500 text-xs"
                     />
                   </div>
 
@@ -637,7 +637,7 @@ export default function RewardsShopPage() {
                       value={shippingAddress}
                       onChange={(e) => setShippingAddress(e.target.value)}
                       placeholder="บ้านเลขที่ หมู่ ซอย ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด รหัสไปรษณีย์"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-sky-500 text-xs"
                     />
                   </div>
 
@@ -650,7 +650,7 @@ export default function RewardsShopPage() {
                       value={orderNote}
                       onChange={(e) => setOrderNote(e.target.value)}
                       placeholder="เช่น ฝากไว้ที่ป้อมยาม หรือช่วงเวลาที่สะดวกรับสาย"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-sky-500 text-xs"
                     />
                   </div>
                 </div>
@@ -667,7 +667,7 @@ export default function RewardsShopPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex-1 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 disabled:bg-zinc-300 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="flex-1 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 disabled:bg-zinc-300 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
                     <Gift size={15} />
                     <span>{isSubmitting ? 'กำลังดำเนินการ...' : `ยืนยันแลก (${selectedReward.points.toLocaleString()} P)`}</span>

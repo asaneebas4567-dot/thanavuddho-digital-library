@@ -634,8 +634,8 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
           paperBg: 'bg-zinc-900 text-zinc-100 border-zinc-800',
           headerBg: 'bg-zinc-950/95 border-zinc-800 text-zinc-100',
           footerBg: 'bg-zinc-950/95 border-zinc-800 text-zinc-100',
-          accent: 'text-amber-400',
-          accentBg: 'bg-amber-500 hover:bg-amber-400 text-slate-950',
+          accent: 'text-sky-400',
+          accentBg: 'bg-sky-500 hover:bg-sky-400 text-slate-950',
         };
       case 'white':
       default:
@@ -645,8 +645,8 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
           paperBg: 'bg-white text-zinc-900 border-zinc-300',
           headerBg: 'bg-[#121618]/95 border-white/10 text-white',
           footerBg: 'bg-[#121618]/95 border-white/10 text-white',
-          accent: 'text-amber-400',
-          accentBg: 'bg-amber-600 hover:bg-amber-500 text-white',
+          accent: 'text-sky-400',
+          accentBg: 'bg-sky-600 hover:bg-sky-500 text-white',
         };
     }
   }, [theme]);
@@ -684,7 +684,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
               </h1>
               {detectedDimension && (
                 <span 
-                  className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.2 rounded-md text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                  className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.2 rounded-md text-[9px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30"
                   title={`${detectedDimension.labelTh}: ${detectedDimension.descriptionTh}`}
                 >
                   📐 {detectedDimension.code}
@@ -705,7 +705,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
             className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/5 border border-white/10 text-[11px] font-mono text-zinc-300"
             title="ตัวจับเวลาการอ่านหน้านี้ (วินาที)"
           >
-            <Timer size={13} className="text-amber-400 animate-pulse" />
+            <Timer size={13} className="text-sky-400 animate-pulse" />
             <span>
               {String(Math.floor(pageReadingSeconds / 60)).padStart(2, '0')}:
               {String(pageReadingSeconds % 60).padStart(2, '0')}
@@ -715,10 +715,10 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
           {/* Lazada / Shopee Surprise Reward Streak Button */}
           <button
             onClick={() => triggerReadingReward('กดรับแต้มอ่านหนังสือ (Lazada Reward Style)')}
-            className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-amber-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 border border-amber-400/40 text-amber-300 text-xs font-bold transition-all shadow-xs cursor-pointer"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-sky-500/20 via-blue-500/20 to-sky-500/20 hover:from-sky-500/30 hover:to-blue-500/30 border border-sky-400/40 text-sky-300 text-xs font-bold transition-all shadow-xs cursor-pointer"
             title="เซอร์ไพรส์รับแต้มสะสมปัญญาบารมี (Lazada / Shopee Gamified Streak)"
           >
-            <Coins size={14} className="text-yellow-400 animate-bounce" />
+            <Coins size={14} className="text-sky-300 animate-bounce" />
             <span className="hidden md:inline">รับแต้ม</span>
           </button>
           
@@ -730,7 +730,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                 localStorage.setItem('thanavuddho_reader_mode', 'flip');
               }}
               className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                mode === 'flip' ? 'bg-amber-600 text-white shadow-xs' : 'text-zinc-300 hover:text-white'
+                mode === 'flip' ? 'bg-sky-600 text-white shadow-xs' : 'text-zinc-300 hover:text-white'
               }`}
               title="เปิดอ่านหน้าต่อหน้า (สไตล์หนังสือจริง)"
             >
@@ -744,7 +744,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                 localStorage.setItem('thanavuddho_reader_mode', 'scroll');
               }}
               className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                mode === 'scroll' ? 'bg-amber-600 text-white shadow-xs' : 'text-zinc-300 hover:text-white'
+                mode === 'scroll' ? 'bg-sky-600 text-white shadow-xs' : 'text-zinc-300 hover:text-white'
               }`}
               title="เลื่อนอ่านต่อเนื่อง (Continuous Scroll)"
             >
@@ -757,7 +757,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
           <button
             onClick={() => setIsSearchOpen(s => !s)}
             className={`p-2 rounded-xl border transition-all cursor-pointer ${
-              isSearchOpen ? 'bg-amber-600 border-amber-500 text-white' : 'bg-white/5 border-white/15 text-zinc-300 hover:text-white hover:bg-white/10'
+              isSearchOpen ? 'bg-sky-600 border-sky-500 text-white' : 'bg-white/5 border-white/15 text-zinc-300 hover:text-white hover:bg-white/10'
             }`}
             title="ค้นหาข้อความในเอกสาร PDF"
           >
@@ -777,10 +777,10 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
           {/* Quest Journal & Easter Eggs Trigger */}
           <button
             onClick={() => setIsQuestDrawerOpen(true)}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 hover:border-amber-400 text-xs font-bold text-amber-300 hover:text-amber-200 transition-all cursor-pointer shadow-sm"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 hover:border-sky-400 text-xs font-bold text-sky-300 hover:text-sky-200 transition-all cursor-pointer shadow-sm"
             title="เปิดสมุดภารกิจ Quest Journal & Easter Eggs"
           >
-            <Compass size={15} className="text-amber-400" />
+            <Compass size={15} className="text-sky-400" />
             <span className="hidden md:inline">ภารกิจ</span>
           </button>
 
@@ -811,7 +811,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                     <button
                       onClick={() => setTheme('white')}
                       className={`p-2 rounded-xl text-center flex flex-col items-center gap-1 text-xs font-bold border transition-all ${
-                        theme === 'white' ? 'border-amber-500 bg-zinc-800 text-amber-300' : 'bg-zinc-800/50 border-zinc-700 text-zinc-300'
+                        theme === 'white' ? 'border-sky-500 bg-zinc-800 text-sky-300' : 'bg-zinc-800/50 border-zinc-700 text-zinc-300'
                       }`}
                     >
                       <Sun size={15} />
@@ -820,7 +820,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                     <button
                       onClick={() => setTheme('sepia')}
                       className={`p-2 rounded-xl text-center flex flex-col items-center gap-1 text-xs font-bold border transition-all ${
-                        theme === 'sepia' ? 'border-amber-500 bg-[#f4ebd0] text-[#382b1d]' : 'bg-[#faf3e0]/20 border-zinc-700 text-zinc-300'
+                        theme === 'sepia' ? 'border-sky-500 bg-[#f4ebd0] text-[#382b1d]' : 'bg-[#faf3e0]/20 border-zinc-700 text-zinc-300'
                       }`}
                     >
                       <Coffee size={15} />
@@ -829,7 +829,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                     <button
                       onClick={() => setTheme('night')}
                       className={`p-2 rounded-xl text-center flex flex-col items-center gap-1 text-xs font-bold border transition-all ${
-                        theme === 'night' ? 'border-amber-400 bg-black text-amber-400' : 'bg-zinc-800/50 border-zinc-700 text-zinc-300'
+                        theme === 'night' ? 'border-sky-400 bg-black text-sky-400' : 'bg-zinc-800/50 border-zinc-700 text-zinc-300'
                       }`}
                     >
                       <Moon size={15} />
@@ -849,7 +849,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                           localStorage.setItem('thanavuddho_reader_layout', 'single');
                         }}
                         className={`p-2 rounded-xl text-xs font-bold border transition-all ${
-                          pageLayout === 'single' ? 'bg-amber-600 text-white border-amber-500' : 'bg-zinc-800/50 border-zinc-700 text-zinc-300'
+                          pageLayout === 'single' ? 'bg-sky-600 text-white border-sky-500' : 'bg-zinc-800/50 border-zinc-700 text-zinc-300'
                         }`}
                       >
                         1 หน้า (อ่านง่าย)
@@ -860,7 +860,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                           localStorage.setItem('thanavuddho_reader_layout', 'dual');
                         }}
                         className={`p-2 rounded-xl text-xs font-bold border transition-all ${
-                          pageLayout === 'dual' ? 'bg-amber-600 text-white border-amber-500' : 'bg-zinc-800/50 border-zinc-700 text-zinc-300'
+                          pageLayout === 'dual' ? 'bg-sky-600 text-white border-sky-500' : 'bg-zinc-800/50 border-zinc-700 text-zinc-300'
                         }`}
                       >
                         2 หน้า (กางแบบเล่ม)
@@ -897,13 +897,13 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                   placeholder="พิมพ์คำที่ต้องการค้นหาในเอกสาร PDF..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500"
+                  className="w-full pl-9 pr-4 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500"
                 />
               </div>
               <button
                 type="submit"
                 disabled={isSearching || !searchQuery.trim()}
-                className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
               >
                 {isSearching ? <Loader2 size={13} className="animate-spin" /> : <Search size={13} />}
                 <span>ค้นหา</span>
@@ -932,7 +932,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                     className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs transition-colors cursor-pointer flex items-center justify-between gap-2"
                   >
                     <span className="text-zinc-300 truncate">{match.snippet}</span>
-                    <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[11px] shrink-0">
+                    <span className="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[11px] shrink-0">
                       หน้า {match.pageNum}
                     </span>
                   </div>
@@ -948,14 +948,14 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
          ========================================================================= */}
       {showControls && showResumeBanner && savedLastPage && (
         <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-top-2 duration-300">
-          <div className="bg-zinc-900/95 text-white border border-amber-500/40 backdrop-blur-md px-4 py-2 rounded-2xl shadow-2xl flex items-center gap-3 text-xs">
-            <span>อ่านค้างไว้ที่หน้า <strong className="text-amber-400 font-mono">{savedLastPage}</strong> ต้องการอ่านต่อไหม?</span>
+          <div className="bg-zinc-900/95 text-white border border-sky-500/40 backdrop-blur-md px-4 py-2 rounded-2xl shadow-2xl flex items-center gap-3 text-xs">
+            <span>อ่านค้างไว้ที่หน้า <strong className="text-sky-400 font-mono">{savedLastPage}</strong> ต้องการอ่านต่อไหม?</span>
             <button
               onClick={() => {
                 turnToPage(savedLastPage);
                 setShowResumeBanner(false);
               }}
-              className="px-2.5 py-1 bg-amber-600 hover:bg-amber-500 rounded-lg font-bold transition-all cursor-pointer"
+              className="px-2.5 py-1 bg-sky-600 hover:bg-sky-500 rounded-lg font-bold transition-all cursor-pointer"
             >
               อ่านต่อ
             </button>
@@ -984,7 +984,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
         {/* Loading Overlay */}
         {isPdfLoading && (
           <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-black/40 backdrop-blur-xs text-center p-4">
-            <Loader2 className="w-10 h-10 animate-spin text-amber-500 mb-3" />
+            <Loader2 className="w-10 h-10 animate-spin text-sky-400 mb-3" />
             <h4 className="font-bold text-sm text-white">กำลังเปิดหน้าหนังสือจากต้นฉบับจริง...</h4>
             <p className="text-xs text-zinc-300 mt-1 max-w-xs">
               ระบบกำลังเรนเดอร์เอกสาร PDF ความคมชัดสูง
@@ -1001,7 +1001,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
               <button
                 onClick={loadPdf}
-                className="w-full sm:w-auto px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                className="w-full sm:w-auto px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5"
               >
                 <RefreshCw size={14} />
                 <span>ลองโหลดใหม่อีกครั้ง</span>
@@ -1224,7 +1224,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                   setJumpInput(String(currentPage));
                 }
               }}
-              className="w-10 text-center font-mono font-extrabold text-white bg-black/40 border border-white/20 rounded-md py-0.5 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              className="w-10 text-center font-mono font-extrabold text-white bg-black/40 border border-white/20 rounded-md py-0.5 focus:outline-none focus:ring-1 focus:ring-sky-500"
               title="กรอกเลขหน้าที่ต้องการไปแล้วกด Enter"
             />
             <span className="font-mono text-zinc-400 font-bold">/ {effectiveTotalPages}</span>
@@ -1238,7 +1238,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
               max={effectiveTotalPages}
               value={currentPage}
               onChange={(e) => turnToPage(parseInt(e.target.value, 10))}
-              className="w-full accent-amber-500 cursor-pointer h-1.5 bg-white/20 rounded-full"
+              className="w-full accent-sky-500 cursor-pointer h-1.5 bg-white/20 rounded-full"
             />
           </div>
 
@@ -1251,7 +1251,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
         <button
           onClick={nextPage}
           disabled={currentPage >= effectiveTotalPages}
-          className="flex items-center gap-1 px-3 sm:px-4 py-1.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white disabled:opacity-25 transition-all cursor-pointer shadow-sm"
+          className="flex items-center gap-1 px-3 sm:px-4 py-1.5 rounded-xl text-xs font-bold bg-sky-600 hover:bg-sky-500 text-white disabled:opacity-25 transition-all cursor-pointer shadow-sm"
         >
           <span className="hidden sm:inline">หน้าถัดไป</span>
           <ChevronRight size={16} />
@@ -1266,9 +1266,9 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
           </div>
           <button
             onClick={() => setShowControls(true)}
-            className="flex items-center gap-1 px-3 py-1 bg-black/80 hover:bg-black text-white hover:text-amber-400 backdrop-blur-md rounded-full text-xs font-bold shadow-md border border-white/20 transition-all cursor-pointer"
+            className="flex items-center gap-1 px-3 py-1 bg-black/80 hover:bg-black text-white hover:text-sky-300 backdrop-blur-md rounded-full text-xs font-bold shadow-md border border-white/20 transition-all cursor-pointer"
           >
-            <Eye size={13} className="text-amber-400" />
+            <Eye size={13} className="text-sky-400" />
             <span>แสดงเมนู</span>
           </button>
         </div>
@@ -1287,7 +1287,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
           <div className="relative w-80 sm:w-96 max-w-[85vw] h-full shadow-2xl flex flex-col z-10 bg-zinc-900 border-r border-zinc-800 text-white animate-in slide-in-from-left duration-200">
             <div className="p-4 border-b border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <List size={18} className="text-amber-400" />
+                <List size={18} className="text-sky-400" />
                 <h3 className="font-bold text-sm">สารบัญและเลือกหน้า</h3>
               </div>
               <button 
@@ -1308,7 +1308,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
                   }}
                   className={`w-full p-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
                     pNum === currentPage 
-                      ? 'bg-amber-600 text-white font-bold' 
+                      ? 'bg-sky-600 text-white font-bold' 
                       : 'hover:bg-zinc-800 text-zinc-300'
                   }`}
                 >
@@ -1410,7 +1410,7 @@ function PdfLazyScrollItem({
         <canvas ref={canvasRef} className="max-w-full object-contain rounded-lg shadow-sm" />
         {!hasRendered && isVisible && (
           <div className="absolute flex items-center justify-center">
-            <Loader2 className="w-8 h-8 animate-spin text-amber-600" />
+            <Loader2 className="w-8 h-8 animate-spin text-sky-600" />
           </div>
         )}
       </div>

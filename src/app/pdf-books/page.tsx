@@ -78,12 +78,12 @@ export default function PdfBooksPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Banner Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-red-600 via-amber-600 to-orange-500 text-white p-8 md:p-12 mb-10 shadow-xl shadow-red-500/10">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-600 via-sky-700 to-blue-800 text-white p-8 md:p-12 mb-10 shadow-xl shadow-sky-600/10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
           
           <div className="relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold mb-4 border border-white/30">
-              <FileText size={15} className="text-amber-200" />
+              <FileText size={15} className="text-sky-200" />
               <span>คลังเอกสาร & หนังสือ PDF ออนไลน์</span>
             </div>
             
@@ -97,7 +97,7 @@ export default function PdfBooksPage() {
 
             <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-white/90">
               <span className="flex items-center gap-1.5 bg-black/20 px-3 py-1.5 rounded-lg backdrop-blur-sm">
-                <Layers size={16} className="text-amber-300" /> หนังสือทั้งหมด {allPdfBooks.length} เล่ม
+                <Layers size={16} className="text-sky-300" /> หนังสือทั้งหมด {allPdfBooks.length} เล่ม
               </span>
               <span className="flex items-center gap-1.5 bg-black/20 px-3 py-1.5 rounded-lg backdrop-blur-sm">
                 <CheckCircle2 size={16} className="text-emerald-300" /> หนังสือลิขสิทธิ์ถูกต้อง
@@ -111,7 +111,7 @@ export default function PdfBooksPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-gray-100">
             <div>
               <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center">
+                <span className="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-600 flex items-center justify-center">
                   <Sparkles size={18} />
                 </span>
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
@@ -125,7 +125,7 @@ export default function PdfBooksPage() {
 
             <button
               onClick={refreshRandomPicks}
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 rounded-xl transition-all self-start sm:self-auto cursor-pointer border border-amber-200/60 active:scale-95"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 rounded-xl transition-all self-start sm:self-auto cursor-pointer border border-sky-200/60 active:scale-95"
             >
               <Shuffle size={16} />
               <span>สุ่มเล่มใหม่</span>
@@ -137,10 +137,10 @@ export default function PdfBooksPage() {
             {randomPicks.map((book, index) => (
               <div 
                 key={`${book.id}-${index}`}
-                className="group relative bg-gradient-to-br from-white to-amber-50/40 rounded-2xl p-5 border border-amber-100/80 shadow-sm hover:shadow-lg hover:border-amber-300 transition-all duration-300 flex flex-col justify-between"
+                className="group relative bg-gradient-to-br from-white to-sky-50/40 rounded-2xl p-5 border border-sky-100/80 shadow-sm hover:shadow-lg hover:border-sky-300 transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="flex gap-4 items-start mb-4">
-                  <div className="relative w-20 h-28 shrink-0 rounded-md overflow-hidden shadow-md border-l-4 border-amber-700 bg-gray-100">
+                  <div className="relative w-20 h-28 shrink-0 rounded-md overflow-hidden shadow-md border-l-4 border-sky-700 bg-gray-100">
                     {book.cover && book.cover !== '/images/books/book-placeholder.jpg' ? (
                       <img 
                         src={book.cover} 
@@ -149,19 +149,19 @@ export default function PdfBooksPage() {
                         referrerPolicy="no-referrer"
                       />
                     ) : (
-                      <div className="w-full h-full bg-amber-900 text-white p-2 flex flex-col justify-between text-center">
-                        <span className="text-[8px] text-amber-300">PDF</span>
+                      <div className="w-full h-full bg-sky-900 text-white p-2 flex flex-col justify-between text-center">
+                        <span className="text-[8px] text-sky-300">PDF</span>
                         <span className="text-[10px] font-bold line-clamp-3 leading-tight">{book.title}</span>
-                        <span className="text-[7px] text-amber-200">พระอาจารย์</span>
+                        <span className="text-[7px] text-sky-200">พระอาจารย์</span>
                       </div>
                     )}
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <span className="inline-block bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded-full mb-1">
+                    <span className="inline-block bg-sky-100 text-sky-800 text-[10px] font-bold px-2 py-0.5 rounded-full mb-1">
                       แนะนำลำดับที่ {index + 1}
                     </span>
-                    <h3 className="font-bold text-gray-900 text-base line-clamp-2 group-hover:text-amber-600 transition-colors">
+                    <h3 className="font-bold text-gray-900 text-base line-clamp-2 group-hover:text-sky-600 transition-colors">
                       {book.title}
                     </h3>
                     <p className="text-xs text-gray-500 mt-1 line-clamp-2">
@@ -173,10 +173,10 @@ export default function PdfBooksPage() {
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-amber-100/60 flex items-center justify-between gap-2 mt-auto">
+                <div className="pt-3 border-t border-sky-100/60 flex items-center justify-between gap-2 mt-auto">
                   <Link
                     href={`/reader/${book.id}?from=/pdf-books`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 group-hover:text-amber-700 group-hover:translate-x-1 transition-all"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 group-hover:text-sky-700 group-hover:translate-x-1 transition-all"
                   >
                     <span>เปิดอ่าน PDF</span>
                     <ArrowRight size={14} />
@@ -202,7 +202,7 @@ export default function PdfBooksPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="ค้นหาชื่อหนังสือ PDF, คำสำคัญ, หรือเนื้อหา..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-gray-800 placeholder-gray-400"
+              className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400"
             />
             <Search className="absolute left-3 top-3.5 text-gray-400" size={20} />
           </div>
@@ -211,7 +211,7 @@ export default function PdfBooksPage() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white min-w-[170px] text-gray-700"
+              className="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white min-w-[170px] text-gray-700"
             >
               <option value="">ทุกหมวดหมู่ ({categories.length})</option>
               {categories.map((cat) => (
@@ -227,7 +227,7 @@ export default function PdfBooksPage() {
                   setSearchQuery('');
                   setSelectedCategory('');
                 }}
-                className="px-4 py-3 text-sm font-medium text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-xl transition-colors cursor-pointer"
+                className="px-4 py-3 text-sm font-medium text-sky-600 hover:text-sky-700 hover:bg-sky-50 rounded-xl transition-colors cursor-pointer"
               >
                 ล้างตัวกรอง
               </button>
@@ -261,7 +261,7 @@ export default function PdfBooksPage() {
                 setSearchQuery('');
                 setSelectedCategory('');
               }}
-              className="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl text-sm transition-all shadow-md shadow-amber-500/20"
+              className="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl text-sm transition-all shadow-md shadow-sky-600/20"
             >
               ดูหนังสือ PDF ทั้งหมด ({allPdfBooks.length} เล่ม)
             </button>

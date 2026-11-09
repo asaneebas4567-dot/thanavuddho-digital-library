@@ -91,10 +91,10 @@ export default function BorrowButton({
           onClick={handleBorrow}
           className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-sm cursor-pointer ${
             variant === 'primary' 
-              ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-amber-600/20 hover:shadow-md'
+              ? 'bg-sky-600 hover:bg-sky-700 text-white shadow-sky-600/20 hover:shadow-md'
               : variant === 'outline'
-              ? 'border border-amber-500 text-amber-700 hover:bg-amber-50'
-              : 'bg-amber-100/70 text-amber-900 hover:bg-amber-200'
+              ? 'border border-sky-500 text-sky-700 hover:bg-sky-50'
+              : 'bg-sky-50 text-sky-800 hover:bg-sky-100'
           } ${className}`}
         >
           <BookMarked size={16} />
@@ -125,7 +125,7 @@ export default function BorrowButton({
             onClick={(e) => e.stopPropagation()}
             className="bg-white rounded-3xl max-w-sm w-full p-6 text-center border border-slate-200 shadow-2xl space-y-4"
           >
-            <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto shadow-xs">
+            <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mx-auto shadow-xs">
               <Lock size={22} />
             </div>
 
@@ -144,7 +144,7 @@ export default function BorrowButton({
                   const currentPath = typeof window !== 'undefined' ? window.location.pathname : `/books/${mediaId}`;
                   router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
                 }}
-                className="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
               >
                 <LogIn size={15} />
                 <span>เข้าสู่ระบบ / สมัครสมาชิก</span>

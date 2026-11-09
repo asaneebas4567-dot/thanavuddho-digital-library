@@ -65,8 +65,8 @@ export default function UserDashboard() {
         
         {/* Profile Banner: Shows Real Logged-in Member or Guest State */}
         {!isAuthenticated || !authUser ? (
-          <div className="bg-white rounded-3xl shadow-sm border border-amber-200/80 p-6 sm:p-8 mb-8 flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden">
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-amber-100 to-amber-200 text-amber-800 flex items-center justify-center font-black text-2xl shadow-inner shrink-0">
+          <div className="bg-white rounded-3xl shadow-sm border border-sky-200/80 p-6 sm:p-8 mb-8 flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-sky-100 to-sky-200 text-sky-800 flex items-center justify-center font-black text-2xl shadow-inner shrink-0">
               <Lock size={32} />
             </div>
 
@@ -85,7 +85,7 @@ export default function UserDashboard() {
             <div className="flex flex-col sm:flex-row items-center gap-2 shrink-0">
               <Link 
                 href="/login?redirect=/dashboard"
-                className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold transition-all shadow-md active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold transition-all shadow-md active:scale-95 cursor-pointer"
               >
                 <LogIn size={16} />
                 <span>เข้าสู่ระบบ / สมัครสมาชิก</span>
@@ -94,7 +94,7 @@ export default function UserDashboard() {
           </div>
         ) : (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8 flex flex-col md:flex-row items-center md:items-start gap-6 relative overflow-hidden">
-            <div className="relative w-24 h-24 rounded-2xl overflow-hidden ring-4 ring-amber-50 shrink-0 shadow-md bg-amber-500 text-white flex items-center justify-center font-black text-2xl">
+            <div className="relative w-24 h-24 rounded-2xl overflow-hidden ring-4 ring-sky-50 shrink-0 shadow-md bg-sky-500 text-white flex items-center justify-center font-black text-2xl">
               {authUser.picture ? (
                 <Image src={authUser.picture} alt={authUser.name} fill className="object-cover" unoptimized />
               ) : (
@@ -110,7 +110,7 @@ export default function UserDashboard() {
                     <ShieldCheck size={13} /> ผู้ดูแลระบบ (Admin)
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs font-bold shadow-xs">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 text-white text-xs font-bold shadow-xs">
                     <Sparkles size={12} /> สมาชิกห้องสมุด
                   </span>
                 )}
@@ -118,12 +118,12 @@ export default function UserDashboard() {
               <p className="text-gray-500 text-sm mb-4 truncate">{authUser.email}</p>
               
               <div className="flex flex-wrap justify-center md:justify-start gap-3">
-                <div className="bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-amber-200/60">
-                  <span className="text-[10px] text-amber-700">รหัสสมาชิก:</span>
-                  <span className="font-mono text-amber-950 font-black">{authUser.memberCardId || '69001'}</span>
+                <div className="bg-sky-50 text-sky-900 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-sky-200/60">
+                  <span className="text-[10px] text-sky-700">รหัสสมาชิก:</span>
+                  <span className="font-mono text-sky-950 font-black">{authUser.memberCardId || '69001'}</span>
                 </div>
-                <div className="bg-amber-50 text-amber-800 px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-amber-200/60">
-                  <BookMarked size={14} className="text-amber-600" />
+                <div className="bg-sky-50 text-sky-800 px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-sky-200/60">
+                  <BookMarked size={14} className="text-sky-600" />
                   <span>ยืมสื่ออยู่: {activeLoanCount} / {maxLoans} ชิ้น</span>
                 </div>
                 <div className="bg-purple-50 text-purple-800 px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-purple-200/60">
@@ -146,7 +146,7 @@ export default function UserDashboard() {
               )}
               <Link 
                 href="/rewards"
-                className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 cursor-pointer"
               >
                 <span>🎁 ร้านแลกรางวัล</span>
               </Link>
@@ -202,8 +202,8 @@ export default function UserDashboard() {
 
         {/* Global Feedback notification */}
         {actionFeedback && (
-          <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-sm font-semibold flex items-center gap-3 shadow-md animate-in fade-in">
-            <AlertCircle size={20} className="text-amber-600 shrink-0" />
+          <div className="mb-6 p-4 rounded-2xl bg-sky-50 border border-sky-200 text-sky-900 text-sm font-semibold flex items-center gap-3 shadow-md animate-in fade-in">
+            <AlertCircle size={20} className="text-sky-600 shrink-0" />
             <span>{actionFeedback}</span>
           </div>
         )}
@@ -214,7 +214,7 @@ export default function UserDashboard() {
             onClick={() => setActiveTab('loans')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'loans' 
-                ? 'bg-amber-600 text-white shadow-md shadow-amber-600/20' 
+                ? 'bg-sky-600 text-white shadow-md shadow-sky-600/20' 
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
@@ -226,7 +226,7 @@ export default function UserDashboard() {
             onClick={() => setActiveTab('achievements')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'achievements' 
-                ? 'bg-amber-600 text-white shadow-md shadow-amber-600/20' 
+                ? 'bg-sky-600 text-white shadow-md shadow-sky-600/20' 
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
@@ -238,7 +238,7 @@ export default function UserDashboard() {
             onClick={() => setActiveTab('history')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === 'history' 
-                ? 'bg-amber-600 text-white shadow-md shadow-amber-600/20' 
+                ? 'bg-sky-600 text-white shadow-md shadow-sky-600/20' 
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
@@ -256,15 +256,15 @@ export default function UserDashboard() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 pb-4 border-b border-gray-100 gap-2">
                 <div>
                   <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                    <BookMarked className="text-amber-600" size={22} />
+                    <BookMarked className="text-sky-600" size={22} />
                     รายการสื่อที่กำลังยืมอยู่ (Active Loans)
                   </h2>
                   <p className="text-xs text-gray-500 mt-1">
                     สมาชิกสามารถยืมสื่อได้สูงสุด {maxLoans} รายการ (ระยะเวลายืม 14 วันต่อรายการ)
                   </p>
                 </div>
-                <div className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-amber-50 text-amber-800 border border-amber-200/80 self-start sm:self-auto">
-                  สิทธิ์การยืมคงเหลือ: <span className="font-bold text-amber-700">{maxLoans - activeLoanCount}</span> รายการ
+                <div className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-sky-50 text-sky-800 border border-sky-200/80 self-start sm:self-auto">
+                  สิทธิ์การยืมคงเหลือ: <span className="font-bold text-sky-700">{maxLoans - activeLoanCount}</span> รายการ
                 </div>
               </div>
 
@@ -277,7 +277,7 @@ export default function UserDashboard() {
                   </p>
                   <Link
                     href="/books"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-600 text-white text-xs font-bold hover:bg-amber-700 transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-600 text-white text-xs font-bold hover:bg-sky-700 transition-colors"
                   >
                     ไปที่ห้องสมุดดิจิทัล
                   </Link>
@@ -298,7 +298,7 @@ export default function UserDashboard() {
                           </div>
                           <div className="min-w-0 flex-grow">
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200">
+                              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-sky-50 text-sky-800 border border-sky-200">
                                 {loan.media_type === 'audiobook' ? 'หนังสือเสียง' : loan.media_type === 'book' ? 'หนังสือธรรมะ' : 'สื่อการเรียนรู้'}
                               </span>
                               <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
@@ -324,14 +324,14 @@ export default function UserDashboard() {
                           {loan.media_type === 'book' ? (
                             <Link
                               href={`/reader/${loan.media_id}`}
-                              className="flex-1 py-2 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold text-center transition-colors shadow-xs flex items-center justify-center gap-1.5"
+                              className="flex-1 py-2 px-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold text-center transition-colors shadow-xs flex items-center justify-center gap-1.5"
                             >
                               <BookOpen size={14} /> อ่านออนไลน์
                             </Link>
                           ) : (
                             <Link
                               href="/audios"
-                              className="flex-1 py-2 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold text-center transition-colors shadow-xs flex items-center justify-center gap-1.5"
+                              className="flex-1 py-2 px-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold text-center transition-colors shadow-xs flex items-center justify-center gap-1.5"
                             >
                               <Headphones size={14} /> ฟังตอนนี้
                             </Link>
@@ -343,7 +343,7 @@ export default function UserDashboard() {
                             className={`py-2 px-3 rounded-xl text-xs font-semibold border transition-colors flex items-center gap-1 ${
                               loan.renewal_count >= 1 
                                 ? 'bg-gray-50 border-gray-200 text-gray-400 cursor-not-allowed' 
-                                : 'bg-white border-amber-300 text-amber-800 hover:bg-amber-50 cursor-pointer'
+                                : 'bg-white border-sky-300 text-sky-800 hover:bg-sky-50 cursor-pointer'
                             }`}
                             title={loan.renewal_count >= 1 ? 'ต่ออายุครบจำนวนครั้งแล้ว' : 'ขยายเวลายืมอีก 7 วัน'}
                           >
@@ -403,7 +403,7 @@ export default function UserDashboard() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-4 border-b border-gray-100 gap-4">
                 <div>
                   <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                    <Award className="text-amber-600" size={22} />
+                    <Award className="text-sky-600" size={22} />
                     เหรียญตราความสำเร็จและการเรียนรู้ (Gamification Badges)
                   </h2>
                   <p className="text-xs text-gray-500 mt-1">
@@ -412,7 +412,7 @@ export default function UserDashboard() {
                 </div>
                 <Link
                   href="/quiz"
-                  className="px-5 py-2.5 rounded-xl bg-amber-600 text-white font-bold text-xs hover:bg-amber-700 transition-colors shadow-sm self-start sm:self-auto"
+                  className="px-5 py-2.5 rounded-xl bg-sky-600 text-white font-bold text-xs hover:bg-sky-700 transition-colors shadow-sm self-start sm:self-auto"
                 >
                   เข้าสู่ศูนย์แบบทดสอบ (Quiz Center)
                 </Link>
@@ -425,12 +425,12 @@ export default function UserDashboard() {
                     key={badge.id}
                     className={`p-6 rounded-2xl border text-center flex flex-col items-center justify-between transition-all ${
                       badge.earned 
-                        ? 'bg-amber-50/50 border-amber-200 shadow-sm' 
+                        ? 'bg-sky-50/50 border-sky-200 shadow-sm' 
                         : 'bg-gray-50/60 border-gray-200 opacity-60'
                     }`}
                   >
                     <div>
-                      <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center text-3xl mb-4 mx-auto ring-4 ring-amber-100">
+                      <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center text-3xl mb-4 mx-auto ring-4 ring-sky-100">
                         {badge.icon}
                       </div>
                       <h4 className="font-bold text-gray-900 text-sm mb-1">{badge.name}</h4>
@@ -461,7 +461,7 @@ export default function UserDashboard() {
             <div className="lg:col-span-2 space-y-8">
               <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <Clock className="text-amber-600" size={20} /> ประวัติการอ่านล่าสุด
+                  <Clock className="text-sky-600" size={20} /> ประวัติการอ่านล่าสุด
                 </h3>
                 <div className="space-y-4">
                   {readingHistory.map(b => (
@@ -481,7 +481,7 @@ export default function UserDashboard() {
 
             <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
-                <Bookmark className="text-amber-600" size={20} /> รายการโปรด
+                <Bookmark className="text-sky-600" size={20} /> รายการโปรด
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 {favorites.map(b => (
@@ -489,7 +489,7 @@ export default function UserDashboard() {
                     <div className="aspect-[3/4] relative rounded-xl overflow-hidden shadow-xs mb-2">
                       <Image src={b.cover} alt={b.title} fill className="object-cover group-hover:scale-105 transition-transform" unoptimized />
                     </div>
-                    <h5 className="font-semibold text-xs text-gray-900 line-clamp-1 group-hover:text-amber-600">{b.title}</h5>
+                    <h5 className="font-semibold text-xs text-gray-900 line-clamp-1 group-hover:text-sky-600">{b.title}</h5>
                   </Link>
                 ))}
               </div>

@@ -90,15 +90,15 @@ export default function Navbar() {
       label: 'แบบทดสอบ XP', 
       href: '/quiz', 
       icon: Trophy,
-      iconColor: 'text-yellow-300 group-hover:text-yellow-200',
-      activeIconColor: 'text-yellow-500'
+      iconColor: 'text-sky-100 group-hover:text-white',
+      activeIconColor: 'text-sky-600'
     },
     { 
       label: 'ร้านรางวัล', 
       href: '/rewards', 
       icon: Gift,
-      iconColor: 'text-amber-200 group-hover:text-amber-100',
-      activeIconColor: 'text-amber-600'
+      iconColor: 'text-sky-100 group-hover:text-white',
+      activeIconColor: 'text-sky-600'
     },
   ];
 
@@ -155,14 +155,14 @@ export default function Navbar() {
             {/* Live Rewards Points Quick Pill */}
             <Link 
               href="/rewards" 
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black text-amber-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 hover:from-amber-200 hover:to-amber-300 shadow-sm transition-all cursor-pointer border border-amber-400/80 active:scale-95"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-sky-900 bg-white/90 hover:bg-white shadow-xs transition-all cursor-pointer border border-white/60 active:scale-95"
               title="ร้านแลกของรางวัลธรรมะ (Thanavuddho Learning Points)"
             >
               <span>🪙</span>
               <span className="font-mono" suppressHydrationWarning>
                 {mounted ? availablePoints.toLocaleString() : '0'}
               </span>
-              <span className="text-[10px] opacity-80">P</span>
+              <span className="text-[10px] opacity-75">P</span>
             </Link>
 
             {/* AI Assistant Quick Pill */}
@@ -193,7 +193,7 @@ export default function Navbar() {
                 className="relative flex items-center gap-2 p-1 pl-2 pr-2.5 rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/25 transition-all cursor-pointer text-xs font-bold active:scale-95"
                 title={`เข้าสู่ระบบแล้ว: ${user.name} (คลิกดูชั้นหนังสือ / ออกจากระบบ)`}
               >
-                <div className="w-6 h-6 rounded-full bg-amber-400 text-amber-950 font-black text-[11px] flex items-center justify-center overflow-hidden border border-amber-300">
+                <div className="w-6 h-6 rounded-full bg-white text-sky-700 font-bold text-[11px] flex items-center justify-center overflow-hidden border border-white/40">
                   {user.picture ? (
                     <Image src={user.picture} alt={user.name} width={24} height={24} className="object-cover" unoptimized />
                   ) : (
@@ -202,7 +202,7 @@ export default function Navbar() {
                 </div>
                 <span className="max-w-[70px] sm:max-w-[90px] truncate hidden sm:inline">{user.name}</span>
                 {activeLoanCount > 0 && (
-                  <span className="bg-amber-300 text-slate-900 text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
+                  <span className="bg-white text-sky-700 text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
                     {activeLoanCount}
                   </span>
                 )}

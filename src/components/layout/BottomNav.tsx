@@ -24,18 +24,18 @@ export default function BottomNav() {
       label: 'หน้าแรก',
       href: '/',
       icon: Home,
-      color: 'text-amber-600',
-      activeColor: 'text-amber-700',
-      pillColor: 'bg-amber-600',
+      color: 'text-sky-600',
+      activeColor: 'text-sky-700',
+      pillColor: 'bg-sky-600',
       exact: true,
     },
     {
       label: 'ห้องสมุด',
       href: '/books',
       icon: BookOpen,
-      color: 'text-amber-600',
-      activeColor: 'text-amber-700',
-      pillColor: 'bg-amber-600',
+      color: 'text-sky-600',
+      activeColor: 'text-sky-700',
+      pillColor: 'bg-sky-600',
     },
     {
       label: 'เสียง & Podcast',
@@ -65,18 +65,18 @@ export default function BottomNav() {
       label: 'แบบทดสอบ',
       href: '/quiz',
       icon: Award,
-      color: 'text-amber-700',
-      activeColor: 'text-amber-800',
-      pillColor: 'bg-amber-600',
+      color: 'text-sky-700',
+      activeColor: 'text-sky-800',
+      pillColor: 'bg-sky-600',
       badge: 'XP',
     },
     {
       label: 'ร้านรางวัล',
       href: '/rewards',
       icon: Gift,
-      color: 'text-amber-600',
-      activeColor: 'text-amber-700',
-      pillColor: 'bg-amber-600',
+      color: 'text-sky-600',
+      activeColor: 'text-sky-700',
+      pillColor: 'bg-sky-600',
       badge: 'Shop',
     },
     {
@@ -131,14 +131,14 @@ export default function BottomNav() {
 
                   {/* Loan Count Badge */}
                   {item.count !== undefined && item.count > 0 && (
-                    <span className="absolute -top-1 -right-2 bg-amber-600 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-xs animate-pulse">
+                    <span className="absolute -top-1 -right-2 bg-sky-600 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-xs animate-pulse">
                       {item.count}
                     </span>
                   )}
 
                   {/* XP Badge */}
                   {item.badge && (
-                    <span className="absolute -top-1 -right-2.5 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 text-[8px] font-black px-1 py-0.2 rounded-full shadow-xs">
+                    <span className="absolute -top-1 -right-2.5 bg-gradient-to-r from-sky-500 to-blue-600 text-white text-[8px] font-bold px-1 py-0.2 rounded-full shadow-xs">
                       {item.badge}
                     </span>
                   )}

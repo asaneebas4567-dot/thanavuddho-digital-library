@@ -159,7 +159,7 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
                 {/* Hover Quick Preview Button */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-2">
                   <span className="px-3 py-1.5 rounded-full bg-white text-gray-900 font-bold text-xs shadow-md flex items-center gap-1.5 hover:bg-slate-100 active:scale-95">
-                    <BookOpen size={13} className="text-amber-600" /> 
+                    <BookOpen size={13} className="text-sky-600" /> 
                     <span>ดูตัวอย่าง</span>
                   </span>
                 </div>
@@ -175,7 +175,7 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
                   </span>
                 </div>
 
-                <h3 className="font-bold text-xs sm:text-[13px] text-gray-900 group-hover:text-amber-700 transition-colors line-clamp-2 leading-snug">
+                <h3 className="font-bold text-xs sm:text-[13px] text-gray-900 group-hover:text-sky-700 transition-colors line-clamp-2 leading-snug">
                   {book.title}
                 </h3>
 

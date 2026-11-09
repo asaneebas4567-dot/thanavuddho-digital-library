@@ -159,36 +159,36 @@ function QuizGamificationContent() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header Hero */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-600 via-amber-700 to-amber-900 text-white p-8 sm:p-12 mb-10 shadow-xl shadow-amber-900/10">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-600 via-sky-700 to-blue-800 text-white p-8 sm:p-12 mb-10 shadow-xl shadow-sky-900/10">
           <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-200 text-xs font-bold border border-amber-400/20 mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-500/20 text-sky-200 text-xs font-bold border border-sky-400/20 mb-3">
               <Trophy size={14} /> ระบบเกมมิฟิเคชัน & แบบทดสอบความรู้ (Gamification & Quiz)
             </div>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
-              ทดสอบปัญญาธรรม <span className="text-amber-300">4 ระดับสู่ความรู้แจ้ง</span>
+              ทดสอบปัญญาธรรม <span className="text-sky-200">4 ระดับสู่ความรู้แจ้ง</span>
             </h1>
-            <p className="text-amber-100/90 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+            <p className="text-sky-100/90 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
               วัดระดับความเข้าใจ สะสมคะแนน XP ปลดล็อกเหรียญตราเกียรติยศ และรับใบประกาศนียบัตร "มหาบัณฑิตธรรมศึกษาดิจิทัล" ครอบคลุมตั้งแต่รายบทจนถึงภาพรวมทั้งหมด
             </p>
 
             {/* User Gamification Stats Bar */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <div className="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500 text-slate-900 flex items-center justify-center font-bold text-lg shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center font-bold text-lg shadow-sm">
                   ⚡
                 </div>
                 <div>
-                  <div className="text-[11px] text-amber-200">คะแนนสะสม (Total XP)</div>
+                  <div className="text-[11px] text-sky-200">คะแนนสะสม (Total XP)</div>
                   <div className="text-lg font-black text-white">{userXP.toLocaleString()} XP</div>
                 </div>
               </div>
 
               <div className="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-300 text-slate-900 flex items-center justify-center font-bold text-lg shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center font-bold text-lg shadow-sm">
                   🏅
                 </div>
                 <div>
-                  <div className="text-[11px] text-amber-200">เหรียญที่ปลดล็อก</div>
+                  <div className="text-[11px] text-sky-200">เหรียญที่ปลดล็อก</div>
                   <div className="text-lg font-black text-white">
                     {badges.filter(b => b.earned).length} / {badges.length} เหรียญ
                   </div>
@@ -196,11 +196,11 @@ function QuizGamificationContent() {
               </div>
 
               <div className="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-bold text-lg shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center font-bold text-lg shadow-sm">
                   📜
                 </div>
                 <div>
-                  <div className="text-[11px] text-amber-200">วุฒิบัตรดิจิทัล</div>
+                  <div className="text-[11px] text-sky-200">วุฒิบัตรดิจิทัล</div>
                   <div className="text-lg font-black text-white">
                     {certificate ? 'พร้อมรับรอง' : 'สอบ Level 4 เพื่อรับ'}
                   </div>
@@ -212,12 +212,12 @@ function QuizGamificationContent() {
 
         {/* Active Quiz Runner Modal / Box */}
         {activeQuiz && (
-          <div className="bg-white rounded-3xl border border-amber-200 shadow-xl p-6 sm:p-10 mb-12 animate-in fade-in slide-in-from-top-4 ring-4 ring-amber-500/10">
+          <div className="bg-white rounded-3xl border border-sky-200 shadow-xl p-6 sm:p-10 mb-12 animate-in fade-in slide-in-from-top-4 ring-4 ring-sky-500/10">
             
             {/* Quiz Top Status */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-gray-100 gap-4 mb-6">
               <div>
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800">
+                <span className="text-xs font-bold px-3 py-1 rounded-full bg-sky-100 text-sky-800">
                   {activeQuiz.level_label}
                 </span>
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mt-2">
@@ -254,7 +254,7 @@ function QuizGamificationContent() {
               </div>
               <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-amber-600 rounded-full transition-all duration-300"
+                  className="h-full bg-sky-600 rounded-full transition-all duration-300"
                   style={{ width: `${((currentQuestionIndex + 1) / activeQuiz.questions.length) * 100}%` }}
                 ></div>
               </div>
@@ -276,13 +276,13 @@ function QuizGamificationContent() {
                         onClick={() => handleSelectOption(optIdx)}
                         className={`w-full text-left p-4 sm:p-5 rounded-2xl border text-sm sm:text-base transition-all flex items-center justify-between cursor-pointer ${
                           isSelected 
-                            ? 'bg-amber-50 border-amber-500 text-amber-950 font-semibold shadow-sm ring-2 ring-amber-500/20' 
-                            : 'bg-white border-gray-200 hover:border-amber-300 hover:bg-gray-50/50 text-gray-700'
+                            ? 'bg-sky-50 border-sky-500 text-sky-950 font-semibold shadow-sm ring-2 ring-sky-500/20' 
+                            : 'bg-white border-gray-200 hover:border-sky-300 hover:bg-gray-50/50 text-gray-700'
                         }`}
                       >
                         <span>{opt}</span>
                         <div className={`w-6 h-6 rounded-full border flex items-center justify-center shrink-0 ml-4 ${
-                          isSelected ? 'border-amber-600 bg-amber-600 text-white' : 'border-gray-300'
+                          isSelected ? 'border-sky-600 bg-sky-600 text-white' : 'border-gray-300'
                         }`}>
                           {isSelected && <Check size={14} />}
                         </div>
@@ -304,7 +304,7 @@ function QuizGamificationContent() {
                   {currentQuestionIndex < activeQuiz.questions.length - 1 ? (
                     <button
                       onClick={() => setCurrentQuestionIndex(i => Math.min(activeQuiz.questions.length - 1, i + 1))}
-                      className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-amber-600/20 cursor-pointer"
+                      className="px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-sky-600/20 cursor-pointer"
                     >
                       ข้อถัดไป
                     </button>
@@ -328,7 +328,7 @@ function QuizGamificationContent() {
                 <div className={`p-8 rounded-3xl text-center border ${
                   userScore >= activeQuiz.passing_score 
                     ? 'bg-emerald-50/70 border-emerald-200 text-emerald-950' 
-                    : 'bg-amber-50/70 border-amber-200 text-amber-950'
+                    : 'bg-sky-50/70 border-sky-200 text-sky-950'
                 }`}>
                   <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl shadow-md bg-white">
                     {userScore >= activeQuiz.passing_score ? '🎉' : '📖'}
@@ -350,7 +350,7 @@ function QuizGamificationContent() {
                     {certificate && (
                       <button
                         onClick={() => setShowCertificateModal(true)}
-                        className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md shadow-amber-600/20 transition-all cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/20 transition-all cursor-pointer"
                       >
                         <GraduationCap size={16} />
                         เปิดดูใบประกาศนียบัตรดิจิทัล
@@ -411,7 +411,7 @@ function QuizGamificationContent() {
                           </div>
 
                           <div className="ml-10 p-3.5 rounded-xl bg-white border border-gray-100 text-xs text-gray-700 leading-relaxed shadow-xs">
-                            <span className="font-bold text-amber-800 block mb-1">💡 คำอธิบายหลักธรรม:</span>
+                            <span className="font-bold text-sky-800 block mb-1">💡 คำอธิบายหลักธรรม:</span>
                             {q.explanation}
                             {q.source_ref && (
                               <div className="mt-2 text-[11px] text-gray-400">
@@ -448,8 +448,8 @@ function QuizGamificationContent() {
                 onClick={() => setSelectedLevel(lvl.id as any)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
                   isActive 
-                    ? 'bg-amber-600 text-white shadow-md shadow-amber-600/20' 
-                    : 'bg-white border border-gray-200 text-gray-700 hover:border-amber-300'
+                    ? 'bg-sky-600 text-white shadow-md shadow-sky-600/20' 
+                    : 'bg-white border border-gray-200 text-gray-700 hover:border-sky-300'
                 }`}
               >
                 <Icon size={16} />
@@ -467,7 +467,7 @@ function QuizGamificationContent() {
               <div 
                 key={quiz.id}
                 className={`bg-white rounded-3xl border p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-lg transition-all ${
-                  isLevel4 ? 'border-amber-400 ring-2 ring-amber-500/20 bg-gradient-to-b from-white to-amber-50/30' : 'border-gray-100'
+                  isLevel4 ? 'border-sky-400 ring-2 ring-sky-500/20 bg-gradient-to-b from-white to-sky-50/30' : 'border-gray-100'
                 }`}
               >
                 <div>
@@ -476,12 +476,12 @@ function QuizGamificationContent() {
                       quiz.level === 'chapter' ? 'bg-blue-50 text-blue-800' :
                       quiz.level === 'book' ? 'bg-purple-50 text-purple-800' :
                       quiz.level === 'category' ? 'bg-rose-50 text-rose-800' :
-                      'bg-amber-500 text-slate-950 font-black'
+                      'bg-sky-600 text-white font-bold'
                     }`}>
                       {quiz.level_label}
                     </span>
 
-                    <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-xl flex items-center gap-1">
+                    <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-xl flex items-center gap-1">
                       <Sparkles size={12} /> +{quiz.xp_reward} XP
                     </span>
                   </div>
@@ -503,7 +503,7 @@ function QuizGamificationContent() {
 
                   <button
                     onClick={() => handleStartQuiz(quiz)}
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition-all shadow-sm shadow-amber-600/20 cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs transition-all shadow-sm shadow-sky-600/20 cursor-pointer"
                   >
                     <span>เริ่มทำข้อสอบ</span>
                     <ArrowRight size={14} />
@@ -519,7 +519,7 @@ function QuizGamificationContent() {
           <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-100">
             <div>
               <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <Trophy className="text-amber-600" size={24} />
+                <Trophy className="text-sky-600" size={24} />
                 คลังเหรียญตราเกียรติยศ (Badges Collection)
               </h3>
               <p className="text-xs sm:text-sm text-gray-500 mt-1">
@@ -534,12 +534,12 @@ function QuizGamificationContent() {
                 key={badge.id}
                 className={`p-6 rounded-2xl border text-center flex flex-col items-center justify-between transition-all ${
                   badge.earned 
-                    ? 'bg-amber-50/50 border-amber-200 shadow-sm' 
+                    ? 'bg-sky-50/50 border-sky-200 shadow-sm' 
                     : 'bg-gray-50/60 border-gray-200 opacity-50'
                 }`}
               >
                 <div>
-                  <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center text-3xl mb-4 mx-auto ring-4 ring-amber-100">
+                  <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center text-3xl mb-4 mx-auto ring-4 ring-sky-100">
                     {badge.icon}
                   </div>
                   <h4 className="font-bold text-gray-900 text-sm mb-1">{badge.name}</h4>
@@ -565,7 +565,7 @@ function QuizGamificationContent() {
         {/* Certificate Modal */}
         {showCertificateModal && certificate && (
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-10 shadow-2xl relative border-8 border-amber-100 animate-in zoom-in-95">
+            <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-10 shadow-2xl relative border-8 border-sky-100 animate-in zoom-in-95">
               
               <button
                 onClick={() => setShowCertificateModal(false)}
@@ -575,12 +575,12 @@ function QuizGamificationContent() {
               </button>
 
               {/* Certificate Canvas Mock */}
-              <div className="border-4 border-amber-600/30 p-8 rounded-2xl text-center relative bg-gradient-to-b from-amber-50/30 via-white to-amber-50/20">
-                <div className="w-16 h-16 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold text-2xl mx-auto mb-4 shadow-lg ring-4 ring-amber-200">
+              <div className="border-4 border-sky-600/30 p-8 rounded-2xl text-center relative bg-gradient-to-b from-sky-50/30 via-white to-sky-50/20">
+                <div className="w-16 h-16 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold text-2xl mx-auto mb-4 shadow-lg ring-4 ring-sky-200">
                   ธรรม
                 </div>
 
-                <span className="text-xs uppercase tracking-widest text-amber-800 font-bold block mb-1">
+                <span className="text-xs uppercase tracking-widest text-sky-800 font-bold block mb-1">
                   THANAVUDDHO DIGITAL LIBRARY
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-1">
@@ -591,21 +591,21 @@ function QuizGamificationContent() {
                 </p>
 
                 <p className="text-xs text-gray-600 mb-2">ขอมอบวุฒิบัตรฉบับนี้ให้แก่</p>
-                <div className="text-2xl font-bold text-amber-800 border-b-2 border-amber-400 inline-block px-8 pb-1 mb-4 font-serif">
+                <div className="text-2xl font-bold text-sky-900 border-b-2 border-sky-400 inline-block px-8 pb-1 mb-4 font-serif">
                   {certificate.user_name}
                 </div>
 
                 <p className="text-xs text-gray-600 max-w-md mx-auto leading-relaxed mb-6">
-                  ได้ผ่านการประเมินความรู้ความเข้าใจหลักธรรมคำสอนของพระสัมมาสัมพุทธเจ้าและพระครูปลัดสุวัฒนโพธิคุณ ครบถ้วนทุกหมวดหมู่ ด้วยผลคะแนน <span className="font-bold text-amber-700">{certificate.score}%</span>
+                  ได้ผ่านการประเมินความรู้ความเข้าใจหลักธรรมคำสอนของพระสัมมาสัมพุทธเจ้าและพระครูปลัดสุวัฒนโพธิคุณ ครบถ้วนทุกหมวดหมู่ ด้วยผลคะแนน <span className="font-bold text-sky-700">{certificate.score}%</span>
                 </p>
 
-                <div className="flex items-center justify-between text-[11px] text-gray-400 pt-6 border-t border-amber-200/80">
+                <div className="flex items-center justify-between text-[11px] text-gray-400 pt-6 border-t border-sky-200/80">
                   <div className="text-left">
                     <div>รหัสอ้างอิง: <span className="font-mono font-bold text-gray-700">{certificate.certificate_code}</span></div>
                     <div>วันที่อนุมัติ: {certificate.issued_at}</div>
                   </div>
                   <div className="text-right">
-                    <div className="font-bold text-amber-800">พระครูปลัดสุวัฒนโพธิคุณ</div>
+                    <div className="font-bold text-sky-800">พระครูปลัดสุวัฒนโพธิคุณ</div>
                     <div className="text-[10px] text-gray-400">ประธานอำนวยการวิทยาทาน</div>
                   </div>
                 </div>
@@ -614,7 +614,7 @@ function QuizGamificationContent() {
               <div className="flex justify-end gap-3 mt-6">
                 <button
                   onClick={() => alert('ดาวน์โหลดใบประกาศนียบัตรสำเร็จ (จำลองไฟล์ PDF)')}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md transition-all cursor-pointer"
                 >
                   <Download size={14} /> ดาวน์โหลดใบประกาศ (PDF)
                 </button>

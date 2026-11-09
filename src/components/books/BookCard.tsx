@@ -134,7 +134,7 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1.5 line-clamp-2 leading-snug group-hover:text-amber-700 transition-colors">
+          <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1.5 line-clamp-2 leading-snug group-hover:text-sky-700 transition-colors">
             <Link href={`/books/${book.id}`}>
               {book.title}
             </Link>
@@ -154,7 +154,7 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
         <div className="pt-3 border-t border-gray-100 flex items-center justify-between mt-auto">
           <Link 
             href={`/books/${book.id}`}
-            className="text-xs font-bold text-slate-800 hover:text-amber-700 flex items-center gap-1 group/btn"
+            className="text-xs font-bold text-slate-800 hover:text-sky-700 flex items-center gap-1 group/btn"
           >
             <span>รายละเอียด</span>
             <ArrowRight size={13} className="transition-transform group-hover/btn:translate-x-0.5" />

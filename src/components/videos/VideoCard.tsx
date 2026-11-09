@@ -25,7 +25,7 @@ export default function VideoCard({ video, onSelect }: VideoCardProps) {
       onClick={handleClick}
       className={`group cursor-pointer flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl border transition-all duration-300 overflow-hidden ${
         isAvailable 
-          ? 'border-border/50 hover:border-amber-500/40 hover:-translate-y-1' 
+          ? 'border-border/50 hover:border-sky-500/40 hover:-translate-y-1' 
           : 'border-border/30 opacity-90 hover:border-zinc-300'
       }`}
     >
@@ -45,8 +45,8 @@ export default function VideoCard({ video, onSelect }: VideoCardProps) {
             className="object-cover transform group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-amber-600/20 to-amber-900/30">
-            <PlayCircle className="w-14 h-14 text-amber-400/40" />
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-sky-600/20 to-sky-900/30">
+            <PlayCircle className="w-14 h-14 text-sky-400/40" />
           </div>
         )}
 
@@ -64,7 +64,7 @@ export default function VideoCard({ video, onSelect }: VideoCardProps) {
               </>
             ) : (
               <>
-                <Monitor className="w-3 h-3 text-amber-400" />
+                <Monitor className="w-3 h-3 text-sky-400" />
                 <span>แนวนอน 16:9</span>
               </>
             )}
@@ -77,7 +77,7 @@ export default function VideoCard({ video, onSelect }: VideoCardProps) {
               <span>พร้อมรับชม</span>
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-600/90 text-white text-[10px] font-bold shadow-sm">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-sky-600/90 text-white text-[10px] font-bold shadow-sm">
               <AlertCircle className="w-2.5 h-2.5" />
               <span>รอเผยแพร่</span>
             </span>
@@ -86,14 +86,14 @@ export default function VideoCard({ video, onSelect }: VideoCardProps) {
 
         {/* Center Hover Play Button */}
         <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-          <div className="w-14 h-14 rounded-full bg-amber-500/90 backdrop-blur-md flex items-center justify-center scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl text-white">
+          <div className="w-14 h-14 rounded-full bg-sky-500/90 backdrop-blur-md flex items-center justify-center scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl text-white">
             <PlayCircle className="w-8 h-8 fill-current" />
           </div>
         </div>
 
         {/* Bottom Right: Duration Badge */}
         <div className="absolute bottom-2.5 right-2.5 z-20 bg-black/80 backdrop-blur-md text-white text-[11px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm border border-white/10">
-          <Clock className="w-3 h-3 text-amber-400" />
+          <Clock className="w-3 h-3 text-sky-400" />
           <span>{video.duration}</span>
         </div>
       </div>
@@ -101,7 +101,7 @@ export default function VideoCard({ video, onSelect }: VideoCardProps) {
       {/* Video Metadata Under Thumbnail */}
       <div className="p-4 sm:p-5 flex flex-col flex-1 bg-white">
         {/* Title */}
-        <h3 className="font-bold text-foreground text-sm sm:text-base leading-snug mb-2 group-hover:text-amber-600 transition-colors line-clamp-2">
+        <h3 className="font-bold text-foreground text-sm sm:text-base leading-snug mb-2 group-hover:text-sky-600 transition-colors line-clamp-2">
           {video.title}
         </h3>
 
@@ -114,7 +114,7 @@ export default function VideoCard({ video, onSelect }: VideoCardProps) {
         {video.tags && video.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-3">
             {video.tags.slice(0, 2).map((tag, idx) => (
-              <span key={idx} className="text-[10px] bg-amber-500/10 text-amber-700 px-2 py-0.5 rounded-md font-medium">
+              <span key={idx} className="text-[10px] bg-sky-500/10 text-sky-700 px-2 py-0.5 rounded-md font-medium">
                 #{tag}
               </span>
             ))}

@@ -226,7 +226,7 @@ export default function HomeQuestWidget() {
       {/* 1. Sleek, Compact Quest & Wallet Bar (Clean, Elegant, Low Visual Clutter) */}
       <div 
         id="quests"
-        className="w-full bg-gradient-to-r from-amber-50/70 via-white to-amber-50/50 border border-amber-200/70 rounded-2xl p-4 sm:px-6 sm:py-3.5 shadow-xs font-sans select-none"
+        className="w-full bg-white border border-sky-200/90 rounded-2xl p-4 sm:px-6 sm:py-3.5 shadow-xs font-sans select-none"
       >
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
           
@@ -240,19 +240,19 @@ export default function HomeQuestWidget() {
               className="flex items-center gap-3 cursor-pointer group"
               title="คลิกเพื่อเปิดสมุดเควสและแลกของขวัญ"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-white flex items-center justify-center font-bold shadow-xs group-hover:scale-105 transition-transform shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white flex items-center justify-center font-bold shadow-xs group-hover:scale-105 transition-transform shrink-0">
                 <Coins size={20} />
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-gray-800">กระเป๋าแต้มสะสม</span>
-                  <span className="text-xs font-black text-amber-700 bg-amber-100/80 px-2 py-0.5 rounded-full">
+                  <span className="text-xs font-bold text-sky-700 bg-sky-100/80 px-2 py-0.5 rounded-full">
                     {totalPoints} แต้ม 🪙
                   </span>
                 </div>
                 <div className="text-[11px] text-gray-500 mt-0.5 flex items-center gap-2">
                   <span>สำเร็จ {completedQuestIds.length}/{allAcrossBooks.length} เควส</span>
-                  <span className="text-amber-700 font-semibold group-hover:underline flex items-center gap-0.5">
+                  <span className="text-sky-700 font-semibold group-hover:underline flex items-center gap-0.5">
                     <Gift size={11} /> แลกของรางวัล
                   </span>
                 </div>
@@ -261,20 +261,20 @@ export default function HomeQuestWidget() {
 
             {/* Mobile Pager */}
             {discoveredQuests.length > 1 && (
-              <div className="lg:hidden flex items-center gap-1 bg-white px-2 py-1 rounded-full border border-amber-200 text-xs">
+              <div className="lg:hidden flex items-center gap-1 bg-white px-2 py-1 rounded-full border border-slate-200 text-xs">
                 <button
                   onClick={() => setActiveQuestIndex(prev => (prev > 0 ? prev - 1 : discoveredQuests.length - 1))}
-                  className="p-1 hover:bg-amber-100 rounded text-amber-900"
+                  className="p-1 hover:bg-sky-50 rounded text-slate-700 hover:text-sky-800"
                   title="เควสก่อนหน้า"
                 >
                   <ChevronLeft size={13} />
                 </button>
-                <span className="font-bold text-[11px] px-1">
+                <span className="font-bold text-[11px] px-1 text-slate-700">
                   {((activeQuestIndex % discoveredQuests.length) + 1)}/{discoveredQuests.length}
                 </span>
                 <button
                   onClick={() => setActiveQuestIndex(prev => (prev + 1) % discoveredQuests.length)}
-                  className="p-1 hover:bg-amber-100 rounded text-amber-900"
+                  className="p-1 hover:bg-sky-50 rounded text-slate-700 hover:text-sky-800"
                   title="เควสถัดไป"
                 >
                   <ChevronRight size={13} />
@@ -284,12 +284,12 @@ export default function HomeQuestWidget() {
           </div>
 
           {/* Divider on desktop */}
-          <div className="hidden lg:block w-px h-8 bg-amber-200/60" />
+          <div className="hidden lg:block w-px h-8 bg-slate-200" />
 
           {/* Center: Recommended Active Quest */}
           <div className="flex-1 min-w-0 w-full lg:w-auto">
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-bold text-amber-800 bg-amber-100/90 px-2 py-0.5 rounded-md shrink-0">
+              <span className="text-[11px] font-bold text-sky-800 bg-sky-100/90 px-2 py-0.5 rounded-md shrink-0">
                 เควสอ่านธรรมะ
               </span>
               <span className="text-xs text-gray-500 truncate hidden sm:inline">
@@ -300,7 +300,7 @@ export default function HomeQuestWidget() {
               <h4 className="font-bold text-slate-800 text-xs sm:text-sm truncate">
                 {currentShowcaseQuest.title}
               </h4>
-              <span className="text-xs font-bold text-amber-700 shrink-0">
+              <span className="text-xs font-bold text-sky-700 shrink-0">
                 +{currentShowcaseQuest.loot.points} แต้ม
               </span>
               {isCurrentShowcaseCompleted && (
@@ -315,20 +315,20 @@ export default function HomeQuestWidget() {
           <div className="flex items-center gap-2 w-full lg:w-auto justify-end shrink-0 pt-1 lg:pt-0">
             {/* Desktop Pager */}
             {discoveredQuests.length > 1 && (
-              <div className="hidden lg:flex items-center gap-1 bg-white px-2 py-1 rounded-full border border-amber-200 text-xs text-amber-900 mr-1">
+              <div className="hidden lg:flex items-center gap-1 bg-white px-2 py-1 rounded-full border border-slate-200 text-xs text-slate-700 mr-1">
                 <button
                   onClick={() => setActiveQuestIndex(prev => (prev > 0 ? prev - 1 : discoveredQuests.length - 1))}
-                  className="p-0.5 hover:bg-amber-100 rounded text-amber-900 transition-colors"
+                  className="p-0.5 hover:bg-sky-50 rounded text-slate-700 hover:text-sky-800 transition-colors"
                   title="เควสก่อนหน้า"
                 >
                   <ChevronLeft size={13} />
                 </button>
-                <span className="font-bold text-[11px] px-1">
+                <span className="font-bold text-[11px] px-1 text-slate-700">
                   {((activeQuestIndex % discoveredQuests.length) + 1)} / {discoveredQuests.length}
                 </span>
                 <button
                   onClick={() => setActiveQuestIndex(prev => (prev + 1) % discoveredQuests.length)}
-                  className="p-0.5 hover:bg-amber-100 rounded text-amber-900 transition-colors"
+                  className="p-0.5 hover:bg-sky-50 rounded text-slate-700 hover:text-sky-800 transition-colors"
                   title="เควสถัดไป"
                 >
                   <ChevronRight size={13} />
@@ -338,7 +338,7 @@ export default function HomeQuestWidget() {
 
             <Link
               href={`/reader/${currentShowcaseQuest.bookId}?page=${currentShowcaseQuest.triggerPage}`}
-              className="px-3.5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center gap-1.5"
+              className="px-3.5 py-1.5 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center gap-1.5"
             >
               <BookOpen size={13} />
               <span>{isCurrentShowcaseCompleted ? 'อ่านซ้ำ' : 'ไปอ่านเควส'}</span>
@@ -349,7 +349,7 @@ export default function HomeQuestWidget() {
                 setIsCodexOpen(true);
                 playWidgetSound('click', soundEnabled);
               }}
-              className="px-3 py-1.5 bg-white hover:bg-amber-50 text-amber-900 border border-amber-200 font-bold text-xs rounded-xl transition-colors cursor-pointer flex items-center gap-1"
+              className="px-3 py-1.5 bg-white hover:bg-sky-50 text-sky-800 border border-sky-200 font-bold text-xs rounded-xl transition-colors cursor-pointer flex items-center gap-1"
             >
               <span>สมุดเควส</span>
               <ArrowRight size={12} />
@@ -362,19 +362,19 @@ export default function HomeQuestWidget() {
       {/* 2. Full Quest Codex & Rewards Modal ("สมุดบันทึกเควส & แลกของขวัญ") */}
       {isCodexOpen && (
         <div className="fixed inset-0 z-[250] bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
-          <div className="bg-[#FFFDF9] border-2 border-amber-300 rounded-3xl w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden font-sans">
+          <div className="bg-white border-2 border-sky-200 rounded-3xl w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden font-sans">
             
             {/* Header */}
-            <div className="px-6 py-4 border-b border-amber-200/80 flex items-center justify-between bg-gradient-to-r from-amber-50 via-orange-50/60 to-amber-50 shrink-0">
+            <div className="px-6 py-4 border-b border-sky-400/30 flex items-center justify-between bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 text-white shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white flex items-center justify-center shadow-md shadow-amber-500/20">
-                  <Compass size={24} />
+                <div className="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center shadow-md">
+                  <Compass size={24} className="text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-amber-950 flex items-center gap-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                     สมุดบันทึกเควสธรรมะ & กระเป๋าแลกของขวัญ
                   </h3>
-                  <p className="text-xs text-amber-800/80">
+                  <p className="text-xs text-sky-100">
                     ติดตามภารกิจโลก ปริศนาธรรมที่ค้นพบ และแลกของที่ระลึก
                   </p>
                 </div>
@@ -383,14 +383,14 @@ export default function HomeQuestWidget() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setSoundEnabled(!soundEnabled)}
-                  className="p-2 text-amber-800 hover:bg-amber-100/70 rounded-full transition-colors cursor-pointer"
+                  className="p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-full transition-colors cursor-pointer"
                   title={soundEnabled ? 'ปิดเสียง' : 'เปิดเสียง'}
                 >
                   {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
                 </button>
                 <button
                   onClick={() => setIsCodexOpen(false)}
-                  className="w-9 h-9 rounded-full bg-amber-100/70 hover:bg-amber-200 text-amber-900 flex items-center justify-center transition-colors cursor-pointer"
+                  className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors cursor-pointer"
                   title="ปิด"
                 >
                   <X size={19} />
@@ -399,28 +399,28 @@ export default function HomeQuestWidget() {
             </div>
 
             {/* Wallet Summary Banner */}
-            <div className="px-6 py-3 bg-gradient-to-r from-amber-100/80 via-orange-100/50 to-amber-100/80 border-b border-amber-200 flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
-              <div className="flex items-center gap-2 text-amber-950">
-                <Coins size={18} className="text-amber-600 shrink-0" />
+            <div className="px-6 py-3 bg-sky-50/70 border-b border-sky-100 flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
+              <div className="flex items-center gap-2 text-sky-950">
+                <Coins size={18} className="text-sky-600 shrink-0" />
                 <span className="font-semibold">แต้มสะสมในกระเป๋า:</span>
-                <strong className="text-lg text-amber-700 font-extrabold">{totalPoints}</strong> แต้ม 🪙
+                <strong className="text-lg text-sky-700 font-extrabold">{totalPoints}</strong> แต้ม 🪙
               </div>
 
-              <div className="flex items-center gap-3 text-xs font-semibold text-amber-900">
+              <div className="flex items-center gap-3 text-xs font-semibold text-sky-900">
                 <span>สำเร็จแล้ว: <strong>{completedQuestIds.length}</strong>/{allAcrossBooks.length} เควส</span>
-                <span className="text-amber-300">|</span>
+                <span className="text-sky-300">|</span>
                 <span>ค้นพบแล้ว: <strong>{discoveredQuests.length}</strong> เควส</span>
               </div>
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex border-b border-amber-200 bg-white/70 px-6 gap-2 pt-2 shrink-0">
+            <div className="flex border-b border-slate-200 bg-white px-6 gap-2 pt-2 shrink-0">
               <button
                 onClick={() => setSelectedCodexTab('discovered')}
                 className={`pb-2.5 px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center gap-1.5 ${
                   selectedCodexTab === 'discovered'
-                    ? 'border-amber-600 text-amber-900 font-black'
-                    : 'border-transparent text-gray-500 hover:text-amber-800'
+                    ? 'border-sky-600 text-sky-900 font-bold'
+                    : 'border-transparent text-gray-500 hover:text-sky-800'
                 }`}
               >
                 <span>📜 เควสที่ค้นพบ ({discoveredQuests.length})</span>
@@ -429,8 +429,8 @@ export default function HomeQuestWidget() {
                 onClick={() => setSelectedCodexTab('books')}
                 className={`pb-2.5 px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center gap-1.5 ${
                   selectedCodexTab === 'books'
-                    ? 'border-amber-600 text-amber-900 font-black'
-                    : 'border-transparent text-gray-500 hover:text-amber-800'
+                    ? 'border-sky-600 text-sky-900 font-bold'
+                    : 'border-transparent text-gray-500 hover:text-sky-800'
                 }`}
               >
                 <span>📖 หนังสือที่มีภารกิจลับ ({Object.keys(QUEST_BOOKS_CATALOG).length})</span>
@@ -439,8 +439,8 @@ export default function HomeQuestWidget() {
                 onClick={() => setSelectedCodexTab('shop')}
                 className={`pb-2.5 px-3 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer flex items-center gap-1.5 ${
                   selectedCodexTab === 'shop'
-                    ? 'border-amber-600 text-amber-900 font-black'
-                    : 'border-transparent text-gray-500 hover:text-amber-800'
+                    ? 'border-sky-600 text-sky-900 font-bold'
+                    : 'border-transparent text-gray-500 hover:text-sky-800'
                 }`}
               >
                 <span>🎁 ร้านแลกของขวัญ ({REWARD_SHOP_ITEMS.length})</span>
@@ -499,8 +499,8 @@ export default function HomeQuestWidget() {
                             </p>
 
                             <div className="flex items-center gap-3 mt-2 text-[11px]">
-                              <span className="text-amber-700 font-bold flex items-center gap-1">
-                                <Coins size={12} className="text-amber-500" /> +{quest.loot.points} แต้ม 🪙
+                              <span className="text-sky-700 font-bold flex items-center gap-1">
+                                <Coins size={12} className="text-sky-500" /> +{quest.loot.points} แต้ม 🪙
                               </span>
                               <span className="text-purple-700 font-medium flex items-center gap-1">
                                 <span>{quest.loot.badgeIcon}</span> {quest.loot.badgeName}
@@ -526,7 +526,7 @@ export default function HomeQuestWidget() {
                               className={`px-3.5 py-1.5 text-xs font-bold rounded-xl shadow-xs transition-all flex items-center gap-1 ${
                                 isCompleted
                                   ? 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                                  : 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white'
+                                  : 'bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white'
                               }`}
                             >
                               <BookOpen size={13} />
@@ -539,7 +539,7 @@ export default function HomeQuestWidget() {
                   })
                 ) : (
                   <div className="py-12 px-4 text-center">
-                    <div className="w-16 h-16 rounded-3xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                    <div className="w-16 h-16 rounded-3xl bg-sky-100 text-sky-700 flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
                       📜
                     </div>
                     <h4 className="font-bold text-slate-900 text-base mb-1">ยังไม่มีเควสที่ค้นพบ</h4>
@@ -549,7 +549,7 @@ export default function HomeQuestWidget() {
                     <Link
                       href="/reader/book_mongkol_chiwit_124?page=1"
                       onClick={() => setIsCodexOpen(false)}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 text-white rounded-xl text-xs font-bold shadow-md cursor-pointer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 text-white rounded-xl text-xs font-bold shadow-md cursor-pointer"
                     >
                       <Sparkles size={14} />
                       <span>เปิดอ่านมงคลชีวิต 38 ประการ หน้า 1</span>
@@ -562,7 +562,7 @@ export default function HomeQuestWidget() {
             {/* Tab 2: Books with Easter Egg Quests */}
             {selectedCodexTab === 'books' && (
               <div className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-grow bg-slate-50/50">
-                <div className="text-xs text-amber-900/80 mb-2 font-medium">
+                <div className="text-xs text-slate-600 mb-2 font-medium">
                   หนังสือที่มีภารกิจลับซ่อนอยู่ สามารถเปิดอ่านและพลิกหน้าเพื่อค้นพบเควสและรับแต้มสะสม
                 </div>
 
@@ -575,14 +575,14 @@ export default function HomeQuestWidget() {
                     return (
                       <div 
                         key={bId}
-                        className="p-4 rounded-2xl bg-white border border-amber-200/90 shadow-xs flex flex-col justify-between gap-3 hover:border-amber-400 transition-all"
+                        className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between gap-3 hover:border-sky-300 transition-all"
                       >
                         <div>
                           <div className="flex items-center justify-between mb-1.5">
-                            <span className="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
+                            <span className="text-[10px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded-full">
                               {bookQuests.length} ปริศนาลับ
                             </span>
-                            <span className="text-[11px] font-extrabold text-amber-700">
+                            <span className="text-[11px] font-extrabold text-sky-700">
                               สูงสุด {bookPoints} แต้ม 🪙
                             </span>
                           </div>
@@ -595,13 +595,13 @@ export default function HomeQuestWidget() {
                           <div className="mt-3">
                             <div className="flex justify-between text-[11px] text-gray-500 mb-1">
                               <span>ความสำเร็จ</span>
-                              <span className="font-bold text-amber-900">
+                              <span className="font-bold text-slate-800">
                                 {bookCompleted.length} / {bookQuests.length} เควส
                               </span>
                             </div>
                             <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
                               <div 
-                                className="bg-gradient-to-r from-amber-400 to-orange-500 h-2 rounded-full transition-all duration-500"
+                                className="bg-gradient-to-r from-sky-500 to-blue-600 h-2 rounded-full transition-all duration-500"
                                 style={{ width: `${(bookCompleted.length / (bookQuests.length || 1)) * 100}%` }}
                               ></div>
                             </div>
@@ -611,7 +611,7 @@ export default function HomeQuestWidget() {
                         <Link
                           href={`/reader/${bId}?page=1`}
                           onClick={() => setIsCodexOpen(false)}
-                          className="w-full py-2 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5"
+                          className="w-full py-2 bg-sky-50 hover:bg-sky-100 text-sky-900 border border-sky-200 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5"
                         >
                           <BookOpen size={13} />
                           <span>เปิดอ่านและสำรวจเควส</span>
@@ -626,12 +626,12 @@ export default function HomeQuestWidget() {
             {/* Tab 3: Reward Shop (แลกของขวัญ) */}
             {selectedCodexTab === 'shop' && (
               <div className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-grow bg-slate-50/50">
-                <div className="flex items-center justify-between bg-amber-100/70 p-3 rounded-2xl border border-amber-200 text-xs text-amber-950 font-medium">
+                <div className="flex items-center justify-between bg-sky-50 p-3 rounded-2xl border border-sky-200 text-xs text-sky-950 font-medium">
                   <div className="flex items-center gap-2">
-                    <Gift size={18} className="text-orange-500 shrink-0" />
+                    <Gift size={18} className="text-sky-600 shrink-0" />
                     <span>ใช้แต้มที่คุณสะสมจากการอ่านและตอบปริศนาธรรมะ เพื่อแลกรับของรางวัล</span>
                   </div>
-                  <div className="font-extrabold text-amber-800 shrink-0">
+                  <div className="font-extrabold text-sky-800 shrink-0">
                     คงเหลือ: {totalPoints} แต้ม
                   </div>
                 </div>
@@ -647,7 +647,7 @@ export default function HomeQuestWidget() {
                         className={`p-4 rounded-2xl border transition-all flex flex-col justify-between gap-3 ${
                           isRedeemed 
                             ? 'bg-emerald-50/40 border-emerald-200' 
-                            : 'bg-white border-amber-200/80 shadow-xs'
+                            : 'bg-white border-slate-200 hover:border-sky-300 shadow-xs'
                         }`}
                       >
                         <div>
@@ -667,7 +667,7 @@ export default function HomeQuestWidget() {
                         </div>
 
                         <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
-                          <div className="text-xs font-black text-amber-700">
+                          <div className="text-xs font-black text-sky-700">
                             {item.pointsCost} แต้ม 🪙
                           </div>
 
@@ -681,7 +681,7 @@ export default function HomeQuestWidget() {
                               disabled={!canAfford}
                               className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                                 canAfford
-                                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 text-white shadow-xs'
+                                  ? 'bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 text-white shadow-xs'
                                   : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                               }`}
                             >
@@ -697,11 +697,11 @@ export default function HomeQuestWidget() {
             )}
 
             {/* Footer */}
-            <div className="px-6 py-3 bg-white border-t border-amber-200/80 flex items-center justify-between text-xs text-gray-500 shrink-0">
+            <div className="px-6 py-3 bg-white border-t border-slate-200 flex items-center justify-between text-xs text-gray-500 shrink-0">
               <span>Thanavuddho Digital Library Gamification</span>
               <button
                 onClick={() => setIsCodexOpen(false)}
-                className="px-4 py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold rounded-xl transition-colors cursor-pointer"
+                className="px-4 py-1.5 bg-sky-50 hover:bg-sky-100 text-sky-800 border border-sky-200 font-bold rounded-xl transition-colors cursor-pointer"
               >
                 ปิดหน้าต่าง
               </button>
@@ -714,8 +714,8 @@ export default function HomeQuestWidget() {
       {/* 3. Review Quest Modal (for completed quests) */}
       {reviewingQuest && (
         <div className="fixed inset-0 z-[300] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-          <div className="bg-[#FFFDF9] border-2 border-amber-300 rounded-3xl w-full max-w-lg p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-amber-200 pb-3">
+          <div className="bg-white border-2 border-sky-200 rounded-3xl w-full max-w-lg p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-sky-100 pb-3">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{reviewingQuest.loot.badgeIcon}</span>
                 <div>
@@ -729,13 +729,13 @@ export default function HomeQuestWidget() {
               </div>
               <button 
                 onClick={() => setReviewingQuest(null)}
-                className="w-8 h-8 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 flex items-center justify-center transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors cursor-pointer"
               >
                 <X size={16} />
               </button>
             </div>
 
-            <div className="bg-amber-50/60 p-3.5 rounded-2xl border border-amber-200/70 text-xs text-amber-950 italic">
+            <div className="bg-sky-50/70 p-3.5 rounded-2xl border border-sky-200/70 text-xs text-slate-800 italic">
               {reviewingQuest.loreStory}
             </div>
 

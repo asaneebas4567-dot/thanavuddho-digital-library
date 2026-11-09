@@ -158,13 +158,13 @@ export default function ChatbotPage() {
             >
               <ArrowLeft size={18} />
             </Link>
-            <div className="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/25 text-amber-300 shadow-sm shrink-0">
+            <div className="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/25 text-white shadow-sm shrink-0">
               <Bot size={24} />
             </div>
             <div>
               <h1 className="font-extrabold text-sm sm:text-base flex items-center gap-2">
                 ผู้ช่วยอัจฉริยะ (Thanavuddho AI)
-                <span className="text-[10px] bg-amber-400 text-slate-950 font-black px-2 py-0.5 rounded-full uppercase tracking-wider">
+                <span className="text-[10px] bg-white/20 text-white font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
                   AI Search & Chat
                 </span>
               </h1>
@@ -198,7 +198,7 @@ export default function ChatbotPage() {
         {/* Suggested Quick Prompts */}
         <div className="bg-sky-50/80 border-b border-sky-100 p-2.5 px-4 overflow-x-auto no-scrollbar shrink-0 flex items-center gap-2 select-none">
           <span className="text-[11px] font-black text-sky-900 shrink-0 flex items-center gap-1">
-            <Lightbulb size={13} className="text-amber-500" /> ค้นหาด่วน:
+            <Lightbulb size={13} className="text-sky-500" /> ค้นหาด่วน:
           </span>
           {quickPrompts.map((p, idx) => (
             <button
@@ -226,7 +226,7 @@ export default function ChatbotPage() {
                   </div>
                   <span className="text-xs font-bold text-slate-800">Thanavuddho AI</span>
                   {msg.categoryBadge && (
-                    <span className="text-[10px] bg-amber-100 text-amber-800 border border-amber-300/80 px-2 py-0.2 rounded-full font-bold">
+                    <span className="text-[10px] bg-sky-100 text-sky-800 border border-sky-300/80 px-2 py-0.2 rounded-full font-bold">
                       {msg.categoryBadge}
                     </span>
                   )}
@@ -244,12 +244,12 @@ export default function ChatbotPage() {
                     msg.evidenceLevel === 'direct_verified' 
                       ? 'bg-emerald-50 text-emerald-900 border-emerald-200/90 shadow-2xs' 
                       : msg.evidenceLevel === 'general_dhamma'
-                      ? 'bg-amber-50 text-amber-900 border-amber-200/90 shadow-2xs'
+                      ? 'bg-sky-50 text-sky-900 border-sky-200/90 shadow-2xs'
                       : 'bg-slate-100 text-slate-700 border-slate-200'
                   }`}>
                     <span className={`w-2 h-2 rounded-full shrink-0 ${
                       msg.evidenceLevel === 'direct_verified' ? 'bg-emerald-500' :
-                      msg.evidenceLevel === 'general_dhamma' ? 'bg-amber-500' : 'bg-slate-400'
+                      msg.evidenceLevel === 'general_dhamma' ? 'bg-sky-500' : 'bg-slate-400'
                     }`} />
                     <span>{msg.evidenceBadgeText}</span>
                   </div>
@@ -265,7 +265,7 @@ export default function ChatbotPage() {
                   <div className="mt-5 pt-4 border-t border-slate-100 space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-extrabold text-slate-900 flex items-center gap-1.5 uppercase tracking-wider">
-                        <Sparkles size={14} className="text-amber-500" />
+                        <Sparkles size={14} className="text-sky-500" />
                         หลักฐานและสื่อการเรียนรู้ที่ตรวจสอบแล้ว ({msg.citations.length} รายการ):
                       </span>
                     </div>
@@ -307,8 +307,8 @@ export default function ChatbotPage() {
                                   <div className="w-full h-full bg-slate-800 text-white flex items-center justify-center">
                                     {isVideo ? <Video size={18} className="text-rose-400" /> :
                                      isAudio ? <Headphones size={18} className="text-purple-400" /> :
-                                     isQuiz ? <Award size={18} className="text-amber-400" /> :
-                                     <BookOpen size={18} className="text-amber-300" />}
+                                     isQuiz ? <Award size={18} className="text-sky-400" /> :
+                                     <BookOpen size={18} className="text-sky-300" />}
                                   </div>
                                 )}
                               </div>
@@ -317,7 +317,7 @@ export default function ChatbotPage() {
                               <div className="min-w-0 flex-1">
                                 <div className="flex items-center gap-1.5 mb-1 flex-wrap">
                                   <span className={`text-[9px] font-black px-1.5 py-0.5 rounded uppercase leading-none ${
-                                    isBook ? 'bg-amber-100 text-amber-800' :
+                                    isBook ? 'bg-sky-100 text-sky-800' :
                                     isVideo ? 'bg-rose-100 text-rose-800 border border-rose-200/80 font-bold' :
                                     isAudio ? 'bg-purple-100 text-purple-800' :
                                     isQuiz ? 'bg-yellow-100 text-yellow-800' :
@@ -359,7 +359,7 @@ export default function ChatbotPage() {
                                 )}
 
                                 {c.quote && (
-                                  <div className="mt-2 p-2 rounded-lg bg-amber-50/80 border-l-2 border-amber-400 text-[11px] text-slate-700 italic leading-relaxed">
+                                  <div className="mt-2 p-2 rounded-lg bg-sky-50/80 border-l-2 border-sky-400 text-[11px] text-slate-700 italic leading-relaxed">
                                     &ldquo;{c.quote}&rdquo;
                                   </div>
                                 )}
@@ -451,7 +451,7 @@ export default function ChatbotPage() {
               <div className="flex gap-1.5">
                 <span className="w-2.5 h-2.5 bg-sky-500 rounded-full animate-bounce"></span>
                 <span className="w-2.5 h-2.5 bg-[#009fe3] rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                <span className="w-2.5 h-2.5 bg-amber-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                <span className="w-2.5 h-2.5 bg-sky-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
               </div>
               <span className="font-semibold text-slate-600">AI กำลังค้นหาคำตอบ...</span>
             </div>

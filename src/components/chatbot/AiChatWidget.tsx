@@ -99,7 +99,7 @@ export default function AiChatWidget() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-5 sm:right-7 z-50 group flex items-center bg-gradient-to-tr from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white p-3.5 rounded-full shadow-xl shadow-amber-950/20 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/20"
+          className="fixed bottom-6 right-5 sm:right-7 z-50 group flex items-center bg-gradient-to-tr from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white p-3.5 rounded-full shadow-xl shadow-sky-950/20 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/20"
           title="ถามคำถามธรรมะกับ Thanavuddho AI"
         >
           <div className="relative flex items-center justify-center">
@@ -118,16 +118,16 @@ export default function AiChatWidget() {
         <div className="fixed bottom-6 right-5 sm:right-7 z-50 w-[92vw] sm:w-[400px] h-[540px] max-h-[82vh] bg-white rounded-3xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-6">
           
           {/* Header */}
-          <div className="bg-gradient-to-r from-amber-700 via-amber-800 to-amber-950 text-white p-4 px-5 flex items-center justify-between shrink-0 shadow-sm">
+          <div className="bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 text-white p-4 px-5 flex items-center justify-between shrink-0 shadow-sm">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-amber-500/20 backdrop-blur-md flex items-center justify-center border border-amber-400/30 text-amber-200">
+              <div className="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 text-white">
                 <Bot size={22} />
               </div>
               <div>
                 <h3 className="font-bold text-sm flex items-center gap-1.5 leading-tight">
                   ผู้ช่วยธรรมะอัจฉริยะ (Thanavuddho AI)
                 </h3>
-                <span className="text-[10px] text-emerald-300 flex items-center gap-1">
+                <span className="text-[10px] text-emerald-200 flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
                   ระบบเชื่อมโยงคลังความรู้แบบเรียลไทม์
                 </span>
@@ -138,14 +138,14 @@ export default function AiChatWidget() {
               <Link 
                 href="/chatbot" 
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 text-amber-200 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+                className="p-1.5 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
                 title="ขยายเป็นหน้าต่างเต็ม"
               >
                 <Maximize2 size={16} />
               </Link>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 text-amber-200 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+                className="p-1.5 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
                 title="ย่อหน้าต่าง"
               >
                 <X size={18} />
@@ -154,12 +154,12 @@ export default function AiChatWidget() {
           </div>
 
           {/* Quick Prompts Bar */}
-          <div className="bg-amber-50/70 border-b border-amber-200/50 p-2.5 px-4 overflow-x-auto no-scrollbar shrink-0 flex gap-2">
+          <div className="bg-sky-50/70 border-b border-sky-100 p-2.5 px-4 overflow-x-auto no-scrollbar shrink-0 flex gap-2">
             {sampleBotQuestions.slice(0, 3).map((prompt, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSend(prompt)}
-                className="text-[11px] font-medium bg-white hover:bg-amber-100 text-amber-900 border border-amber-200/80 px-2.5 py-1 rounded-full whitespace-nowrap transition-colors cursor-pointer shrink-0 shadow-xs"
+                className="text-[11px] font-medium bg-white hover:bg-sky-100 text-sky-900 border border-sky-200/80 px-2.5 py-1 rounded-full whitespace-nowrap transition-colors cursor-pointer shrink-0 shadow-xs"
               >
                 {prompt.length > 25 ? prompt.slice(0, 25) + '...' : prompt}
               </button>
@@ -175,13 +175,13 @@ export default function AiChatWidget() {
               >
                 <div className={`max-w-[85%] rounded-2xl p-3.5 text-xs sm:text-sm leading-relaxed ${
                   msg.sender === 'user'
-                    ? 'bg-amber-600 text-white rounded-br-xs shadow-sm shadow-amber-600/20'
+                    ? 'bg-sky-600 text-white rounded-br-xs shadow-sm shadow-sky-600/20'
                     : 'bg-white text-gray-800 rounded-bl-xs border border-gray-100 shadow-xs'
                 }`}>
                   {msg.evidenceBadgeText && (
                     <div className={`mb-2 text-[10px] font-bold px-2 py-1 rounded-lg leading-tight ${
                       msg.evidenceLevel === 'direct_verified' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200/80' :
-                      msg.evidenceLevel === 'general_dhamma' ? 'bg-amber-50 text-amber-900 border border-amber-200/80' :
+                      msg.evidenceLevel === 'general_dhamma' ? 'bg-sky-50 text-sky-900 border border-sky-200/80' :
                       'bg-slate-100 text-slate-700 border border-slate-200'
                     }`}>
                       {msg.evidenceBadgeText}
@@ -194,7 +194,7 @@ export default function AiChatWidget() {
                   {/* Attached Citations & Media Links */}
                   {msg.citations && msg.citations.length > 0 && (
                     <div className="mt-3 pt-3 border-t border-gray-100 space-y-1.5">
-                      <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider block">
+                      <span className="text-[10px] font-bold text-sky-800 uppercase tracking-wider block">
                         🎬 สื่อการเรียนรู้และวิดีโอที่เกี่ยวข้อง:
                       </span>
                       {msg.citations.map((c, cIdx) => {
@@ -203,7 +203,7 @@ export default function AiChatWidget() {
                         const linkClasses = `flex flex-col gap-1 p-2 rounded-xl text-xs font-semibold transition-colors border ${
                           isVid ? 'bg-rose-50 hover:bg-rose-100 text-rose-900 border-rose-200/70' :
                           c.type === 'audiobook' || c.type === 'podcast' ? 'bg-purple-50 hover:bg-purple-100 text-purple-900 border-purple-200/70' :
-                          'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-200/60'
+                          'bg-sky-50 hover:bg-sky-100 text-sky-900 border-sky-200/60'
                         }`;
 
                         const linkContent = (
@@ -211,7 +211,7 @@ export default function AiChatWidget() {
                             <div className="flex items-center gap-2">
                               {isVid ? <Video size={13} className="text-rose-600 shrink-0" /> :
                                c.type === 'audiobook' || c.type === 'podcast' ? <Headphones size={13} className="text-purple-600 shrink-0" /> :
-                               <BookOpen size={13} className="text-amber-700 shrink-0" />}
+                               <BookOpen size={13} className="text-sky-700 shrink-0" />}
                               <span className="truncate flex-1 font-bold">{c.title}</span>
                               {c.timestamp_formatted && (
                                 <span className="text-[10px] bg-rose-200/80 text-rose-900 px-1.5 py-0.2 rounded font-bold shrink-0">
@@ -266,9 +266,9 @@ export default function AiChatWidget() {
             {isTyping && (
               <div className="flex items-center gap-2 text-xs text-gray-400 bg-white p-3 rounded-2xl w-28 border border-gray-100 shadow-xs">
                 <div className="flex gap-1">
-                  <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-bounce"></span>
-                  <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                  <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                  <span className="w-1.5 h-1.5 bg-sky-500 rounded-full animate-bounce"></span>
+                  <span className="w-1.5 h-1.5 bg-sky-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                  <span className="w-1.5 h-1.5 bg-sky-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
                 </div>
                 <span>กำลังคิด...</span>
               </div>
@@ -279,7 +279,7 @@ export default function AiChatWidget() {
 
           {/* Input Bar */}
           <div className="p-3 bg-white border-t border-gray-100 shrink-0">
-            <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-2xl px-3 py-1.5 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/10 transition-all">
+            <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-2xl px-3 py-1.5 focus-within:border-sky-500 focus-within:ring-2 focus-within:ring-sky-500/10 transition-all">
               <input
                 type="text"
                 value={input}
@@ -291,7 +291,7 @@ export default function AiChatWidget() {
               <button
                 onClick={() => handleSend()}
                 disabled={!input.trim()}
-                className="w-8 h-8 rounded-xl bg-amber-600 hover:bg-amber-700 disabled:opacity-40 disabled:hover:bg-amber-600 text-white flex items-center justify-center transition-all shrink-0 cursor-pointer"
+                className="w-8 h-8 rounded-xl bg-sky-600 hover:bg-sky-700 disabled:opacity-40 disabled:hover:bg-sky-600 text-white flex items-center justify-center transition-all shrink-0 cursor-pointer"
               >
                 <Send size={14} className="ml-0.5" />
               </button>

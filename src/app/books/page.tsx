@@ -168,8 +168,8 @@ function BooksContent() {
         <div className="mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60 inline-flex items-center gap-1.5 mb-2">
-                <Sparkles size={13} className="text-amber-600" />
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-sky-50 text-sky-800 border border-sky-200/60 inline-flex items-center gap-1.5 mb-2">
+                <Sparkles size={13} className="text-sky-600" />
                 คลังหนังสือธรรมะและวิชาการ
               </span>
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
@@ -182,7 +182,7 @@ function BooksContent() {
 
             {/* Quick Stats Pill */}
             <div className="flex items-center gap-3 text-xs text-gray-500 font-semibold bg-white px-4 py-2 rounded-2xl border border-gray-200/80 shadow-xs">
-              <span>กำลังแสดง: <strong className="text-amber-700">{filteredBooks.length}</strong> เล่ม</span>
+              <span>กำลังแสดง: <strong className="text-sky-700">{filteredBooks.length}</strong> เล่ม</span>
               <span>•</span>
               <span>อ่านฟรีทุกอุปกรณ์</span>
             </div>
@@ -214,7 +214,7 @@ function BooksContent() {
                 onClick={() => setSelectedCategory(isSelected ? '' : cat.id)}
                 className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                   isSelected
-                    ? 'bg-amber-600 text-white shadow-xs'
+                    ? 'bg-sky-600 text-white shadow-xs'
                     : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200/80'
                 }`}
               >
@@ -232,7 +232,7 @@ function BooksContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="ค้นหาชื่อเรื่อง, ผู้แต่ง, หรือคำค้น..."
-              className="w-full pl-9 pr-4 py-2.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm text-gray-800 placeholder-gray-400 font-medium transition-all"
+              className="w-full pl-9 pr-4 py-2.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 text-sm text-gray-800 placeholder-gray-400 font-medium transition-all"
             />
             <Search className="absolute left-3 top-3 text-gray-400" size={17} />
             {searchQuery && (
@@ -253,11 +253,11 @@ function BooksContent() {
               onClick={() => setSortBy('popular')}
               className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 sortBy === 'popular'
-                  ? 'bg-amber-100/70 text-amber-900 border border-amber-200'
+                  ? 'bg-sky-100/70 text-sky-900 border border-sky-200'
                   : 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200/60'
               }`}
             >
-              <Flame size={13} className={sortBy === 'popular' ? 'text-amber-700' : 'text-gray-400'} />
+              <Flame size={13} className={sortBy === 'popular' ? 'text-sky-700' : 'text-gray-400'} />
               <span>ยอดนิยม</span>
             </button>
 
@@ -265,11 +265,11 @@ function BooksContent() {
               onClick={() => setSortBy('newest')}
               className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 sortBy === 'newest'
-                  ? 'bg-amber-100/70 text-amber-900 border border-amber-200'
+                  ? 'bg-sky-100/70 text-sky-900 border border-sky-200'
                   : 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200/60'
               }`}
             >
-              <Clock size={13} className={sortBy === 'newest' ? 'text-amber-700' : 'text-gray-400'} />
+              <Clock size={13} className={sortBy === 'newest' ? 'text-sky-700' : 'text-gray-400'} />
               <span>พิมพ์ใหม่</span>
             </button>
 
@@ -277,11 +277,11 @@ function BooksContent() {
               onClick={() => setSortBy('title')}
               className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 sortBy === 'title'
-                  ? 'bg-amber-100/70 text-amber-900 border border-amber-200'
+                  ? 'bg-sky-100/70 text-sky-900 border border-sky-200'
                   : 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200/60'
               }`}
             >
-              <ArrowUpDown size={13} className={sortBy === 'title' ? 'text-amber-700' : 'text-gray-400'} />
+              <ArrowUpDown size={13} className={sortBy === 'title' ? 'text-sky-700' : 'text-gray-400'} />
               <span>ชื่อ ก-ฮ</span>
             </button>
           </div>
@@ -336,7 +336,7 @@ export default function BooksPage() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-[#fbfbfa] py-12 flex justify-center items-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-sky-600"></div>
         </div>
       }
     >

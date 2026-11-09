@@ -27,24 +27,24 @@ export interface ShelfThemeConfig {
 }
 
 export const SHELF_THEMES: Record<CategoryShelfTheme, ShelfThemeConfig> = {
-  // สุขภาพและครอบครัว: ครีม ส้มอ่อน หรือพีช
+  // สุขภาพและครอบครัว: ครีม หรือฟ้าอ่อน
   peach: {
-    containerBg: 'bg-amber-50/70',
-    containerBorder: 'border-amber-200/90',
-    iconBg: 'bg-amber-100/90 text-amber-800 border border-amber-200/90',
-    viewAllColor: 'text-amber-800 hover:text-amber-950',
-    badgeColor: 'bg-amber-100/90 text-amber-800 border-amber-200/90',
-    arrowHover: 'hover:bg-amber-500 hover:text-white hover:border-amber-500',
-    glowColor: 'hover:shadow-amber-100/50',
+    containerBg: 'bg-sky-50/70',
+    containerBorder: 'border-sky-200/90',
+    iconBg: 'bg-sky-100/90 text-sky-800 border border-sky-200/90',
+    viewAllColor: 'text-sky-800 hover:text-sky-950',
+    badgeColor: 'bg-sky-100/90 text-sky-800 border border-sky-200/90',
+    arrowHover: 'hover:bg-sky-500 hover:text-white hover:border-sky-500',
+    glowColor: 'hover:shadow-sky-100/50',
   },
   cream: {
-    containerBg: 'bg-orange-50/65',
-    containerBorder: 'border-orange-200/90',
-    iconBg: 'bg-orange-100/90 text-orange-800 border border-orange-200/90',
-    viewAllColor: 'text-orange-800 hover:text-orange-950',
-    badgeColor: 'bg-orange-100/90 text-orange-800 border-orange-200/90',
-    arrowHover: 'hover:bg-orange-500 hover:text-white hover:border-orange-500',
-    glowColor: 'hover:shadow-orange-100/50',
+    containerBg: 'bg-slate-50/75',
+    containerBorder: 'border-slate-200/90',
+    iconBg: 'bg-slate-100/90 text-slate-800 border border-slate-200/90',
+    viewAllColor: 'text-slate-800 hover:text-slate-950',
+    badgeColor: 'bg-slate-100/90 text-slate-800 border border-slate-200/90',
+    arrowHover: 'hover:bg-sky-500 hover:text-white hover:border-sky-500',
+    glowColor: 'hover:shadow-slate-100/50',
   },
   // ปรัชญาและวิทยาการ: เขียวมิ้นต์
   mint: {
@@ -145,7 +145,7 @@ function BookCoverItem({
       onClick={() => onQuickView ? onQuickView(book) : undefined}
     >
       {/* 1. Book Poster with 3D Spine and Polite Lift */}
-      <div className="relative aspect-[1/1.42] w-full rounded-xl overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.10)] border border-slate-200/90 group-hover/card:border-amber-400 group-hover/card:shadow-[3px_8px_18px_rgba(0,0,0,0.16)] group-hover/card:-translate-y-1.5 transition-all duration-300">
+      <div className="relative aspect-[1/1.42] w-full rounded-xl overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.10)] border border-slate-200/90 group-hover/card:border-sky-400 group-hover/card:shadow-[3px_8px_18px_rgba(0,0,0,0.16)] group-hover/card:-translate-y-1.5 transition-all duration-300">
         
         {/* Book Spine 3D Highlight Line on Left */}
         <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-r from-black/25 via-white/20 to-transparent pointer-events-none z-10" />
@@ -164,8 +164,8 @@ function BookCoverItem({
             onError={() => setImageError(true)}
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-amber-100 via-orange-50 to-amber-200 p-3 flex flex-col justify-between text-center">
-            <span className="text-[9px] font-bold text-amber-800">ธรรมบรรณาการ</span>
+          <div className="w-full h-full bg-gradient-to-br from-sky-100 via-blue-50 to-sky-200 p-3 flex flex-col justify-between text-center">
+            <span className="text-[9px] font-bold text-sky-800">ธรรมบรรณาการ</span>
             <p className="text-xs font-black text-slate-800 line-clamp-3 leading-snug">{book.title}</p>
             <span className="text-[8px] font-medium text-slate-600">{authorName}</span>
           </div>
@@ -184,7 +184,7 @@ function BookCoverItem({
           <Link
             href={`/reader/${book.id}`}
             onClick={(e) => e.stopPropagation()}
-            className="px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-extrabold text-[11px] shadow-lg flex items-center gap-1.5 hover:from-amber-600 hover:to-orange-600 active:scale-95 transition-all"
+            className="px-3 py-1.5 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 text-white font-extrabold text-[11px] shadow-lg flex items-center gap-1.5 hover:from-sky-600 hover:to-blue-700 active:scale-95 transition-all"
           >
             <BookOpen size={12} />
             <span>เปิดอ่าน</span>
@@ -210,7 +210,7 @@ function BookCoverItem({
 
         {/* Book Title (2 lines clamp, high contrast) */}
         <h3 
-          className="font-bold text-xs sm:text-[13px] text-slate-900 line-clamp-2 leading-snug min-h-[2.2rem] group-hover/card:text-amber-700 transition-colors"
+          className="font-bold text-xs sm:text-[13px] text-slate-900 line-clamp-2 leading-snug min-h-[2.2rem] group-hover/card:text-sky-700 transition-colors"
           title={book.title}
         >
           {book.title}

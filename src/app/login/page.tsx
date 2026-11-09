@@ -244,7 +244,7 @@ function LoginPageContent() {
           
           {/* Header */}
           <div className="text-center mb-6">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-500 text-white flex items-center justify-center font-black text-2xl mx-auto shadow-md mb-3">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center font-black text-2xl mx-auto shadow-md mb-3">
               ฐ
             </div>
             <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
@@ -258,9 +258,9 @@ function LoginPageContent() {
           {/* Already Logged In State */}
           {isAuthenticated && user ? (
             <div className="space-y-5 animate-in fade-in">
-              <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/90">
+              <div className="p-4 rounded-2xl bg-sky-50/80 border border-sky-200/90">
                 <div className="flex items-center gap-3.5 mb-3">
-                  <div className="w-13 h-13 rounded-full overflow-hidden bg-slate-200 relative shrink-0 border-2 border-amber-500 shadow-xs">
+                  <div className="w-13 h-13 rounded-full overflow-hidden bg-slate-200 relative shrink-0 border-2 border-sky-500 shadow-xs">
                     {user.picture ? (
                       <Image
                         src={user.picture}
@@ -270,7 +270,7 @@ function LoginPageContent() {
                         unoptimized
                       />
                     ) : (
-                      <div className="w-full h-full bg-amber-600 text-white flex items-center justify-center font-black">
+                      <div className="w-full h-full bg-sky-600 text-white flex items-center justify-center font-black">
                         {user.name.charAt(0)}
                       </div>
                     )}
@@ -289,12 +289,12 @@ function LoginPageContent() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-amber-200/60 text-xs text-slate-700">
-                  <div className="bg-white/90 p-2 rounded-xl border border-amber-200/50">
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-sky-200/60 text-xs text-slate-700">
+                  <div className="bg-white/90 p-2 rounded-xl border border-sky-200/50">
                     <span className="text-[10px] text-slate-400 block">เลขบัตรสมาชิก</span>
-                    <span className="font-mono font-bold text-amber-900">{user.memberCardId || `MB-${user.id.slice(-6)}`}</span>
+                    <span className="font-mono font-bold text-sky-900">{user.memberCardId || `MB-${user.id.slice(-6)}`}</span>
                   </div>
-                  <div className="bg-white/90 p-2 rounded-xl border border-amber-200/50">
+                  <div className="bg-white/90 p-2 rounded-xl border border-sky-200/50">
                     <span className="text-[10px] text-slate-400 block">ช่วงอายุ / แต้มสะสม</span>
                     <span className="font-bold text-slate-800">{user.ageRange || 'ทั่วไป'} • 🪙 {user.points} แต้ม</span>
                   </div>
@@ -304,7 +304,7 @@ function LoginPageContent() {
               <div className="grid grid-cols-2 gap-2 pt-2">
                 <Link
                   href={redirectUrl}
-                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md transition-all text-center"
+                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md transition-all text-center"
                 >
                   <BookMarked size={14} />
                   <span>ไปที่ชั้นหนังสือ</span>
@@ -355,7 +355,7 @@ function LoginPageContent() {
                   onClick={() => { setActiveTab('register'); setAuthError(null); }}
                   className={`flex-1 py-2 text-xs font-black rounded-xl transition-all cursor-pointer ${
                     activeTab === 'register'
-                      ? 'bg-white text-amber-700 shadow-sm'
+                      ? 'bg-white text-sky-700 shadow-sm'
                       : 'text-slate-500 hover:text-slate-900'
                   }`}
                 >
@@ -380,7 +380,7 @@ function LoginPageContent() {
                         onChange={(e) => setLoginIdentifier(e.target.value)}
                         placeholder="กรอกอีเมล หรือ เบอร์โทร 10 หลัก"
                         required
-                        className="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-slate-900"
+                        className="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-slate-900"
                       />
                     </div>
                   </div>
@@ -399,7 +399,7 @@ function LoginPageContent() {
                         onChange={(e) => setLoginPassword(e.target.value)}
                         placeholder="กรอกรหัสผ่านของท่าน"
                         required
-                        className="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-slate-900"
+                        className="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-slate-900"
                       />
                     </div>
                   </div>
@@ -407,7 +407,7 @@ function LoginPageContent() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer disabled:opacity-50"
+                    className="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer disabled:opacity-50"
                   >
                     {isSubmitting ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
                   </button>
@@ -431,7 +431,7 @@ function LoginPageContent() {
                         onChange={(e) => setRegName(e.target.value)}
                         placeholder="เช่น สมชาย ใจดี"
                         required
-                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-slate-900"
+                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-slate-900"
                       />
                     </div>
                   </div>
@@ -450,7 +450,7 @@ function LoginPageContent() {
                         onChange={(e) => setRegEmail(e.target.value)}
                         placeholder="example@gmail.com"
                         required
-                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-slate-900"
+                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-slate-900"
                       />
                     </div>
                   </div>
@@ -469,7 +469,7 @@ function LoginPageContent() {
                           value={regPhone}
                           onChange={(e) => setRegPhone(e.target.value)}
                           placeholder="เช่น 0812345678"
-                          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-slate-900"
+                          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-slate-900"
                         />
                       </div>
                     </div>
@@ -485,7 +485,7 @@ function LoginPageContent() {
                         <select
                           value={regAgeRange}
                           onChange={(e) => setRegAgeRange(e.target.value)}
-                          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-slate-900 bg-white"
+                          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-slate-900 bg-white"
                         >
                           <option value="ต่ำกว่า 18 ปี">ต่ำกว่า 18 ปี</option>
                           <option value="18-25 ปี">18-25 ปี (มหาวิทยาลัย)</option>
@@ -512,7 +512,7 @@ function LoginPageContent() {
                           onChange={(e) => setRegPassword(e.target.value)}
                           placeholder="อย่างน้อย 6 ตัวอักษร"
                           required
-                          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-slate-900"
+                          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-slate-900"
                         />
                       </div>
                     </div>
@@ -531,7 +531,7 @@ function LoginPageContent() {
                           onChange={(e) => setRegConfirmPassword(e.target.value)}
                           placeholder="พิมพ์รหัสผ่านซ้ำอีกครั้ง"
                           required
-                          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-slate-900"
+                          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-slate-900"
                         />
                       </div>
                     </div>
@@ -540,7 +540,7 @@ function LoginPageContent() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer disabled:opacity-50 mt-1"
+                    className="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer disabled:opacity-50 mt-1"
                   >
                     {isSubmitting ? 'กำลังบันทึกข้อมูลสมาชิก...' : 'ยืนยันการสมัครสมาชิก'}
                   </button>
@@ -561,12 +561,12 @@ function LoginPageContent() {
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/90 text-center">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1">
-                    <Sparkles size={12} className="text-amber-600" />
+                    <Sparkles size={12} className="text-sky-600" />
                     <span>เข้าสู่ระบบด้วย Google Account</span>
                   </span>
                   <button
                     onClick={() => setShowConfigModal(true)}
-                    className="text-[10px] font-bold text-amber-800 hover:underline flex items-center gap-1 cursor-pointer"
+                    className="text-[10px] font-bold text-sky-800 hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <Settings size={10} />
                     <span>ตั้งค่า Client ID</span>
@@ -577,9 +577,9 @@ function LoginPageContent() {
                   {!googleClientId ? (
                     <button
                       onClick={() => setShowConfigModal(true)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-amber-400 text-slate-700 font-bold text-xs shadow-2xs transition-all cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-sky-400 text-slate-700 font-bold text-xs shadow-2xs transition-all cursor-pointer"
                     >
-                      <KeyRound size={12} className="text-amber-600" />
+                      <KeyRound size={12} className="text-sky-600" />
                       <span>ใส่ Google OAuth Client ID เพื่อเชื่อมต่อ</span>
                     </button>
                   ) : (
@@ -628,7 +628,7 @@ function LoginPageContent() {
                     const el = document.getElementById('modal-client-id') as HTMLInputElement;
                     if (el) handleSaveCustomClientId(el.value);
                   }}
-                  className="px-4 py-2 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white cursor-pointer"
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-sky-600 hover:bg-sky-700 text-white cursor-pointer"
                 >
                   บันทึก Client ID
                 </button>
@@ -647,7 +647,7 @@ export default function LoginPage() {
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
-          <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <div className="w-10 h-10 border-4 border-sky-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
           <p className="text-xs text-slate-500">กำลังโหลดหน้าระบบสมาชิก...</p>
         </div>
       </div>

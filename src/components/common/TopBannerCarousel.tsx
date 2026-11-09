@@ -56,21 +56,21 @@ export const PASTEL_THEMES: Record<PastelThemeKey, PastelTheme> = {
   },
   cream: {
     name: 'ครีม',
-    cardBg: 'bg-amber-50/60 hover:bg-amber-50/90',
-    cardBorder: 'border-amber-200/80 hover:border-amber-300',
-    badgeBg: 'bg-amber-100/90 text-amber-800 border-amber-200/90',
-    accentText: 'text-amber-700',
-    dotColor: 'bg-amber-500',
-    glowShadow: 'hover:shadow-amber-200/40',
+    cardBg: 'bg-slate-50/70 hover:bg-slate-100/80',
+    cardBorder: 'border-slate-200 hover:border-slate-300',
+    badgeBg: 'bg-slate-100 text-slate-700 border-slate-200',
+    accentText: 'text-slate-700',
+    dotColor: 'bg-slate-400',
+    glowShadow: 'hover:shadow-slate-200/40',
   },
   orange: {
-    name: 'ส้มอ่อน',
-    cardBg: 'bg-orange-50/60 hover:bg-orange-50/90',
-    cardBorder: 'border-orange-200/80 hover:border-orange-300',
-    badgeBg: 'bg-orange-100/90 text-orange-800 border-orange-200/90',
-    accentText: 'text-orange-700',
-    dotColor: 'bg-orange-500',
-    glowShadow: 'hover:shadow-orange-200/40',
+    name: 'ฟ้าครามไซแอน',
+    cardBg: 'bg-cyan-50/60 hover:bg-cyan-50/90',
+    cardBorder: 'border-cyan-200/80 hover:border-cyan-300',
+    badgeBg: 'bg-cyan-100/90 text-cyan-800 border-cyan-200/90',
+    accentText: 'text-cyan-700',
+    dotColor: 'bg-cyan-500',
+    glowShadow: 'hover:shadow-cyan-200/40',
   },
   indigo: {
     name: 'ม่วงลาเวนเดอร์',
@@ -482,13 +482,13 @@ export default function TopBannerCarousel({
           {/* Left: Dot + Title + Badge */}
           <div className="flex items-center gap-2 min-w-0">
             <span className="relative flex h-2.5 w-2.5 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500 ring-2 ring-amber-100" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-sky-500 ring-2 ring-sky-100" />
             </span>
             <h2 className="text-sm sm:text-base md:text-lg font-black text-slate-800 tracking-tight flex items-center gap-2 truncate">
               <span>{title}</span>
-              <span className="text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-200/90 px-2.5 py-0.5 rounded-full hidden sm:inline-flex items-center gap-1 shadow-2xs">
-                <Sparkles size={11} className="text-amber-600" />
+              <span className="text-[11px] font-bold text-sky-800 bg-sky-50 border border-sky-200/90 px-2.5 py-0.5 rounded-full hidden sm:inline-flex items-center gap-1 shadow-2xs">
+                <Sparkles size={11} className="text-sky-600" />
                 <span>{badge}</span>
                 <span className="text-slate-400 font-normal">({totalCards} เล่ม)</span>
               </span>
@@ -519,7 +519,7 @@ export default function TopBannerCarousel({
             {/* Prev Button */}
             <button
               onClick={prevSlide}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white hover:bg-amber-500 hover:text-white hover:border-amber-500 border border-slate-200/90 flex items-center justify-center text-slate-700 transition-all shadow-2xs cursor-pointer active:scale-95"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white hover:bg-sky-500 hover:text-white hover:border-sky-500 border border-slate-200/90 flex items-center justify-center text-slate-700 transition-all shadow-2xs cursor-pointer active:scale-95"
               title="ก่อนหน้า"
               aria-label="เลื่อนไปก่อนหน้า"
             >
@@ -529,7 +529,7 @@ export default function TopBannerCarousel({
             {/* Next Button */}
             <button
               onClick={nextSlide}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white hover:bg-amber-500 hover:text-white hover:border-amber-500 border border-slate-200/90 flex items-center justify-center text-slate-700 transition-all shadow-2xs cursor-pointer active:scale-95"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white hover:bg-sky-500 hover:text-white hover:border-sky-500 border border-slate-200/90 flex items-center justify-center text-slate-700 transition-all shadow-2xs cursor-pointer active:scale-95"
               title="ถัดไป"
               aria-label="เลื่อนไปถัดไป"
             >
@@ -601,7 +601,7 @@ export default function TopBannerCarousel({
                             <span className="truncate max-w-[130px] sm:max-w-none">{item.categoryName}</span>
                           </span>
                           {item.isCopyright && (
-                            <span className="text-[9.5px] font-bold text-amber-800 bg-amber-100/80 border border-amber-200/90 px-1.5 py-0.5 rounded-full">
+                            <span className="text-[9.5px] font-bold text-sky-800 bg-sky-100/80 border border-sky-200/90 px-1.5 py-0.5 rounded-full">
                               ลิขสิทธิ์
                             </span>
                           )}
@@ -610,7 +610,7 @@ export default function TopBannerCarousel({
                         {/* Title: Legible, High Contrast, Dark Slate */}
                         <Link href={item.detailUrl}>
                           <h3 
-                            className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-amber-800 transition-colors line-clamp-1 sm:line-clamp-2 leading-snug"
+                            className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-sky-700 transition-colors line-clamp-1 sm:line-clamp-2 leading-snug"
                             title={item.title}
                           >
                             {item.title}
@@ -623,11 +623,11 @@ export default function TopBannerCarousel({
                         </p>
                       </div>
 
-                      {/* Bottom Action: Vibrant Orange "เปิดอ่านหนังสือ" Button (BKK Book Style) */}
+                      {/* Bottom Action: Sky Blue "เปิดอ่านหนังสือ" Button */}
                       <div className="mt-2.5 sm:mt-3 flex items-center justify-start">
                         <Link
                           href={item.readerUrl}
-                          className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 active:scale-95 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all group-hover:scale-102 cursor-pointer"
+                          className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-600 hover:to-blue-700 active:scale-95 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all group-hover:scale-102 cursor-pointer"
                           title={`เปิดอ่านหนังสือ: ${item.title}`}
                         >
                           <BookOpen size={12} className="shrink-0" />
@@ -656,7 +656,7 @@ export default function TopBannerCarousel({
                 }}
                 className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${
                   idx === currentIndex
-                    ? 'w-7 bg-amber-500 shadow-2xs'
+                    ? 'w-7 bg-sky-500 shadow-2xs'
                     : 'w-2 bg-slate-300 hover:bg-slate-400'
                 }`}
                 title={`ไปที่หน้า ${idx + 1}`}
@@ -671,7 +671,7 @@ export default function TopBannerCarousel({
           <div className="max-w-[160px] mx-auto h-0.5 bg-slate-200/80 rounded-full overflow-hidden mt-1.5">
             <div 
               key={progressKey}
-              className="h-full bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500 banner-progress-bar-active rounded-full"
+              className="h-full bg-gradient-to-r from-sky-400 via-sky-500 to-blue-500 banner-progress-bar-active rounded-full"
             />
           </div>
         )}

@@ -92,22 +92,22 @@ export default function AudiosPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-amber-700 via-amber-800 to-amber-950 text-white p-8 sm:p-12 mb-10 shadow-xl shadow-amber-950/10">
-          <div className="absolute -right-16 -top-16 w-80 h-80 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-600 via-sky-700 to-blue-800 text-white p-8 sm:p-12 mb-10 shadow-xl shadow-sky-950/10">
+          <div className="absolute -right-16 -top-16 w-80 h-80 bg-sky-400/20 rounded-full blur-3xl pointer-events-none"></div>
           <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 text-amber-200 text-xs font-semibold backdrop-blur-md border border-amber-400/20 mb-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/20 text-sky-200 text-xs font-semibold backdrop-blur-md border border-sky-400/20 mb-4">
               <Headphones size={15} /> คลังเสียงธรรมะมัลติมีเดีย (Audio & Podcasts)
             </div>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
-              ฟังธรรมะเพื่อความสุข <span className="text-amber-300">และสติในทุกวัน</span>
+              ฟังธรรมะเพื่อความสุข <span className="text-sky-200">และสติในทุกวัน</span>
             </h1>
-            <p className="text-amber-100/90 text-base sm:text-lg leading-relaxed mb-6 max-w-2xl">
+            <p className="text-sky-100/90 text-base sm:text-lg leading-relaxed mb-6 max-w-2xl">
               รวบรวมเสียงบรรยายธรรมเทศนา, หนังสือเสียง (Audiobooks) ครบชุดแบบแบ่งบท, และรายการพอดแคสต์ (Podcasts) ร่วมสมัย โดย พระครูปลัดสุวัฒนโพธิคุณ
             </p>
             <div className="flex flex-wrap gap-3">
               <button 
                 onClick={() => setActiveTab('audiobooks')}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 transition-all text-sm shadow-md"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-sky-900 font-bold hover:bg-sky-50 transition-all text-sm shadow-md"
               >
                 <BookOpen size={16} /> ฟังหนังสือเสียง (Audiobooks)
               </button>
@@ -138,13 +138,13 @@ export default function AudiosPage() {
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
                     isActive 
-                      ? 'bg-amber-600 text-white shadow-md shadow-amber-600/20' 
+                      ? 'bg-sky-600 text-white shadow-md shadow-sky-600/20' 
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                   }`}
                 >
                   <Icon size={16} />
                   <span>{tab.label}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${isActive ? 'bg-amber-700/60 text-white' : 'bg-gray-200 text-gray-700'}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${isActive ? 'bg-sky-700/60 text-white' : 'bg-gray-200 text-gray-700'}`}>
                     {tab.count}
                   </span>
                 </button>
@@ -159,7 +159,7 @@ export default function AudiosPage() {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                  <BookOpen className="text-amber-600" size={24} /> หนังสือเสียง (Audiobooks)
+                  <BookOpen className="text-sky-600" size={24} /> หนังสือเสียง (Audiobooks)
                 </h2>
                 <p className="text-sm text-gray-500 mt-1">
                   หนังสือธรรมะฉบับเสียงอ่านพากย์สมบูรณ์ แบ่งเป็นบทๆ พร้อมระบบยืม-คืนสื่อดิจิทัล
@@ -187,7 +187,7 @@ export default function AudiosPage() {
                   <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 leading-snug">
                     {selectedAudiobook.title}
                   </h3>
-                  <p className="text-sm text-amber-700 font-medium mb-3">
+                  <p className="text-sm text-sky-700 font-medium mb-3">
                     ผู้บรรยาย: {selectedAudiobook.narrator}
                   </p>
                   <p className="text-sm text-gray-600 leading-relaxed mb-6">
@@ -212,7 +212,7 @@ export default function AudiosPage() {
               <div className="lg:col-span-7 flex flex-col">
                 <div className="flex items-center justify-between mb-4 pb-2 border-b border-gray-100">
                   <h4 className="font-bold text-gray-800 text-sm sm:text-base flex items-center gap-2">
-                    <ListMusic size={18} className="text-amber-600" />
+                    <ListMusic size={18} className="text-sky-600" />
                     สารบัญตอน / บทบรรยาย ({selectedAudiobook.tracks.length} ตอน)
                   </h4>
                   <span className="text-xs text-gray-400">คลิกที่บทเพื่อเริ่มฟังทันที</span>
@@ -235,15 +235,15 @@ export default function AudiosPage() {
                         })}
                         className={`p-3.5 rounded-xl border transition-all flex items-center justify-between cursor-pointer group ${
                           isTrackActive 
-                            ? 'bg-amber-50/80 border-amber-200 text-amber-900 shadow-sm' 
+                            ? 'bg-sky-50/80 border-sky-200 text-sky-900 shadow-sm' 
                             : 'bg-gray-50/60 border-transparent hover:bg-gray-100/80 text-gray-700'
                         }`}
                       >
                         <div className="flex items-center gap-3 min-w-0">
                           <div className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all ${
                             isTrackActive 
-                              ? 'bg-amber-600 text-white' 
-                              : 'bg-white text-gray-600 group-hover:bg-amber-100 group-hover:text-amber-700 shadow-xs'
+                              ? 'bg-sky-600 text-white' 
+                              : 'bg-white text-gray-600 group-hover:bg-sky-100 group-hover:text-sky-700 shadow-xs'
                           }`}>
                             {isTrackActive && isPlaying ? <Pause size={16} /> : <Play size={16} className="ml-0.5" />}
                           </div>
@@ -275,7 +275,7 @@ export default function AudiosPage() {
                         onClick={() => setSelectedAudiobookId(ab.id)}
                         className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
                           selectedAudiobookId === ab.id 
-                            ? 'bg-amber-600 text-white shadow-xs' 
+                            ? 'bg-sky-600 text-white shadow-xs' 
                             : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                         }`}
                       >
@@ -295,7 +295,7 @@ export default function AudiosPage() {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                  <Radio className="text-amber-600" size={24} /> รายการพอดแคสต์ (Podcasts)
+                  <Radio className="text-sky-600" size={24} /> รายการพอดแคสต์ (Podcasts)
                 </h2>
                 <p className="text-sm text-gray-500 mt-1">
                   ซีรีส์ธรรมะร่วมสมัย เติมพลังบวก ข้อคิดสติปัญญาสำหรับการใช้ชีวิตและการทำงาน
@@ -312,8 +312,8 @@ export default function AudiosPage() {
                     onClick={() => setSelectedPodcastId(pod.id)}
                     className={`p-5 rounded-2xl border transition-all cursor-pointer ${
                       selectedPodcastId === pod.id 
-                        ? 'bg-white border-amber-400 shadow-md ring-2 ring-amber-500/10' 
-                        : 'bg-white/80 border-gray-200 hover:border-amber-300'
+                        ? 'bg-white border-sky-400 shadow-md ring-2 ring-sky-500/10' 
+                        : 'bg-white/80 border-gray-200 hover:border-sky-300'
                     }`}
                   >
                     <div className="flex items-center gap-4 mb-3">
@@ -321,7 +321,7 @@ export default function AudiosPage() {
                         <Image src={pod.cover} alt={pod.title} fill className="object-cover" unoptimized />
                       </div>
                       <div>
-                        <span className="text-xs font-bold text-amber-600 uppercase">PODCAST SERIES</span>
+                        <span className="text-xs font-bold text-sky-600 uppercase">PODCAST SERIES</span>
                         <h4 className="font-bold text-gray-900 text-base leading-snug line-clamp-1">{pod.title}</h4>
                         <p className="text-xs text-gray-500">ดำเนินรายการโดย {pod.host}</p>
                       </div>
@@ -331,7 +331,7 @@ export default function AudiosPage() {
                     </p>
                     <div className="flex items-center justify-between text-xs text-gray-400">
                       <span>รวม {pod.total_episodes} ตอน</span>
-                      <span className="text-amber-600 font-semibold flex items-center gap-1">
+                      <span className="text-sky-600 font-semibold flex items-center gap-1">
                         เปิดฟังตอนล่าสุด <ArrowRight size={12} />
                       </span>
                     </div>
@@ -343,10 +343,10 @@ export default function AudiosPage() {
               <div className="lg:col-span-8 bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8">
                 <div className="flex items-center justify-between mb-6 pb-3 border-b border-gray-100">
                   <div>
-                    <span className="text-xs text-amber-600 font-bold uppercase">ตอนทั้งหมดในรายการ</span>
+                    <span className="text-xs text-sky-600 font-bold uppercase">ตอนทั้งหมดในรายการ</span>
                     <h3 className="text-xl font-bold text-gray-900">{selectedPodcast.title}</h3>
                   </div>
-                  <span className="text-xs bg-amber-50 text-amber-800 font-medium px-3 py-1 rounded-full">
+                  <span className="text-xs bg-sky-50 text-sky-800 font-medium px-3 py-1 rounded-full">
                     {selectedPodcast.episodes.length} Episodes
                   </span>
                 </div>
@@ -358,7 +358,7 @@ export default function AudiosPage() {
                       <div 
                         key={ep.id}
                         className={`p-4 rounded-2xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
-                          isTrackActive ? 'bg-amber-50/70 border-amber-300' : 'bg-gray-50/50 border-gray-100 hover:bg-gray-50'
+                          isTrackActive ? 'bg-sky-50/70 border-sky-300' : 'bg-gray-50/50 border-gray-100 hover:bg-gray-50'
                         }`}
                       >
                         <div className="flex items-start gap-4">
@@ -374,8 +374,8 @@ export default function AudiosPage() {
                             })}
                             className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm transition-all cursor-pointer ${
                               isTrackActive 
-                                ? 'bg-amber-600 text-white shadow-amber-600/30' 
-                                : 'bg-white text-gray-700 hover:bg-amber-600 hover:text-white'
+                                ? 'bg-sky-600 text-white shadow-sky-600/30' 
+                                : 'bg-white text-gray-700 hover:bg-sky-600 hover:text-white'
                             }`}
                           >
                             {isTrackActive && isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
@@ -416,7 +416,7 @@ export default function AudiosPage() {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                  <ListMusic className="text-amber-600" size={24} /> เสียงบรรยายธรรมเทศนาทั่วไป
+                  <ListMusic className="text-sky-600" size={24} /> เสียงบรรยายธรรมเทศนาทั่วไป
                 </h2>
                 <p className="text-sm text-gray-500 mt-1">
                   เสียงบรรยายหัวข้อธรรมะสำหรับฝึกจิตตภาวนาและการดำเนินชีวิต
@@ -428,7 +428,7 @@ export default function AudiosPage() {
               {initialAudios.map(audio => (
                 <div key={audio.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-all">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center shrink-0">
+                    <div className="w-14 h-14 bg-sky-100 text-sky-700 rounded-2xl flex items-center justify-center shrink-0">
                       <Headphones size={28} />
                     </div>
                     <div className="min-w-0">
@@ -449,7 +449,7 @@ export default function AudiosPage() {
                       duration: audio.duration,
                       type: 'audio'
                     })}
-                    className="w-full py-2.5 rounded-xl bg-amber-50 hover:bg-amber-600 hover:text-white text-amber-800 font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                    className="w-full py-2.5 rounded-xl bg-sky-50 hover:bg-sky-600 hover:text-white text-sky-800 font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
                   >
                     <Play size={15} /> ฟังเสียงบรรยายนี้
                   </button>
@@ -473,7 +473,7 @@ export default function AudiosPage() {
               </div>
               <div className="min-w-0">
                 <h5 className="font-bold text-gray-900 text-sm truncate leading-tight">{currentTrack.title}</h5>
-                <p className="text-xs text-amber-700 font-medium truncate mt-0.5">{currentTrack.subtitle}</p>
+                <p className="text-xs text-sky-700 font-medium truncate mt-0.5">{currentTrack.subtitle}</p>
               </div>
             </div>
 
@@ -490,7 +490,7 @@ export default function AudiosPage() {
 
                 <button 
                   onClick={togglePlay}
-                  className="w-10 h-10 rounded-full bg-amber-600 hover:bg-amber-700 text-white flex items-center justify-center shadow-md shadow-amber-600/30 transition-transform active:scale-95 cursor-pointer"
+                  className="w-10 h-10 rounded-full bg-sky-600 hover:bg-sky-700 text-white flex items-center justify-center shadow-md shadow-sky-600/30 transition-transform active:scale-95 cursor-pointer"
                 >
                   {isPlaying ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
                 </button>
@@ -516,7 +516,7 @@ export default function AudiosPage() {
                   className="flex-grow h-1.5 bg-gray-200 rounded-full overflow-hidden cursor-pointer relative"
                 >
                   <div 
-                    className="h-full bg-amber-600 rounded-full transition-all"
+                    className="h-full bg-sky-600 rounded-full transition-all"
                     style={{ width: `${progress}%` }}
                   ></div>
                 </div>
@@ -538,8 +538,8 @@ export default function AudiosPage() {
                 onClick={() => setIsTranscriptOpen(prev => !prev)}
                 className={`px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   isTranscriptOpen
-                    ? 'bg-amber-600 border-amber-500 text-white shadow-xs'
-                    : 'bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-900'
+                    ? 'bg-sky-600 border-sky-500 text-white shadow-xs'
+                    : 'bg-sky-50 hover:bg-sky-100 border-sky-200 text-sky-900'
                 }`}
                 title="เปิดบทถอดเสียงบรรยายธรรม (Transcript)"
               >
@@ -575,7 +575,7 @@ export default function AudiosPage() {
             <div className="p-4 border-b border-white/10 flex items-center justify-between">
               <div>
                 <h3 className="font-extrabold text-sm text-white">บทถอดเสียงบรรยายธรรม</h3>
-                <p className="text-xs text-amber-300 truncate max-w-[280px]">{currentTrack.title}</p>
+                <p className="text-xs text-sky-300 truncate max-w-[280px]">{currentTrack.title}</p>
               </div>
               <button
                 onClick={() => setIsTranscriptOpen(false)}

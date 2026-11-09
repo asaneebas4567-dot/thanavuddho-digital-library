@@ -60,10 +60,10 @@ export default function HeroBookCarousel({ books }: HeroBookCarouselProps) {
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-amber-800 via-amber-900 to-amber-950 text-white p-4 flex flex-col justify-between text-center select-none">
-                  <span className="text-[10px] text-amber-300 font-serif border-b border-amber-400/20 pb-1">หนังสือธรรมะ</span>
-                  <p className="text-xs sm:text-sm font-bold text-amber-100 line-clamp-3">{book.title}</p>
-                  <span className="text-[9px] text-amber-300/80 border-t border-amber-400/20 pt-1 truncate">พระครูปลัดสุวัฒนโพธิคุณ</span>
+                <div className="w-full h-full bg-gradient-to-br from-sky-800 via-sky-900 to-slate-950 text-white p-4 flex flex-col justify-between text-center select-none">
+                  <span className="text-[10px] text-sky-300 font-serif border-b border-sky-400/20 pb-1">หนังสือธรรมะ</span>
+                  <p className="text-xs sm:text-sm font-bold text-sky-100 line-clamp-3">{book.title}</p>
+                  <span className="text-[9px] text-sky-300/80 border-t border-sky-400/20 pt-1 truncate">พระครูปลัดสุวัฒนโพธิคุณ</span>
                 </div>
               )}
               {/* Book spine effect */}
@@ -77,12 +77,12 @@ export default function HeroBookCarousel({ books }: HeroBookCarouselProps) {
         <div className="p-6 md:p-8 w-full">
           <div className="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center">
+              <span className="w-9 h-9 rounded-xl bg-sky-500/20 text-sky-300 flex items-center justify-center">
                 <Sparkles size={18} />
               </span>
               <div>
                 <p className="text-white font-bold text-lg md:text-xl drop-shadow-md">หนังสือแนะนำ (สุ่ม 3 ช่องเด่น)</p>
-                <p className="text-amber-300 text-xs md:text-sm font-medium drop-shadow-md">สุ่มเปลี่ยนเล่มอัตโนมัติจากคลังหนังสือ</p>
+                <p className="text-sky-300 text-xs md:text-sm font-medium drop-shadow-md">สุ่มเปลี่ยนเล่มอัตโนมัติจากคลังหนังสือ</p>
               </div>
             </div>
 
