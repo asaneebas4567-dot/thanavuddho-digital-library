@@ -188,13 +188,13 @@ function SearchPageContent() {
             id: art.id,
             title: art.title,
             media_type: 'article',
-            category_name: 'บทความธรรมะ',
-            description: art.description || 'บทความธรรมะสร้างปัญญา',
+            category_name: 'ข้อคิดธรรมะ',
+            description: art.description || 'ข้อคิดธรรมะสร้างปัญญา',
             link: `/articles/${art.id}`,
             cover_or_thumbnail: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800',
-            matched_concepts: ['บทความ', 'ข้อคิด'],
+            matched_concepts: ['ข้อคิดธรรมะ', 'ข้อคิด'],
             highlight_snippet: extractRealSnippet(rawSnippet, q),
-            source_context: art.source_type || 'บทความ'
+            source_context: art.source_type || 'ข้อคิดธรรมะ'
           });
         }
       }
@@ -285,7 +285,7 @@ function SearchPageContent() {
               { id: 'video', label: 'คลิปวิดีโอ', count: countByType('video'), icon: VideoIcon },
               { id: 'audiobook', label: 'หนังสือเสียง', count: countByType('audiobook'), icon: Headphones },
               { id: 'podcast', label: 'พอดแคสต์', count: countByType('podcast'), icon: Radio },
-              { id: 'article', label: 'บทความ', count: countByType('article'), icon: BookText },
+              { id: 'article', label: 'ข้อคิดธรรมะ', count: countByType('article'), icon: BookText },
             ].map(tab => {
               const Icon = tab.icon;
               const isActive = activeMediaFilter === tab.id;
@@ -347,7 +347,7 @@ function SearchPageContent() {
               ไม่พบผลการค้นหาสำหรับ &ldquo;{query}&rdquo;
             </h3>
             <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto mb-6 leading-relaxed">
-              ระบบไม่พบหนังสือ บทความ หรือสื่อมัลติมีเดียที่ตรงกับคำค้นหานี้ในคลังข้อมูล กรุณาตรวจสอบตัวสะกดหรือค้นหาด้วยคำสำคัญทางธรรมะอื่น
+              ระบบไม่พบหนังสือ ข้อคิดธรรมะ หรือสื่อมัลติมีเดียที่ตรงกับคำค้นหานี้ในคลังข้อมูล กรุณาตรวจสอบตัวสะกดหรือค้นหาด้วยคำสำคัญทางธรรมะอื่น
             </p>
             <div className="p-4 bg-amber-50/60 rounded-2xl border border-amber-200/70 text-left">
               <h4 className="text-xs font-bold text-amber-900 mb-2">คำแนะนำในการค้นหา:</h4>

@@ -86,7 +86,7 @@ export default function ArticlesClient({ initialArticles }: ArticlesClientProps)
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sky-50 text-sky-700 hover:bg-sky-100 text-xs font-bold border border-sky-200 transition-colors shadow-2xs"
           >
             <Bot size={14} className="text-sky-600" />
-            <span>ถาม AI เจาะลึกบทความ</span>
+            <span>ถาม AI เจาะลึกข้อคิดธรรมะ</span>
           </Link>
         </div>
 
@@ -100,11 +100,11 @@ export default function ArticlesClient({ initialArticles }: ArticlesClientProps)
             {/* Stickers Pill */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-emerald-100 text-xs font-extrabold border border-white/20 mb-4 shadow-xs">
               <span className="text-base">🌿 🌸 💡 🧘</span>
-              <span>คลังบทความธรรมะสร้างปัญญา</span>
+              <span>คลังข้อคิดธรรมะสร้างปัญญา</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight mb-3 drop-shadow-sm">
-              บทความและมรดกธรรมคำสอน
+              ข้อคิดธรรมะและมรดกคำสอน
             </h1>
             <p className="text-xs sm:text-base text-emerald-50/90 leading-relaxed font-normal mb-6">
               รวบรวมข้อคิดสัจธรรม การดับทุกข์ การทำงาน และจิตวิทยาชีวิตประยุกต์ โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ M.D., Ph.D.) ให้ท่านหยิบนำไปใช้ได้ทันทีในชีวิตจริง
@@ -114,7 +114,7 @@ export default function ArticlesClient({ initialArticles }: ArticlesClientProps)
             <div className="relative max-w-md">
               <input
                 type="text"
-                placeholder="ค้นหาชื่อบทความ, หัวข้อ, หรือคำสำคัญ..."
+                placeholder="ค้นหาข้อคิดธรรมะ, หัวข้อ, หรือคำสำคัญ..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-white text-slate-800 placeholder-slate-400 pl-10 pr-4 py-3 rounded-2xl text-xs sm:text-sm font-bold shadow-lg focus:outline-none focus:ring-3 focus:ring-emerald-300 transition-all"
@@ -156,7 +156,7 @@ export default function ArticlesClient({ initialArticles }: ArticlesClientProps)
           })}
 
           <span className="ml-auto text-xs font-bold text-slate-400 hidden sm:inline-block shrink-0">
-            พบ {filteredArticles.length} บทความ
+            พบ {filteredArticles.length} ข้อคิดธรรมะ
           </span>
         </div>
 
@@ -172,15 +172,15 @@ export default function ArticlesClient({ initialArticles }: ArticlesClientProps)
             <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-3xl mx-auto mb-4">
               🔍
             </div>
-            <h3 className="text-base font-bold text-slate-800 mb-1">ไม่พบบทความที่ตรงกับคำค้นหา</h3>
+            <h3 className="text-base font-bold text-slate-800 mb-1">ไม่พบข้อคิดธรรมะที่ตรงกับคำค้นหา</h3>
             <p className="text-xs text-slate-500 mb-5">
-              ลองค้นหาด้วยคำอื่น หรือเลือกหมวดหมู่ "ทั้งหมด" เพื่อดูบทความทั้งหมดในระบบ
+              ลองค้นหาด้วยคำอื่น หรือเลือกหมวดหมู่ "ทั้งหมด" เพื่อดูข้อคิดธรรมะทั้งหมดในระบบ
             </p>
             <button
               onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
               className="px-5 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-colors"
             >
-              ดูบทความทั้งหมด
+              ดูข้อคิดธรรมะทั้งหมด
             </button>
           </div>
         )}

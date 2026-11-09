@@ -501,7 +501,7 @@ export default function AdminRewardsPage() {
           <div className="bg-white rounded-3xl border border-zinc-200 shadow-sm overflow-hidden p-6">
             <div className="pb-4 border-b border-zinc-100 mb-4">
               <h3 className="font-extrabold text-foreground text-base">บันทึกการเพิ่มและหักคะแนน (Transaction Audit Logs)</h3>
-              <p className="text-xs text-muted-foreground">บันทึกกิจกรรมการอ่านหนังสือ บทความ ดูวิดีโอ ฟังพอดแคสต์ และการแลกรางวัลทั้งหมด</p>
+              <p className="text-xs text-muted-foreground">บันทึกกิจกรรมการอ่านหนังสือ ข้อคิดธรรมะ ดูวิดีโอ ฟังพอดแคสต์ และการแลกรางวัลทั้งหมด</p>
             </div>
 
             <div className="space-y-3">

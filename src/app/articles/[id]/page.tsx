@@ -53,7 +53,7 @@ export default async function ArticleReaderPage({ params }: { params: Promise<{ 
             className="inline-flex items-center text-xs font-bold text-slate-600 hover:text-sky-600 bg-white px-3.5 py-1.5 rounded-full border border-slate-200/90 shadow-2xs transition-colors"
           >
             <ChevronLeft className="mr-1 w-4 h-4" />
-            กลับไปหน้ารวมบทความ
+            กลับไปหน้ารวมข้อคิดธรรมะ
           </Link>
 
           <div className="flex items-center gap-2">
@@ -171,7 +171,7 @@ export default async function ArticleReaderPage({ params }: { params: Promise<{ 
               <div className="space-y-3">
                 <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
                   <Sparkles size={14} className="text-amber-500" />
-                  แนวทางปฏิบัติสำคัญจากบทความนี้
+                  แนวทางปฏิบัติสำคัญจากข้อคิดธรรมะนี้
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {theme.keyStickers.map((stk, idx) => (
@@ -304,7 +304,7 @@ export default async function ArticleReaderPage({ params }: { params: Promise<{ 
           <div className="space-y-4 pt-4">
             <div className="flex items-center justify-between">
               <h3 className="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
-                <span>บทความธรรมะอื่น ๆ ที่น่าสนใจ</span>
+                <span>ข้อคิดธรรมะอื่น ๆ ที่น่าสนใจ</span>
                 <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-200">
                   แนะนำ
                 </span>

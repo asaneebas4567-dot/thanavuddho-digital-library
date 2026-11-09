@@ -108,7 +108,7 @@ export default function DailyActivityWidget({ onClose, isModal = false }: DailyA
             </span>
             <div>
               <span className="font-extrabold text-[#073B65] block">โควตาคะแนนกิจกรรมประจำวัน</span>
-              <span className="text-[10px] text-[#64748B]">อ่านจบบท, บทความ, วิดีโอ, พอดแคสต์ (ไม่ต้องตอบคำถาม)</span>
+              <span className="text-[10px] text-[#64748B]">อ่านจบบท, ข้อคิดธรรมะ, วิดีโอ, พอดแคสต์ (ไม่ต้องตอบคำถาม)</span>
             </div>
           </div>
           <div className="text-right">
@@ -174,14 +174,14 @@ export default function DailyActivityWidget({ onClose, isModal = false }: DailyA
           <div className="flex items-center justify-between text-blue-800 text-xs font-bold mb-2">
             <span className="flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5 text-blue-600" />
-              <span>อ่านบทความ</span>
+              <span>ข้อคิดธรรมะ</span>
             </span>
           </div>
           <div>
             <div className="text-xl sm:text-2xl font-black text-blue-950">
-              {articlesReadToday} <span className="text-xs font-semibold text-blue-700">บทความ</span>
+              {articlesReadToday} <span className="text-xs font-semibold text-blue-700">เรื่อง</span>
             </div>
-            <div className="text-[11px] text-blue-700/80 mt-0.5">+2 P ต่อบท</div>
+            <div className="text-[11px] text-blue-700/80 mt-0.5">+2 P ต่อเรื่อง</div>
           </div>
         </div>
 

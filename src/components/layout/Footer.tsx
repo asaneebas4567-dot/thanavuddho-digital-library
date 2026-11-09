@@ -52,7 +52,7 @@ export default function Footer() {
               <li><Link href="/books" className="hover:text-[#079FE8] transition-colors">หนังสือธรรมะดิจิทัล</Link></li>
               <li><Link href="/audios" className="hover:text-[#079FE8] transition-colors">หนังสือเสียง & Podcast</Link></li>
               <li><Link href="/videos" className="hover:text-[#079FE8] transition-colors">วิดีโอเทศนา (พร้อม Timestamps)</Link></li>
-              <li><Link href="/articles" className="hover:text-[#079FE8] transition-colors">บทความธรรมะสร้างปัญญา</Link></li>
+              <li><Link href="/articles" className="hover:text-[#079FE8] transition-colors">ข้อคิดธรรมะสร้างปัญญา</Link></li>
             </ul>
           </div>
           

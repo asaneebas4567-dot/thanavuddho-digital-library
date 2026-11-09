@@ -54,7 +54,7 @@ export default function BottomNav() {
       pillColor: 'bg-rose-600',
     },
     {
-      label: 'บทความ',
+      label: 'ข้อคิดธรรมะ',
       href: '/articles',
       icon: BookText,
       color: 'text-emerald-600',

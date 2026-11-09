@@ -2,8 +2,8 @@ import { dhamma as articles } from '@/data/mockData';
 import ArticlesClient from './ArticlesClient';
 
 export const metadata = {
-  title: 'บทความธรรมะสร้างปัญญา | Thanavuddho Digital Library',
-  description: 'คลังบทความและมรดกธรรมคำสอน โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ M.D., Ph.D.)',
+  title: 'ข้อคิดธรรมะสร้างปัญญา | Thanavuddho Digital Library',
+  description: 'คลังข้อคิดธรรมะและมรดกธรรมคำสอน โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ M.D., Ph.D.)',
 };
 
 export default function ArticlesPage() {

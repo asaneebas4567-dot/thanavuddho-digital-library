@@ -53,7 +53,7 @@ export default function AdminDashboardPage() {
   const [podcasts, setPodcasts] = useState<any[]>([]);
   const [homeSettings, setHomeSettings] = useState<any>({
     announcementTitle: 'ยินดีต้อนรับสู่ Thanavuddho Digital Library',
-    announcementSubtitle: 'คลังธรรมะดิจิทัล รวบรวมหนังสือ บทความ พอดแคสต์ และวิดีโอธรรมบรรยาย พระครูปลัดสุวัฒนโพธิคุณ',
+    announcementSubtitle: 'คลังธรรมะดิจิทัล รวบรวมหนังสือ ข้อคิดธรรมะ พอดแคสต์ และวิดีโอธรรมบรรยาย พระครูปลัดสุวัฒนโพธิคุณ',
     bannerImageUrl: '/hero-image-modern.jpg',
     bannerLink: '/books',
     bannerButtonText: 'สำรวจคลังหนังสือธรรมะ',

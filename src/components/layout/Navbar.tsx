@@ -80,7 +80,7 @@ export default function Navbar() {
       activeIconColor: 'text-rose-600'
     },
     { 
-      label: 'บทความ', 
+      label: 'ข้อคิดธรรมะ', 
       href: '/articles', 
       icon: FileText,
       iconColor: 'text-emerald-200 group-hover:text-emerald-100',
@@ -134,7 +134,7 @@ export default function Navbar() {
             <form onSubmit={handleSearchSubmit} className="relative w-full">
               <input
                 type="text"
-                placeholder="ค้นหาหนังสือ, บทความ, พอดแคสต์, วิดีโอ..."
+                placeholder="ค้นหาหนังสือ, ข้อคิดธรรมะ, พอดแคสต์, วิดีโอ..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 className="w-full bg-white text-[#243447] placeholder-slate-400 pl-4 pr-10 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-[#079FE8] transition-all border border-[#DCEAF3]"

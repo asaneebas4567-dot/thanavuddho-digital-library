@@ -88,7 +88,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         {/* Card Footer */}
         <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-sky-600">
           <span className="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-            <span>อ่านบทความเต็ม</span>
+            <span>อ่านข้อคิดธรรมะ</span>
             <ArrowRight size={14} />
           </span>
 

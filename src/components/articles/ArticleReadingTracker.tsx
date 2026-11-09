@@ -81,7 +81,7 @@ export default function ArticleReadingTracker({ articleId, articleTitle }: Artic
 
       {/* Reading Reward Pill at bottom of screen */}
       <div className="fixed bottom-6 left-6 z-40 hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 border border-amber-300 shadow-lg backdrop-blur-md text-xs">
-        <span className="text-amber-500 font-bold">🪙 สะสมแต้มอ่านบทความ:</span>
+        <span className="text-amber-500 font-bold">🪙 สะสมแต้มอ่านข้อคิดธรรมะ:</span>
         {isAwarded ? (
           <span className="text-emerald-600 font-extrabold flex items-center gap-1">
             <CheckCircle2 size={14} />
@@ -101,7 +101,7 @@ export default function ArticleReadingTracker({ articleId, articleTitle }: Artic
             🎉
           </div>
           <div>
-            <div className="text-xs text-amber-100 font-bold">อ่านจบบทความสำเร็จ!</div>
+            <div className="text-xs text-amber-100 font-bold">อ่านจบข้อคิดธรรมะสำเร็จ!</div>
             <div className="text-sm font-black text-white">{toastMessage}</div>
             <div className="text-[11px] text-amber-200 mt-0.5">
               แต้มถูกบันทึกเข้าสู่ระบบ Thanavuddho Learning Points แล้ว
