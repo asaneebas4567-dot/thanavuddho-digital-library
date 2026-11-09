@@ -4,6 +4,7 @@ import React from 'react';
 import { AuthProvider } from '@/context/AuthContext';
 import { LoanProvider } from '@/context/LoanContext';
 import AiChatWidget from '@/components/chatbot/AiChatWidget';
+import SurveyMascotWidget from '@/components/survey/SurveyMascotWidget';
 import BottomNav from '@/components/layout/BottomNav';
 
 export default function AppProviders({ children }: { children: React.ReactNode }) {
@@ -12,6 +13,7 @@ export default function AppProviders({ children }: { children: React.ReactNode }
       <LoanProvider>
         {children}
         <AiChatWidget />
+        <SurveyMascotWidget />
         <BottomNav />
       </LoanProvider>
     </AuthProvider>

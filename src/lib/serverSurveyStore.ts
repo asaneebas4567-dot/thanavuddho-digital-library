@@ -863,3 +863,130 @@ export function clearTestSurveyData(): { clearedCount: number } {
   return { clearedCount };
 }
 
+// ---------------------------------------------------------------------------
+// 6. DIRECT SURVEY REWARD CLAIM (FOR MEMBER GOOGLE FORMS SUBMISSION)
+// ---------------------------------------------------------------------------
+export function checkUserSurveyRewardStatus(email: string): {
+  claimed: boolean;
+  userExists: boolean;
+  points: number;
+  transaction?: PointTransaction;
+} {
+  const emailClean = email.trim().toLowerCase();
+  const user = getUserByEmail(emailClean);
+  if (!user) {
+    return { claimed: false, userExists: false, points: 0 };
+  }
+
+  const allHistory = getAllPointsHistory();
+  const existingSurveyTx = allHistory.find(
+    tx => tx.userEmail.toLowerCase() === emailClean && tx.type === 'website_survey'
+  );
+
+  return {
+    claimed: Boolean(existingSurveyTx),
+    userExists: true,
+    points: user.points || 0,
+    transaction: existingSurveyTx
+  };
+}
+
+export function claimSurveyRewardForUser(email: string): AwardPointsResult {
+  const emailClean = email.trim().toLowerCase();
+  const user = getUserByEmail(emailClean);
+  if (!user) {
+    return {
+      success: false,
+      message: 'กรุณาเข้าสู่ระบบด้วยอีเมลที่เป็นสมาชิกก่อนกดรับคะแนน',
+      pointsAwarded: 0
+    };
+  }
+
+  // 1. Single-Award Guarantee: Check if user EVER received 'website_survey' points
+  const allHistory = getAllPointsHistory();
+  const existingSurveyTx = allHistory.find(
+    tx => tx.userEmail.toLowerCase() === emailClean && tx.type === 'website_survey'
+  );
+
+  if (existingSurveyTx) {
+    return {
+      success: false,
+      alreadyAwarded: true,
+      message: `สมาชิกคุณ ${user.name} (${user.memberCardId || 'สมาชิก'}) ได้รับคะแนน 200 แต้มจากแบบประเมินนี้แล้ว (จำกัด 1 สิทธิ์/คน)`,
+      pointsAwarded: 0,
+      currentBalance: user.points
+    };
+  }
+
+  // 2. Create Point Transaction (+200 Points)
+  const txId = `tx_survey_${Date.now()}_${crypto.randomBytes(3).toString('hex')}`;
+  const transaction: PointTransaction = {
+    id: txId,
+    userId: user.id,
+    userEmail: emailClean,
+    type: 'website_survey',
+    points: 200,
+    title: 'ทำแบบประเมินคุณภาพเว็บไซต์ Thanavuddho Library',
+    detail: 'ประเมินคุณภาพเว็บไซต์และหนังสือดิจิทัล (Google Forms) (+200 P)',
+    sourceId: 'google_form_dialog',
+    timestamp: new Date().toISOString()
+  };
+
+  allHistory.unshift(transaction);
+  saveAllPointsHistory(allHistory);
+
+  // 3. Update User Balance in persistentUsers.json
+  const allUsers = getAllUsers();
+  const newBalance = (user.points || 0) + 200;
+  const updatedUser = {
+    ...user,
+    points: newBalance,
+    lastActivityAt: new Date().toISOString()
+  };
+  allUsers[emailClean] = updatedUser;
+  saveAllUsers(allUsers);
+
+  // 4. Record/Update Response in persistentSurveys.json
+  const store = ensureStorage();
+  const existingIndex = store.responses.findIndex(r => r.respondentEmail.toLowerCase() === emailClean);
+
+  if (existingIndex >= 0) {
+    store.responses[existingIndex].pointsAwarded = true;
+    store.responses[existingIndex].pointsAwardedAt = new Date().toISOString();
+    store.responses[existingIndex].pointTransactionId = txId;
+    store.responses[existingIndex].status = 'verified';
+    store.responses[existingIndex].userId = user.id;
+    store.responses[existingIndex].memberCardId = user.memberCardId || null;
+    store.responses[existingIndex].userName = user.name || null;
+  } else {
+    const respId = `resp_gf_${Date.now()}_${crypto.randomBytes(3).toString('hex')}`;
+    const newResp: SurveyResponse = {
+      id: respId,
+      formResponseId: `gf_${Date.now()}_${emailClean.replace(/[^a-z0-9]/g, '')}`,
+      respondentEmail: emailClean,
+      userId: user.id,
+      memberCardId: user.memberCardId || null,
+      userName: user.name || null,
+      submittedAt: new Date().toISOString(),
+      status: 'verified',
+      pointsAwarded: true,
+      pointsAwardedAt: new Date().toISOString(),
+      pointTransactionId: txId,
+      isTest: false,
+      averageRating: 5,
+      createdAt: new Date().toISOString()
+    };
+    store.responses.unshift(newResp);
+  }
+
+  saveStorage(store);
+
+  return {
+    success: true,
+    message: `บันทึกคะแนน 200 แต้มให้คุณ ${user.name} สำเร็จแล้ว ยอดคะแนนสะสมใหม่: ${newBalance} แต้ม`,
+    pointsAwarded: 200,
+    currentBalance: newBalance,
+    transactionId: txId
+  };
+}
+
