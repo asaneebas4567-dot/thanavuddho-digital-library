@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgWood" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22150E" />
+      <stop offset="50%" stop-color="#180E08" />
+      <stop offset="100%" stop-color="#0E0704" />
+    </linearGradient>
+    <filter id="leatherShadow" x="-15%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="6" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.65" />
+    </filter>
+    <linearGradient id="leatherTexture" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B1C0B" />
+      <stop offset="5%" stop-color="#582C15" />
+      <stop offset="8%" stop-color="#3B1C0B" />
+      <stop offset="12%" stop-color="#6F391B" />
+      <stop offset="100%" stop-color="#522712" />
+    </linearGradient>
+    <linearGradient id="goldFoil" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="40%" stop-color="#D4AF37" />
+      <stop offset="70%" stop-color="#AA771C" />
+      <stop offset="100%" stop-color="#FDE047" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgWood)" />
+
+  <!-- Leather Journal Upright Mockup -->
+  <g transform="translate(400, 275)" filter="url(#leatherShadow)">
+    <!-- Cream Page Stack Behind -->
+    <rect x="-105" y="-175" width="225" height="350" rx="14" fill="#FDF6E2" />
+    <rect x="-108" y="-178" width="225" height="350" rx="14" fill="#E8DEC5" />
+
+    <!-- Main Leather Cover -->
+    <rect x="-120" y="-180" width="235" height="355" rx="16" fill="url(#leatherTexture)" stroke="#2B1408" stroke-width="2" />
+
+    <!-- Perimeter Stitching Lines (Fine Thread) -->
+    <rect x="-110" y="-170" width="215" height="335" rx="12" fill="none" stroke="#D4AF37" stroke-width="1.2" stroke-dasharray="5 3" opacity="0.65" />
+
+    <!-- Spine Depth Crease -->
+    <rect x="-120" y="-180" width="16" height="355" fill="#000000" opacity="0.35" />
+
+    <!-- Wrap-around Leather Strap with Antique Brass Charm -->
+    <rect x="75" y="-30" width="55" height="60" rx="6" fill="#451E0C" stroke="#2B1408" stroke-width="1.5" />
+    <circle cx="102" cy="0" r="10" fill="#D4AF37" stroke="#713F12" stroke-width="1.5" />
+    <circle cx="102" cy="0" r="4" fill="#451E0C" />
+
+    <!-- Center Debossed Gold Foil Ornament -->
+    <circle cx="-5" cy="-60" r="34" fill="none" stroke="url(#goldFoil)" stroke-width="2" />
+    <circle cx="-5" cy="-60" r="30" fill="none" stroke="url(#goldFoil)" stroke-width="1" stroke-dasharray="3 3" />
+    
+    <!-- Dhamma Wheel / Lotus Motif -->
+    <path d="M -5 -80 C -15 -68 -22 -56 -22 -46 C -8 -46 -5 -58 -5 -58 C -5 -58 -2 -46 12 -46 C 12 -56 5 -68 -5 -80 Z" fill="url(#goldFoil)" />
+
+    <!-- Book Title in Gold Leaf -->
+    <text x="-5" y="0" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="18" font-weight="900" fill="url(#goldFoil)" text-anchor="middle" letter-spacing="1">สมุดบันทึกปกหนังลายพิเศษ</text>
+    <text x="-5" y="24" font-family="sans-serif" font-size="11" font-weight="900" fill="#FEF08A" text-anchor="middle" letter-spacing="2">THANAVUDDHO CLASSIC</text>
+    
+    <line x1="-65" y1="42" x2="55" y2="42" stroke="url(#goldFoil)" stroke-width="1.2" />
+
+    <text x="-5" y="64" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="11" font-weight="700" fill="#FDE68A" text-anchor="middle">ฉบับบันทึกสมาธิและเจริญภาวนา</text>
+    <text x="-5" y="82" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="9" font-weight="600" fill="#E8DEC5" text-anchor="middle">ปกหนัง PU พรีเมียม ปั๊มจมทองคำเค 192 หน้า</text>
+    
+    <text x="-5" y="145" font-family="sans-serif" font-size="8" font-weight="700" fill="#D4AF37" text-anchor="middle" letter-spacing="2">LIMITED EDITION</text>
+  </g>
+
+  <!-- Tag Pill -->
+  <g transform="translate(400, 525)">
+    <rect x="-150" y="-18" width="300" height="36" rx="18" fill="#D4AF37" />
+    <text x="0" y="5" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="13" font-weight="900" fill="#22150E" text-anchor="middle">สมุดบันทึกปกหนังลายพิเศษ Thanavuddho Classic</text>
+  </g>
+</svg>

@@ -81,7 +81,7 @@ function RewardCardVisual({ item }: { item: RewardItem }) {
       rose: 'bg-rose-50/80 border-b border-rose-200/80',
       mint: 'bg-emerald-50/80 border-b border-emerald-200/80',
       sky: 'bg-sky-50/80 border-b border-sky-200/80',
-      orange: 'bg-cyan-50/80 border-b border-cyan-200/80',
+      orange: 'bg-orange-50/80 border-b border-orange-200/80',
       teal: 'bg-teal-50/80 border-b border-teal-200/80',
       indigo: 'bg-indigo-50/80 border-b border-indigo-200/80',
       cream: 'bg-amber-50/70 border-b border-amber-200/80',
@@ -116,43 +116,16 @@ function RewardCardVisual({ item }: { item: RewardItem }) {
     );
   }
 
-  // Case 3: Stickers (Thanavuddho Digital Library exclusive stickers)
-  if (item.id === 'rew-1003') {
-    return (
-      <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-sky-50 via-amber-50 to-emerald-50 p-3 overflow-hidden flex items-center justify-center select-none border-b border-slate-200/80">
-        {/* Sticker Sheet Mockup */}
-        <div className="relative w-44 h-32 rounded-2xl bg-white/95 p-2 shadow-lg border border-slate-200/80 flex flex-wrap items-center justify-around gap-1 group-hover:scale-104 transition-transform duration-300">
-          <div className="w-12 h-12 rounded-xl bg-sky-100 border border-sky-300 flex items-center justify-center text-xl shadow-xs">
-            🌸
-          </div>
-          <div className="w-12 h-12 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center text-xl shadow-xs font-black text-[#D9A441]">
-            🪙 200
-          </div>
-          <div className="w-12 h-12 rounded-xl bg-emerald-100 border border-emerald-300 flex items-center justify-center text-xl shadow-xs">
-            🕊️
-          </div>
-          <div className="w-12 h-12 rounded-xl bg-purple-100 border border-purple-300 flex items-center justify-center text-xl shadow-xs">
-            💡
-          </div>
-          <div className="w-full text-center py-0.5 bg-[#073B65] text-white rounded text-[8.5px] font-black mt-1">
-            Thanavuddho Stickers
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Case 4: Default Clean High-Res Product Photo (No food/coffee clutter)
+  // Case 3: Simulated Clean Product Visuals (Custom Designed Local Mockups)
   return (
-    <div className="relative aspect-[4/3] w-full bg-zinc-100 overflow-hidden border-b border-zinc-200/80">
+    <div className="relative aspect-[4/3] w-full bg-slate-900/5 overflow-hidden border-b border-zinc-200/80 select-none group">
       <Image
         src={item.image}
         alt={item.title}
         fill
         unoptimized
-        className="object-cover group-hover:scale-105 transition-transform duration-500"
+        className="object-cover group-hover:scale-104 transition-transform duration-300"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-50" />
     </div>
   );
 }

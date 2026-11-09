@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgNote" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <filter id="bookShadow" x="-15%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="6" dy="14" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.22" />
+    </filter>
+    <linearGradient id="sageCover" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="4%" stop-color="#475569" />
+      <stop offset="8%" stop-color="#334155" />
+      <stop offset="12%" stop-color="#4F7061" />
+      <stop offset="100%" stop-color="#5E8373" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgNote)" />
+
+  <!-- Clean Minimalist Notebook -->
+  <g transform="translate(400, 280)" filter="url(#bookShadow)">
+    <!-- Page Stack Right/Bottom -->
+    <rect x="-105" y="-175" width="220" height="350" rx="14" fill="#F1F5F9" />
+    <rect x="-108" y="-178" width="220" height="350" rx="14" fill="#E2E8F0" />
+
+    <!-- Ribbon Bookmark hanging from bottom -->
+    <path d="M -30 160 L -30 200 L -20 188 L -10 200 L -10 160 Z" fill="#D9A441" />
+
+    <!-- Front Cover -->
+    <rect x="-115" y="-180" width="220" height="350" rx="14" fill="url(#sageCover)" />
+
+    <!-- Vertical Elastic Closure Band -->
+    <rect x="65" y="-180" width="16" height="350" fill="#2E463B" />
+    <line x1="65" y1="-180" x2="65" y2="170" stroke="#1C2E26" stroke-width="1" />
+    <line x1="81" y1="-180" x2="81" y2="170" stroke="#1C2E26" stroke-width="1" />
+
+    <!-- Spine Crease Shadow -->
+    <rect x="-115" y="-180" width="12" height="350" fill="#000000" opacity="0.3" />
+
+    <!-- Center Gold Foil Debossed Title -->
+    <circle cx="-15" cy="-70" r="24" fill="none" stroke="#FDE68A" stroke-width="1.5" />
+    <!-- Lotus Icon -->
+    <path d="M -15 -84 C -22 -75 -26 -68 -26 -62 C -18 -62 -15 -70 -15 -70 C -15 -70 -12 -62 -4 -62 C -4 -68 -8 -75 -15 -84 Z" fill="#FDE68A" />
+
+    <text x="-15" y="-20" font-family="sans-serif" font-size="12" font-weight="900" fill="#FEF08A" text-anchor="middle" letter-spacing="3">MINDFULNESS</text>
+    <text x="-15" y="-4" font-family="sans-serif" font-size="10" font-weight="800" fill="#FDE68A" text-anchor="middle" letter-spacing="2">NOTEBOOK</text>
+    
+    <line x1="-60" y1="12" x2="30" y2="12" stroke="#FDE68A" stroke-width="1" opacity="0.8" />
+    
+    <text x="-15" y="32" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">สมุดบันทึกสติและบันทึกความดี</text>
+    <text x="-15" y="52" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="9" font-weight="600" fill="#D1FAE5" text-anchor="middle">กระดาษถนอมสายตา 80 แกรม • ขนาด A6</text>
+    <text x="-15" y="130" font-family="sans-serif" font-size="8" font-weight="700" fill="#A7F3D0" text-anchor="middle" letter-spacing="1">THANAVUDDHO DIGITAL LIBRARY</text>
+  </g>
+
+  <!-- Tag Pill -->
+  <g transform="translate(400, 525)">
+    <rect x="-140" y="-18" width="280" height="36" rx="18" fill="#3F6253" />
+    <text x="0" y="5" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="13" font-weight="900" fill="#FFFFFF" text-anchor="middle">สมุดโน้ตสติขนาดพกพา (ไร้สิ่งรบกวน)</text>
+  </g>
+</svg>

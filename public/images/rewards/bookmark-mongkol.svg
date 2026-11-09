@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#081829" />
+      <stop offset="50%" stop-color="#0F2B48" />
+      <stop offset="100%" stop-color="#050E18" />
+    </linearGradient>
+    <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D9A441" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#081829" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="goldMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDF0CD" />
+      <stop offset="25%" stop-color="#D4AF37" />
+      <stop offset="50%" stop-color="#AA771C" />
+      <stop offset="75%" stop-color="#FFDF73" />
+      <stop offset="100%" stop-color="#996515" />
+    </linearGradient>
+    <linearGradient id="tasselRed" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#DC2626" />
+      <stop offset="100%" stop-color="#991B1B" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGrad)" />
+  <circle cx="400" cy="300" r="280" fill="url(#goldGlow)" />
+
+  <!-- Outer Ring Ornament -->
+  <circle cx="400" cy="310" r="210" fill="none" stroke="#D9A441" stroke-width="1.5" stroke-dasharray="4 8" opacity="0.4" />
+
+  <!-- Tassel Cord & Knot -->
+  <path d="M 400 90 Q 400 130 400 155" fill="none" stroke="#DC2626" stroke-width="4.5" stroke-linecap="round" />
+  <!-- Tassel Ring Hole -->
+  <circle cx="400" cy="155" r="9" fill="#D4AF37" filter="url(#dropShadow)" />
+  <circle cx="400" cy="155" r="4.5" fill="#0F2B48" />
+
+  <!-- Tassel Head & Fringe -->
+  <ellipse cx="400" cy="85" rx="10" ry="7" fill="#B91C1C" />
+  <rect x="393" y="87" width="14" height="6" rx="2" fill="#D4AF37" />
+  <path d="M 390 92 L 382 145 L 418 145 L 410 92 Z" fill="url(#tasselRed)" opacity="0.95" />
+  <path d="M 382 145 L 384 148 M 392 145 L 392 150 M 400 145 L 400 151 M 408 145 L 408 150 M 418 145 L 416 148" stroke="#DC2626" stroke-width="2" />
+
+  <!-- Brass Bookmark Body -->
+  <g filter="url(#dropShadow)">
+    <rect x="330" y="150" width="140" height="340" rx="18" fill="url(#goldMetal)" stroke="#FFF2B2" stroke-width="2" />
+    
+    <!-- Inner Etched Border -->
+    <rect x="340" y="160" width="120" height="320" rx="12" fill="none" stroke="#875305" stroke-width="1.8" stroke-dasharray="8 4" opacity="0.75" />
+
+    <!-- Top Lotus Cutout / Motif -->
+    <circle cx="400" cy="205" r="26" fill="#875305" opacity="0.15" />
+    <path d="M 400 185 C 392 195 385 205 385 215 C 395 215 400 205 400 205 C 400 205 405 215 415 215 C 415 205 408 195 400 185 Z" fill="#713F12" />
+    <path d="M 400 192 C 396 200 392 208 392 215 C 400 215 400 208 400 208 C 400 208 400 215 408 215 C 408 208 404 200 400 192 Z" fill="#FDF0CD" />
+
+    <!-- Thai Script Carved Text: มงคลชีวิต -->
+    <text x="400" y="275" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="22" font-weight="900" fill="#6B3402" text-anchor="middle" letter-spacing="3">ม ง ค ล ชี วิ ต</text>
+    <text x="400" y="302" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="12" font-weight="700" fill="#78350F" text-anchor="middle" letter-spacing="1">๓๘ ป ร ะ ก า ร</text>
+
+    <!-- Traditional Thai Line Divider -->
+    <line x1="365" y1="325" x2="435" y2="325" stroke="#78350F" stroke-width="1.5" />
+    <polygon points="400,321 405,325 400,329 395,325" fill="#78350F" />
+
+    <!-- English Subtitle -->
+    <text x="400" y="360" font-family="sans-serif" font-size="9" font-weight="800" fill="#78350F" text-anchor="middle" letter-spacing="2">THANAVUDDHO</text>
+    <text x="400" y="375" font-family="sans-serif" font-size="8" font-weight="700" fill="#92400E" text-anchor="middle" letter-spacing="1">DIGITAL LIBRARY</text>
+
+    <!-- Bottom Ornament Floral Motif -->
+    <path d="M 370 435 Q 400 415 430 435 Q 400 455 370 435 Z" fill="#713F12" opacity="0.6" />
+    <circle cx="400" cy="435" r="4" fill="#FDF0CD" />
+  </g>
+
+  <!-- Product Label Badge -->
+  <g transform="translate(400, 535)">
+    <rect x="-140" y="-18" width="280" height="36" rx="18" fill="#D4AF37" />
+    <text x="0" y="5" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="13" font-weight="900" fill="#081829" text-anchor="middle">ที่คั่นหนังสือโลหะทองเหลือง ลายมงคลชีวิต</text>
+  </g>
+</svg>

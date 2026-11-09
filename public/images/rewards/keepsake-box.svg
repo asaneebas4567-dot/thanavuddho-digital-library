@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgWarm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF3C7" />
+      <stop offset="50%" stop-color="#F5ECE1" />
+      <stop offset="100%" stop-color="#E7D7C1" />
+    </linearGradient>
+    <filter id="boxShadow" x="-15%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#451A03" flood-opacity="0.3" />
+    </filter>
+    <linearGradient id="woodLid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#78350F" />
+      <stop offset="40%" stop-color="#92400E" />
+      <stop offset="100%" stop-color="#5B210B" />
+    </linearGradient>
+    <linearGradient id="woodBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5B210B" />
+      <stop offset="100%" stop-color="#3B1204" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgWarm)" />
+
+  <!-- Keepsake Wooden Box Mockup -->
+  <g transform="translate(400, 280)" filter="url(#boxShadow)">
+    <!-- Box Bottom Base -->
+    <rect x="-180" y="-30" width="360" height="170" rx="14" fill="url(#woodBase)" stroke="#270A03" stroke-width="2" />
+
+    <!-- Red Silk Ribbon Wrap Vertical -->
+    <rect x="-24" y="-30" width="48" height="170" fill="#DC2626" opacity="0.9" />
+
+    <!-- Box Top Lid (Slightly larger, beveled) -->
+    <rect x="-195" y="-120" width="390" height="95" rx="14" fill="url(#woodLid)" stroke="#451A03" stroke-width="2" />
+    <rect x="-190" y="-115" width="380" height="10" rx="4" fill="#B45309" opacity="0.4" />
+
+    <!-- Red Silk Ribbon on Lid -->
+    <rect x="-24" y="-120" width="48" height="95" fill="#DC2626" opacity="0.9" />
+
+    <!-- Brass Latch Clasp Front -->
+    <rect x="-20" y="-45" width="40" height="40" rx="6" fill="#F59E0B" stroke="#78350F" stroke-width="1.5" />
+    <circle cx="0" cy="-25" r="7" fill="#78350F" />
+    <circle cx="0" cy="-25" r="3" fill="#FDE68A" />
+
+    <!-- Engraved Brass Plaque on Lid -->
+    <rect x="-120" y="-100" width="240" height="48" rx="8" fill="#FDE68A" stroke="#B45309" stroke-width="1.5" />
+    <circle cx="-100" cy="-76" r="3" fill="#78350F" />
+    <circle cx="100" cy="-76" r="3" fill="#78350F" />
+    <text x="0" y="-80" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="13" font-weight="900" fill="#78350F" text-anchor="middle">ชุดกล่องของที่ระลึก</text>
+    <text x="0" y="-64" font-family="sans-serif" font-size="9" font-weight="800" fill="#92400E" text-anchor="middle" letter-spacing="1">THANAVUDDHO KEEPSAKE BOX</text>
+
+    <!-- Box Base Label -->
+    <text x="0" y="70" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="11" font-weight="800" fill="#FEF3C7" text-anchor="middle">กล่องไม้คราฟต์ขัดเงาพิเศษ สลักตราสัญลักษณ์</text>
+    <text x="0" y="92" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="9" font-weight="600" fill="#FDE68A" text-anchor="middle">สำหรับเก็บของสะสมมงคล หนังสือ และวัตถุระลึก</text>
+  </g>
+
+  <!-- Tag Pill -->
+  <g transform="translate(400, 525)">
+    <rect x="-130" y="-18" width="260" height="36" rx="18" fill="#92400E" />
+    <text x="0" y="5" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="13" font-weight="900" fill="#FFFFFF" text-anchor="middle">ชุดกล่องของที่ระลึก Thanavuddho Box</text>
+  </g>
+</svg>
