@@ -46,11 +46,28 @@ next-env.d.ts
 .gemini/
 
 # Digital Library Media (Ignore heavy files to prevent Git repo bloat)
-# Note: Remove these if you want to commit all your PDFs/Videos to Git.
+# Note: Core reading PDFs are whitelisted so they are deployed to Vercel production.
 /public/pdfs/*
 !/public/pdfs/sample.pdf
 /public/books/pdf/*
 !/public/books/pdf/sample.pdf
+!/public/books/pdf/tam-jai-hai-prom-buak.pdf
+!/public/books/pdf/mongkol-chiwit-124.pdf
+!/public/books/pdf/lom-hai-jai-khao-ok.pdf
+!/public/books/pdf/lom-hai-jai-khao-ok-123.pdf
+!/public/books/pdf/khao-kor-sook-rao-kor-sook.pdf
+!/public/books/pdf/rak-thae-mai-dai-mee-khae-nai-niyai.pdf
+!/public/books/pdf/hope-for-life-vol-04.pdf
+!/public/books/pdf/kho-khit-rob-tua.pdf
+!/public/books/pdf/the-science-of-meditation.pdf
+!/public/books/pdf/phoo-soon-sia-tee-mai-sin-soon.pdf
+!/public/books/pdf/phro-mai-roo-roo-than-cheewit.pdf
+!/public/books/pdf/secret-of-love-rak-look.pdf
+!/public/books/pdf/love-myself-rak-nai-tua-ton.pdf
+!/public/books/pdf/perd-promdan-dhamma.pdf
+!/public/books/pdf/the-lover-rak-pen-ja-hen-jai.pdf
+!/public/books/pdf/yoo-nai-lok-mai.pdf
+!/public/books/pdf/อย่ามโน.pdf
 /public/audios/*
 !/public/audios/sample.mp3
 /public/videos/*

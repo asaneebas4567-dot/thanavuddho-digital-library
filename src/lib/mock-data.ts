@@ -145,7 +145,7 @@ export const books: Book[] = [
     pages: 130,
     language: 'Thai',
     tags: ['ทำใจให้พร้อมบวก', 'คิดบวก', 'กำลังใจ', 'พัฒนาตนเอง', 'การดำเนินชีวิต', 'สมาธิ', 'ความสุข'],
-    pdf_url: 'https://drive.google.com/file/d/1ja1JlULVFOiernaH9vzkVlRSLA2MUmpS/preview',
+    pdf_url: '/books/pdf/tam-jai-hai-prom-buak.pdf',
     reader_url: 'https://drive.google.com/file/d/1ja1JlULVFOiernaH9vzkVlRSLA2MUmpS/preview',
     source_url: 'https://drive.google.com/file/d/1ja1JlULVFOiernaH9vzkVlRSLA2MUmpS/view',
     status: 'published',

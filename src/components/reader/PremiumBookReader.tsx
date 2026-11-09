@@ -68,19 +68,13 @@ export function resolveBookPdfUrl(book: {
   source_url?: string;
   reader_url?: string;
 }): string {
-  const candidate = (book.pdf_url || book.source_url || book.reader_url || '') as string;
-  if (
-    candidate.includes('drive.google.com') ||
-    candidate.includes('docs.google.com') ||
-    candidate.startsWith('/books/pdf/') ||
-    candidate.endsWith('.pdf')
-  ) {
-    return candidate;
-  }
   const id = (book.id || '').toLowerCase();
   const title = (book.title || '').toLowerCase();
 
-  // Precise mappings for books with authentic local files
+  // 1. Precise mappings for authentic local PDF files (First Priority)
+  if (id.includes('tam_jai') || id.includes('tham_jai') || title.includes('ทำใจให้พร้อมบวก')) {
+    return '/books/pdf/tam-jai-hai-prom-buak.pdf';
+  }
   if (id.includes('mongkol') || id.includes('124') || title.includes('มงคลชีวิต')) {
     return '/books/pdf/mongkol-chiwit-124.pdf';
   }
@@ -129,8 +123,19 @@ export function resolveBookPdfUrl(book: {
   if (id.includes('khao_kor_sook') || title.includes('เขาก็สุข')) {
     return '/books/pdf/khao-kor-sook-rao-kor-sook.pdf';
   }
-  if (id.includes('tam_jai') || title.includes('ทำใจให้พร้อมบวก')) {
-    return '/books/pdf/tam-jai-hai-prom-buak.pdf';
+
+  // 2. Local PDF candidate
+  const candidate = (book.pdf_url || book.source_url || book.reader_url || '') as string;
+  if (candidate.startsWith('/books/pdf/') || candidate.endsWith('.pdf')) {
+    return candidate;
+  }
+
+  // 3. Remote URL (Drive / Docs / etc)
+  if (
+    candidate.includes('drive.google.com') ||
+    candidate.includes('docs.google.com')
+  ) {
+    return candidate;
   }
 
   // If candidate is a Google Drive or remote URL, return candidate so pdfReaderHelper proxies it
@@ -172,6 +177,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
   const [pdfError, setPdfError] = useState<string | null>(null);
   const [pdfActualPageCount, setPdfActualPageCount] = useState<number | null>(null);
   const [renderedDimensions, setRenderedDimensions] = useState<{ width: number; height: number }>({ width: 520, height: 740 });
+  const [useIframeFallback, setUseIframeFallback] = useState<boolean>(false);
 
   // 4. Persistence & Resume
   const [showResumeBanner, setShowResumeBanner] = useState<boolean>(false);
@@ -992,12 +998,53 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
           </div>
         )}
 
+        {/* Iframe Fallback Reader (e.g. Google Drive/Docs Preview) */}
+        {useIframeFallback && (book.reader_url || book.source_url) && (
+          <div className="w-full h-full min-h-[82vh] flex flex-col bg-white rounded-2xl overflow-hidden border border-[#DCEAF3] shadow-lg">
+            <div className="bg-[#073B65] text-white px-4 py-2 flex items-center justify-between text-xs font-semibold">
+              <span className="flex items-center gap-2">
+                <BookOpen size={14} className="text-[#079FE8]" />
+                <span>โหมดอ่านเอกสารต้นฉบับสำรอง (Cloud Preview)</span>
+              </span>
+              <button
+                onClick={() => setUseIframeFallback(false)}
+                className="text-sky-300 hover:text-white underline text-xs cursor-pointer"
+              >
+                สลับกลับสู่โหมด Flipbook
+              </button>
+            </div>
+            <iframe
+              src={book.reader_url || book.source_url}
+              className="w-full flex-grow border-0 min-h-[78vh]"
+              title={book.title}
+              allow="autoplay"
+            />
+          </div>
+        )}
+
         {/* Error Fallback */}
-        {pdfError && (
-          <div className="m-auto max-w-md p-6 rounded-3xl bg-zinc-900 text-white shadow-2xl border border-red-500/30 text-center">
+        {pdfError && !useIframeFallback && (
+          <div className="m-auto max-w-lg p-6 sm:p-8 rounded-3xl bg-zinc-900 text-white shadow-2xl border border-red-500/30 text-center animate-fadeIn">
             <AlertCircle size={36} className="text-rose-500 mx-auto mb-3" />
             <h4 className="font-bold text-base mb-1">พบข้อผิดพลาดในการโหลดไฟล์</h4>
             <p className="text-xs text-zinc-300 mb-4 leading-relaxed">{pdfError}</p>
+
+            {/* Quick Fallback to Google Drive Viewer */}
+            {(book.reader_url || book.source_url) && (
+              <div className="mb-4 p-3.5 rounded-2xl bg-white/10 border border-white/15 text-left">
+                <p className="text-xs text-sky-200 mb-2 font-medium">
+                  💡 คุณสามารถเปิดอ่านผ่าน <strong>ระบบสำรอง (Google Cloud Viewer)</strong> ได้ทันที:
+                </p>
+                <button
+                  onClick={() => setUseIframeFallback(true)}
+                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <BookOpen size={14} />
+                  <span>เปิดอ่านทันทีผ่านระบบสำรอง (Cloud Viewer)</span>
+                </button>
+              </div>
+            )}
+
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
               <button
                 onClick={loadPdf}
@@ -1020,7 +1067,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
         {/* =======================================================================
             MODE B: REALISTIC PAGE-BY-PAGE / BOOK FLIP (PUB HTML5-LIKE 3D BOOK)
            ======================================================================= */}
-        {mode === 'flip' && !pdfError && (
+        {mode === 'flip' && !pdfError && !useIframeFallback && (
           <>
             {/* Desktop Left Page Navigation Button */}
             <button 
@@ -1140,7 +1187,7 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
         {/* =======================================================================
             MODE A: CONTINUOUS SCROLL MODE (LAZY-LOADED FOR BUTTERY-SMOOTH READING)
            ======================================================================= */}
-        {mode === 'scroll' && !pdfError && (
+        {mode === 'scroll' && !pdfError && !useIframeFallback && (
           <div className="w-full max-w-4xl mx-auto flex flex-col items-center gap-6 py-4 select-text shrink-0">
             {pdfDoc && Array.from({ length: effectiveTotalPages }, (_, i) => i + 1).map((pNum) => (
               <PdfLazyScrollItem 
