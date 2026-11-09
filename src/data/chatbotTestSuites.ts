@@ -39,7 +39,7 @@ export const DHAMMA_30_TEST_CASES: DhammaTestCase[] = [
     query: 'ใจหยุดคือหัวใจของสมาธิ พระอาจารย์อธิบายไว้อย่างไร',
     expectedEvidenceLevel: 'direct_verified',
     expectedKeywords: ['สมาธิ', 'ใจ', 'หยุด'],
-    notes: 'ดึงเนื้อหาจริงจากคลังบทความหรือหน้าหนังสือสมาธิ'
+    notes: 'ดึงเนื้อหาจริงจากคลังข้อคิดธรรมะหรือหน้าหนังสือสมาธิ'
   },
   {
     id: 'TC-03',

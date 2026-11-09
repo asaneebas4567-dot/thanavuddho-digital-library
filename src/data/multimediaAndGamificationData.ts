@@ -436,7 +436,7 @@ export const quizzes: Quiz[] = [
         ],
         correct_index: 1,
         explanation: 'ฉันทาคติ คือความลำเอียงเพราะความชอบ รักใคร่ หรือสนิทสนม ทำให้เสียความเป็นธรรมในการตัดสินใจ',
-        source_ref: 'บทความ: ภาวะผู้นำที่ปราศจากอคติ'
+        source_ref: 'ข้อคิดธรรมะ: ภาวะผู้นำที่ปราศจากอคติ'
       }
     ]
   },
@@ -615,12 +615,12 @@ export const smartSearchIndex: SmartSearchResult[] = [
     title: 'วิธีดับความโกรธตามแนวทางพุทธวิธี',
     media_type: 'article',
     category_name: 'จิตใจและการฝึกตน',
-    description: 'บทความอธิบายกลไกของโทสะ และ 5 เทคนิคหยุดอารมณ์โกรธฉับพลันด้วยการกำหนดรู้ลมหายใจ',
+    description: 'ข้อคิดธรรมะอธิบายกลไกของโทสะ และ 5 เทคนิคหยุดอารมณ์โกรธฉับพลันด้วยการกำหนดรู้ลมหายใจ',
     link: '/articles/article-01',
     cover_or_thumbnail: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800',
     matched_concepts: ['ความโกรธ', 'โทสะ', 'สติ', 'เมตตา', 'การบริหารความขัดแย้ง'],
     highlight_snippet: '...ไฟแห่งโทสะเผาไหม้ใจตนเองก่อนที่จะลามไปถึงผู้อื่น การแผ่เมตตาคือการหล่อเลี้ยงน้ำทิพย์ดับไฟในใจ...',
-    source_context: 'บทความธรรมะประจำวัน'
+    source_context: 'ข้อคิดธรรมะประจำวัน'
   }
 ];
 
@@ -663,7 +663,7 @@ export const predefinedAiAnswers: Record<string, { answer: string; citations: an
 💡 *คำสอนพระอาจารย์:* "การเอาชนะความขัดแย้งด้วยการเอาชนะคะคาน มีแต่จะสร้างผู้แพ้ที่เจ็บแค้น แต่การชนะด้วยเมตตาและเหตุผล จะสร้างกัลยาณมิตรที่ยั่งยืน"`,
     citations: [
       { id: 'c3', title: 'พอดแคสต์: EP.7 จัดการความขัดแย้งด้วย ขันติ และ สัจจะ', type: 'podcast', link: '/audios?type=podcast&id=pod-001&ep=ep-002' },
-      { id: 'c4', title: 'บทความ: ศิลปะการเจรจาและการสร้างความปรองดองในองค์กร', type: 'article', link: '/articles' }
+      { id: 'c4', title: 'ข้อคิดธรรมะ: ศิลปะการเจรจาและการสร้างความปรองดองในองค์กร', type: 'article', link: '/articles' }
     ]
   },
   'สมาธิ': {

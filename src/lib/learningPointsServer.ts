@@ -408,11 +408,11 @@ export function processEarnPoints(params: EarnEventParams): EarnEventResult {
         pointsEarned: 0,
         currentBalance: user.points,
         alreadyEarned: true,
-        message: 'ท่านเคยได้รับคะแนนจากการอ่านบทความนี้แล้ว'
+        message: 'ท่านเคยได้รับคะแนนจากการอ่านข้อคิดธรรมะนี้แล้ว'
       };
     }
     pointsToAward = 2;
-    transactionTitle = `อ่านจบบทความ: ${params.chapterTitle || 'บทความธรรมะ'}`;
+    transactionTitle = `อ่านจบข้อคิดธรรมะ: ${params.chapterTitle || 'ข้อคิดธรรมะ'}`;
     transactionDetail = `อ่านเนื้อหาครบถ้วนตามเกณฑ์ (+2 P)`;
 
     if (!daily.articlesRead.includes(articleKey)) {

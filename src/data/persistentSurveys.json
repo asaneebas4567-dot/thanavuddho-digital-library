@@ -58,8 +58,8 @@
     {
       "id": "q_articles_knowledge",
       "category": "article",
-      "categoryTitleTh": "คลังบทความธรรมะ",
-      "questionText": "ความน่าสนใจและความครบถ้วนของคลังบทความธรรมะ สาระความรู้ และมุมมองชีวิต",
+      "categoryTitleTh": "คลังข้อคิดธรรมะ",
+      "questionText": "ความน่าสนใจและความครบถ้วนของคลังข้อคิดธรรมะ สาระความรู้ และมุมมองชีวิต",
       "questionType": "rating",
       "scaleMin": 1,
       "scaleMax": 5,

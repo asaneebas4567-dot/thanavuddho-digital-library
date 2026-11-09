@@ -84,8 +84,8 @@ export const DEFAULT_SURVEY_QUESTIONS: SurveyQuestion[] = [
   {
     id: 'q_articles_knowledge',
     category: 'article',
-    categoryTitleTh: 'คลังบทความธรรมะ',
-    questionText: 'ความน่าสนใจ ความถูกต้องของเนื้อหา และคุณค่าของบทความในการนำไปใช้ในชีวิตจริง',
+    categoryTitleTh: 'คลังข้อคิดธรรมะ',
+    questionText: 'ความน่าสนใจ ความถูกต้องของเนื้อหา และคุณค่าของข้อคิดธรรมะในการนำไปใช้ในชีวิตจริง',
     questionType: 'rating',
     scaleMin: 1,
     scaleMax: 5,
@@ -246,7 +246,7 @@ export function getSurveyAnalytics(filterTest: 'all' | 'real_only' | 'test_only'
     books: 'หนังสือดิจิทัล & E-Books',
     video: 'สื่อวิดีโอธรรมบรรยาย',
     podcast: 'พอดแคสต์ & หนังสือเสียง',
-    article: 'คลังบทความธรรมะ',
+    article: 'คลังข้อคิดธรรมะ',
     general: 'ภาพรวม & ข้อเสนอแนะ'
   };
 
@@ -684,7 +684,7 @@ export function parseGoogleFormsCsv(csvText: string): RawSurveyRow[] {
       colMapping[idx] = 'q_media_video';
     } else if (colLower.includes('พอดแคสต์') || colLower.includes('podcast') || colLower.includes('เสียงบรรยาย')) {
       colMapping[idx] = 'q_media_podcast';
-    } else if (colLower.includes('บทความ') || colLower.includes('article') || colLower.includes('เนื้อหา')) {
+    } else if (colLower.includes('ข้อคิด') || colLower.includes('บทความ') || colLower.includes('article') || colLower.includes('เนื้อหา')) {
       colMapping[idx] = 'q_articles_knowledge';
     } else if (colLower.includes('แต้ม') || colLower.includes('รางวัล') || colLower.includes('reward') || colLower.includes('point')) {
       colMapping[idx] = 'q_gamification_rewards';

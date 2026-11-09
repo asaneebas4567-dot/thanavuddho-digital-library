@@ -363,7 +363,7 @@ export interface SmartSearchResult {
 }
 
 export type FallbackSituation = 
-  | 'situation_a_full'            // A: พบคำตอบครบจากหนังสือหรือบทความ
+  | 'situation_a_full'            // A: พบคำตอบครบจากหนังสือหรือข้อคิดธรรมะ
   | 'situation_b_partial'         // B: พบข้อมูลบางส่วน แต่ยังตอบไม่ครบ + แนะนำวิดีโอ
   | 'situation_c_video_fallback'  // C: ไม่พบในหนังสือ แต่พบวิดีโอเทศนาที่เกี่ยวข้อง
   | 'situation_d_not_found';      // D: ไม่พบทั้งข้อมูลและวิดีโอ

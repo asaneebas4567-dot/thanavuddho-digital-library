@@ -227,12 +227,12 @@ export function searchInternalKnowledge(query: string, maxResults = 6): Internal
       seenKeys.add(art.id);
       candidates.push({
         id: art.id,
-        title: `บทความ: ${art.title}`,
+        title: `ข้อคิดธรรมะ: ${art.title}`,
         sourceType: 'article',
         highlightSnippet: extractSnippetAround(art.content || art.description || '', tokens, 160),
         fullExcerpt: art.content,
         link: `/articles/${art.id}`,
-        actionText: 'อ่านบทความฉบับเต็ม',
+        actionText: 'อ่านข้อคิดธรรมะฉบับเต็ม',
         score,
         isDirectEvidence: score >= 35
       });
