@@ -19,8 +19,7 @@ import {
   Award,
   Gift,
   LogIn,
-  LogOut,
-  ShieldCheck
+  LogOut
 } from 'lucide-react';
 import Image from 'next/image';
 import { useLoan } from '@/context/LoanContext';
@@ -174,18 +173,6 @@ export default function Navbar() {
               <span>ถาม AI ธรรมะ</span>
             </Link>
 
-            {/* Admin Management Quick Pill (for Admins only) */}
-            {mounted && isAuthenticated && user && (user.role === 'admin' || user.email === 'asaneebas4567@gmail.com' || user.email === 'thanavuddho.dhamma@gmail.com') && (
-              <Link 
-                href="/admin/database" 
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black text-white bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 transition-all shadow-xs cursor-pointer border border-emerald-400/80 active:scale-95"
-                title="ศูนย์จัดการฐานข้อมูล (สิทธิ์ระดับ Admin)"
-              >
-                <ShieldCheck size={14} className="text-emerald-200" />
-                <span>แอดมิน (DB)</span>
-              </Link>
-            )}
-
             {/* User Profile or Login CTA */}
             {mounted && isAuthenticated && user ? (
               <Link 
@@ -299,16 +286,6 @@ export default function Navbar() {
                 <User size={15} /> ชั้นหนังสือ ({activeLoanCount})
               </Link>
             </div>
-
-            {mounted && isAuthenticated && user && (user.role === 'admin' || user.email === 'asaneebas4567@gmail.com' || user.email === 'thanavuddho.dhamma@gmail.com') && (
-              <Link
-                href="/admin/database"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-extrabold text-xs text-center flex items-center justify-center gap-1.5 shadow-sm"
-              >
-                <ShieldCheck size={16} /> ศูนย์จัดการฐานข้อมูล (Admin Database)
-              </Link>
-            )}
 
             {mounted && isAuthenticated && user ? (
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-50 border border-amber-200">
