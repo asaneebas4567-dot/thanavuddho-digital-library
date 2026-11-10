@@ -808,7 +808,7 @@ export default function TopBannerCarousel({
                             className="text-left cursor-pointer"
                           >
                             <h3 
-                              className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-amber-800 transition-colors line-clamp-1 sm:line-clamp-2 leading-snug"
+                              className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-amber-800 transition-colors line-clamp-2 leading-snug"
                               title={item.title}
                             >
                               {item.title}
@@ -817,7 +817,7 @@ export default function TopBannerCarousel({
                         ) : (
                           <Link href={item.actionUrl}>
                             <h3 
-                              className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-sky-700 transition-colors line-clamp-1 sm:line-clamp-2 leading-snug"
+                              className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-sky-700 transition-colors line-clamp-2 leading-snug"
                               title={item.title}
                             >
                               {item.title}

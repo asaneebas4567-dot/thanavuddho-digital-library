@@ -245,7 +245,7 @@ export default function Home() {
       <TopBannerCarousel autoPlayIntervalMs={8000} />
 
       {/* 2. Main Content Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full space-y-7 pt-4 pb-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full space-y-5 sm:space-y-7 pt-3 sm:pt-4 pb-24 lg:pb-16">
         
         {/* 1. Webtoon Ranking Shelf (Weekly TOP 5) - Showcase books first */}
         <div id="ranking" className="pt-1">

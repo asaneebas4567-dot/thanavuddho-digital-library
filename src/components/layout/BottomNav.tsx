@@ -24,69 +24,44 @@ export default function BottomNav() {
       label: 'หน้าแรก',
       href: '/',
       icon: Home,
-      color: 'text-sky-600',
-      activeColor: 'text-sky-700',
-      pillColor: 'bg-sky-600',
+      color: 'text-[#073B65]',
+      activeColor: 'text-[#079FE8]',
+      pillColor: 'bg-[#079FE8]',
       exact: true,
     },
     {
       label: 'ห้องสมุด',
       href: '/books',
       icon: BookOpen,
-      color: 'text-sky-600',
-      activeColor: 'text-sky-700',
-      pillColor: 'bg-sky-600',
+      color: 'text-[#073B65]',
+      activeColor: 'text-[#079FE8]',
+      pillColor: 'bg-[#079FE8]',
+      count: activeLoanCount > 0 ? activeLoanCount : undefined,
     },
     {
-      label: 'เสียง & Podcast',
+      label: 'พอดแคสต์',
       href: '/audios',
       icon: Headphones,
-      color: 'text-purple-600',
-      activeColor: 'text-purple-700',
+      color: 'text-[#073B65]',
+      activeColor: 'text-purple-600',
       pillColor: 'bg-purple-600',
     },
     {
-      label: 'วิดีโอเทศนา',
+      label: 'วิดีโอ',
       href: '/videos',
       icon: Video,
-      color: 'text-rose-600',
-      activeColor: 'text-rose-700',
+      color: 'text-[#073B65]',
+      activeColor: 'text-rose-600',
       pillColor: 'bg-rose-600',
-    },
-    {
-      label: 'ข้อคิดธรรมะ',
-      href: '/articles',
-      icon: BookText,
-      color: 'text-emerald-600',
-      activeColor: 'text-emerald-700',
-      pillColor: 'bg-emerald-600',
-    },
-    {
-      label: 'แบบทดสอบ',
-      href: '/quiz',
-      icon: Award,
-      color: 'text-sky-700',
-      activeColor: 'text-sky-800',
-      pillColor: 'bg-sky-600',
-      badge: 'XP',
     },
     {
       label: 'ร้านรางวัล',
       href: '/rewards',
       icon: Gift,
-      color: 'text-sky-600',
-      activeColor: 'text-sky-700',
-      pillColor: 'bg-sky-600',
-      badge: 'Shop',
-    },
-    {
-      label: 'ยืม-คืน',
-      href: '/dashboard',
-      icon: User,
-      color: 'text-blue-600',
-      activeColor: 'text-blue-700',
-      pillColor: 'bg-blue-600',
-      count: activeLoanCount,
+      color: 'text-[#073B65]',
+      activeColor: 'text-[#D9A441]',
+      pillColor: 'bg-[#D9A441]',
+      badge: '🪙',
     },
   ];
 
@@ -100,8 +75,8 @@ export default function BottomNav() {
       aria-label="เมนูหลักแถบล่าง (Mobile Navigation Bar)"
       className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-gray-200/90 shadow-[0_-6px_25px_rgba(0,0,0,0.06)] pb-[env(safe-area-inset-bottom)]"
     >
-      <div className="max-w-2xl mx-auto px-1 sm:px-4">
-        <div className="flex items-center justify-around h-16 sm:h-[68px]">
+      <div className="max-w-md mx-auto px-1 sm:px-4">
+        <div className="flex items-center justify-around h-15 sm:h-16">
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = isItemActive(item.href, item.exact);
@@ -111,22 +86,22 @@ export default function BottomNav() {
                 key={item.href}
                 href={item.href}
                 className={`relative flex flex-col items-center justify-center flex-1 h-full py-1 px-0.5 transition-all group select-none ${
-                  active ? 'text-gray-900 font-bold' : 'text-gray-500 hover:text-gray-800'
+                  active ? 'text-[#073B65] font-extrabold' : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
                 {/* Active Indicator Top Pill */}
                 {active && (
-                  <span className={`absolute top-0 w-8 sm:w-10 h-1 ${item.pillColor} rounded-b-full shadow-xs animate-in fade-in duration-200`}></span>
+                  <span className={`absolute top-0 w-8 h-1 ${item.pillColor} rounded-b-full shadow-xs animate-in fade-in duration-200`}></span>
                 )}
 
                 {/* Icon Container with Badge */}
                 <div className="relative mb-0.5">
                   <div
                     className={`p-1 rounded-xl transition-transform duration-200 ${
-                      active ? 'scale-110' : 'group-hover:scale-105 opacity-80 group-hover:opacity-100'
+                      active ? 'scale-110' : 'group-hover:scale-105 opacity-75 group-hover:opacity-100'
                     }`}
                   >
-                    <Icon size={21} className={item.color} />
+                    <Icon size={20} className={active ? item.activeColor : item.color} />
                   </div>
 
                   {/* Loan Count Badge */}

@@ -311,11 +311,11 @@ export default function ScrollableBookRow({
       {/* 2. Scrollable Poster Track with Floating Left/Right Arrows */}
       <div className="relative">
         
-        {/* Left Scroll Button */}
+        {/* Left Scroll Button (Desktop/Tablet mouse navigation) */}
         {canScrollLeft && (
           <button
             onClick={() => scroll('left')}
-            className={`absolute -left-3 sm:-left-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-slate-800 shadow-xl border border-slate-200 flex items-center justify-center ${theme.arrowHover} hover:scale-105 active:scale-95 transition-all cursor-pointer`}
+            className={`hidden md:flex absolute -left-3 sm:-left-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-slate-800 shadow-xl border border-slate-200 items-center justify-center ${theme.arrowHover} hover:scale-105 active:scale-95 transition-all cursor-pointer`}
             title="เลื่อนไปทางซ้าย"
             aria-label="ก่อนหน้า"
           >
@@ -326,7 +326,7 @@ export default function ScrollableBookRow({
         {/* Books Poster Track */}
         <div 
           ref={scrollContainerRef}
-          className="flex gap-3.5 sm:gap-4 md:gap-5 overflow-x-auto pb-2 pt-1 px-1 scrollbar-hide scroll-smooth no-scrollbar"
+          className="flex gap-3 sm:gap-4 md:gap-5 overflow-x-auto pb-2 pt-1 px-1 scrollbar-hide scroll-smooth no-scrollbar touch-pan-x"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {books.map((book) => (
@@ -338,11 +338,11 @@ export default function ScrollableBookRow({
           ))}
         </div>
 
-        {/* Right Scroll Button */}
+        {/* Right Scroll Button (Desktop/Tablet mouse navigation) */}
         {canScrollRight && (
           <button
             onClick={() => scroll('right')}
-            className={`absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-slate-800 shadow-xl border border-slate-200 flex items-center justify-center ${theme.arrowHover} hover:scale-105 active:scale-95 transition-all cursor-pointer`}
+            className={`hidden md:flex absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-slate-800 shadow-xl border border-slate-200 items-center justify-center ${theme.arrowHover} hover:scale-105 active:scale-95 transition-all cursor-pointer`}
             title="เลื่อนไปทางขวา"
             aria-label="ถัดไป"
           >

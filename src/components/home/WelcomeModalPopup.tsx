@@ -46,9 +46,9 @@ export default function WelcomeModalPopup() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div 
-        className="relative bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 text-center animate-in zoom-in-95 duration-200 overflow-hidden"
+        className="relative bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto p-4 sm:p-7 shadow-2xl border border-slate-100 text-center animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Soft Background Warm Glow (Very Subtle) */}
@@ -58,89 +58,86 @@ export default function WelcomeModalPopup() {
         {/* Close Button (X) */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
           aria-label="ปิดหน้าต่าง"
         >
-          <X size={20} />
+          <X size={18} className="sm:w-5 sm:h-5" />
         </button>
 
-        {/* Header Icon / Avatar */}
-        <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 rounded-2xl overflow-hidden shadow-md border-2 border-amber-300 bg-amber-50">
-          <Image
-            src="/images/author-somchai.jpg"
-            alt="พระครูปลัดสุวัฒนโพธิคุณ"
-            fill
-            className="object-cover"
-            priority
-          />
+        {/* Header Icon / Avatar Badge */}
+        <div className="relative w-14 h-14 sm:w-18 sm:h-18 mx-auto mb-3 rounded-2xl overflow-hidden shadow-md border-2 border-amber-300 bg-gradient-to-br from-[#073B65] via-[#0A4D82] to-[#079FE8] flex items-center justify-center text-white">
+          <div className="flex flex-col items-center justify-center text-center p-1.5">
+            <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 text-[#FDE68A] drop-shadow-sm mb-0.5" />
+            <span className="text-[8px] sm:text-[9px] font-black tracking-wider uppercase text-sky-100">ห้องสมุดดิจิทัล</span>
+          </div>
         </div>
 
         {/* Brand Tag */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-[11px] font-black uppercase tracking-wider border border-blue-200 mb-2">
-          <Sparkles size={12} className="text-amber-500" />
+        <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-blue-50 text-blue-700 text-[10px] sm:text-[11px] font-black uppercase tracking-wider border border-blue-200 mb-2">
+          <Sparkles size={11} className="text-amber-500" />
           <span>คลังธรรมะดิจิทัล & ระบบสะสมคะแนน</span>
         </div>
 
         {/* Title & Description */}
-        <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mb-2">
+        <h2 className="text-base sm:text-xl font-black text-slate-900 tracking-tight mb-1.5 leading-snug">
           ยินดีต้อนรับสู่ Thanavuddho Digital Library
         </h2>
-        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md mx-auto mb-6">
+        <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed max-w-md mx-auto mb-4 sm:mb-5">
           คลังสารสนเทศเพื่อการเรียนรู้ธรรมะ รวบรวมหนังสือฉบับเต็ม วิดีโอธรรมบรรยาย พอดแคสต์ และเควสสะสมแต้มบุญปัญญา โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)
         </p>
 
         {/* 4 Feature Pills (Clean, Light Pastels) */}
-        <div className="grid grid-cols-2 gap-2.5 mb-6 text-left">
-          <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
-              <BookOpen size={16} />
+        <div className="grid grid-cols-2 gap-2 sm:gap-2.5 mb-4 sm:mb-5 text-left">
+          <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+              <BookOpen size={14} className="sm:w-4 sm:h-4" />
             </div>
             <div className="min-w-0">
-              <div className="text-xs font-black text-slate-900">คลังหนังสือจริง</div>
-              <div className="text-[10px] text-slate-500">อ่านฟรี Flipbook</div>
+              <div className="text-[11px] sm:text-xs font-black text-slate-900 truncate">คลังหนังสือจริง</div>
+              <div className="text-[9px] sm:text-[10px] text-slate-500 truncate">อ่านฟรี Flipbook</div>
             </div>
           </div>
 
-          <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
-              <Video size={16} />
+          <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+              <Video size={14} className="sm:w-4 sm:h-4" />
             </div>
             <div className="min-w-0">
-              <div className="text-xs font-black text-slate-900">วิดีโอธรรมะ</div>
-              <div className="text-[10px] text-slate-500">บรรยาย & บทสรุป AI</div>
+              <div className="text-[11px] sm:text-xs font-black text-slate-900 truncate">วิดีโอธรรมะ</div>
+              <div className="text-[9px] sm:text-[10px] text-slate-500 truncate">บรรยาย & AI</div>
             </div>
           </div>
 
-          <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center shrink-0">
-              <Headphones size={16} />
+          <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center shrink-0">
+              <Headphones size={14} className="sm:w-4 sm:h-4" />
             </div>
             <div className="min-w-0">
-              <div className="text-xs font-black text-slate-900">พอดแคสต์</div>
-              <div className="text-[10px] text-slate-500">เสียงอ่านบันทึกธรรม</div>
+              <div className="text-[11px] sm:text-xs font-black text-slate-900 truncate">พอดแคสต์</div>
+              <div className="text-[9px] sm:text-[10px] text-slate-500 truncate">เสียงบันทึกธรรม</div>
             </div>
           </div>
 
-          <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
-              <Award size={16} />
+          <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+              <Award size={14} className="sm:w-4 sm:h-4" />
             </div>
             <div className="min-w-0">
-              <div className="text-xs font-black text-slate-900">เควส & แต้มบุญ</div>
-              <div className="text-[10px] text-slate-500">แลกของรางวัลจริง</div>
+              <div className="text-[11px] sm:text-xs font-black text-slate-900 truncate">เควส & แต้มบุญ</div>
+              <div className="text-[9px] sm:text-[10px] text-slate-500 truncate">แลกของรางวัล</div>
             </div>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="space-y-2.5">
+        <div className="space-y-2">
           {/* Main Action: Enter Live Website Immediately */}
           <button
             onClick={handleClose}
-            className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-black text-sm shadow-md transition-all active:scale-98 cursor-pointer flex items-center justify-center gap-2"
+            className="w-full py-2.5 sm:py-3.5 px-4 sm:px-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-black text-xs sm:text-sm shadow-md transition-all active:scale-98 cursor-pointer flex items-center justify-center gap-1.5"
           >
             <span>เข้าสู่หน้าเว็บจริง (เข้าชมทันที)</span>
-            <ArrowRight size={16} />
+            <ArrowRight size={15} />
           </button>
 
           {/* Secondary Action: Login / Register if not authenticated */}
@@ -148,16 +145,16 @@ export default function WelcomeModalPopup() {
             <Link
               href="/login"
               onClick={handleClose}
-              className="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
+              className="w-full py-2 sm:py-2.5 px-3 rounded-lg sm:rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] sm:text-xs transition-colors flex items-center justify-center gap-1.5 truncate"
             >
-              <LogIn size={14} />
-              <span>เข้าสู่ระบบสมาชิก (เพื่อสะสมแต้มและแลกของรางวัล)</span>
+              <LogIn size={13} className="shrink-0" />
+              <span className="truncate">เข้าสู่ระบบสมาชิก (สะสมแต้มและแลกของรางวัล)</span>
             </Link>
           )}
         </div>
 
         {/* Don't show again checkbox */}
-        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center gap-2">
+        <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-center gap-1.5">
           <input
             type="checkbox"
             id="dont_show_again"
@@ -167,7 +164,7 @@ export default function WelcomeModalPopup() {
           />
           <label 
             htmlFor="dont_show_again" 
-            className="text-[11px] text-slate-400 hover:text-slate-600 cursor-pointer"
+            className="text-[10px] sm:text-[11px] text-slate-400 hover:text-slate-600 cursor-pointer"
           >
             ไม่ต้องแสดงหน้าต่างนี้อีก
           </label>

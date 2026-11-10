@@ -156,6 +156,13 @@ export default function SurveyMascotWidget() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [viewMode, setViewMode] = useState<'info' | 'embed'>('info');
 
+  // Auto-minimize on mobile by default so it never blocks books on small phone screens
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      setIsMinimized(true);
+    }
+  }, []);
+
   // Claim Status State
   const [isClaimed, setIsClaimed] = useState(false);
   const [isClaiming, setIsClaiming] = useState(false);
@@ -292,17 +299,17 @@ export default function SurveyMascotWidget() {
         }`}
       >
         {isMinimized ? (
-          /* Minimized Badge Tab */
+          /* Minimized Badge Tab - Compact & non-intrusive on mobile */
           <button
-            onClick={() => setIsMinimized(false)}
-            className="flex items-center gap-2 bg-gradient-to-r from-[#073B65] to-[#079FE8] text-white py-2.5 px-3 rounded-r-2xl shadow-xl border-y border-r border-[#D9A441]/50 hover:pl-4 transition-all cursor-pointer group"
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center gap-1.5 bg-gradient-to-r from-[#073B65] to-[#079FE8] text-white py-1.5 sm:py-2 px-2.5 sm:px-3 rounded-r-2xl shadow-lg border-y border-r border-[#D9A441]/60 hover:pl-3.5 transition-all cursor-pointer group active:scale-95"
             title="เปิดตัวช่วยแบบประเมิน รับ 200 แต้ม"
           >
-            <div className="w-6 h-6 rounded-full bg-[#D9A441] flex items-center justify-center text-[#78350F] font-black text-[10px] shadow-sm animate-bounce">
+            <div className="w-5 h-5 rounded-full bg-[#D9A441] flex items-center justify-center text-[#78350F] font-black text-[10px] shadow-sm animate-bounce">
               🪙
             </div>
-            <span className="text-xs font-bold whitespace-nowrap">
-              รับ 200 แต้ม
+            <span className="text-[11px] sm:text-xs font-black tracking-tight whitespace-nowrap">
+              ประเมิน +200P
             </span>
           </button>
         ) : (
@@ -360,7 +367,7 @@ export default function SurveyMascotWidget() {
               
               {/* Animated Floating Mascot */}
               <div className="animate-bounce" style={{ animationDuration: '3.5s' }}>
-                <NongDhammaMascot className="w-20 h-20 sm:w-24 sm:h-24 drop-shadow-md" />
+                <NongDhammaMascot className="w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 drop-shadow-md" />
               </div>
 
               {/* Status Badge below mascot */}

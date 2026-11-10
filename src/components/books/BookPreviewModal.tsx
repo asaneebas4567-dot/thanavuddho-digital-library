@@ -76,7 +76,7 @@ export default function BookPreviewModal({ book, isOpen, onClose }: BookPreviewM
         aria-modal="true"
       >
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#DCEAF3] bg-white/95 backdrop-blur-md z-20">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-[#DCEAF3] bg-white/95 backdrop-blur-md z-20">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#F0F8FD] text-[#073B65] border border-[#DCEAF3]">
               <BookMarked size={14} className="text-[#079FE8]" />
@@ -86,15 +86,15 @@ export default function BookPreviewModal({ book, isOpen, onClose }: BookPreviewM
 
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center transition-colors cursor-pointer"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center transition-colors cursor-pointer"
             aria-label="ปิดหน้าต่าง"
           >
-            <X size={20} />
+            <X size={18} className="sm:w-5 sm:h-5" />
           </button>
         </div>
 
         {/* Scrollable Content Body */}
-        <div className="overflow-y-auto p-6 sm:p-8 space-y-6">
+        <div className="overflow-y-auto p-4 sm:p-8 space-y-5 sm:space-y-6">
           
           {/* Main Book Hero Info */}
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-7 items-start">

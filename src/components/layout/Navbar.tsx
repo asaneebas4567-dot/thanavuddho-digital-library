@@ -32,6 +32,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [searchInput, setSearchInput] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { activeLoanCount } = useLoan();
   const { availablePoints } = useLearningPoints();
@@ -112,25 +113,25 @@ export default function Navbar() {
       
       {/* 1. Top Bar: Logo, Centered Search, and User Controls */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2.5 pb-2.5 sm:pt-3 sm:pb-3">
-        <div className="flex items-center justify-between gap-3 sm:gap-5">
+        <div className="flex items-center justify-between gap-2 sm:gap-5">
           
           {/* Left: Brand Identity (Logo + Thanavuddho Library) */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white text-[#079FE8] rounded-xl flex items-center justify-center font-black text-lg sm:text-xl shadow-sm group-hover:scale-105 transition-transform border border-white/80">
+          <Link href="/" className="flex items-center gap-2 sm:gap-2.5 shrink-0 group">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white text-[#079FE8] rounded-xl flex items-center justify-center font-black text-base sm:text-xl shadow-sm group-hover:scale-105 transition-transform border border-white/80 shrink-0">
               ถ
             </div>
-            <div className="block">
-              <span className="font-extrabold text-sm sm:text-base md:text-lg text-white tracking-tight block leading-tight">
+            <div className="block min-w-0">
+              <span className="font-extrabold text-xs sm:text-base md:text-lg text-white tracking-tight block leading-tight truncate">
                 Thanavuddho <span className="text-sky-200 font-black">Library</span>
               </span>
-              <span className="text-[10px] sm:text-[11px] text-white/90 font-medium block">
+              <span className="text-[9px] sm:text-[11px] text-white/90 font-medium hidden xs:block truncate">
                 พระครูปลัดสุวัฒนโพธิคุณ
               </span>
             </div>
           </Link>
 
-          {/* Center: Search Bar (Clean White Pill with soft border) */}
-          <div className="flex-1 max-w-xl mx-1 sm:mx-4">
+          {/* Center: Search Bar (Desktop / Tablet: sm:block) */}
+          <div className="hidden sm:block flex-1 max-w-xl mx-2 sm:mx-4">
             <form onSubmit={handleSearchSubmit} className="relative w-full">
               <input
                 type="text"
@@ -149,23 +150,32 @@ export default function Navbar() {
             </form>
           </div>
 
-          {/* Right: AI Quick Pill & User Shelf & Mobile Toggle */}
-          <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
+          {/* Right: Actions */}
+          <div className="flex items-center space-x-1 sm:space-x-2 shrink-0">
+            {/* Mobile Search Toggle Button */}
+            <button
+              onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
+              className="sm:hidden p-1.5 text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors cursor-pointer"
+              title="ค้นหา"
+              aria-label="เปิดช่องค้นหา"
+            >
+              <Search size={16} />
+            </button>
 
-            {/* Live Rewards Points Quick Pill (Gold Coin & Accent Gold Number) */}
+            {/* Live Rewards Points Quick Pill */}
             <Link 
               href="/rewards" 
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-[#073B65] bg-white hover:bg-[#FDF6E9] shadow-xs transition-all cursor-pointer border border-[#DCEAF3] active:scale-95"
-              title="ร้านแลกของรางวัลธรรมะ (Thanavuddho Learning Points)"
+              className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-bold text-[#073B65] bg-white hover:bg-[#FDF6E9] shadow-xs transition-all cursor-pointer border border-[#DCEAF3] active:scale-95 shrink-0"
+              title="ร้านแลกของรางวัลธรรมะ"
             >
-              <span className="text-sm">🪙</span>
-              <span className="font-mono text-[#D9A441] font-extrabold" suppressHydrationWarning>
+              <span className="text-xs sm:text-sm">🪙</span>
+              <span className="font-mono text-[#D9A441] font-extrabold text-[11px] sm:text-xs" suppressHydrationWarning>
                 {mounted ? availablePoints.toLocaleString() : '0'}
               </span>
-              <span className="text-[10px] text-[#64748B]">P</span>
+              <span className="text-[9px] sm:text-[10px] text-[#64748B]">P</span>
             </Link>
 
-            {/* AI Assistant Quick Pill */}
+            {/* AI Assistant Quick Pill (Tablet/Desktop) */}
             <Link 
               href="/chatbot" 
               className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-[#073B65] bg-white hover:bg-sky-50 hover:text-[#079FE8] transition-all shadow-xs cursor-pointer border border-[#DCEAF3] active:scale-95"
@@ -178,8 +188,8 @@ export default function Navbar() {
             {mounted && isAuthenticated && user ? (
               <Link 
                 href="/dashboard" 
-                className="relative flex items-center gap-2 p-1 pl-2 pr-2.5 rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/25 transition-all cursor-pointer text-xs font-bold active:scale-95"
-                title={`เข้าสู่ระบบแล้ว: ${user.name} (คลิกดูชั้นหนังสือ / ออกจากระบบ)`}
+                className="relative flex items-center gap-1 sm:gap-2 p-1 sm:pl-2 sm:pr-2.5 rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/25 transition-all cursor-pointer text-xs font-bold active:scale-95"
+                title={`เข้าสู่ระบบแล้ว: ${user.name}`}
               >
                 <div className="w-6 h-6 rounded-full bg-white text-sky-700 font-bold text-[11px] flex items-center justify-center overflow-hidden border border-white/40">
                   {user.picture ? (
@@ -196,7 +206,7 @@ export default function Navbar() {
                 )}
               </Link>
             ) : (
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1 sm:gap-1.5">
                 <Link
                   href="/welcome"
                   className="hidden lg:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold text-sky-200 hover:text-white bg-white/10 hover:bg-white/20 transition-all border border-white/15"
@@ -207,10 +217,10 @@ export default function Navbar() {
                 </Link>
                 <Link 
                   href="/login" 
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-white bg-white/15 hover:bg-white/25 transition-all cursor-pointer border border-white/25 active:scale-95"
+                  className="hidden xs:inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-bold text-white bg-white/15 hover:bg-white/25 transition-all cursor-pointer border border-white/25 active:scale-95 shrink-0"
                   title="เข้าสู่ระบบ / สมัครสมาชิก"
                 >
-                  <LogIn size={14} />
+                  <LogIn size={13} />
                   <span>เข้าสู่ระบบ</span>
                 </Link>
               </div>
@@ -219,14 +229,38 @@ export default function Navbar() {
             {/* Mobile Menu Toggle Button */}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-white hover:bg-white/20 rounded-xl transition-colors cursor-pointer"
+              className="lg:hidden p-1.5 sm:p-2 text-white hover:bg-white/20 rounded-xl transition-colors cursor-pointer shrink-0"
               aria-label="เมนูหลัก"
             >
-              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              {isMobileMenuOpen ? <X size={20} className="sm:w-[22px] sm:h-[22px]" /> : <Menu size={20} className="sm:w-[22px] sm:h-[22px]" />}
             </button>
           </div>
 
         </div>
+
+        {/* Mobile Full-width Search Drawer */}
+        {isMobileSearchOpen && (
+          <div className="sm:hidden pt-2.5 pb-1 border-t border-white/10 animate-in slide-in-from-top-2">
+            <form onSubmit={handleSearchSubmit} className="relative w-full">
+              <input
+                type="text"
+                placeholder="ค้นหาหนังสือ, วิดีโอ, พอดแคสต์..."
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                autoFocus
+                className="w-full bg-white text-[#243447] placeholder-slate-400 pl-4 pr-10 py-2 rounded-full text-xs font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-[#079FE8]"
+              />
+              <button 
+                type="submit" 
+                aria-label="ค้นหา" 
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#079FE8] p-1 cursor-pointer"
+              >
+                <Search size={16} />
+              </button>
+            </form>
+          </div>
+        )}
+
       </div>
 
       {/* 2. Sub-Nav Bar (Deep Navy with high-contrast active tabs) */}

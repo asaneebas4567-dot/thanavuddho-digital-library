@@ -57,7 +57,7 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
   ];
 
   return (
-    <section className="w-full bg-white rounded-3xl p-6 sm:p-8 border border-[#DCEAF3] shadow-xs">
+    <section className="w-full bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-[#DCEAF3] shadow-xs">
       
       {/* Header & Genre Filter Tabs */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#DCEAF3]">
