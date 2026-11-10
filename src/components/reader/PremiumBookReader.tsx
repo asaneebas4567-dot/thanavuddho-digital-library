@@ -36,6 +36,7 @@ import {
 import { loadPdfDocument, renderPdfPageToCanvas, unloadPdfDocument, searchPdfText, SearchMatch } from '@/lib/pdfReaderHelper';
 import BookQuestManager from '@/components/gamification/BookQuestManager';
 import LazadaRewardPopup, { RewardCelebrationData } from '@/components/rewards/LazadaRewardPopup';
+import PubHtml5Reader from '@/components/reader/PubHtml5Reader';
 import { detectBookDimension, BookDimensionInfo, calculateReadingPoints } from '@/lib/readingPacingEngine';
 import { useLearningPoints } from '@/lib/useLearningPoints';
 
@@ -161,7 +162,7 @@ export function resolveBookPdfUrl(book: {
   return '/books/pdf/tam-jai-hai-prom-buak.pdf';
 }
 
-export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBookReaderProps) {
+function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -1378,6 +1379,31 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
 
     </div>
   );
+}
+
+export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBookReaderProps) {
+  // Check if this book is a PubHTML5 or Google Drive embed book without a dedicated local PDF
+  const isEmbedBook = Boolean(
+    book.id?.startsWith('pubhtml5_') ||
+    book.reader_url?.includes('pubhtml5.com') ||
+    book.source_url?.includes('pubhtml5.com') ||
+    book.reader_url?.includes('drive.google.com') ||
+    book.source_url?.includes('drive.google.com') ||
+    book.pdf_url?.includes('drive.google.com') ||
+    (book as any).category_id === 'cat_world_civ' ||
+    ((book as any).category_ids && (book as any).category_ids.includes('cat_world_civ')) ||
+    (book as any).drive_file_id
+  );
+
+  const resolvedPdf = resolveBookPdfUrl(book);
+  const isActualTamJai = (book.id || '').toLowerCase().includes('tam_jai') || (book.title || '').includes('ทำใจให้พร้อมบวก');
+  const hasLocal = (resolvedPdf && resolvedPdf !== '/books/pdf/tam-jai-hai-prom-buak.pdf') || isActualTamJai;
+
+  if (isEmbedBook && !hasLocal) {
+    return <PubHtml5Reader book={book} hasLocalPdf={false} />;
+  }
+
+  return <PremiumFlipbookCore book={book} initialPage={initialPage} />;
 }
 
 // ---------------------------------------------------------------------------

@@ -1,40 +1,5 @@
 [
   {
-    "id": "book_อย่่ามโน",
-    "title": "อย่่ามโน",
-    "author_id": "author_001",
-    "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"อย่่ามโน\" โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
-    "cover_image": "/images/books/อย่่ามโน.jpg",
-    "cover": "/images/books/อย่่ามโน.jpg",
-    "content_type": "book",
-    "category_ids": [
-      "c2"
-    ],
-    "category_id": "c2",
-    "tags": [
-      "อย่่ามโน",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์"
-    ],
-    "publication_year": 2567,
-    "page_count": 80,
-    "pages": 80,
-    "language": "th",
-    "pdf_url": "/books/pdf/อย่่ามโน.pdf",
-    "reader_url": "/reader/book_อย่่ามโน",
-    "source_url": "/books/pdf/อย่่ามโน.pdf",
-    "copyright_status": "approved",
-    "is_copyright": true,
-    "copyright_notice": "หนังสือลิขสิทธิ์",
-    "publisher": "มูลนิธิธรรมะคุ้มครองโลก",
-    "verified": true,
-    "featured": true,
-    "view_count": 0,
-    "read_count": 0,
-    "like_count": 0,
-    "is_finished": true
-  },
-  {
     "id": "book_รักเเท้ไม่ได้มีเเค่ในนิยาย",
     "title": "รักเเท้ไม่ได้มีเเค่ในนิยาย",
     "author_id": "author_001",
@@ -195,8 +160,8 @@
     "title": "อายุวัฒนมงคล ๖๓ปี ๔๐ พรรษา",
     "author_id": "author_001",
     "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"อายุวัฒนมงคล ๖๓ปี ๔๐ พรรษา\" โดย พระครูปลัดสุวัฒนโพธิคุณ",
-    "cover_image": "/images/books/อายุวัฒนมงคล-๖๓ปี-๔๐-พรรษา.jpg",
-    "cover": "/images/books/อายุวัฒนมงคล-๖๓ปี-๔๐-พรรษา.jpg",
+    "cover_image": "/images/books/pubhtml5/pubhtml5_45477721.jpg",
+    "cover": "/images/books/pubhtml5/pubhtml5_45477721.jpg",
     "content_type": "book",
     "category_ids": [
       "c2"
@@ -671,45 +636,6 @@
     "drive_file_id": "15027mfTYBa4tvTcgwPkvwpzaINi-mRmn"
   },
   {
-    "id": "book_สมดุล-ดี",
-    "title": "สมดุล ดี",
-    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
-    "author_id": "author_001",
-    "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"สมดุล ดี\" โดย พระครูปลัดสุวัฒนโพธิคุณ",
-    "cover_image": "/images/books/book-placeholder.jpg",
-    "cover": "/images/books/book-placeholder.jpg",
-    "content_type": "book",
-    "category_id": "c2",
-    "category_ids": [
-      "c2"
-    ],
-    "tags": [
-      "สมดุล ดี",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
-    ],
-    "publication_year": 2567,
-    "page_count": 96,
-    "pages": 96,
-    "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1zHtGE-RjcjQGSKKekqCfbkSvjXMg4N_o/preview",
-    "reader_url": "https://drive.google.com/file/d/1zHtGE-RjcjQGSKKekqCfbkSvjXMg4N_o/preview",
-    "source_url": "https://drive.google.com/file/d/1zHtGE-RjcjQGSKKekqCfbkSvjXMg4N_o/view",
-    "copyright_status": "approved",
-    "is_copyright": true,
-    "copyright_notice": "หนังสือลิขสิทธิ์",
-    "publisher": "มูลนิธิธรรมะคุ้มครองโลก",
-    "verified": true,
-    "featured": false,
-    "status": "published",
-    "is_finished": true,
-    "view_count": 0,
-    "read_count": 0,
-    "like_count": 0,
-    "drive_file_id": "1zHtGE-RjcjQGSKKekqCfbkSvjXMg4N_o"
-  },
-  {
     "id": "book_อยู่สุขในยุคดิจิทัล",
     "title": "อยู่สุขในยุคดิจิทัล",
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
@@ -871,8 +797,8 @@
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "author_id": "author_001",
     "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"ขัดเกลาความคิด\" โดย พระครูปลัดสุวัฒนโพธิคุณ",
-    "cover_image": "/images/books/book-placeholder.jpg",
-    "cover": "/images/books/book-placeholder.jpg",
+    "cover_image": "/images/books/pubhtml5/pubhtml5_33738617.jpg",
+    "cover": "/images/books/pubhtml5/pubhtml5_33738617.jpg",
     "content_type": "book",
     "category_id": "c2",
     "category_ids": [
@@ -949,8 +875,8 @@
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "author_id": "author_001",
     "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"ทันโลก ทันธรรม 3\" โดย พระครูปลัดสุวัฒนโพธิคุณ",
-    "cover_image": "/images/books/book-placeholder.jpg",
-    "cover": "/images/books/book-placeholder.jpg",
+    "cover_image": "/images/books/pubhtml5/pubhtml5_86887339.jpg",
+    "cover": "/images/books/pubhtml5/pubhtml5_86887339.jpg",
     "content_type": "book",
     "category_id": "c4",
     "category_ids": [
@@ -988,8 +914,8 @@
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "author_id": "author_001",
     "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"ทันโลกทันธรรม1\" โดย พระครูปลัดสุวัฒนโพธิคุณ",
-    "cover_image": "/images/books/book-placeholder.jpg",
-    "cover": "/images/books/book-placeholder.jpg",
+    "cover_image": "/images/books/pubhtml5/pubhtml5_76550937.jpg",
+    "cover": "/images/books/pubhtml5/pubhtml5_76550937.jpg",
     "content_type": "book",
     "category_id": "c4",
     "category_ids": [
@@ -1027,8 +953,8 @@
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "author_id": "author_001",
     "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"ทันโลกทันธรรม2\" โดย พระครูปลัดสุวัฒนโพธิคุณ",
-    "cover_image": "/images/books/book-placeholder.jpg",
-    "cover": "/images/books/book-placeholder.jpg",
+    "cover_image": "/images/books/pubhtml5/pubhtml5_26910324.jpg",
+    "cover": "/images/books/pubhtml5/pubhtml5_26910324.jpg",
     "content_type": "book",
     "category_id": "c4",
     "category_ids": [
@@ -1105,8 +1031,8 @@
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "author_id": "author_001",
     "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"พระไตรปิฎก ฉบับธรรมชัย\" โดย พระครูปลัดสุวัฒนโพธิคุณ",
-    "cover_image": "/images/books/book-placeholder.jpg",
-    "cover": "/images/books/book-placeholder.jpg",
+    "cover_image": "/images/books/pubhtml5/pubhtml5_89853151.jpg",
+    "cover": "/images/books/pubhtml5/pubhtml5_89853151.jpg",
     "content_type": "book",
     "category_id": "c3",
     "category_ids": [
@@ -1144,8 +1070,8 @@
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "author_id": "author_001",
     "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"มังกรสอนใจ\" โดย พระครูปลัดสุวัฒนโพธิคุณ",
-    "cover_image": "/images/books/book-placeholder.jpg",
-    "cover": "/images/books/book-placeholder.jpg",
+    "cover_image": "/images/books/pubhtml5/pubhtml5_18438372.jpg",
+    "cover": "/images/books/pubhtml5/pubhtml5_18438372.jpg",
     "content_type": "book",
     "category_id": "c2",
     "category_ids": [
@@ -1295,52 +1221,13 @@
     "drive_file_id": "1OSwySM_byJ0ay-UIkW60fXtmRdQxaIQ6"
   },
   {
-    "id": "book_เพราะไม่รู้สินะ",
-    "title": "เพราะไม่รู้สินะ",
-    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
-    "author_id": "author_001",
-    "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"เพราะไม่รู้สินะ\" โดย พระครูปลัดสุวัฒนโพธิคุณ",
-    "cover_image": "/images/books/phro-mai-roo-roo-than-cheewit.jpg",
-    "cover": "/images/books/phro-mai-roo-roo-than-cheewit.jpg",
-    "content_type": "book",
-    "category_id": "c2",
-    "category_ids": [
-      "c2"
-    ],
-    "tags": [
-      "เพราะไม่รู้สินะ",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
-    ],
-    "publication_year": 2567,
-    "page_count": 96,
-    "pages": 96,
-    "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1886LacIHCRok4iK10-p-gOwAxegBE377/preview",
-    "reader_url": "https://drive.google.com/file/d/1886LacIHCRok4iK10-p-gOwAxegBE377/preview",
-    "source_url": "https://drive.google.com/file/d/1886LacIHCRok4iK10-p-gOwAxegBE377/view",
-    "copyright_status": "approved",
-    "is_copyright": true,
-    "copyright_notice": "หนังสือลิขสิทธิ์",
-    "publisher": "มูลนิธิธรรมะคุ้มครองโลก",
-    "verified": true,
-    "featured": false,
-    "status": "published",
-    "is_finished": true,
-    "view_count": 0,
-    "read_count": 0,
-    "like_count": 0,
-    "drive_file_id": "1886LacIHCRok4iK10-p-gOwAxegBE377"
-  },
-  {
     "id": "book_ไขปัญหาความเชื่อ",
     "title": "ไขปัญหาความเชื่อ",
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "author_id": "author_001",
     "description": "หนังสือธรรมะคำสอนอันทรงคุณค่า \"ไขปัญหาความเชื่อ\" โดย พระครูปลัดสุวัฒนโพธิคุณ",
-    "cover_image": "/images/books/book-placeholder.jpg",
-    "cover": "/images/books/book-placeholder.jpg",
+    "cover_image": "/images/books/pubhtml5/pubhtml5_10811287.jpg",
+    "cover": "/images/books/pubhtml5/pubhtml5_10811287.jpg",
     "content_type": "book",
     "category_id": "c2",
     "category_ids": [

@@ -41,14 +41,6 @@ export function getCustomBooks(): Book[] {
   return [];
 }
 
-// Read combined books (base + custom)
-export function getAllCombinedBooks(): Book[] {
-  const custom = getCustomBooks();
-  const customIds = new Set(custom.map(b => b.id));
-  const filteredBase = (baseBooks as Book[]).filter(b => !customIds.has(b.id));
-  return [...custom, ...filteredBase];
-}
-
 // Save custom books
 export function saveCustomBooks(books: Book[]) {
   inMemoryCustomBooks = books;
@@ -69,8 +61,42 @@ export function saveCustomBooks(books: Book[]) {
 export function normalizeText(text: string): string {
   return (text || '')
     .toLowerCase()
+    .replace(/[\u0E48-\u0E4C]+/g, m => m[0])
     .replace(/[^\u0E00-\u0E7Fa-z0-9]/g, '')
+    .replace(/^1[0-9]{2,3}/, '')
+    .replace(/^(ฉบับ|ตอน)/, '')
     .trim();
+}
+
+// Read combined books (base + custom) with strict title & ID deduplication
+export function getAllCombinedBooks(): Book[] {
+  const custom = getCustomBooks();
+  const seenIds = new Set<string>();
+  const seenTitles = new Set<string>();
+  const result: Book[] = [];
+
+  // Add custom books first (priority)
+  for (const b of custom) {
+    if (!b || !b.id) continue;
+    const norm = normalizeText(b.title);
+    seenIds.add(b.id);
+    if (norm) seenTitles.add(norm);
+    result.push(b);
+  }
+
+  // Add base books that aren't duplicates
+  for (const b of (baseBooks as Book[])) {
+    if (!b || !b.id) continue;
+    if (seenIds.has(b.id)) continue;
+    const norm = normalizeText(b.title);
+    if (norm && seenTitles.has(norm)) continue;
+
+    seenIds.add(b.id);
+    if (norm) seenTitles.add(norm);
+    result.push(b);
+  }
+
+  return result;
 }
 
 // Check if a book is duplicate

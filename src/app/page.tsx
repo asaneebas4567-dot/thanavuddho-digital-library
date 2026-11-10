@@ -108,22 +108,53 @@ export default function Home() {
     read_count: liveReadStats[b.id] ?? b.read_count ?? 0,
   }));
 
+  const normalizeTitleKey = (text: string) => {
+    return (text || '')
+      .toLowerCase()
+      .replace(/[\u0E48-\u0E4C]+/g, (m) => m[0])
+      .replace(/[^\u0E00-\u0E7Fa-z0-9]/g, '')
+      .replace(/^1[0-9]{2,3}/, '')
+      .replace(/^(ฉบับ|ตอน)/, '')
+      .trim();
+  };
+
   const poolMap = new Map<string, Book>();
-  // Custom uploaded books come FIRST, followed by library books
-  [...customBooks, ...normalizedLibBooks, ...normalizedDbBooks].forEach((b) => {
-    if (!poolMap.has(b.id)) {
-      poolMap.set(b.id, b);
+  const seenTitles = new Map<string, Book>();
+
+  const addPoolBook = (b: Book) => {
+    if (!b || !b.id) return;
+    const norm = normalizeTitleKey(b.title);
+    if (norm && seenTitles.has(norm)) {
+      const existing = seenTitles.get(norm)!;
+      if ((!existing.cover || existing.cover.includes('book-placeholder.jpg')) && b.cover && !b.cover.includes('book-placeholder.jpg')) {
+        existing.cover = b.cover;
+        existing.cover_image = b.cover;
+      }
+      if (!existing.pdf_url && b.pdf_url) existing.pdf_url = b.pdf_url;
+      if (b.pdf_url?.startsWith('/books/pdf/') && !existing.pdf_url?.startsWith('/books/pdf/')) existing.pdf_url = b.pdf_url;
+      if (!existing.reader_url && b.reader_url) existing.reader_url = b.reader_url;
+      if (!existing.source_url && b.source_url) existing.source_url = b.source_url;
+      if (!(existing as any).drive_file_id && (b as any).drive_file_id) {
+        (existing as any).drive_file_id = (b as any).drive_file_id;
+      }
+      poolMap.set(b.id, existing);
+      return;
     }
-  });
-  const allBooksPool: Book[] = Array.from(poolMap.values());
+    poolMap.set(b.id, b);
+    if (norm) seenTitles.set(norm, b);
+  };
+
+  // Custom uploaded books come FIRST, followed by library books and database books
+  [...customBooks, ...normalizedLibBooks, ...normalizedDbBooks].forEach(addPoolBook);
+  const allBooksPool: Book[] = Array.from(new Set(poolMap.values()));
 
   // 0. Shelf: หนังสือลิขสิทธิ์มาใหม่ล่าสุด (Newly added PDF Books with extracted covers)
-  const newCopyrightReleases: Book[] = [
+  const newCopyrightReleases: Book[] = Array.from(new Set([
     ...customBooks,
     poolMap.get('book_tam_jai_hai_prom_buak'),
     poolMap.get('book_khao_kor_sook_rao_kor_sook'),
     poolMap.get('book_lom_hai_jai_khao_ok'),
-  ].filter(Boolean) as Book[];
+  ].filter(Boolean) as Book[]));
 
   // 1. ปรัชญา จิตวิทยา & ฝึกสมาธิ (นำเล่มลิขสิทธิ์ที่สกัดปกขึ้นแถวหน้า)
   const psychologyMindBookIds = [

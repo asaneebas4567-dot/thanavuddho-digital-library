@@ -65,15 +65,14 @@ function BooksContent() {
       };
     });
 
-    const libIds = new Set([...libBooks.map((b) => b.id), ...customBooks.map(b => b.id)]);
-    
     const normalizedDbBooks: Book[] = dbBooks
-      .filter((b) => !libIds.has(b.id))
       .map((b) => {
-        const rawCover = b.cover_image || '';
-        const secureCover = rawCover.startsWith('http://online.pubhtml5.com')
-          ? rawCover.replace('http://', 'https://')
-          : rawCover;
+        let secureCover = b.cover_image || '';
+        if (b.id?.startsWith('pubhtml5_')) {
+          secureCover = `/images/books/pubhtml5/${b.id}.jpg`;
+        } else if (secureCover.startsWith('http://online.pubhtml5.com')) {
+          secureCover = secureCover.replace('http://', 'https://');
+        }
 
         return {
           id: b.id,
@@ -109,7 +108,57 @@ function BooksContent() {
       read_count: liveReadStats[b.id] ?? b.read_count ?? 0,
     }));
 
-    return [...customBooks, ...normalizedLibBooks, ...normalizedDbBooks];
+    // Deduplicate and merge books by normalized title and ID
+    const normalizeTitleKey = (text: string) => {
+      return (text || '')
+        .toLowerCase()
+        .replace(/[\u0E48-\u0E4C]+/g, (m) => m[0])
+        .replace(/[^\u0E00-\u0E7Fa-z0-9]/g, '')
+        .replace(/^1[0-9]{2,3}/, '')
+        .replace(/^(ฉบับ|ตอน)/, '')
+        .trim();
+    };
+
+    const combinedList: Book[] = [];
+    const seenIds = new Set<string>();
+    const seenTitles = new Map<string, Book>();
+
+    const addBook = (book: Book) => {
+      if (!book || !book.id) return;
+      if (seenIds.has(book.id)) return;
+
+      const normTitle = normalizeTitleKey(book.title);
+      if (normTitle && seenTitles.has(normTitle)) {
+        // Merge with existing book entry
+        const existing = seenTitles.get(normTitle)!;
+        if ((!existing.cover || existing.cover.includes('book-placeholder.jpg')) && book.cover && !book.cover.includes('book-placeholder.jpg')) {
+          existing.cover = book.cover;
+          existing.cover_image = book.cover;
+        }
+        if (!existing.pdf_url && book.pdf_url) {
+          existing.pdf_url = book.pdf_url;
+        } else if (book.pdf_url?.startsWith('/books/pdf/') && !existing.pdf_url?.startsWith('/books/pdf/')) {
+          existing.pdf_url = book.pdf_url;
+        }
+        if (!existing.reader_url && book.reader_url) existing.reader_url = book.reader_url;
+        if (!existing.source_url && book.source_url) existing.source_url = book.source_url;
+        if (!(existing as any).drive_file_id && (book as any).drive_file_id) {
+          (existing as any).drive_file_id = (book as any).drive_file_id;
+        }
+        return;
+      }
+
+      seenIds.add(book.id);
+      if (normTitle) seenTitles.set(normTitle, book);
+      combinedList.push(book);
+    };
+
+    // Priority: 1. Custom persistent books, 2. Library mock books, 3. World Civ database books
+    customBooks.forEach(addBook);
+    normalizedLibBooks.forEach(addBook);
+    normalizedDbBooks.forEach(addBook);
+
+    return combinedList;
   }, [liveReadStats]);
 
   // Merge categories list for filter pills
