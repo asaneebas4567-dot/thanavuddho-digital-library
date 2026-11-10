@@ -25,7 +25,7 @@ import {
 import { podcasts } from '@/data/multimediaAndGamificationData';
 import MeloloWatchToEarnWidget from '@/components/rewards/MeloloWatchToEarnWidget';
 
-// 5 Official YouTube Podcast Episodes for "ทำใจให้พร้อมบวก"
+// 8 Official YouTube Podcast Episodes for "ทำใจให้พร้อมบวก"
 const officialPodcast = podcasts[0]; // pod-tam-jai-hai-prom-buak
 const episodes = officialPodcast.episodes;
 
@@ -49,13 +49,28 @@ const episodeTranscripts: Record<string, { time: string; speaker: string; text: 
   ],
   'ep-tj-04': [
     { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทที่ 3: ความลับของความสุข' },
-    { time: '03:10', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ความสุขที่แท้จริงไม่ได้ขึ้นอยู่กับวัตถุภายนอก แต่อยู่ที่ความนิ่ง สงบ และความพอดีภายในใจเราเอง' },
+    { time: '03:10', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ความสุขที่แทจริงไม่ได้ขึ้นอยู่กับวัตถุภายนอก แต่อยู่ที่ความนิ่ง สงบ และความพอดีภายในใจเราเอง' },
     { time: '07:05', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'เมื่อใจหยุดนิ่ง ณ ศูนย์กลางกาย ความสว่างและปีติจะเกิดขึ้นอย่างเป็นธรรมชาติ' }
   ],
   'ep-tj-05': [
     { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทที่ 4: คนสุข คนไม่หลงโลก' },
     { time: '02:50', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'การใช้ชีวิตในโลกปัจจุบัน ต้องมีหลักยึด ไม่ไหลไปตามกระแสกิเลสและค่านิยมชั่วคราว' },
     { time: '06:30', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'อยู่อย่างเข้าใจ ปล่อยวางในสิ่งที่ควบคุมไม่ได้ และทำหน้าที่ของตนเองให้ดีที่สุดในทุกปัจจุบันขณะ' }
+  ],
+  'ep-tj-06': [
+    { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทที่ 5: มองข้าม ปัญหาเล็กๆ' },
+    { time: '02:10', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ปัญหาเล็กๆ น้อยๆ ในชีวิตประจำวัน ถ้าเราเก็บมาคิดทุกเรื่อง ใจเราจะหนักและไม่มีพื้นที่สำหรับสิ่งที่ดีกว่า' },
+    { time: '05:30', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'มองข้ามเรื่องไม่เป็นเรื่อง แล้วโฟกัสที่เป้าหมายที่แท้จริง คือการทำความดีและรักษาใจให้บริสุทธิ์' }
+  ],
+  'ep-tj-07': [
+    { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทที่ 6: คิดบวก สร้างโลกบวก' },
+    { time: '02:40', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'พลังความคิดของเราส่งผลต่อโลกรอบตัว เมื่อใจเราสว่างไสว ย่อมส่งต่อรอยยิ้ม ความเมตตา และพลังบวกให้ผู้คนรอบข้าง' },
+    { time: '06:15', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'การคิดดี พูดดี ทำดี คือการร่วมกันสร้างสิ่งแวดล้อมที่น่าอยู่และงดงามให้กับโลกใบนี้' }
+  ],
+  'ep-tj-08': [
+    { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทสรุปส่งท้าย: เคล็ดลับสูงสุด... ใจพร้อมบวกตลอดไป' },
+    { time: '03:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'เคล็ดลับสำคัญที่สุดคือ "ความต่อเนื่อง" การฝึกใจให้หยุดนิ่งที่ศูนย์กลางกายทุกวัน วันละเล็กวันละน้อย' },
+    { time: '07:20', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ขออำนวยอวยพรให้ทุกท่านมีใจที่พร้อมบวก มีสติ ปัญญา และความสุขความเจริญรุ่งเรืองในชีวิตทุกประการเทอญ' }
   ]
 };
 
@@ -105,7 +120,7 @@ function AudiosPageContent() {
           <div className="relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-[#FEF08A] text-xs font-bold backdrop-blur-md border border-white/20 mb-3">
               <Headphones size={13} />
-              <span>พอดแคสต์ธรรมะฟังสบาย · 5 ตอนจบชุด</span>
+              <span>พอดแคสต์ธรรมะฟังสบาย · 8 ตอนจบชุดสมบูรณ์</span>
             </div>
             <h1 className="text-2xl sm:text-4xl font-black tracking-tight mb-2 sm:mb-3 leading-tight">
               ทำใจให้พร้อมบวก <span className="text-sky-200">(Podcast)</span>
@@ -287,14 +302,14 @@ function AudiosPageContent() {
             <div>
               <h3 className="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-2">
                 <ListMusic size={20} className="text-[#079FE8]" />
-                <span>สารบัญตอนทั้งหมด (รวม 5 ตอนจบชุด)</span>
+                <span>สารบัญตอนทั้งหมด (รวม 8 ตอนจบชุดบริบูรณ์)</span>
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
                 แตะเลือกตอนที่ต้องการรับฟังเพื่อเปลี่ยนเสียงบรรยายทันที
               </p>
             </div>
             <span className="text-xs font-bold text-sky-700 bg-sky-50 border border-sky-200 px-2.5 py-1 rounded-full">
-              5 ตอนครบชุด
+              8 ตอนครบชุดสมบูรณ์
             </span>
           </div>
 

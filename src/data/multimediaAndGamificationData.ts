@@ -82,7 +82,7 @@ export const podcasts: Podcast[] = [
     cover: '/images/books/tam-jai-hai-prom-buak.jpg',
     category_id: 'cat_mind',
     tags: ['Podcast', 'ทำใจให้พร้อมบวก', 'คิดบวก', 'เติมพลังใจ', 'สมาธิ', 'YouTube Playlist'],
-    total_episodes: 5,
+    total_episodes: 8,
     book_id: 'book_tam_jai_hai_prom_buak',
     playlist_url: 'https://www.youtube.com/watch?v=COag-KtzVmY&list=PLdd3jOoGr_Ts',
     featured: true,
@@ -141,6 +141,39 @@ export const podcasts: Podcast[] = [
         youtube_url: 'https://www.youtube.com/watch?v=CigtAiorDEI',
         published_at: 'พ.ย. 2569',
         description: 'สำรวจการใช้ชีวิตในสังคมปัจจุบันที่เต็มไปด้วยความวุ่นวายและการแข่งขัน ใช้ชีวิตอย่างมีความสุขโดยไม่หลงใหลไปตามกระแสกิเลสของโลก เข้าใจความเป็นไปตามธรรมชาติและวางใจให้เป็นสุข'
+      },
+      {
+        id: 'ep-tj-06',
+        episode_number: 6,
+        title: 'บทที่ 5: มองข้าม ปัญหาเล็กๆ 🎧 ฟังเพลิน เติมพลังใจ',
+        duration: '13:16',
+        audio_url: 'https://www.youtube-nocookie.com/embed/N_ruzGNnZUI',
+        youtube_id: 'N_ruzGNnZUI',
+        youtube_url: 'https://www.youtube.com/watch?v=N_ruzGNnZUI',
+        published_at: 'พ.ย. 2569',
+        description: 'การฝึกใจให้มองข้ามเรื่องหยุมหยิม ปัญหาเล็กๆ น้อยๆ ที่คอยบั่นทอนสมาธิและพลังใจ ให้ความสำคัญกับเป้าหมายชีวิตและรักษาใจให้ผ่องใสเสมอ'
+      },
+      {
+        id: 'ep-tj-07',
+        episode_number: 7,
+        title: 'บทที่ 6: คิดบวก สร้างโลกบวก 🎧 ฟังเพลิน เติมพลังใจ',
+        duration: '16:24',
+        audio_url: 'https://www.youtube-nocookie.com/embed/IMzgMRQ71u8',
+        youtube_id: 'IMzgMRQ71u8',
+        youtube_url: 'https://www.youtube.com/watch?v=IMzgMRQ71u8',
+        published_at: 'พ.ย. 2569',
+        description: 'พลังของการคิดบวกและการแผ่เมตตา พลังบวกจากใจหนึ่งดวงสามารถส่งต่อและสร้างแรงบันดาลใจให้คนรอบข้างและสังคมน่าอยู่ยิ่งขึ้น'
+      },
+      {
+        id: 'ep-tj-08',
+        episode_number: 8,
+        title: 'บทสรุปส่งท้าย: เคล็ดลับสูงสุด... ใจพร้อมบวกตลอดไป',
+        duration: '19:28',
+        audio_url: 'https://www.youtube-nocookie.com/embed/XkdXhU_EA1o',
+        youtube_id: 'XkdXhU_EA1o',
+        youtube_url: 'https://www.youtube.com/watch?v=XkdXhU_EA1o',
+        published_at: 'พ.ย. 2569',
+        description: 'บทสรุปส่งท้ายและเคล็ดลับสำคัญในการประคองใจให้สว่างไสว พร้อมเผชิญทุกความท้าทายด้วยใจที่เป็นบวก มีสติ และมั่นคงในธรรมะตลอดเส้นทางชีวิต'
       }
     ]
   },
