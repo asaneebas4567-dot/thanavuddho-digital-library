@@ -24,7 +24,12 @@ import { ChatMessage, DhammaCitation } from '@/types';
 
 export default function AiChatWidget() {
   const pathname = usePathname();
-  if (pathname === '/videos' || pathname?.startsWith('/videos')) {
+  if (
+    pathname?.startsWith('/videos') ||
+    pathname?.startsWith('/chatbot') ||
+    pathname?.startsWith('/reader') ||
+    pathname?.startsWith('/admin')
+  ) {
     return null;
   }
   const [isOpen, setIsOpen] = useState(false);
@@ -99,7 +104,7 @@ export default function AiChatWidget() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-5 sm:right-7 z-50 group flex items-center bg-gradient-to-tr from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white p-3.5 rounded-full shadow-xl shadow-sky-950/20 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/20"
+          className="fixed bottom-20 lg:bottom-6 right-4 sm:right-7 z-40 group flex items-center bg-gradient-to-tr from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white p-3 sm:p-3.5 rounded-full shadow-xl shadow-sky-950/20 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/20"
           title="ถามคำถามธรรมะกับ Thanavuddho AI"
         >
           <div className="relative flex items-center justify-center">
@@ -115,7 +120,7 @@ export default function AiChatWidget() {
 
       {/* Chat Window Modal */}
       {isOpen && (
-        <div className="fixed bottom-6 right-5 sm:right-7 z-50 w-[92vw] sm:w-[400px] h-[540px] max-h-[82vh] bg-white rounded-3xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-6">
+        <div className="fixed bottom-20 lg:bottom-6 right-3 sm:right-7 z-50 w-[94vw] sm:w-[400px] h-[520px] max-h-[76vh] bg-white rounded-3xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-6">
           
           {/* Header */}
           <div className="bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 text-white p-4 px-5 flex items-center justify-between shrink-0 shadow-sm">

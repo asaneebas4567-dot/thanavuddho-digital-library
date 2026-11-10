@@ -151,15 +151,15 @@ function NongDhammaMascot({ className = "w-20 h-20" }: { className?: string }) {
 export default function SurveyMascotWidget() {
   const { user, isAuthenticated, updateUserPoints } = useAuth();
   
-  // Widget Open State
+  // Widget Open State (Default to true so mobile is never blocked by expanded mascot)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(true);
   const [viewMode, setViewMode] = useState<'info' | 'embed'>('info');
 
-  // Auto-minimize on mobile by default so it never blocks books on small phone screens
+  // Auto-expand on desktop screens (>=1024px) after mount, while keeping sleek edge pill on mobile
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
-      setIsMinimized(true);
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      setIsMinimized(false);
     }
   }, []);
 

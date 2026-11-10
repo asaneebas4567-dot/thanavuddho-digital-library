@@ -48,17 +48,7 @@ function AudiosPageContent() {
   const podcastParam = searchParams.get('podcast');
 
   const [activeTab, setActiveTab] = useState<'all' | 'audios' | 'audiobooks' | 'podcasts'>('all');
-  const [currentTrack, setCurrentTrack] = useState<CurrentTrack | null>({
-    id: podcasts[0].episodes[0].id,
-    title: podcasts[0].episodes[0].title,
-    subtitle: podcasts[0].title,
-    cover: podcasts[0].cover,
-    audio_url: podcasts[0].episodes[0].audio_url,
-    duration: podcasts[0].episodes[0].duration,
-    type: 'podcast',
-    youtube_id: podcasts[0].episodes[0].youtube_id,
-    youtube_url: podcasts[0].episodes[0].youtube_url
-  });
+  const [currentTrack, setCurrentTrack] = useState<CurrentTrack | null>(null);
   
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(15);
@@ -604,18 +594,34 @@ function AudiosPageContent() {
 
       {/* Floating Bottom Audio Player Bar (Deep Navy Player for Multimedia Separation) */}
       {currentTrack && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#073B65] text-white shadow-2xl px-4 py-3 sm:py-3.5 transition-all border-t border-white/10">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="fixed bottom-16 lg:bottom-0 left-0 right-0 z-40 bg-[#073B65] text-white shadow-2xl px-3 sm:px-4 py-2.5 sm:py-3 transition-all border-t border-white/10">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3">
             
-            {/* Left: Track Info */}
-            <div className="flex items-center gap-3 w-full sm:w-1/3 min-w-0">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-sm shrink-0 ring-1 ring-white/20">
-                <Image src={currentTrack.cover} alt={currentTrack.title} fill className="object-cover" unoptimized />
+            {/* Left: Track Info & Mobile Close Button */}
+            <div className="flex items-center justify-between sm:justify-start gap-3 w-full sm:w-1/3 min-w-0">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-sm shrink-0 ring-1 ring-white/20">
+                  <Image src={currentTrack.cover} alt={currentTrack.title} fill className="object-cover" unoptimized />
+                </div>
+                <div className="min-w-0">
+                  <h5 className="font-bold text-white text-xs sm:text-sm truncate leading-tight">{currentTrack.title}</h5>
+                  <p className="text-[11px] sm:text-xs text-sky-200 font-medium truncate mt-0.5">{currentTrack.subtitle}</p>
+                </div>
               </div>
-              <div className="min-w-0">
-                <h5 className="font-bold text-white text-sm truncate leading-tight">{currentTrack.title}</h5>
-                <p className="text-xs text-sky-200 font-medium truncate mt-0.5">{currentTrack.subtitle}</p>
-              </div>
+
+              {/* Close Button on Mobile */}
+              <button
+                onClick={() => {
+                  setIsPlaying(false);
+                  setCurrentTrack(null);
+                  setIsTranscriptOpen(false);
+                }}
+                className="sm:hidden p-1.5 rounded-full text-sky-200 hover:text-white hover:bg-white/15 transition-colors cursor-pointer shrink-0"
+                title="ปิดเครื่องเล่นเสียง"
+                aria-label="ปิดเครื่องเล่นเสียง"
+              >
+                <X size={18} />
+              </button>
             </div>
 
             {/* Center: Controls & Time Bar */}
@@ -665,7 +671,7 @@ function AudiosPageContent() {
               </div>
             </div>
 
-            {/* Right: Melolo-style Listen-to-Earn, Transcript, Volume & Speed */}
+            {/* Right: Melolo-style Listen-to-Earn, Transcript, Volume & Speed, Desktop Close */}
             <div className="flex items-center justify-end gap-2 sm:gap-3 w-full sm:w-1/3">
               <MeloloWatchToEarnWidget
                 mediaType="audio"
@@ -702,6 +708,20 @@ function AudiosPageContent() {
                 title={isMuted ? 'เปิดเสียง' : 'ปิดเสียง'}
               >
                 {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+              </button>
+
+              {/* Desktop Close Button */}
+              <button 
+                onClick={() => {
+                  setIsPlaying(false);
+                  setCurrentTrack(null);
+                  setIsTranscriptOpen(false);
+                }}
+                className="hidden sm:inline-flex p-1.5 rounded-full text-sky-200 hover:text-white hover:bg-white/15 transition-colors cursor-pointer shrink-0 ml-1"
+                title="ปิดเครื่องเล่นเสียง"
+                aria-label="ปิดเครื่องเล่นเสียง"
+              >
+                <X size={18} />
               </button>
             </div>
 

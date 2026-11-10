@@ -10,7 +10,9 @@ const mitr = Mitr({ weight: ['300', '400', '500', '600', '700'], subsets: ["thai
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
   themeColor: "#073B65",
 };
 
