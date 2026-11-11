@@ -14,7 +14,18 @@ function resolveReaderBook(rawId: string): any {
   if (!rawId) return null;
   const decodedId = decodeURIComponent(rawId).trim();
   const trimmedRaw = rawId.trim();
-  const cleanId = decodedId.replace(/^book_/, '');
+
+  // Legacy ID mapping for placeholder IDs
+  const LEGACY_ID_MAP: Record<string, string> = {
+    'book_001': 'book_มงคลชีวิตฉบับทางก้าวหน้า-1',
+    'book_002': 'pubhtml5_84240339',
+    'book_003': 'book_tam_jai_hai_prom_buak',
+    'book_004': 'book_ทันโลกทันธรรม1',
+    'book_005': 'book_khao_kor_sook_rao_kor_sook',
+    'book_006': 'book_ข้อคิดรอบตัว',
+  };
+  const effectiveId = LEGACY_ID_MAP[trimmedRaw] || LEGACY_ID_MAP[decodedId] || decodedId;
+  const cleanId = effectiveId.replace(/^book_/, '');
 
   const customList = (persistentBooks as any[]) || [];
   const allPool: any[] = [...customList, ...dbBooks, ...mockBooks];
@@ -29,7 +40,7 @@ function resolveReaderBook(rawId: string): any {
   };
 
   // 1. Direct ID match
-  const idMatches = allPool.filter(b => b.id === trimmedRaw || b.id === decodedId);
+  const idMatches = allPool.filter(b => b.id === effectiveId || b.id === trimmedRaw);
   if (idMatches.length > 0) return mergeMatches(idMatches);
 
   // 2. Prefix variation match

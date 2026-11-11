@@ -304,3 +304,4 @@ fs.writeFileSync(PODCASTS_FILE, JSON.stringify(PODCASTS, null, 2), 'utf-8');
 console.log('Successfully wrote', PODCASTS.length, 'podcasts to', PODCASTS_FILE);
 console.log('YouTube count:', PODCASTS.filter(p => p.source_type === 'youtube').length);
 console.log('MP3 count:', PODCASTS.filter(p => p.source_type === 'mp3').length);
+

@@ -108,23 +108,58 @@ function BooksContent() {
       read_count: liveReadStats[b.id] ?? b.read_count ?? 0,
     }));
 
-    // Deduplicate and merge books by normalized title and ID
+    // Canonical normalization to deduplicate books across sources
+    const thaiToArabic = (str: string) => {
+      return (str || '').replace(/[๑๒๓๔๕๖๗๘๙๐]/g, (d) => '1234567890'['๑๒๓๔๕๖๗๘๙๐'.indexOf(d)]);
+    };
+
     const normalizeTitleKey = (text: string) => {
-      return (text || '')
-        .toLowerCase()
+      if (!text) return '';
+      let s = thaiToArabic(text).toLowerCase();
+
+      // Specific known titles with slight formatting variations
+      if (s.includes('สมดุล') && (s.includes('ดี') || s.includes('平衡'))) return 'canon_samdun_dee';
+      if (s.includes('อย่ามโน')) return 'canon_ya_mano';
+      if (s.includes('เส้นทางพระบรม')) return 'canon_sentang_phraborom';
+      if (s.includes('อายุวัฒนมงคล') && s.includes('63')) return 'canon_ayu_63';
+      if (s.includes('มงคลชีวิต') && s.includes('ทางก้าวหน้า')) return 'canon_mongkol_124';
+      if (s.includes('ลมหายใจเข้าออก') && s.includes('พระพุทธศาสนา')) return 'canon_lom_hai_jai';
+      if (s.includes('พระไตรปิฎก') && s.includes('ธรรมชัย')) return 'canon_tipitaka_dhammachai';
+      if (s.includes('ทำใจให้พร้อมบวก')) return 'canon_tam_jai_hai_prom_buak';
+      if (s.includes('เขาก็สุข') && s.includes('เราก็สุข')) return 'canon_khao_suk_rao_suk';
+      if ((s.includes('รักแท้') && s.includes('นิยาย')) || (s.includes('รักเเท้') && s.includes('นิยาย'))) return 'canon_rak_thae_mai_dai_mee_khae_nai_niyai';
+      if (s.includes('เปิดพรมแดน') || s.includes('เปิดพรมเเดน')) return 'canon_perd_promdan';
+      if (s.includes('ข้อคิดรอบตัว')) return 'canon_kho_khit_rob_tua';
+      if (s.includes('ศาสตร์') && s.includes('สมาธิ')) return 'canon_science_of_meditation';
+      if (s.includes('มังกรสอนใจ')) return 'canon_mangkon_son_jai';
+      if (s.includes('ขัดเกลาความคิด')) return 'canon_khad_glao_khwam_kid';
+      if (s.includes('ไขปัญหาความเชื่อ')) return 'canon_khai_panha_khwam_cheua';
+      if (s.includes('ดีชั่ว') && s.includes('กรรมหรือบังเอิญ')) return 'canon_dee_chua';
+
+      // For "ทันโลกทันธรรม" volumes
+      const matchTL = s.match(/ทันโลก\s*ทันธรรม\s*(?:เล่ม)?\s*([1-5])/);
+      if (matchTL) return `canon_than_lok_than_dhamma_${matchTL[1]}`;
+
+      return s
+        .replace(/\.pdf$/i, '')
         .replace(/[\u0E48-\u0E4C]+/g, (m) => m[0])
         .replace(/[^\u0E00-\u0E7Fa-z0-9]/g, '')
         .replace(/^1[0-9]{2,3}/, '')
-        .replace(/^(ฉบับ|ตอน)/, '')
+        .replace(/^(ฉบับ|ตอน|เล่ม)/, '')
         .trim();
     };
+
+    const IGNORED_BOOK_IDS = new Set([
+      'book_001', 'book_002', 'book_003', 'book_004', 'book_005', 'book_006',
+      'pubhtml5_99201494', 'pubhtml5_85353008'
+    ]);
 
     const combinedList: Book[] = [];
     const seenIds = new Set<string>();
     const seenTitles = new Map<string, Book>();
 
     const addBook = (book: Book) => {
-      if (!book || !book.id) return;
+      if (!book || !book.id || IGNORED_BOOK_IDS.has(book.id)) return;
       if (seenIds.has(book.id)) return;
 
       const normTitle = normalizeTitleKey(book.title);
