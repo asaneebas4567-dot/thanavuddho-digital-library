@@ -92,18 +92,54 @@ CREATE TABLE IF NOT EXISTS public.videos (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
 
--- Table: podcasts (พอดแคสต์และหนังสือเสียง Audiobooks)
+-- Table: podcasts (พอดแคสต์แบบไฮบริด รองรับทั้ง YouTube & MP3 จาก Supabase Storage)
 CREATE TABLE IF NOT EXISTS public.podcasts (
     id VARCHAR(100) PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    host VARCHAR(255) DEFAULT 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
     description TEXT,
-    cover_image_url TEXT,
+    host VARCHAR(255) DEFAULT 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
+    cover_image TEXT,
+    cover_image_url TEXT, -- alias for backwards compatibility
+    source_type VARCHAR(20) DEFAULT 'youtube' CHECK (source_type IN ('youtube', 'mp3')),
+    youtube_url TEXT,
+    youtube_video_id VARCHAR(50),
+    audio_file_path TEXT, -- เส้นทางไฟล์ใน Supabase Storage Bucket 'audio-tracks' (เช่น 'podcasts/ep1.mp3')
     audio_url TEXT,
     duration VARCHAR(50),
+    duration_seconds INT DEFAULT 0,
     total_episodes INT DEFAULT 1,
     category_id VARCHAR(50) REFERENCES public.categories(id) ON DELETE SET NULL,
+    book_id VARCHAR(100) REFERENCES public.books(id) ON DELETE SET NULL,
+    is_published BOOLEAN DEFAULT TRUE,
+    display_order INT DEFAULT 0,
     transcript JSONB, -- บทถอดเสียงพอดแคสต์ พร้อม Timestamp
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
+);
+
+-- Table: podcast_listening_progress (บันทึกความคืบหน้าการฟังแยกรายบุคคล สามารถกลับมาฟังต่อจากเวลาเดิมได้)
+CREATE TABLE IF NOT EXISTS public.podcast_listening_progress (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    user_id UUID, -- เชื่อมกับ auth.users.id หรือ profiles.id
+    user_email VARCHAR(255) NOT NULL,
+    podcast_id VARCHAR(100) NOT NULL REFERENCES public.podcasts(id) ON DELETE CASCADE,
+    current_position_seconds INT DEFAULT 0 CHECK (current_position_seconds >= 0),
+    duration_seconds INT DEFAULT 0,
+    last_listened_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+    completed_status BOOLEAN DEFAULT FALSE,
+    UNIQUE (user_email, podcast_id)
+);
+
+-- Table: podcast_listening_sessions (บันทึกช่วงเวลาการฟังจริงเพื่อรับแต้มบุญปัญญา ฟังครบ 10 นาที รับ 5 คะแนน)
+CREATE TABLE IF NOT EXISTS public.podcast_listening_sessions (
+    id VARCHAR(100) PRIMARY KEY,
+    user_email VARCHAR(255) NOT NULL,
+    podcast_id VARCHAR(100) NOT NULL REFERENCES public.podcasts(id) ON DELETE CASCADE,
+    source_type VARCHAR(20) NOT NULL CHECK (source_type IN ('youtube', 'mp3')),
+    started_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+    last_ping_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+    accumulated_seconds INT DEFAULT 0,
+    points_awarded INT DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
 

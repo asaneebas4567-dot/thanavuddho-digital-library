@@ -76,6 +76,10 @@ export default function AdminDashboardPage() {
 
   const [podcastModalOpen, setPodcastModalOpen] = useState(false);
   const [editingPodcast, setEditingPodcast] = useState<any | null>(null);
+  const [podcastSourceType, setPodcastSourceType] = useState<'youtube' | 'mp3'>('youtube');
+  const [isUploadingMp3, setIsUploadingMp3] = useState(false);
+  const [uploadedMp3Url, setUploadedMp3Url] = useState('');
+  const [uploadedMp3Path, setUploadedMp3Path] = useState('');
 
   // Status message
   const [statusMessage, setStatusMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
@@ -306,8 +310,36 @@ export default function AdminDashboardPage() {
   };
 
   // ----------------------------------------------------
-  // PODCAST CRUD HANDLERS
+  // PODCAST CRUD & MP3 UPLOAD HANDLERS
   // ----------------------------------------------------
+  const handleUploadMp3File = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingMp3(true);
+    const body = new FormData();
+    body.append('file', file);
+
+    try {
+      const res = await fetch('/api/admin/podcasts/upload', {
+        method: 'POST',
+        body
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUploadedMp3Url(data.publicUrl);
+        setUploadedMp3Path(data.storagePath);
+        showStatus(`อัปโหลดไฟล์เสียงสำเร็จ (${(data.fileSizeBytes / (1024 * 1024)).toFixed(1)} MB)`);
+      } else {
+        showStatus(data.error || 'อัปโหลดไฟล์เสียงไม่สำเร็จ', 'error');
+      }
+    } catch (err: any) {
+      showStatus(err.message, 'error');
+    } finally {
+      setIsUploadingMp3(false);
+    }
+  };
+
   const handleSavePodcast = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -317,13 +349,15 @@ export default function AdminDashboardPage() {
       id: editingPodcast?.id || '',
       title: formData.get('title') as string,
       host: formData.get('host') as string,
-      audio_url: formData.get('audio_url') as string,
-      cover: formData.get('cover') as string,
-      duration: formData.get('duration') as string,
+      source_type: podcastSourceType,
+      youtube_url: formData.get('youtube_url') as string,
+      audio_url: uploadedMp3Url || (formData.get('audio_url') as string),
+      audio_file_path: uploadedMp3Path,
+      cover_image: formData.get('cover_image') as string,
+      duration_formatted: formData.get('duration') as string,
       category_id: formData.get('category_id') as string,
       description: formData.get('description') as string,
-      status: formData.get('status') as string,
-      featured: formData.get('featured') === 'on'
+      is_published: formData.get('is_published') === 'on'
     };
 
     try {
@@ -337,6 +371,8 @@ export default function AdminDashboardPage() {
         showStatus('บันทึกข้อมูล Podcast เรียบร้อยแล้ว');
         setPodcastModalOpen(false);
         setEditingPodcast(null);
+        setUploadedMp3Url('');
+        setUploadedMp3Path('');
         fetchPodcasts();
       } else {
         showStatus(data.error || 'บันทึกไม่สำเร็จ', 'error');
@@ -1046,12 +1082,15 @@ export default function AdminDashboardPage() {
                 <button
                   onClick={() => {
                     setEditingPodcast(null);
+                    setPodcastSourceType('youtube');
+                    setUploadedMp3Url('');
+                    setUploadedMp3Path('');
                     setPodcastModalOpen(true);
                   }}
                   className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-black text-xs shadow-md transition-all active:scale-95 cursor-pointer self-start sm:self-auto"
                 >
                   <Plus size={16} />
-                  <span>เพิ่ม Podcast / แนบ Link เสียง</span>
+                  <span>เพิ่ม Podcast (YouTube / MP3)</span>
                 </button>
               </div>
 
@@ -1059,19 +1098,33 @@ export default function AdminDashboardPage() {
                 {podcasts.map((pod) => (
                   <div key={pod.id} className="p-4 rounded-2xl border border-slate-200 hover:border-slate-300 transition-all flex flex-col justify-between bg-white shadow-2xs">
                     <div>
-                      <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-100 mb-3 border border-slate-200">
-                        <Image src={pod.cover} alt={pod.title} fill className="object-cover" unoptimized />
+                      <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-900 mb-3 border border-slate-200">
+                        <Image 
+                          src={pod.cover_image || pod.cover || '/images/books/tam-jai-hai-prom-buak.jpg'} 
+                          alt={pod.title} 
+                          fill 
+                          className="object-cover" 
+                          unoptimized 
+                        />
+                        <span className={`absolute top-2 left-2 text-[9px] font-black uppercase px-2 py-0.5 rounded shadow-sm text-white ${
+                          pod.source_type === 'mp3' ? 'bg-amber-600' : 'bg-red-600'
+                        }`}>
+                          {pod.source_type === 'mp3' ? '🎵 MP3 Audio' : '🔴 YouTube'}
+                        </span>
                       </div>
                       <h4 className="font-black text-slate-900 text-sm line-clamp-1">{pod.title}</h4>
                       <p className="text-xs text-slate-500 mt-1 line-clamp-2">{pod.description}</p>
-                      <div className="text-[11px] font-mono text-purple-700 mt-2 font-bold">
-                        ⏱️ {pod.duration} • {pod.host}
+                      <div className="text-[11px] font-mono text-purple-700 mt-2 font-bold flex items-center justify-between">
+                        <span>⏱️ {pod.duration_formatted || pod.duration || '15:00'} • {pod.host}</span>
+                        <span className={`text-[10px] px-1.5 py-0.2 rounded font-bold ${pod.is_published !== false ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                          {pod.is_published !== false ? 'เผยแพร่' : 'ฉบับร่าง'}
+                        </span>
                       </div>
                     </div>
 
                     <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                       <a
-                        href={pod.audio_url}
+                        href={pod.youtube_url || pod.audio_url || '#'}
                         target="_blank"
                         rel="noreferrer"
                         className="text-xs font-bold text-purple-600 hover:underline flex items-center gap-1"
@@ -1084,6 +1137,9 @@ export default function AdminDashboardPage() {
                         <button
                           onClick={() => {
                             setEditingPodcast(pod);
+                            setPodcastSourceType(pod.source_type || (pod.youtube_video_id ? 'youtube' : 'mp3'));
+                            setUploadedMp3Url(pod.audio_url || '');
+                            setUploadedMp3Path(pod.audio_file_path || '');
                             setPodcastModalOpen(true);
                           }}
                           className="p-1.5 rounded-lg text-blue-600 hover:bg-slate-100 cursor-pointer"
@@ -1513,6 +1569,97 @@ export default function AdminDashboardPage() {
 
               <form onSubmit={handleSavePodcast} className="space-y-4 text-xs sm:text-sm">
                 
+                {/* 1. SOURCE TYPE SELECTOR (YOUTUBE VS. MP3) */}
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1.5">
+                    ประเภทแหล่งข้อมูลเสียง (Audio Source Type) <span className="text-rose-500">*</span>
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setPodcastSourceType('youtube')}
+                      className={`p-3 rounded-2xl border font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                        podcastSourceType === 'youtube'
+                          ? 'bg-red-50 border-red-500 text-red-700 ring-2 ring-red-200'
+                          : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span>🔴 YouTube (IFrame Stream)</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPodcastSourceType('mp3')}
+                      className={`p-3 rounded-2xl border font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                        podcastSourceType === 'mp3'
+                          ? 'bg-purple-50 border-purple-500 text-purple-700 ring-2 ring-purple-200'
+                          : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span>🎵 MP3 (Supabase Storage)</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 2. DYNAMIC SOURCE INPUT */}
+                {podcastSourceType === 'youtube' ? (
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      ลิงก์วิดีโอ YouTube (URL / Video ID) <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="youtube_url"
+                      defaultValue={editingPodcast?.youtube_url || (editingPodcast?.youtube_video_id ? `https://www.youtube.com/watch?v=${editingPodcast.youtube_video_id}` : '')}
+                      placeholder="เช่น https://www.youtube.com/watch?v=COag-KtzVmY หรือ ID 11 ตัว"
+                      required={podcastSourceType === 'youtube'}
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-mono text-xs focus:ring-2 focus:ring-red-500"
+                    />
+                    <p className="text-[11px] text-slate-500 mt-1">
+                      ระบบจะตรวจสอบและแยก Video ID พร้อมดึงภาพปกอัตโนมัติ
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-3 p-3.5 rounded-2xl bg-purple-50/50 border border-purple-100">
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">
+                        อัปโหลดไฟล์เสียง MP3 ขึ้น Supabase Storage
+                      </label>
+                      <input
+                        type="file"
+                        accept="audio/*,.mp3,.m4a,.ogg,.wav"
+                        onChange={handleUploadMp3File}
+                        disabled={isUploadingMp3}
+                        className="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer"
+                      />
+                      {isUploadingMp3 && (
+                        <p className="text-xs text-purple-700 font-bold mt-1.5 animate-pulse">
+                          ⏳ กำลังอัปโหลดไฟล์เสียงขึ้นคลาวด์...
+                        </p>
+                      )}
+                      {uploadedMp3Path && (
+                        <p className="text-[11px] text-emerald-700 font-mono mt-1 truncate">
+                          ✓ อัปโหลดสำเร็จ: {uploadedMp3Path}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">
+                        หรือระบุ URL สตรีมเสียงตรง (.mp3 / Cloud CDN)
+                      </label>
+                      <input
+                        type="text"
+                        name="audio_url"
+                        value={uploadedMp3Url || editingPodcast?.audio_url || ''}
+                        onChange={(e) => setUploadedMp3Url(e.target.value)}
+                        placeholder="https://... หรือเส้นทางไฟล์ใน storage"
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-mono text-xs"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. PODCAST TITLE */}
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
                     ชื่อรายการ Podcast / ชื่อตอน <span className="text-rose-500">*</span>
@@ -1521,26 +1668,13 @@ export default function AdminDashboardPage() {
                     type="text"
                     name="title"
                     defaultValue={editingPodcast?.title || ''}
-                    placeholder="เช่น Thanavuddho Daily Dhamma EP.9"
+                    placeholder="เช่น Podcast ทำใจให้พร้อมบวก: บทที่ 1"
                     required
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-bold focus:ring-2 focus:ring-purple-500"
                   />
                 </div>
 
-                <div>
-                  <label className="block font-bold text-slate-700 mb-1">
-                    ลิงก์ไฟล์เสียง Audio URL (.mp3 / Cloud) <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="audio_url"
-                    defaultValue={editingPodcast?.audio_url || ''}
-                    placeholder="เช่น https://actions.google.com/sounds/v1/...ogg หรือไฟล์ mp3"
-                    required
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-mono text-xs"
-                  />
-                </div>
-
+                {/* 4. HOST & DURATION */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block font-bold text-slate-700 mb-1">ผู้บรรยาย / Host</label>
@@ -1553,27 +1687,45 @@ export default function AdminDashboardPage() {
                   </div>
 
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">ความยาว (เช่น 15:20)</label>
+                    <label className="block font-bold text-slate-700 mb-1">ความยาว (เช่น 24:31 หรือ 15:00)</label>
                     <input
                       type="text"
                       name="duration"
-                      defaultValue={editingPodcast?.duration || '15:00'}
+                      defaultValue={editingPodcast?.duration_formatted || editingPodcast?.duration || '15:00'}
                       className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-mono"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label className="block font-bold text-slate-700 mb-1">ลิงก์ภาพปก Podcast</label>
-                  <input
-                    type="text"
-                    name="cover"
-                    defaultValue={editingPodcast?.cover || ''}
-                    placeholder="URL รูปภาพสี่เหลี่ยมจัตุรัส"
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-mono text-xs"
-                  />
+                {/* 5. CATEGORY & COVER IMAGE */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">หมวดหมู่</label>
+                    <select
+                      name="category_id"
+                      defaultValue={editingPodcast?.category_id || 'cat_mind'}
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white"
+                    >
+                      <option value="cat_mind">พัฒนาจิตใจ & คิดบวก</option>
+                      <option value="cat_meditation">สมาธิ & จิตสงบ</option>
+                      <option value="cat_work">การทำงาน & ความสำเร็จ</option>
+                      <option value="cat_life">มงคลชีวิต & สังคม</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">ลิงก์ภาพปก (เว้นว่างเพื่อใช้ค่าเริ่มต้น)</label>
+                    <input
+                      type="text"
+                      name="cover_image"
+                      defaultValue={editingPodcast?.cover_image || editingPodcast?.cover || ''}
+                      placeholder="URL รูปภาพสี่เหลี่ยมจัตุรัส"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-mono text-xs"
+                    />
+                  </div>
                 </div>
 
+                {/* 6. DESCRIPTION */}
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">คำอธิบาย</label>
                   <textarea
@@ -1582,6 +1734,20 @@ export default function AdminDashboardPage() {
                     rows={2}
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-200"
                   />
+                </div>
+
+                {/* 7. PUBLISH STATUS CHECKBOX */}
+                <div className="flex items-center gap-2 pt-1">
+                  <input
+                    type="checkbox"
+                    id="is_published"
+                    name="is_published"
+                    defaultChecked={editingPodcast ? editingPodcast.is_published !== false : true}
+                    className="w-4 h-4 rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                  />
+                  <label htmlFor="is_published" className="text-xs font-bold text-slate-700 cursor-pointer">
+                    เผยแพร่ทันที (Published) ให้สมาชิกและบุคคลทั่วไปรับฟังได้
+                  </label>
                 </div>
 
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-2.5">
@@ -1594,7 +1760,7 @@ export default function AdminDashboardPage() {
                   </button>
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isUploadingMp3}
                     className="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-black shadow-md cursor-pointer active:scale-95"
                   >
                     {isSubmitting ? 'กำลังบันทึก...' : 'บันทึก Podcast'}

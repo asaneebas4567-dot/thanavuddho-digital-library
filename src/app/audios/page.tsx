@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -14,402 +14,354 @@ import {
   Sparkles, 
   ArrowRight, 
   ExternalLink,
+  Search,
+  Filter,
   CheckCircle2,
-  Share2,
+  HardDrive,
   Tv,
   ListMusic,
-  Quote,
-  Smartphone,
-  Info
+  Maximize2
 } from 'lucide-react';
-import { podcasts } from '@/data/multimediaAndGamificationData';
-import MeloloWatchToEarnWidget from '@/components/rewards/MeloloWatchToEarnWidget';
+import { usePodcastPlayer } from '@/context/PodcastPlayerContext';
+import { PodcastItem } from '@/types/podcast';
 
-// 8 Official YouTube Podcast Episodes for "ทำใจให้พร้อมบวก"
-const officialPodcast = podcasts[0]; // pod-tam-jai-hai-prom-buak
-const episodes = officialPodcast.episodes;
-
-// Transcripts / Key teachings for each episode
-const episodeTranscripts: Record<string, { time: string; speaker: string; text: string }[]> = {
-  'ep-tj-01': [
-    { time: '00:00', speaker: 'ผู้บรรยาย & พระครูปลัดสุวัฒนโพธิคุณ', text: 'ขอต้อนรับเข้าสู่ "ทำใจให้พร้อมบวก Podcast" ตอนพิเศษ: คิดบวกไม่ใช่การหลอกตัวเอง ผลงานธรรมะประพันธ์โดย พระครูปลัดสุวัฒนโพธิคุณ' },
-    { time: '01:30', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'การคิดบวกไม่ใช่การหลอกตัวเอง ไม่ใช่การปฏิเสธความจริง แต่คือการมองหาโอกาสและแง่คิดดีๆ ในทุกสถานการณ์' },
-    { time: '03:45', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ใจของเราเปรียบเสมือนแม่ทัพ หากใจมีพลัง สติปัญญาและความสงบเย็นย่อมเป็นเกราะคุ้มกันอุปสรรคทั้งปวง' },
-    { time: '07:20', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยอมรับ เข้าใจ เกิดประโยชน์ เมื่อเรายอมรับความจริง เข้าใจความเป็นไป และนำมาใช้ให้เกิดประโยชน์ ใจจะเบาสบาย' }
-  ],
-  'ep-tj-02': [
-    { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทที่ 1: ปกติของมนุษย์ ปกติของผู้มีศีล' },
-    { time: '02:15', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ศีลไม่ได้เป็นข้อห้ามที่จำกัดอิสรภาพ แต่คือเกราะคุ้มครองใจให้สงบเย็นและไม่เดือดร้อนใจในภายหลัง' },
-    { time: '05:40', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'คนที่มีปกติใจมั่นคง จะไม่หวั่นไหวไปกับกระแสโลก เพราะรู้เท่าทันความเป็นจริงของสังขาร' }
-  ],
-  'ep-tj-03': [
-    { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทที่ 2: วิกฤต เป็น โอกาส' },
-    { time: '02:30', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ในทุกวิกฤต มีเมล็ดพันธุ์แห่งโอกาสซ่อนอยู่เสมอ อยู่ที่ว่าเรามองด้วยสายตาของปัญหา หรือมองด้วยสายตาของปัญญา' },
-    { time: '06:10', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ความล้มเหลวไม่ใช่จุดจบ แต่คือบทเรียนที่สอนให้เราแข็งแกร่งและก้าวข้ามขีดจำกัดเดิม' }
-  ],
-  'ep-tj-04': [
-    { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทที่ 3: ความลับของความสุข' },
-    { time: '03:10', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ความสุขที่แทจริงไม่ได้ขึ้นอยู่กับวัตถุภายนอก แต่อยู่ที่ความนิ่ง สงบ และความพอดีภายในใจเราเอง' },
-    { time: '07:05', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'เมื่อใจหยุดนิ่ง ณ ศูนย์กลางกาย ความสว่างและปีติจะเกิดขึ้นอย่างเป็นธรรมชาติ' }
-  ],
-  'ep-tj-05': [
-    { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทที่ 4: คนสุข คนไม่หลงโลก' },
-    { time: '02:50', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'การใช้ชีวิตในโลกปัจจุบัน ต้องมีหลักยึด ไม่ไหลไปตามกระแสกิเลสและค่านิยมชั่วคราว' },
-    { time: '06:30', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'อยู่อย่างเข้าใจ ปล่อยวางในสิ่งที่ควบคุมไม่ได้ และทำหน้าที่ของตนเองให้ดีที่สุดในทุกปัจจุบันขณะ' }
-  ],
-  'ep-tj-06': [
-    { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทที่ 5: มองข้าม ปัญหาเล็กๆ' },
-    { time: '02:10', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ปัญหาเล็กๆ น้อยๆ ในชีวิตประจำวัน ถ้าเราเก็บมาคิดทุกเรื่อง ใจเราจะหนักและไม่มีพื้นที่สำหรับสิ่งที่ดีกว่า' },
-    { time: '05:30', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'มองข้ามเรื่องไม่เป็นเรื่อง แล้วโฟกัสที่เป้าหมายที่แท้จริง คือการทำความดีและรักษาใจให้บริสุทธิ์' }
-  ],
-  'ep-tj-07': [
-    { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทที่ 6: คิดบวก สร้างโลกบวก' },
-    { time: '02:40', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'พลังความคิดของเราส่งผลต่อโลกรอบตัว เมื่อใจเราสว่างไสว ย่อมส่งต่อรอยยิ้ม ความเมตตา และพลังบวกให้ผู้คนรอบข้าง' },
-    { time: '06:15', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'การคิดดี พูดดี ทำดี คือการร่วมกันสร้างสิ่งแวดล้อมที่น่าอยู่และงดงามให้กับโลกใบนี้' }
-  ],
-  'ep-tj-08': [
-    { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ยินดีต้อนรับสู่ ทำใจให้พร้อมบวก บทสรุปส่งท้าย: เคล็ดลับสูงสุด... ใจพร้อมบวกตลอดไป' },
-    { time: '03:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'เคล็ดลับสำคัญที่สุดคือ "ความต่อเนื่อง" การฝึกใจให้หยุดนิ่งที่ศูนย์กลางกายทุกวัน วันละเล็กวันละน้อย' },
-    { time: '07:20', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ขออำนวยอวยพรให้ทุกท่านมีใจที่พร้อมบวก มีสติ ปัญญา และความสุขความเจริญรุ่งเรืองในชีวิตทุกประการเทอญ' }
-  ]
-};
-
-function AudiosPageContent() {
+function PodcastLibraryContent() {
   const searchParams = useSearchParams();
-  const epParam = searchParams.get('ep');
+  const initialCategory = searchParams.get('category') || 'all';
+  const initialSource = searchParams.get('source') || 'all';
 
-  // Active playing episode state (defaults to Episode 1)
-  const [activeEpisode, setActiveEpisode] = useState(() => {
-    if (epParam) {
-      const match = episodes.find(e => e.id === epParam || e.youtube_id === epParam);
-      if (match) return match;
-    }
-    return episodes[0];
-  });
+  const { currentPodcast, isPlaying, playPodcast, pausePodcast, resumePodcast, expandPlayer } = usePodcastPlayer();
 
-  const [showTranscript, setShowTranscript] = useState(false);
-  const [copiedLink, setCopiedLink] = useState(false);
+  const [podcasts, setPodcasts] = useState<PodcastItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
+  const [selectedSource, setSelectedSource] = useState<string>(initialSource);
 
-  // Sync if URL query param changes
+  // Fetch podcasts from API
   useEffect(() => {
-    if (epParam) {
-      const match = episodes.find(e => e.id === epParam || e.youtube_id === epParam);
-      if (match) setActiveEpisode(match);
-    }
-  }, [epParam]);
+    fetch('/api/podcasts')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && Array.isArray(data.podcasts)) {
+          setPodcasts(data.podcasts);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
-  const handleShare = () => {
-    if (typeof window !== 'undefined') {
-      navigator.clipboard.writeText(window.location.href);
-      setCopiedLink(true);
-      setTimeout(() => setCopiedLink(false), 2000);
+  // Filtered podcasts
+  const filteredPodcasts = useMemo(() => {
+    return podcasts.filter((p) => {
+      // 1. Search Query
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchesTitle = p.title.toLowerCase().includes(q);
+        const matchesDesc = p.description?.toLowerCase().includes(q);
+        const matchesHost = p.host?.toLowerCase().includes(q);
+        if (!matchesTitle && !matchesDesc && !matchesHost) return false;
+      }
+
+      // 2. Category
+      if (selectedCategory !== 'all') {
+        if (p.category_id !== selectedCategory) return false;
+      }
+
+      // 3. Source Type
+      if (selectedSource !== 'all') {
+        if (p.source_type !== selectedSource) return false;
+      }
+
+      return true;
+    });
+  }, [podcasts, searchQuery, selectedCategory, selectedSource]);
+
+  // Extract unique categories
+  const categories = useMemo(() => {
+    const map = new Map<string, string>();
+    podcasts.forEach(p => {
+      if (p.category_id) {
+        map.set(p.category_id, p.category_name || p.category_id);
+      }
+    });
+    return Array.from(map.entries()).map(([id, name]) => ({ id, name }));
+  }, [podcasts]);
+
+  const handlePlayToggle = (podcast: PodcastItem) => {
+    if (currentPodcast?.id === podcast.id) {
+      if (isPlaying) pausePodcast();
+      else resumePodcast();
+    } else {
+      playPodcast(podcast);
     }
   };
 
-  const currentTranscript = episodeTranscripts[activeEpisode.id] || episodeTranscripts['ep-tj-01'];
-
   return (
-    <div className="min-h-screen bg-[#F8FAFC] pb-24 sm:pb-16 pt-4 sm:pt-6">
+    <div className="min-h-screen bg-[#F8FAFC] pb-28 sm:pb-24 pt-4 sm:pt-6">
       <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* ========================================================= */}
-        {/* 1. HEADER HERO BANNER                                     */}
+        {/* 1. HERO BANNER                                            */}
         {/* ========================================================= */}
         <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#073B65] via-[#0A4D82] to-[#079FE8] text-white p-5 sm:p-8 lg:p-10 mb-6 sm:mb-8 shadow-lg border border-[#073B65]/30">
           <div className="absolute -right-16 -top-16 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-[#FEF08A] text-xs font-bold backdrop-blur-md border border-white/20 mb-3">
               <Headphones size={13} />
-              <span>พอดแคสต์ธรรมะฟังสบาย · 8 ตอนจบชุดสมบูรณ์</span>
+              <span>ระบบ Hybrid Podcast Player · YouTube & MP3 Stream</span>
             </div>
             <h1 className="text-2xl sm:text-4xl font-black tracking-tight mb-2 sm:mb-3 leading-tight">
-              ทำใจให้พร้อมบวก <span className="text-sky-200">(Podcast)</span>
+              ห้องสมุดพอดแคสต์ & <span className="text-sky-200">เสียงธรรมบรรยาย</span>
             </h1>
             <p className="text-sky-100/90 text-xs sm:text-sm leading-relaxed mb-4 max-w-2xl">
-              ชวนคุณมาพักสายตาจิบกาแฟอุ่นๆ ไปกับพอดแคสต์ฟังสบาย เติมพลังบวก สติ และปัญญา จากหนังสือลิขสิทธิ์ &quot;ทำใจให้พร้อมบวก&quot; โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ) & YoKaWaJor
+              ศูนย์รวมพอดแคสต์พัฒนาจิตใจ เสียงอ่านหนังสือลิขสิทธิ์ และธรรมเทศนาร่วมสมัย รองรับทั้งการรับชมผ่าน YouTube และการฟังเสียง MP3 ความคมชัดสูงพร้อมระบบเล่นพื้นหลังบนโทรศัพท์มือถือ
             </p>
 
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-              <a
-                href={officialPodcast.playlist_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
-              >
-                <span>เปิด Playlist บน YouTube</span>
-                <ExternalLink size={13} />
-              </a>
-              <Link
-                href="/reader/book_tam_jai_hai_prom_buak"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs border border-white/30 backdrop-blur-xs transition-all active:scale-95"
-              >
-                <BookOpen size={13} className="text-[#FEF08A]" />
-                <span>เปิดอ่านหนังสือ Flipbook</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* ========================================================= */}
-        {/* 2. DEDICATED IN-PAGE YOUTUBE MEDIA PLAYER (NO OVERLAYS)    */}
-        {/* ========================================================= */}
-        <div id="player-view" className="bg-white rounded-2xl sm:rounded-3xl border border-[#DCEAF3] shadow-md overflow-hidden mb-6 sm:mb-8">
-          
-          {/* Top Player Info Bar */}
-          <div className="bg-gradient-to-r from-[#073B65] via-[#084c82] to-[#079FE8] text-white px-4 sm:px-6 py-3 sm:py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse shrink-0" />
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-300 bg-white/10 px-2 py-0.5 rounded-md shrink-0">
-                EP.{activeEpisode.episode_number}
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs">
+              <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 font-medium">
+                <span>🔴 YouTube Podcasts ({podcasts.filter(p => p.source_type === 'youtube').length})</span>
               </span>
-              <h2 className="text-xs sm:text-sm font-bold text-white truncate">
-                {activeEpisode.title}
-              </h2>
-            </div>
-
-            <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-              <button
-                onClick={handleShare}
-                className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[11px] font-medium flex items-center gap-1 transition-all cursor-pointer"
-                title="แชร์ลิงก์ตอนนี้"
-              >
-                <Share2 size={12} />
-                <span>{copiedLink ? 'คัดลอกแล้ว!' : 'แชร์'}</span>
-              </button>
-              <a
-                href={activeEpisode.youtube_url || `https://www.youtube.com/watch?v=${activeEpisode.youtube_id}`}
-                target="_blank"
-                rel="noreferrer"
-                className="px-3 py-1 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[11px] font-bold flex items-center gap-1 transition-all shadow-xs"
-                title="เปิดฟังในแอป YouTube เพื่อฟังแบบปิดหน้าจอ"
-              >
-                <span>เปิดใน YouTube</span>
-                <ExternalLink size={12} />
-              </a>
-            </div>
-          </div>
-
-          {/* Responsive 16:9 YouTube IFrame Player */}
-          <div className="relative aspect-video w-full bg-black">
-            <iframe
-              key={activeEpisode.youtube_id}
-              src={`https://www.youtube-nocookie.com/embed/${activeEpisode.youtube_id}?autoplay=1&rel=0&modestbranding=1`}
-              title={activeEpisode.title}
-              className="w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          </div>
-
-          {/* Under Player Meta & Melolo Listen-to-Earn */}
-          <div className="p-4 sm:p-6 bg-slate-50/70 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1 min-w-0">
-              <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
-                <span className="flex items-center gap-1">
-                  <Clock size={13} className="text-sky-600" />
-                  ความยาว: {activeEpisode.duration} นาที
-                </span>
-                <span>•</span>
-                <span>เผยแพร่: {activeEpisode.published_at}</span>
+              <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 font-medium">
+                <span>🎵 MP3 Cloud Storage ({podcasts.filter(p => p.source_type === 'mp3').length})</span>
+              </span>
+              <div className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-amber-400 text-amber-950 font-bold shadow-xs">
+                <span>🪙 ฟังครบ 10 นาที รับแต้ม +5P</span>
               </div>
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed max-w-2xl">
-                {activeEpisode.description}
-              </p>
             </div>
+          </div>
+        </div>
 
-            {/* Listen to earn widget */}
-            <div className="shrink-0 flex items-center gap-2">
-              <MeloloWatchToEarnWidget
-                mediaType="audio"
-                isPlaying={true}
-                title={activeEpisode.title}
-                sourceId={activeEpisode.id}
+        {/* ========================================================= */}
+        {/* 2. SEARCH & FILTER CONTROLS                               */}
+        {/* ========================================================= */}
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-4 mb-6 space-y-3.5">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            {/* Search Input */}
+            <div className="relative flex-1 w-full">
+              <input
+                type="text"
+                placeholder="ค้นหาชื่อตอน, ผู้บรรยาย, หรือเนื้อหาธรรมะ..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#079FE8] bg-slate-50/50"
               />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            </div>
+
+            {/* Source Type Filter Tabs */}
+            <div className="flex items-center p-1 bg-slate-100 rounded-xl shrink-0 self-stretch sm:self-auto">
               <button
-                onClick={() => setShowTranscript(!showTranscript)}
-                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
-                  showTranscript 
-                    ? 'bg-[#073B65] text-white border-[#073B65]' 
-                    : 'bg-white hover:bg-slate-100 text-[#073B65] border-slate-200'
+                onClick={() => setSelectedSource('all')}
+                className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  selectedSource === 'all'
+                    ? 'bg-white text-[#073B65] shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
-                title="เปิดอ่านสรุปข้อคิดธรรมะประจำตอนนี้"
               >
-                <Quote size={13} />
-                <span>{showTranscript ? 'ซ่อนบทสรุป' : 'บทสรุปธรรมะ'}</span>
+                ทั้งหมด
+              </button>
+              <button
+                onClick={() => setSelectedSource('youtube')}
+                className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                  selectedSource === 'youtube'
+                    ? 'bg-red-600 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-red-600'
+                }`}
+              >
+                <span>YouTube</span>
+              </button>
+              <button
+                onClick={() => setSelectedSource('mp3')}
+                className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                  selectedSource === 'mp3'
+                    ? 'bg-[#073B65] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-[#073B65]'
+                }`}
+              >
+                <span>MP3 Audio</span>
               </button>
             </div>
           </div>
 
-          {/* Collapsible In-Page Transcript / Quotes */}
-          {showTranscript && (
-            <div className="p-4 sm:p-6 bg-white border-t border-slate-200 animate-in fade-in duration-200">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-extrabold text-sm sm:text-base text-[#073B65] flex items-center gap-2">
-                  <Quote size={16} className="text-[#079FE8]" />
-                  <span>สรุปข้อคิดธรรมะจากตอนนี้: {activeEpisode.title}</span>
-                </h3>
-              </div>
-              <div className="space-y-3">
-                {currentTranscript.map((t, idx) => (
-                  <div key={idx} className="p-3 rounded-xl bg-sky-50/60 border border-sky-100 text-xs sm:text-sm text-slate-700 leading-relaxed">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-mono text-[10px] font-bold text-sky-700 bg-sky-100 px-1.5 py-0.5 rounded">
-                        {t.time}
-                      </span>
-                      <span className="font-bold text-[#073B65] text-xs">
-                        {t.speaker}
-                      </span>
-                    </div>
-                    <p className="pl-1">{t.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* ========================================================= */}
-        {/* 3. SCREEN-OFF LISTENING GUIDE (MOBILE TIPS)               */}
-        {/* ========================================================= */}
-        <div className="mb-6 sm:mb-8 p-4 rounded-2xl bg-[#F0F8FD] border border-[#DCEAF3] flex items-start gap-3">
-          <div className="w-8 h-8 rounded-xl bg-[#079FE8]/10 text-[#079FE8] flex items-center justify-center shrink-0 mt-0.5">
-            <Smartphone size={18} />
-          </div>
-          <div className="text-xs text-slate-700 space-y-1">
-            <h4 className="font-bold text-[#073B65] flex items-center gap-1.5 text-xs sm:text-sm">
-              <span>คำแนะนำการเปิดฟังแบบปิดหน้าจอ / ล็อกหน้าจอโทรศัพท์</span>
-              <span className="text-[10px] font-normal text-sky-700 bg-sky-100 px-2 py-0.2 rounded-full">เคล็ดลับ</span>
-            </h4>
-            <p className="text-slate-600 leading-relaxed">
-              สำหรับโทรศัพท์มือถือ เพื่อให้เสียงเล่นต่อเนื่องได้แม้ดับหน้าจอหรือล็อกจอ:
-            </p>
-            <ul className="list-disc list-inside space-y-0.5 text-slate-600 pt-0.5">
-              <li>
-                <strong>ฟังผ่านแอป YouTube:</strong> กดปุ่มสีแดง <span className="text-red-600 font-bold">&quot;เปิดใน YouTube&quot;</span> ด้านบน (หากมีสมาชิก YouTube Premium จะเล่นในพื้นหลังตอนปิดจอได้ทันที)
-              </li>
-              <li>
-                <strong>ฟังฟรีปิดหน้าจอผ่านเว็บ:</strong> สามารถเปิดเว็บนี้ผ่านเบราว์เซอร์ <strong>Brave</strong> หรือเปิดโหมด <strong>Picture-in-Picture (PiP)</strong> แล้วกดปุ่ม Play ที่หน้าจอล็อก (Lock Screen Media Controls)
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* ========================================================= */}
-        {/* 4. EPISODE LIST: 5 OFFICIAL EPISODES                      */}
-        {/* ========================================================= */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h3 className="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-2">
-                <ListMusic size={20} className="text-[#079FE8]" />
-                <span>สารบัญตอนทั้งหมด (รวม 8 ตอนจบชุดบริบูรณ์)</span>
-              </h3>
-              <p className="text-xs text-slate-500 mt-0.5">
-                แตะเลือกตอนที่ต้องการรับฟังเพื่อเปลี่ยนเสียงบรรยายทันที
-              </p>
-            </div>
-            <span className="text-xs font-bold text-sky-700 bg-sky-50 border border-sky-200 px-2.5 py-1 rounded-full">
-              8 ตอนครบชุดสมบูรณ์
-            </span>
-          </div>
-
-          <div className="space-y-3">
-            {episodes.map((ep) => {
-              const isActive = activeEpisode.id === ep.id;
-              const ytThumbnail = `https://img.youtube.com/vi/${ep.youtube_id}/mqdefault.jpg`;
-
+          {/* Category Chips */}
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs">
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className={`px-3 py-1.5 rounded-full font-bold whitespace-nowrap transition-all cursor-pointer border ${
+                selectedCategory === 'all'
+                  ? 'bg-[#073B65] text-white border-[#073B65]'
+                  : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border-slate-200'
+              }`}
+            >
+              ทุกหมวดหมู่ ({podcasts.length})
+            </button>
+            {categories.map((cat) => {
+              const count = podcasts.filter(p => p.category_id === cat.id).length;
               return (
-                <div
-                  key={ep.id}
-                  onClick={() => {
-                    setActiveEpisode(ep);
-                    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-                      document.getElementById('player-view')?.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                  className={`p-3 sm:p-4 rounded-2xl border transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
-                    isActive 
-                      ? 'bg-sky-50/80 border-[#079FE8] shadow-sm ring-2 ring-[#079FE8]/20' 
-                      : 'bg-white border-slate-200/80 hover:bg-slate-50 hover:border-slate-300'
+                <button
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-3 py-1.5 rounded-full font-bold whitespace-nowrap transition-all cursor-pointer border ${
+                    selectedCategory === cat.id
+                      ? 'bg-[#079FE8] text-white border-[#079FE8]'
+                      : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border-slate-200'
                   }`}
                 >
-                  <div className="flex items-start gap-3 sm:gap-4 min-w-0">
-                    {/* Thumbnail */}
-                    <div className="relative w-24 sm:w-32 aspect-video rounded-xl overflow-hidden shrink-0 bg-slate-900 shadow-xs border border-slate-100">
-                      <Image
-                        src={ytThumbnail}
-                        alt={ep.title}
-                        fill
-                        className="object-cover"
-                        unoptimized
-                      />
-                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shadow-sm ${
-                          isActive ? 'bg-[#079FE8] text-white' : 'bg-white/90 text-slate-800'
-                        }`}>
-                          <Play size={13} className="ml-0.5" />
-                        </div>
-                      </div>
-                      <span className="absolute bottom-1 right-1 bg-black/75 text-white text-[9px] font-mono font-bold px-1 py-0.2 rounded">
-                        {ep.duration}
-                      </span>
-                    </div>
-
-                    {/* Details */}
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-1.5 mb-1 flex-wrap">
-                        <span className={`text-[10px] font-extrabold px-2 py-0.2 rounded-md ${
-                          isActive 
-                            ? 'bg-[#079FE8] text-white' 
-                            : 'bg-slate-100 text-slate-700'
-                        }`}>
-                          ตอนที่ {ep.episode_number}
-                        </span>
-                        {isActive && (
-                          <span className="text-[10px] font-bold text-red-600 bg-red-50 border border-red-200 px-1.5 py-0.2 rounded-md flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
-                            <span>กำลังเล่น</span>
-                          </span>
-                        )}
-                        <span className="text-[10px] text-slate-400">
-                          {ep.published_at}
-                        </span>
-                      </div>
-
-                      <h4 className={`text-xs sm:text-sm font-bold leading-snug line-clamp-2 ${
-                        isActive ? 'text-[#073B65]' : 'text-slate-900'
-                      }`}>
-                        {ep.title}
-                      </h4>
-
-                      <p className="text-[11px] sm:text-xs text-slate-500 line-clamp-1 sm:line-clamp-2 mt-1 leading-relaxed">
-                        {ep.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Right Action */}
-                  <div className="flex items-center justify-end sm:justify-center shrink-0">
-                    <button
-                      type="button"
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1 transition-all ${
-                        isActive
-                          ? 'bg-[#079FE8] text-white shadow-xs'
-                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                      }`}
-                    >
-                      <Play size={12} className={isActive ? 'text-white' : 'text-slate-600'} />
-                      <span>{isActive ? 'กำลังเล่น' : 'เปิดฟังตอนนี้'}</span>
-                    </button>
-                  </div>
-                </div>
+                  {cat.name} ({count})
+                </button>
               );
             })}
           </div>
         </div>
 
         {/* ========================================================= */}
-        {/* 5. COMPANION FLIPBOOK CARD                                */}
+        {/* 3. PODCAST CATALOG GRID                                   */}
+        {/* ========================================================= */}
+        {loading ? (
+          <div className="py-16 text-center">
+            <div className="w-9 h-9 border-3 border-[#079FE8] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+            <p className="text-xs font-bold text-slate-500">กำลังโหลดรายการพอดแคสต์...</p>
+          </div>
+        ) : filteredPodcasts.length === 0 ? (
+          <div className="py-16 text-center bg-white rounded-3xl border border-slate-200/80 p-8">
+            <Headphones size={36} className="text-slate-300 mx-auto mb-2" />
+            <h3 className="font-black text-slate-800 text-base">ไม่พบรายการพอดแคสต์ที่ตรงกับคำค้น</h3>
+            <p className="text-xs text-slate-500 mt-1">ลองเปลี่ยนคำค้นหาหรือเลือกหมวดหมู่อื่น</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 mb-8">
+            {filteredPodcasts.map((podcast) => {
+              const isThisCurrent = currentPodcast?.id === podcast.id;
+              const isThisPlaying = isThisCurrent && isPlaying;
+
+              return (
+                <div
+                  key={podcast.id}
+                  className={`group relative bg-white rounded-2xl sm:rounded-3xl border transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between hover:shadow-md ${
+                    isThisCurrent 
+                      ? 'border-[#079FE8] ring-2 ring-[#079FE8]/20 shadow-sm' 
+                      : 'border-slate-200/90 hover:border-slate-300'
+                  }`}
+                >
+                  <div className="flex items-start gap-3.5 sm:gap-4 mb-3">
+                    {/* Thumbnail / Cover */}
+                    <div className="relative w-24 sm:w-28 aspect-square rounded-2xl overflow-hidden shrink-0 shadow-xs bg-slate-900 border border-slate-100">
+                      <Image
+                        src={podcast.cover_image || '/images/books/tam-jai-hai-prom-buak.jpg'}
+                        alt={podcast.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        unoptimized
+                      />
+                      
+                      {/* Play overlay button */}
+                      <button
+                        onClick={() => handlePlayToggle(podcast)}
+                        className={`absolute inset-0 flex items-center justify-center transition-all cursor-pointer ${
+                          isThisPlaying ? 'bg-black/40' : 'bg-black/25 group-hover:bg-black/40'
+                        }`}
+                        title={isThisPlaying ? 'หยุดเล่นชั่วคราว' : 'เปิดฟังตอนนี้'}
+                      >
+                        <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform ${
+                          isThisPlaying
+                            ? 'bg-[#079FE8] text-white animate-pulse'
+                            : 'bg-white/95 text-slate-800 group-hover:bg-[#079FE8] group-hover:text-white'
+                        }`}>
+                          {isThisPlaying ? <Pause size={17} /> : <Play size={17} className="ml-0.5" />}
+                        </div>
+                      </button>
+
+                      <span className="absolute bottom-1 right-1 bg-black/80 text-white text-[9px] font-mono font-bold px-1 py-0.2 rounded">
+                        {podcast.duration_formatted}
+                      </span>
+                    </div>
+
+                    {/* Details */}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5 mb-1 flex-wrap">
+                        <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded ${
+                          podcast.source_type === 'mp3'
+                            ? 'bg-amber-100 text-amber-900 border border-amber-300/60 font-bold'
+                            : 'bg-red-50 text-red-700 border border-red-200/80 font-bold'
+                        }`}>
+                          {podcast.source_type === 'mp3' ? '🎵 MP3 Audio' : '🔴 YouTube'}
+                        </span>
+                        {podcast.order && (
+                          <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.2 rounded">
+                            ตอนที่ {podcast.order}
+                          </span>
+                        )}
+                        {isThisPlaying && (
+                          <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded flex items-center gap-1 animate-pulse">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                            <span>กำลังเล่น</span>
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 className={`text-xs sm:text-sm font-black leading-snug line-clamp-2 ${
+                        isThisCurrent ? 'text-[#073B65]' : 'text-slate-900'
+                      }`}>
+                        {podcast.title}
+                      </h3>
+
+                      <p className="text-[11px] text-sky-700 font-semibold truncate mt-0.5">
+                        {podcast.host}
+                      </p>
+
+                      <p className="text-[11px] sm:text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed">
+                        {podcast.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Card Bottom Actions */}
+                  <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2 text-xs">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handlePlayToggle(podcast)}
+                        className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                          isThisPlaying
+                            ? 'bg-[#079FE8] text-white shadow-xs'
+                            : 'bg-slate-100 hover:bg-[#073B65] hover:text-white text-slate-700'
+                        }`}
+                      >
+                        {isThisPlaying ? <Pause size={13} /> : <Play size={13} />}
+                        <span>{isThisPlaying ? 'กำลังฟัง' : 'เปิดฟังตอนนี้'}</span>
+                      </button>
+
+                      {isThisCurrent && (
+                        <button
+                          onClick={expandPlayer}
+                          className="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold transition-colors cursor-pointer flex items-center gap-1"
+                          title="ขยายเครื่องเล่น"
+                        >
+                          <Maximize2 size={12} />
+                          <span className="hidden sm:inline">ขยาย</span>
+                        </button>
+                      )}
+                    </div>
+
+                    {podcast.book_id && (
+                      <Link
+                        href={`/reader/${podcast.book_id}`}
+                        className="text-[11px] font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 hover:underline"
+                        title="เปิดอ่านหนังสือฉบับเต็มคู่ขนาน"
+                      >
+                        <BookOpen size={12} />
+                        <span>อ่าน Flipbook</span>
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* 4. COMPANION FLIPBOOK PROMO CARD                          */}
         {/* ========================================================= */}
         <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-100/60 rounded-2xl sm:rounded-3xl border border-amber-200/80 p-5 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-2xs">
           <div className="flex items-center gap-4">
@@ -427,10 +379,10 @@ function AudiosPageContent() {
                 หนังสือลิขสิทธิ์ฉบับเต็ม
               </span>
               <h4 className="text-base sm:text-lg font-black text-slate-900 mt-1">
-                ทำใจให้พร้อมบวก (ฉบับ E-Book Flipbook)
+                ทำใจให้พร้อมบวก (ฉบับ E-Book Flipbook 2 หน้า)
               </h4>
               <p className="text-xs text-slate-600 max-w-md mt-0.5 leading-relaxed">
-                อ่านเนื้อหาต้นฉบับเต็มเล่มแบบเปิดหน้า 2 หน้าสมจริง คู่ขนานไปกับการฟังพอดแคสต์
+                อ่านเนื้อหาต้นฉบับเต็มเล่มแบบเปิดหน้าเสมือนจริง ควบคู่ไปกับการเปิดฟังพอดแคสต์ในระบบ Hybrid Player
               </p>
             </div>
           </div>
@@ -456,11 +408,11 @@ export default function AudiosPage() {
       <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC]">
         <div className="text-center p-8">
           <div className="w-10 h-10 border-4 border-[#079FE8] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-xs font-bold text-[#073B65]">กำลังโหลดพอดแคสต์ธรรมะ...</p>
+          <p className="text-xs font-bold text-[#073B65]">กำลังโหลดห้องสมุดพอดแคสต์...</p>
         </div>
       </div>
     }>
-      <AudiosPageContent />
+      <PodcastLibraryContent />
     </Suspense>
   );
 }
