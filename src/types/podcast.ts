@@ -77,3 +77,4 @@ export interface PodcastPlayerState {
   minimizePlayer: () => void;
   closePlayer: () => void;
 }
+

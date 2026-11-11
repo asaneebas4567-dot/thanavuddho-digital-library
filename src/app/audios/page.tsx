@@ -119,12 +119,30 @@ function PodcastLibraryContent() {
             </p>
 
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs">
-              <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 font-medium">
+              <button
+                type="button"
+                onClick={() => setSelectedSource(selectedSource === 'youtube' ? 'all' : 'youtube')}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border font-bold transition-all cursor-pointer ${
+                  selectedSource === 'youtube'
+                    ? 'bg-red-600 text-white border-red-400 shadow-md scale-105'
+                    : 'bg-white/10 hover:bg-white/20 text-white border-white/20'
+                }`}
+                title="คลิกเพื่อกรองเฉพาะรายการ YouTube"
+              >
                 <span>🔴 YouTube Podcasts ({podcasts.filter(p => p.source_type === 'youtube').length})</span>
-              </span>
-              <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 font-medium">
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedSource(selectedSource === 'mp3' ? 'all' : 'mp3')}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border font-bold transition-all cursor-pointer ${
+                  selectedSource === 'mp3'
+                    ? 'bg-sky-400 text-[#073B65] border-sky-300 shadow-md scale-105'
+                    : 'bg-white/10 hover:bg-white/20 text-white border-white/20'
+                }`}
+                title="คลิกเพื่อกรองเฉพาะรายการ MP3"
+              >
                 <span>🎵 MP3 Cloud Storage ({podcasts.filter(p => p.source_type === 'mp3').length})</span>
-              </span>
+              </button>
               <div className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-amber-400 text-amber-950 font-bold shadow-xs">
                 <span>🪙 ฟังครบ 10 นาที รับแต้ม +5P</span>
               </div>

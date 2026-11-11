@@ -218,6 +218,93 @@ const DEFAULT_PODCASTS: PodcastItem[] = [
       { time: '03:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'วางใจเบาๆ ไว้ที่ศูนย์กลางกายฐานที่ 7 เหนือระดับสะดือขึ้นมา 2 นิ้วมือ' },
       { time: '08:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'นึกนิมิตเป็นดวงแก้วใสบริสุทธิ์ หยุดนิ่งอย่างสบายๆ' }
     ]
+  },
+  {
+    id: 'pod-mp3-02',
+    title: 'บทสวดมนต์ทำวัตรเช้าและเจริญพระพุทธมนต์ (MP3)',
+    description: 'บทสวดมนต์ทำวัตรเช้า สวดสรรเสริญพระรัตนตรัย เจริญสติและแผ่เมตตาจิต เพื่อความเป็นสิริมงคลเริ่มต้นวันใหม่อย่างผ่องใส',
+    host: 'พระครูปลัดสุวัฒนโพธิคุณ & คณะสงฆ์',
+    cover_image: 'https://images.unsplash.com/photo-1545652985-5edd365b12eb?auto=format&fit=crop&q=80&w=800',
+    source_type: 'mp3',
+    audio_file_path: 'podcasts/morning-chanting-hq.mp3',
+    audio_url: 'https://actions.google.com/sounds/v1/ambiences/gentle_rain.ogg',
+    duration_seconds: 1200,
+    duration_formatted: '20:00',
+    category_id: 'cat_chanting',
+    category_name: 'บทสวดมนต์ & พิธีกรรม',
+    is_published: true,
+    published_at: '11 พ.ย. 2569',
+    order: 10,
+    transcript: [
+      { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'โย โส ภะคะวา อะระหัง สัมมาสัมพุทโธ...' },
+      { time: '05:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'บทสวดสรรเสริญพระธรรมคุณ และพระสังฆคุณ' },
+      { time: '12:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'แผ่เมตตาให้สรรพสัตว์ทั้งหลายเป็นสุขเป็นสุขเถิด' }
+    ]
+  },
+  {
+    id: 'pod-mp3-03',
+    title: 'เสียงอ่านหนังสือ: เขาก็สุข เราก็สุข (ตอนที่ 1 นิยามแห่งความสุข)',
+    description: 'เสียงอ่านหนังสือลิขสิทธิ์ฉบับเต็ม บันทึกเสียงคมชัด สำหรับการฟังสร้างพลังใจและเข้าใจความสุขรอบตัวอย่างแท้จริง',
+    host: 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
+    cover_image: '/images/books/เขา_ก็_สุข_เรา_ก็_สุข.jpg',
+    source_type: 'mp3',
+    audio_file_path: 'podcasts/khao-kor-sook-ep1.mp3',
+    audio_url: 'https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg',
+    duration_seconds: 1105,
+    duration_formatted: '18:25',
+    category_id: 'cat_mind',
+    category_name: 'พัฒนาจิตใจ & คิดบวก',
+    is_published: true,
+    published_at: '11 พ.ย. 2569',
+    order: 11,
+    book_id: 'book_khao_kor_suk',
+    transcript: [
+      { time: '00:00', speaker: 'ผู้บรรยาย', text: 'ยินดีต้อนรับสู่เสียงอ่านหนังสือ เขาก็สุข เราก็สุข ผลงานพระครูปลัดสุวัฒนโพธิคุณ' },
+      { time: '04:15', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'คนเรามักมองหาความสุขจากสิ่งที่ยังไม่มี จนลืมไปว่าความสุขที่แท้จริงอยู่กับสิ่งที่เรามีในปัจจุบัน' },
+      { time: '09:30', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'เมื่อใจสงบ ไม่เปรียบเทียบกับใคร ความสุขอันประณีตย่อมเบ่งบานในใจเรา' }
+    ]
+  },
+  {
+    id: 'pod-mp3-04',
+    title: 'Thanavuddho Daily Dhamma: ข้อคิดชนะความเครียด (MP3)',
+    description: 'ข้อคิดธรรมะสั้นๆ สำหรับคนทำงาน วิธีจัดการความเครียด อารมณ์ และความเหนื่อยล้าด้วยการกำหนดลมหายใจและวางใจให้เป็นกลาง',
+    host: 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
+    cover_image: 'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&q=80&w=800',
+    source_type: 'mp3',
+    audio_file_path: 'podcasts/daily-stress-free.mp3',
+    audio_url: 'https://actions.google.com/sounds/v1/ambiences/daytime_forest_bonfire.ogg',
+    duration_seconds: 760,
+    duration_formatted: '12:40',
+    category_id: 'cat_work',
+    category_name: 'การงาน & ความสำเร็จ',
+    is_published: true,
+    published_at: '11 พ.ย. 2569',
+    order: 12,
+    transcript: [
+      { time: '00:00', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'สวัสดีทุกท่านยามเช้า วันนี้เรามาเรียนรู้วิธีคลายความกังวลใจและสร้างสมดุลชีวิต' },
+      { time: '03:30', speaker: 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'อย่าเอาใจไปแบกโลกทั้งใบ งานหนักก็ค่อยๆ แก้ทีละเปลาะ ใจสบายงานสำเร็จ' }
+    ]
+  },
+  {
+    id: 'pod-mp3-05',
+    title: 'บทสวดธัมมจักกัปปวัตตนสูตร ทำนองสรภัญญะ (MP3)',
+    description: 'บทสวดปฐมเทศนา หมุนกงล้อแห่งธรรมเพื่อสันติภาพภายในและสิริมงคลแก่ชีวิต ฟังได้ต่อเนื่องทุกที่ทุกเวลา',
+    host: 'คณะสงฆ์วัดพระธรรมกาย & พุทธศาสนิกชน',
+    cover_image: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&q=80&w=800',
+    source_type: 'mp3',
+    audio_file_path: 'podcasts/dhammacakka-hq.mp3',
+    audio_url: 'https://actions.google.com/sounds/v1/ambiences/meadow_morning.ogg',
+    duration_seconds: 1010,
+    duration_formatted: '16:50',
+    category_id: 'cat_chanting',
+    category_name: 'บทสวดมนต์ & พิธีกรรม',
+    is_published: true,
+    published_at: '11 พ.ย. 2569',
+    order: 13,
+    transcript: [
+      { time: '00:00', speaker: 'คณะสงฆ์', text: 'เอวัมเม สุตัง เอกัง สะมะยัง ภะคะวา...' },
+      { time: '06:00', speaker: 'คณะสงฆ์', text: 'อริยสัจ 4 ประการ ทุกข์ สมุทัย นิโรธ มรรค' }
+    ]
   }
 ];
 
@@ -228,22 +315,91 @@ function ensureDataDir() {
   }
 }
 
+// Helper: Normalize podcast item for backward compatibility
+function normalizePodcast(item: any, index: number): PodcastItem {
+  let sourceType: 'youtube' | 'mp3' = item.source_type;
+  if (sourceType !== 'youtube' && sourceType !== 'mp3') {
+    const url = item.youtube_url || item.audio_url || '';
+    if (url.includes('youtube.com') || url.includes('youtu.be') || item.youtube_video_id) {
+      sourceType = 'youtube';
+    } else {
+      sourceType = 'mp3';
+    }
+  }
+
+  let videoId = item.youtube_video_id;
+  if (sourceType === 'youtube' && !videoId) {
+    const match = (item.youtube_url || item.audio_url || '').match(/(?:v=|\/embed\/|youtu\.be\/|\/v\/|\/shorts\/)([a-zA-Z0-9_-]{11})/);
+    if (match) videoId = match[1];
+  }
+
+  const coverImage = item.cover_image || item.cover || (videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : '/images/books/tam-jai-hai-prom-buak.jpg');
+
+  return {
+    id: item.id || `pod-${index + 1}`,
+    title: item.title || 'ธรรมะพอดแคสต์',
+    description: item.description || '',
+    host: item.host || 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
+    cover_image: coverImage,
+    source_type: sourceType,
+    youtube_url: item.youtube_url || (sourceType === 'youtube' && videoId ? `https://www.youtube.com/watch?v=${videoId}` : (item.audio_url?.includes('youtube.com') ? item.audio_url : undefined)),
+    youtube_video_id: videoId,
+    audio_file_path: item.audio_file_path,
+    audio_url: item.audio_url || (sourceType === 'mp3' ? item.audio_file_path : undefined),
+    duration_seconds: item.duration_seconds || 900,
+    duration_formatted: item.duration_formatted || item.duration || '15:00',
+    category_id: item.category_id || 'cat_mind',
+    category_name: item.category_name || (
+      item.category_id === 'cat_meditation' ? 'สมาธิ & จิตสงบ' :
+      item.category_id === 'cat_chanting' ? 'บทสวดมนต์ & พิธีกรรม' :
+      item.category_id === 'cat_work' ? 'การงาน & ความสำเร็จ' :
+      item.category_id === 'cat_family' ? 'ครอบครัว & สังคม' :
+      'พัฒนาจิตใจ & คิดบวก'
+    ),
+    is_published: item.is_published ?? (item.status !== 'draft'),
+    published_at: item.published_at || '11 พ.ย. 2569',
+    book_id: item.book_id,
+    order: item.order || index + 1,
+    transcript: item.transcript || []
+  };
+}
+
 // -----------------------------------------------------------------------------
 // 1. PODCASTS CRUD
 // -----------------------------------------------------------------------------
 export function getAllPodcasts(): PodcastItem[] {
   try {
     ensureDataDir();
+    let podcasts: PodcastItem[] = [];
     if (fs.existsSync(PODCASTS_FILE)) {
       const data = JSON.parse(fs.readFileSync(PODCASTS_FILE, 'utf-8'));
       if (Array.isArray(data) && data.length > 0) {
-        // Merge or return
-        return data;
+        podcasts = data.map((item, idx) => normalizePodcast(item, idx));
       }
     }
-    // Write defaults
-    fs.writeFileSync(PODCASTS_FILE, JSON.stringify(DEFAULT_PODCASTS, null, 2), 'utf-8');
-    return DEFAULT_PODCASTS;
+
+    // Merge in any DEFAULT_PODCASTS that are not present
+    const existingIds = new Set(podcasts.map(p => p.id));
+    const existingVideos = new Set(podcasts.filter(p => p.youtube_video_id).map(p => p.youtube_video_id));
+    let hasChanges = false;
+
+    for (const def of DEFAULT_PODCASTS) {
+      if (!existingIds.has(def.id) && (!def.youtube_video_id || !existingVideos.has(def.youtube_video_id))) {
+        podcasts.push(def);
+        hasChanges = true;
+      }
+    }
+
+    if (podcasts.length === 0) {
+      podcasts = DEFAULT_PODCASTS;
+      hasChanges = true;
+    }
+
+    if (hasChanges) {
+      savePodcasts(podcasts);
+    }
+
+    return podcasts;
   } catch {
     return DEFAULT_PODCASTS;
   }
