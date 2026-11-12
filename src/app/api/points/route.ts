@@ -68,7 +68,10 @@ export async function POST(req: NextRequest) {
       chapterIndex, 
       chapterTitle, 
       chapterPageCount, 
-      durationSeconds 
+      durationSeconds,
+      customPoints,
+      customTitle,
+      customDetail 
     } = body;
 
     if (!email || !type) {
@@ -82,7 +85,10 @@ export async function POST(req: NextRequest) {
       chapterIndex,
       chapterTitle,
       chapterPageCount,
-      durationSeconds
+      durationSeconds,
+      customPoints,
+      customTitle,
+      customDetail
     });
 
     return NextResponse.json(result);

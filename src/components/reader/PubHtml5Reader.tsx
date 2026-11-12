@@ -7,6 +7,7 @@ import { ChevronLeft, Maximize, Minimize, ExternalLink, BookOpen, Sparkles, Cloc
 import { useLearningPoints } from '@/lib/useLearningPoints';
 import { useLoan } from '@/context/LoanContext';
 import LazadaRewardPopup, { RewardCelebrationData } from '@/components/rewards/LazadaRewardPopup';
+import DailyReadingSummaryModal from '@/components/reader/DailyReadingSummaryModal';
 
 interface PubHtml5ReaderProps {
   book: {
@@ -99,7 +100,9 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
   const isPubHtml5 = secureUrl.includes('pubhtml5.com');
   const isWorldCiv = book.category_id === 'cat_world_civ' || (book.category_ids && book.category_ids.includes('cat_world_civ'));
 
-  const handleGoBack = useCallback(() => {
+  const [showExitSummaryModal, setShowExitSummaryModal] = useState(false);
+
+  const handleExecuteExit = useCallback(() => {
     // 1. If explicit 'from' parameter provided in URL
     const fromParam = searchParams.get('from');
     if (fromParam) {
@@ -127,6 +130,28 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
       router.push('/books');
     }
   }, [router, searchParams, book.id]);
+
+  const handleGoBack = useCallback(() => {
+    if (sessionSeconds >= 10) {
+      setShowExitSummaryModal(true);
+    } else {
+      handleExecuteExit();
+    }
+  }, [sessionSeconds, handleExecuteExit]);
+
+  const handleClaimReadingRewardAndExit = useCallback(async (pointsEarned: number) => {
+    setShowExitSummaryModal(false);
+    try {
+      await recordEarn({
+        type: 'reading_time_milestone',
+        sourceId: book.id,
+        customPoints: pointsEarned,
+        customTitle: `ศึกษาธรรมะเล่ม: ${book.title}`,
+        customDetail: `อ่านหนังสือต่อเนื่อง ${Math.max(1, Math.floor(sessionSeconds / 60))} นาที (+${pointsEarned} P)`
+      });
+    } catch {}
+    handleExecuteExit();
+  }, [recordEarn, book.id, book.title, sessionSeconds, handleExecuteExit]);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -251,6 +276,16 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
         isOpen={showCelebration}
         onClose={() => setShowCelebration(false)}
         data={celebrationData}
+      />
+
+      {/* DAILY READING EXIT SUMMARY MODAL (Lazada Coin Style) */}
+      <DailyReadingSummaryModal
+        isOpen={showExitSummaryModal}
+        readingSeconds={sessionSeconds}
+        pagesRead={Math.max(1, Math.floor(sessionSeconds / 45))}
+        bookTitle={book.title}
+        onClaimAndExit={handleClaimReadingRewardAndExit}
+        onContinueReading={() => setShowExitSummaryModal(false)}
       />
     </div>
   );

@@ -35,6 +35,7 @@ import {
 } from '@/data/bookEasterEggQuests';
 import { useLearningPoints } from '@/lib/useLearningPoints';
 import { calculateChapterRequiredDwellTime, ChapterDwellCalculation } from '@/lib/readingPacingEngine';
+import { triggerFlyingCoins } from '@/components/common/FlyingCoinAnimation';
 
 export interface QuestAttemptRecord {
   selectedOption: number;
@@ -541,6 +542,7 @@ export default function BookQuestManager({
         playWebAudioSound('success', soundEnabled);
       }
       setShowRewardCelebration(true);
+      triggerFlyingCoins({ count: 16, sound: soundEnabled });
 
       // Save to completed quests if not already
       if (!completedQuestIds.includes(activeQuest.id)) {

@@ -7,6 +7,7 @@ import { PodcastPlayerProvider } from '@/context/PodcastPlayerContext';
 import SurveyMascotWidget from '@/components/survey/SurveyMascotWidget';
 import GlobalPodcastPlayer from '@/components/podcast/GlobalPodcastPlayer';
 import BottomNav from '@/components/layout/BottomNav';
+import FlyingCoinAnimation from '@/components/common/FlyingCoinAnimation';
 
 export default function AppProviders({ children }: { children: React.ReactNode }) {
   return (
@@ -17,6 +18,7 @@ export default function AppProviders({ children }: { children: React.ReactNode }
           <SurveyMascotWidget />
           <GlobalPodcastPlayer />
           <BottomNav />
+          <FlyingCoinAnimation />
         </PodcastPlayerProvider>
       </LoanProvider>
     </AuthProvider>

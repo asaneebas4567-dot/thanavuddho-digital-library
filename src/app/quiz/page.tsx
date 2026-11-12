@@ -24,6 +24,9 @@ import {
 } from 'lucide-react';
 import { quizzes, initialBadges } from '@/data/multimediaAndGamificationData';
 import { getCustomBookQuizzes } from '@/data/bookCustomData';
+import { endOfBookComprehensiveExams } from '@/data/bookComprehensiveExams';
+import { useLearningPoints } from '@/lib/useLearningPoints';
+import { triggerFlyingCoins } from '@/components/common/FlyingCoinAnimation';
 import { Quiz, QuizQuestion, QuizLevel, Badge, DhammaCertificate } from '@/types';
 
 function QuizGamificationContent() {
@@ -41,10 +44,12 @@ function QuizGamificationContent() {
   const [certificate, setCertificate] = useState<DhammaCertificate | null>(null);
   const [showCertificateModal, setShowCertificateModal] = useState(false);
 
-  // Combine user-created book quizzes with system quizzes
+  const { recordEarn, availablePoints } = useLearningPoints();
+
+  // Combine End-of-Book Comprehensive Exams (500 P), custom book quizzes, and system quizzes
   const allQuizzes = useMemo(() => {
     const custom = getCustomBookQuizzes();
-    return [...custom, ...quizzes];
+    return [...endOfBookComprehensiveExams, ...custom, ...quizzes];
   }, []);
 
   // Filter quizzes by level
@@ -124,6 +129,19 @@ function QuizGamificationContent() {
     // If passed
     if (scorePercent >= activeQuiz.passing_score) {
       setUserXP(prev => prev + activeQuiz.xp_reward);
+
+      // Trigger visual flying coin animation into Navbar balance
+      triggerFlyingCoins({ count: 20, sound: true });
+
+      // Record points into database
+      recordEarn({
+        type: activeQuiz.level === 'comprehensive' ? 'quiz_book_finish' : 'quiz_chapter',
+        sourceId: activeQuiz.id,
+        chapterTitle: activeQuiz.title,
+        customPoints: activeQuiz.xp_reward,
+        customTitle: activeQuiz.title,
+        customDetail: `ผ่านเกณฑ์การทดสอบ ${scorePercent}% ได้รับ +${activeQuiz.xp_reward} P`
+      });
 
       // Unlock badge if available
       if (activeQuiz.badge_id) {
@@ -432,13 +450,13 @@ function QuizGamificationContent() {
         )}
 
         {/* Level Navigation Tabs (4 ระดับ) */}
-        <div className="flex items-center gap-2 sm:gap-3 mb-8 overflow-x-auto no-scrollbar pb-2">
+        <div className="flex items-center gap-2 sm:gap-3 mb-6 overflow-x-auto no-scrollbar pb-2">
           {[
-            { id: 'all', label: 'ทั้งหมด (4 ระดับ)', icon: Layers },
+            { id: 'all', label: 'ทั้งหมด', icon: Layers },
+            { id: 'comprehensive', label: '🎓 ข้อสอบท้ายเล่ม 500 แต้ม (End-of-Book)', icon: GraduationCap },
             { id: 'chapter', label: 'ระดับ 1: จบในบท (Chapter)', icon: BookOpen },
             { id: 'book', label: 'ระดับ 2: จบ 1 เล่ม (Book)', icon: HelpCircle },
             { id: 'category', label: 'ระดับ 3: จบในหมวด (Category)', icon: Trophy },
-            { id: 'comprehensive', label: 'ระดับ 4: จบทั้งหมด (Grand Exam)', icon: GraduationCap },
           ].map(lvl => {
             const Icon = lvl.icon;
             const isActive = selectedLevel === lvl.id;
@@ -457,6 +475,25 @@ function QuizGamificationContent() {
               </button>
             );
           })}
+        </div>
+
+        {/* End-of-Book Exam Standards & Status Guide */}
+        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-sky-50 via-indigo-50 to-sky-50 border border-sky-200 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2">
+          <div className="flex items-center gap-2 font-bold text-[#073B65]">
+            <GraduationCap className="w-5 h-5 text-[#079FE8]" />
+            <span>มาตรฐานข้อสอบประมวลความรู้ท้ายเล่ม (End-of-Book Comprehensive Exam — รับ 500 คะแนน)</span>
+          </div>
+          <div className="text-slate-600 text-xs leading-relaxed space-y-1">
+            <p>
+              • <strong>ไม่มีการเด้งขัดจังหวะขณะอ่าน:</strong> ข้อสอบประมวลความรู้ท้ายเล่ม 500 คะแนน จะไม่เด้งขึ้นมาระหว่างอ่านหนังสือ ผู้เรียนต้องศึกษาเนื้อหาในเล่มให้เข้าใจลึกซึ้ง แล้วเข้ามาสอบวัดผลด้วยตนเองที่หน้านี้
+            </p>
+            <p>
+              • <strong>เล่มที่เปิดระบบข้อสอบท้ายเล่ม 500 แต้มแล้ว:</strong> มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า, ทำใจให้พร้อมบวก, อย่ามโน, สมดุลเท่ากับดี และ เขาก็สุข เราก็สุข
+            </p>
+            <p className="text-amber-800 font-medium">
+              • <strong>สถานะหนังสือเล่มอื่น ๆ:</strong> เล่มที่ยังไม่มีข้อสอบท้ายเล่ม กำลังอยู่ในกระบวนการสแกนและสังเคราะห์ชุดคำถามมาตรฐานเชิงลึก เพื่อรับรองมาตรฐานวิชาการตามที่ผู้ใช้กำหนด
+            </p>
+          </div>
         </div>
 
         {/* Quiz Cards Grid */}

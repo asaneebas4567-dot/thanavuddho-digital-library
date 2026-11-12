@@ -61,6 +61,8 @@ export interface PointTransaction {
     | 'listen_podcast' 
     | 'quiz_chapter' 
     | 'quiz_book_finish' 
+    | 'daily_login'
+    | 'reading_time_milestone'
     | 'redeem_reward' 
     | 'website_survey'
     | 'admin_adjust';
@@ -281,12 +283,17 @@ export interface EarnEventParams {
     | 'watch_video' 
     | 'listen_podcast' 
     | 'quiz_chapter' 
-    | 'quiz_book_finish';
+    | 'quiz_book_finish'
+    | 'daily_login'
+    | 'reading_time_milestone';
   sourceId?: string; // e.g. book_mongkol_chiwit_124, article_001
   chapterIndex?: number;
   chapterTitle?: string;
   chapterPageCount?: number;
   durationSeconds?: number; // for heartbeat
+  customPoints?: number;
+  customTitle?: string;
+  customDetail?: string;
 }
 
 export interface EarnEventResult {
@@ -442,18 +449,20 @@ export function processEarnPoints(params: EarnEventParams): EarnEventResult {
         message: 'ท่านเคยได้รับคะแนนจากแบบทดสอบนี้แล้ว'
       };
     }
-    // Mongkol quests award 10 points as requested; other chapter quizzes award 5 points
+    // Mongkol quests award 60 points as requested; other chapter quizzes award customPoints or 25 points
     const isMongkol = quizKey.includes('mongkol');
-    pointsToAward = isMongkol ? 10 : 5;
+    pointsToAward = isMongkol ? 60 : (params.customPoints || 25);
     transactionTitle = `ผ่านแบบทดสอบ: ${params.chapterTitle || 'เควสธรรมะ'}`;
-    transactionDetail = `ตอบคำถามผ่านเกณฑ์ (+${pointsToAward} P)`;
+    transactionDetail = isMongkol 
+      ? `ผ่านเควสมงคลชีวิต 38 ประการ (+60 P)` 
+      : `ตอบคำถามผ่านเกณฑ์ (+${pointsToAward} P)`;
 
     if (!daily.quizzesCompleted.includes(quizKey)) {
       daily.quizzesCompleted.push(quizKey);
     }
   }
 
-  // 5. Book Finish Quiz
+  // 5. Book Finish Quiz (End-of-Book Comprehensive Exam: 500 P)
   else if (params.type === 'quiz_book_finish') {
     const quizKey = `${params.sourceId}_final_quiz`;
     const existing = allHistory.find(h => 
@@ -470,9 +479,39 @@ export function processEarnPoints(params: EarnEventParams): EarnEventResult {
         message: 'ท่านเคยได้รับคะแนนจากแบบทดสอบท้ายเล่มนี้แล้ว'
       };
     }
-    pointsToAward = 30;
-    transactionTitle = `โบนัสผ่านแบบทดสอบท้ายเล่ม`;
-    transactionDetail = `ทดสอบความเข้าใจครบถ้วน (+30 P)`;
+    // High standard end-of-book exam awards 500 points
+    pointsToAward = params.customPoints || 500;
+    transactionTitle = params.customTitle || `โบนัสผ่านแบบทดสอบท้ายเล่ม (End-of-Book Comprehensive Exam)`;
+    transactionDetail = params.customDetail || `ประมวลความรู้สำเร็จฉบับสมบูรณ์ (+${pointsToAward} P)`;
+  }
+
+  // 5.1 Daily Login Streak Reward
+  else if (params.type === 'daily_login') {
+    const loginKey = `login_${dateStr}`;
+    const existing = allHistory.find(h => 
+      h.userEmail.toLowerCase() === emailLower && 
+      h.type === 'daily_login' && 
+      h.sourceId === loginKey
+    );
+    if (existing) {
+      return {
+        success: true,
+        pointsEarned: 0,
+        currentBalance: user.points,
+        alreadyEarned: true,
+        message: 'ท่านได้รับรางวัลเช็คอินประจำวันนี้แล้ว'
+      };
+    }
+    pointsToAward = params.customPoints || 30;
+    transactionTitle = params.customTitle || `เช็คอินธรรมะประจำวัน (${dateStr})`;
+    transactionDetail = params.customDetail || `โบนัสล็อกอินต่อเนื่อง (+${pointsToAward} P)`;
+  }
+
+  // 5.2 Daily Reading Time Milestone Reward (Lazada-style)
+  else if (params.type === 'reading_time_milestone') {
+    pointsToAward = params.customPoints || 10;
+    transactionTitle = params.customTitle || `รางวัลการอ่านหนังสือประจำวัน (${dateStr})`;
+    transactionDetail = params.customDetail || `ศึกษาธรรมะต่อเนื่อง (+${pointsToAward} P)`;
   }
 
   // 6 & 7. Melolo-style Video / Audio Watch/Listen to Earn

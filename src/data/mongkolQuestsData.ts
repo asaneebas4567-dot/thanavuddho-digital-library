@@ -2,7 +2,7 @@
  * รายการเควสมงคลชีวิต 38 ประการ ครบทุกมงคล (มงคลที่ 1 ถึง 38)
  * แต่ละมงคลมีชุดคำถามทดสอบปัญญา 5 ข้อ (หรือ 4 ข้อ) ครบถ้วนตามคำสอนในหนังสือมงคลชีวิต ฉบับทางก้าวหน้า
  * อัปเดตหน้า Trigger ตรงตามสารบัญจริงของ PDF mongkol-chiwit-124.pdf (433 หน้า)
- * รางวัลเควสละ 10 แต้ม ตามข้อกำหนด Thanavuddho Learning Points
+ * รางวัลเควสละ 60 แต้ม ตามเกณฑ์ Thanavuddho Learning Points (คำถาม 5 ข้อ ข้อสอบวิเคราะห์เชิงลึก)
  */
 
 import { BookEasterEggQuest } from './bookEasterEggQuests';
@@ -95,7 +95,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้มีเกราะสกัดพาล",
       "badgeIcon": "🛡️"
     }
@@ -187,7 +187,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้พบแสงสว่างแห่งปัญญา",
       "badgeIcon": "💡"
     }
@@ -279,7 +279,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้ถวายความเคารพสูงสุด",
       "badgeIcon": "🪷"
     }
@@ -371,7 +371,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้เลือกถิ่นฐานศักดิ์สิทธิ์",
       "badgeIcon": "🏛️"
     }
@@ -463,7 +463,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้ครอบครองเสบียงบุญ",
       "badgeIcon": "🪙"
     }
@@ -555,7 +555,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "นายท้ายเรือชีวิตยอดเยี่ยม",
       "badgeIcon": "🧭"
     }
@@ -647,7 +647,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ปราชญ์ผู้รอบรู้กว้างไกล",
       "badgeIcon": "📚"
     }
@@ -739,7 +739,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ปรมาจารย์แห่งวิจิตรศิลป์",
       "badgeIcon": "🎨"
     }
@@ -831,7 +831,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้พิทักษ์วินัยค้ำจุนโลก",
       "badgeIcon": "⚖️"
     }
@@ -923,7 +923,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ทูตสันติแห่งวาจาสัจจะ",
       "badgeIcon": "🕊️"
     }
@@ -1015,7 +1015,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "บุตรยอดกตัญญู",
       "badgeIcon": "❤️"
     }
@@ -1107,7 +1107,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ยอดบิดามารดาผู้สร้างคน",
       "badgeIcon": "🌱"
     }
@@ -1199,7 +1199,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้สร้างครอบครัวอบอุ่น",
       "badgeIcon": "💍"
     }
@@ -1279,7 +1279,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ยอดคนขยันพิชิตงาน",
       "badgeIcon": "⚡"
     }
@@ -1371,7 +1371,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้เปี่ยมด้วยหัวใจแห่งทานบารมี",
       "badgeIcon": "🎁"
     }
@@ -1463,7 +1463,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้ประพฤติสุจริตธรรม",
       "badgeIcon": "⚖️"
     }
@@ -1555,7 +1555,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้โอบอุ้มวงศ์วาน",
       "badgeIcon": "🌳"
     }
@@ -1647,7 +1647,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้ประกอบสัมมาอาชีพบริสุทธิ์",
       "badgeIcon": "✨"
     }
@@ -1739,7 +1739,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้มีหิริโอตตัปปะบริสุทธิ์",
       "badgeIcon": "🛡️"
     }
@@ -1831,7 +1831,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้มีสติสัมปชัญญะแจ่มใส",
       "badgeIcon": "🧘"
     }
@@ -1923,7 +1923,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้มีสติไม่ประมาท",
       "badgeIcon": "⏳"
     }
@@ -2015,7 +2015,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้เปี่ยมด้วยคารวธรรม",
       "badgeIcon": "🙏"
     }
@@ -2107,7 +2107,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้มีใจอ่อนน้อมดั่งรวงข้าวสุก",
       "badgeIcon": "🌾"
     }
@@ -2199,7 +2199,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้เข้าถึงความสุขที่แท้จริง",
       "badgeIcon": "💎"
     }
@@ -2291,7 +2291,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ยอดกตัญญูผู้มีใจกระจ่าง",
       "badgeIcon": "🌟"
     }
@@ -2383,7 +2383,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้เปิดหูรับรสพระธรรม",
       "badgeIcon": "🪞"
     }
@@ -2475,7 +2475,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้มีขันติธรรมดั่งทองแท้",
       "badgeIcon": "🛡️"
     }
@@ -2567,7 +2567,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้เปิดรับขุมทรัพย์ตักเตือน",
       "badgeIcon": "🗝️"
     }
@@ -2659,7 +2659,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้พบเห็นเนื้อนาบุญแห่งโลก",
       "badgeIcon": "🧘‍♂️"
     }
@@ -2751,7 +2751,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "บัณฑิตผู้ไขข้อกังขาแห่งธรรม",
       "badgeIcon": "💬"
     }
@@ -2843,7 +2843,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้เผาผลาญเสนียดกิเลส",
       "badgeIcon": "🔥"
     }
@@ -2935,7 +2935,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้ดำเนินวิถีพรหมจรรย์บริสุทธิ์",
       "badgeIcon": "🤍"
     }
@@ -3027,7 +3027,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้มีดวงตาเห็นธรรม",
       "badgeIcon": "👁️"
     }
@@ -3119,7 +3119,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้สัมผัสบรมสุขพระนิพพาน",
       "badgeIcon": "✨"
     }
@@ -3211,7 +3211,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้มีใจแกร่งดั่งภูผาหิน",
       "badgeIcon": "⛰️"
     }
@@ -3303,7 +3303,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้หลุดพ้นจากม่านน้ำตา",
       "badgeIcon": "☀️"
     }
@@ -3395,7 +3395,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้มีดวงใจไร้ธุลีกิเลส",
       "badgeIcon": "🪷"
     }
@@ -3487,7 +3487,7 @@ export const mongkol38Quests: BookEasterEggQuest[] = [
       }
     ],
     "loot": {
-      "points": 10,
+      "points": 60,
       "badgeName": "ผู้บรรลุยอดมงกุฎมงคลชีวิต",
       "badgeIcon": "👑"
     }

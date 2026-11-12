@@ -19,6 +19,7 @@ import {
 import { RewardItem, RewardRedemption } from '@/lib/learningPointsServer';
 import { useLearningPoints } from '@/lib/useLearningPoints';
 import DailyActivityWidget from '@/components/rewards/DailyActivityWidget';
+import DailyLoginStreakModal from '@/components/gamification/DailyLoginStreakModal';
 
 // Visual Mockup Component for Rewards Cards
 function RewardCardVisual({ item }: { item: RewardItem }) {
@@ -150,6 +151,7 @@ export default function RewardsShopPage() {
 
   // Daily Activity Modal state
   const [showDailyModal, setShowDailyModal] = useState<boolean>(false);
+  const [showLoginStreakModal, setShowLoginStreakModal] = useState<boolean>(false);
 
   // Redemption Form Modal state
   const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
@@ -307,6 +309,14 @@ export default function RewardsShopPage() {
 
               {/* Action Buttons */}
               <div className="flex flex-col gap-2">
+                <button
+                  onClick={() => setShowLoginStreakModal(true)}
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-black text-xs shadow-md hover:from-amber-300 hover:to-amber-400 transition-all cursor-pointer active:scale-95"
+                >
+                  <Coins className="w-4 h-4 text-amber-900" />
+                  <span>เช็คอินรายวัน (30-500 P)</span>
+                </button>
+
                 <button
                   onClick={() => setShowDailyModal(true)}
                   className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-white text-[#073B65] font-extrabold text-xs shadow-md hover:bg-sky-50 transition-all cursor-pointer active:scale-95"
@@ -750,6 +760,12 @@ export default function RewardsShopPage() {
           </div>
         </div>
       )}
+
+      {/* 5. DAILY LOGIN STREAK REWARD MODAL */}
+      <DailyLoginStreakModal
+        isOpen={showLoginStreakModal}
+        onClose={() => setShowLoginStreakModal(false)}
+      />
 
       {/* 4. DAILY ACTIVITY PROGRESS MODAL */}
       {showDailyModal && (

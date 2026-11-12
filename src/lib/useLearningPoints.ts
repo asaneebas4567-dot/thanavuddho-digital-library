@@ -150,12 +150,17 @@ export function useLearningPoints() {
       | 'watch_video' 
       | 'listen_podcast' 
       | 'quiz_chapter' 
-      | 'quiz_book_finish';
+      | 'quiz_book_finish'
+      | 'daily_login'
+      | 'reading_time_milestone';
     sourceId?: string;
     chapterIndex?: number;
     chapterTitle?: string;
     chapterPageCount?: number;
     durationSeconds?: number;
+    customPoints?: number;
+    customTitle?: string;
+    customDetail?: string;
   }) => {
     if (typeof window === 'undefined') return null;
 

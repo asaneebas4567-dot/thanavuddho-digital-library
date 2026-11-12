@@ -38,6 +38,7 @@ import { loadPdfDocument, renderPdfPageToCanvas, unloadPdfDocument, searchPdfTex
 import BookQuestManager from '@/components/gamification/BookQuestManager';
 import LazadaRewardPopup, { RewardCelebrationData } from '@/components/rewards/LazadaRewardPopup';
 import PubHtml5Reader from '@/components/reader/PubHtml5Reader';
+import DailyReadingSummaryModal from '@/components/reader/DailyReadingSummaryModal';
 import { detectBookDimension, BookDimensionInfo, calculateReadingPoints } from '@/lib/readingPacingEngine';
 import { useLearningPoints } from '@/lib/useLearningPoints';
 import { useLoan } from '@/context/LoanContext';
@@ -241,9 +242,11 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
   }, [currentPage]);
 
   // -------------------------------------------------------------------------
-  // STEP 5: ROBUST SINGLE-CLICK BACK NAVIGATION (SOLVES USER'S MAIN PAIN POINT)
+  // STEP 5: ROBUST SINGLE-CLICK BACK NAVIGATION WITH DAILY READING REWARD SUMMARY
   // -------------------------------------------------------------------------
-  const handleGoBack = useCallback(() => {
+  const [showExitSummaryModal, setShowExitSummaryModal] = useState(false);
+
+  const handleExecuteExit = useCallback(() => {
     // 1. Direct return if 'from' query param was passed
     const fromParam = searchParams.get('from');
     if (fromParam) {
@@ -271,6 +274,28 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
       router.push('/books');
     }
   }, [router, searchParams, book.id]);
+
+  const handleGoBack = useCallback(() => {
+    if (totalSessionSeconds >= 10) {
+      setShowExitSummaryModal(true);
+    } else {
+      handleExecuteExit();
+    }
+  }, [totalSessionSeconds, handleExecuteExit]);
+
+  const handleClaimReadingRewardAndExit = useCallback(async (pointsEarned: number) => {
+    setShowExitSummaryModal(false);
+    try {
+      await recordEarn({
+        type: 'reading_time_milestone',
+        sourceId: book.id,
+        customPoints: pointsEarned,
+        customTitle: `ศึกษาธรรมะเล่ม: ${book.title}`,
+        customDetail: `อ่านหนังสือต่อเนื่อง ${Math.max(1, Math.floor(totalSessionSeconds / 60))} นาที (+${pointsEarned} P)`
+      });
+    } catch {}
+    handleExecuteExit();
+  }, [recordEarn, book.id, book.title, totalSessionSeconds, handleExecuteExit]);
 
   const { returnMediaByBookId, isMediaBorrowed } = useLoan();
   const isBorrowed = isMediaBorrowed(book.id);
@@ -1399,6 +1424,16 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
         isOpen={isRewardPopupOpen}
         onClose={() => setIsRewardPopupOpen(false)}
         data={rewardData}
+      />
+
+      {/* DAILY READING EXIT SUMMARY MODAL (Lazada Coin Style) */}
+      <DailyReadingSummaryModal
+        isOpen={showExitSummaryModal}
+        readingSeconds={totalSessionSeconds}
+        pagesRead={pagesReadSession}
+        bookTitle={book.title}
+        onClaimAndExit={handleClaimReadingRewardAndExit}
+        onContinueReading={() => setShowExitSummaryModal(false)}
       />
 
     </div>

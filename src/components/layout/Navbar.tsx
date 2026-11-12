@@ -173,6 +173,7 @@ export default function Navbar() {
             {/* Live Rewards Points Quick Pill */}
             <Link 
               href="/rewards" 
+              id="navbar-points-pill"
               className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold text-[#073B65] bg-white hover:bg-sky-50 shadow-xs transition-all cursor-pointer border border-[#DCEAF3] active:scale-95 shrink-0"
               title="ร้านแลกของรางวัลธรรมะ"
             >
