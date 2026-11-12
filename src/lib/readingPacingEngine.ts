@@ -163,3 +163,66 @@ export function calculateReadingPoints(params: ReadingPointParams): ReadingPoint
   };
 }
 
+/**
+ * ============================================================================
+ * CHAPTER READING PACING & GENUINE STUDY VERIFICATION ENGINE
+ * ============================================================================
+ * Research Foundation (Brysbaert 2019, Cambridge, UCSD, UT Austin):
+ * - Adult silent reading speed: ~238 WPM (Words Per Minute)
+ * - Academic textbook: ~800 words/page (3.2 min/page)
+ * - Thai pocketbook / Dhamma book (A5): ~150 - 250 words/page (font & layout spacing)
+ * - Standard chapter (e.g. 10 pages): ~1,500 words => Average read time = ~5.0 minutes (300s)
+ * 
+ * Anti-Skimming Quest Unlock Rule (User Formula: 1.5 in 5 minutes ratio = 30%):
+ * - Minimum required study dwell time = 30% of average reading time.
+ * - For a 10-page chapter: 300s * 0.30 = 90s (1.5 minutes) minimum dwell.
+ * - Rate: ~9 seconds per page minimum active presence.
+ * - Prevents users from rapid-skimming ("เปิดคลิกๆ ไปแล้วเควสเด้ง").
+ */
+export interface ChapterDwellCalculation {
+  chapterPageCount: number;
+  averageReadingSeconds: number; // e.g. 300s (5.0 min) for 10 pages
+  requiredDwellSeconds: number;  // e.g. 90s (1.5 min) for 10 pages (30% threshold)
+  minimumSecondsPerPage: number; // e.g. 9.0s/page
+  recommendedMinutesDisplay: string; // e.g. "5.0 นาที"
+  requiredMinutesDisplay: string;    // e.g. "1.5 นาที"
+  antiSkimmingExplanation: string;
+}
+
+export function calculateChapterRequiredDwellTime(
+  pageCount: number,
+  dimension: BookDimension = 'A5',
+  customDwellRatio: number = 0.30 // 1.5 out of 5 minutes = 30%
+): ChapterDwellCalculation {
+  const safePageCount = Math.max(1, pageCount || 1);
+  const dimensionInfo = BOOK_DIMENSIONS[dimension] || BOOK_DIMENSIONS.A5;
+  const secondsPerPage = dimensionInfo.recommendedReadingSpeedSecondsPerPage || 30;
+
+  // Average reading time (100% thorough read)
+  // e.g. 10 pages * 30s = 300s = 5 minutes
+  const averageReadingSeconds = safePageCount * secondsPerPage;
+
+  // Required Dwell Time (User rule: 1.5 in 5 minutes ratio = 30%)
+  // e.g. 10 pages * 30s * 0.30 = 90s = 1.5 minutes
+  const rawRequiredSeconds = Math.round(averageReadingSeconds * customDwellRatio);
+
+  // Reasonable clamps:
+  // - Minimum: at least 30 seconds (even for 1-2 page short intro)
+  // - Maximum: at most 300 seconds (5 minutes) so it never frustrates fast readers
+  const requiredDwellSeconds = Math.max(30, Math.min(300, rawRequiredSeconds));
+  const minimumSecondsPerPage = Math.round((requiredDwellSeconds / safePageCount) * 10) / 10;
+
+  const averageMinutes = (averageReadingSeconds / 60).toFixed(1);
+  const requiredMinutes = (requiredDwellSeconds / 60).toFixed(1);
+
+  return {
+    chapterPageCount: safePageCount,
+    averageReadingSeconds,
+    requiredDwellSeconds,
+    minimumSecondsPerPage,
+    recommendedMinutesDisplay: `${averageMinutes} นาที`,
+    requiredMinutesDisplay: `${requiredMinutes} นาที`,
+    antiSkimmingExplanation: `บทนี้มี ${safePageCount} หน้า เวลาอ่านเฉลี่ย ${averageMinutes} นาที (238 คำ/นาที) ระบบกำหนดเวลาศึกษาจริงอย่างน้อย ${requiredMinutes} นาที (1.5 ใน 5 ส่วน) เพื่อปลดล็อกเควส`
+  };
+}
+
