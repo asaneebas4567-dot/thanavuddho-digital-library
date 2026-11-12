@@ -28,7 +28,6 @@ import { books as libBooks, videos, articles } from '@/lib/mock-data';
 import { books as dbBooks } from '@/data/mockData';
 import persistentBooks from '@/data/persistentBooks.json';
 import HomeMediaShowcase from '@/components/home/HomeMediaShowcase';
-import WelcomeModalPopup from '@/components/home/WelcomeModalPopup';
 import TopBannerCarousel from '@/components/common/TopBannerCarousel';
 import ScrollableBookRow from '@/components/books/ScrollableBookRow';
 import WebtoonRankingShelf from '@/components/books/WebtoonRankingShelf';
@@ -273,10 +272,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
       
-      {/* 0. หน้าต่างลอยแนะนำตัวแอพ (Welcome Floating Modal Popup) */}
-      <WelcomeModalPopup />
-
-      {/* 1. ไฮไลต์ 10 หน้าต่าง (ยินดีต้อนรับ, แบบประเมิน 200 แต้ม, พอดแคสต์, วิดีโอ, และ 6 เล่มลิขสิทธิ์ Flipbook) */}
+      {/* 1. ไฮไลต์ชุดหนังสือดิจิทัล */}
       <TopBannerCarousel autoPlayIntervalMs={8000} />
 
       {/* 2. Main Content Container */}

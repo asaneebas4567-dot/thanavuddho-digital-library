@@ -166,11 +166,12 @@ export default function MiniPlayer() {
           {/* Close Player Button */}
           <button
             onClick={closePlayer}
-            className="p-1.5 sm:p-2 rounded-xl text-sky-200 hover:text-white hover:bg-white/15 transition-colors cursor-pointer"
+            className="p-1.5 sm:p-2 rounded-xl text-white bg-white/15 hover:bg-rose-600 hover:text-white transition-colors cursor-pointer flex items-center gap-1 active:scale-95"
             title="ปิดเครื่องเล่นเสียง"
             aria-label="ปิดเครื่องเล่นเสียง"
           >
             <X size={18} />
+            <span className="text-[10px] font-bold hidden sm:inline">ปิด</span>
           </button>
         </div>
 

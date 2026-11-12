@@ -78,18 +78,18 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
         {/* Tab Filters */}
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
           {[
-            { id: 'all', label: '🔥 รวม 5 อันดับสูงสุด' },
-            { id: 'mind', label: '🧠 จิตวิทยา & สมาธิ' },
-            { id: 'family', label: '❤️ ครอบครัว & ความรัก' },
-            { id: 'work', label: '💼 ความสำเร็จ & การงาน' },
+            { id: 'all', label: 'ยอดนิยมทั้งหมด' },
+            { id: 'mind', label: 'จิตวิทยา & สมาธิ' },
+            { id: 'family', label: 'ครอบครัว & ความรัก' },
+            { id: 'work', label: 'การงาน & ความสำเร็จ' },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                 activeTab === tab.id
                   ? 'bg-[#073B65] text-white shadow-xs'
-                  : 'bg-[#F0F8FD] text-[#243447] border border-[#DCEAF3] hover:bg-sky-50'
+                  : 'bg-slate-100/80 text-slate-700 border border-slate-200 hover:bg-slate-200/60'
               }`}
             >
               {tab.label}
@@ -148,11 +148,10 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
                   )}
                 </div>
 
-                {/* Copyright Red Badge */}
+                {/* Copyright Badge */}
                 {(book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) && (
-                  <div className="absolute top-1.5 right-1.5 bg-gradient-to-r from-red-600 to-rose-600 text-white font-extrabold text-[7.5px] leading-none px-1.5 py-0.5 rounded-full shadow-md tracking-wider z-20 select-none border border-red-300/80 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                    หนังสือลิขสิทธิ์
+                  <div className="absolute top-1.5 right-1.5 bg-rose-700/90 text-white font-semibold text-[8px] leading-none px-1.5 py-0.5 rounded shadow-xs z-20 select-none">
+                    ลิขสิทธิ์
                   </div>
                 )}
 

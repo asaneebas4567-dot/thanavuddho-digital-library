@@ -165,23 +165,14 @@ export default function Navbar() {
             {/* Live Rewards Points Quick Pill */}
             <Link 
               href="/rewards" 
-              className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-bold text-[#073B65] bg-white hover:bg-[#FDF6E9] shadow-xs transition-all cursor-pointer border border-[#DCEAF3] active:scale-95 shrink-0"
+              className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold text-[#073B65] bg-white hover:bg-sky-50 shadow-xs transition-all cursor-pointer border border-[#DCEAF3] active:scale-95 shrink-0"
               title="ร้านแลกของรางวัลธรรมะ"
             >
               <span className="text-xs sm:text-sm">🪙</span>
-              <span className="font-mono text-[#D9A441] font-extrabold text-[11px] sm:text-xs" suppressHydrationWarning>
+              <span className="font-mono text-[#D9A441] font-bold text-[11px] sm:text-xs" suppressHydrationWarning>
                 {mounted ? availablePoints.toLocaleString() : '0'}
               </span>
-              <span className="text-[9px] sm:text-[10px] text-[#64748B]">P</span>
-            </Link>
-
-            {/* AI Assistant Quick Pill (Tablet/Desktop) */}
-            <Link 
-              href="/chatbot" 
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-[#073B65] bg-white hover:bg-sky-50 hover:text-[#079FE8] transition-all shadow-xs cursor-pointer border border-[#DCEAF3] active:scale-95"
-            >
-              <Bot size={14} className="text-[#079FE8]" />
-              <span>ถาม AI ธรรมะ</span>
+              <span className="text-[9px] sm:text-[10px] text-[#64748B]">แต้ม</span>
             </Link>
 
             {/* User Profile or Login CTA */}
@@ -315,22 +306,13 @@ export default function Navbar() {
           </div>
 
           <div className="pt-2 border-t border-gray-100 flex flex-col gap-2">
-            <div className="flex gap-2">
-              <Link
-                href="/chatbot"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-sky-400 to-sky-500 text-white font-bold text-xs text-center flex items-center justify-center gap-1.5 shadow-sm"
-              >
-                <Bot size={15} /> ถาม AI ธรรมะ
-              </Link>
-              <Link
-                href="/dashboard"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex-1 py-2.5 px-3 rounded-xl bg-stone-100 text-slate-800 font-bold text-xs text-center flex items-center justify-center gap-1.5"
-              >
-                <User size={15} /> ชั้นหนังสือ ({activeLoanCount})
-              </Link>
-            </div>
+            <Link
+              href="/dashboard"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="w-full py-2.5 px-3 rounded-xl bg-stone-100 hover:bg-stone-200 text-slate-800 font-semibold text-xs text-center flex items-center justify-center gap-1.5 transition-colors"
+            >
+              <User size={15} /> ชั้นหนังสือของฉัน ({activeLoanCount})
+            </Link>
 
             {mounted && isAuthenticated && user ? (
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-50 border border-amber-200">

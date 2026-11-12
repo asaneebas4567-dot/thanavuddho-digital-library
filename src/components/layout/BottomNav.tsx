@@ -106,7 +106,7 @@ export default function BottomNav() {
 
                   {/* Loan Count Badge */}
                   {item.count !== undefined && item.count > 0 && (
-                    <span className="absolute -top-1 -right-2 bg-sky-600 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-xs animate-pulse">
+                    <span className="absolute -top-1 -right-2 bg-[#079FE8] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
                       {item.count}
                     </span>
                   )}

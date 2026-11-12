@@ -36,18 +36,18 @@ export default function HomeMediaShowcase() {
     <div className="space-y-8 pt-2">
       
       {/* 1. Podcast Showcase Section (Poster-Style) */}
-      <section className="bg-gradient-to-br from-indigo-50/70 via-purple-50/50 to-white rounded-3xl p-5 sm:p-7 border border-indigo-200/80 shadow-2xs">
+      <section className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-slate-200/90 shadow-xs">
         
         {/* Header */}
         <div className="flex items-center justify-between gap-3 mb-5">
           <div className="flex items-center gap-2.5 sm:gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shadow-2xs border border-indigo-200">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 text-[#079FE8] flex items-center justify-center font-bold border border-sky-100">
               <Headphones size={20} />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg md:text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+              <h2 className="text-base sm:text-lg md:text-xl font-bold text-[#073B65] tracking-tight flex items-center gap-2">
                 <span>เสียงธรรมบรรยาย & พอดแคสต์</span>
-                <span className="text-[10px] font-bold text-indigo-800 bg-indigo-100/90 border border-indigo-200 px-2 py-0.5 rounded-full hidden sm:inline-block">
+                <span className="text-[10px] font-semibold text-[#073B65] bg-sky-50 border border-sky-200/80 px-2 py-0.5 rounded-full hidden sm:inline-block">
                   Dhamma Audio
                 </span>
               </h2>
@@ -59,7 +59,7 @@ export default function HomeMediaShowcase() {
 
           <Link 
             href="/audios" 
-            className="text-xs sm:text-sm font-bold text-indigo-700 hover:text-indigo-900 flex items-center gap-1 shrink-0 px-3 py-1.5 rounded-full bg-white/90 hover:bg-white border border-indigo-200/60 shadow-2xs transition-colors"
+            className="text-xs sm:text-sm font-semibold text-[#073B65] hover:text-[#079FE8] flex items-center gap-1 shrink-0 px-3 py-1.5 rounded-full bg-slate-50 hover:bg-slate-100 border border-slate-200/80 transition-colors"
           >
             <span>ดูทั้งหมด</span>
             <ChevronRight size={15} />
@@ -150,19 +150,19 @@ export default function HomeMediaShowcase() {
       </section>
 
       {/* 2. Video Showcase Section with 16:9 & 9:16 Orientation Filter */}
-      <section className="bg-gradient-to-br from-rose-50/70 via-orange-50/40 to-white rounded-3xl p-5 sm:p-7 border border-rose-200/80 shadow-2xs">
+      <section className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-slate-200/90 shadow-xs">
         
         {/* Header & Filter Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
           
           <div className="flex items-center gap-2.5 sm:gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold shadow-2xs border border-rose-200">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 text-[#079FE8] flex items-center justify-center font-bold border border-sky-100">
               <VideoIcon size={20} />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg md:text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+              <h2 className="text-base sm:text-lg md:text-xl font-bold text-[#073B65] tracking-tight flex items-center gap-2">
                 <span>วิดีโอธรรมเทศนา & คลิปสั้น</span>
-                <span className="text-[10px] font-bold text-rose-800 bg-rose-100/90 border border-rose-200 px-2 py-0.5 rounded-full hidden sm:inline-block">
+                <span className="text-[10px] font-semibold text-[#073B65] bg-sky-50 border border-sky-200/80 px-2 py-0.5 rounded-full hidden sm:inline-block">
                   Dhamma Videos
                 </span>
               </h2>
@@ -173,23 +173,23 @@ export default function HomeMediaShowcase() {
           </div>
 
           {/* Orientation Filter Tabs (ทั้งหมด / แนวนอน / แนวตั้ง) */}
-          <div className="flex items-center gap-1 bg-white/90 p-1 rounded-full border border-rose-200/80 shadow-2xs self-start sm:self-auto">
+          <div className="flex items-center gap-1 bg-slate-100/80 p-1 rounded-full border border-slate-200/80 self-start sm:self-auto">
             <button
               onClick={() => setVideoFilter('all')}
-              className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 videoFilter === 'all'
-                  ? 'bg-rose-600 text-white shadow-2xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-[#073B65] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               ทั้งหมด
             </button>
             <button
               onClick={() => setVideoFilter('horizontal')}
-              className={`px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                 videoFilter === 'horizontal'
-                  ? 'bg-rose-600 text-white shadow-2xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-[#073B65] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               <Film size={12} />
@@ -197,10 +197,10 @@ export default function HomeMediaShowcase() {
             </button>
             <button
               onClick={() => setVideoFilter('vertical')}
-              className={`px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                 videoFilter === 'vertical'
-                  ? 'bg-rose-600 text-white shadow-2xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-[#073B65] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               <Smartphone size={12} />

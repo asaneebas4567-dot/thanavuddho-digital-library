@@ -1,11 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Mitr } from "next/font/google";
+import { Prompt } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import AppProviders from "@/components/providers/AppProviders";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-geist-sans" });
-const mitr = Mitr({ weight: ['300', '400', '500', '600', '700'], subsets: ["thai"], variable: "--font-mitr" });
+const prompt = Prompt({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ["thai", "latin"],
+  variable: "--font-prompt",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -17,11 +22,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Thanavuddho Digital Library",
+  title: "Thanavuddho Digital Library | หอสมุดดิจิทัล พระครูปลัดสุวัฒนโพธิคุณ",
   description: "รวบรวมองค์ความรู้และผลงานของ พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ) เพื่อการศึกษาและพัฒนาจิตใจ",
 };
-
-import AppProviders from "@/components/providers/AppProviders";
 
 export default function RootLayout({
   children,
@@ -29,9 +32,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" className="overflow-x-hidden">
+    <html lang="th" className={`${prompt.variable} overflow-x-hidden scroll-smooth`}>
       <body
-        className={`${inter.variable} ${mitr.variable} font-sans antialiased min-h-screen flex flex-col bg-[#F0F8FD]/40 text-[#243447] overflow-x-hidden w-full`}
+        className={`${prompt.variable} font-sans antialiased min-h-screen flex flex-col bg-[#F8FAFC] text-[#1E293B] overflow-x-hidden w-full`}
       >
         <AppProviders>
           <Navbar />

@@ -1,22 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 :root {
   /* ==========================================================================
-     Thanavuddho Digital Library: Blue & White Premium Design System
+     Thanavuddho Digital Library: Clean Blue & White Standard (bkk.hibrary.me style)
      Palette Standard:
-       White: 60% (#FFFFFF)
-       Primary Blue: 25% (#079FE8)
-       Deep Navy: 10% (#073B65)
+       White / Soft Slate: 60% (#FFFFFF / #F8FAFC)
+       Primary Sky Blue: 25% (#079FE8)
+       Deep Navy Authority: 10% (#073B65)
        Accent Gold: 5% (#D9A441)
-       Light Blue Background: #F0F8FD
-       Main Text: #243447
-       Secondary Text: #64748B
-       Border: #DCEAF3
+       Border: Subtle Light Slate (#E2E8F0 / #DCEAF3)
      ========================================================================== */
   --background: #FFFFFF;
-  --background-soft: #F0F8FD;
-  --foreground: #243447;
-  --text-main: #243447;
+  --background-soft: #F8FAFC;
+  --foreground: #1E293B;
+  --text-main: #1E293B;
   --text-muted: #64748B;
   
   --primary: #079FE8;
@@ -35,8 +33,8 @@
   
   --surface: #FFFFFF;
   --surface-raised: #FFFFFF;
-  --border: #DCEAF3;
-  --border-subtle: #EBF3F8;
+  --border: #E2E8F0;
+  --border-subtle: #F1F5F9;
 
   --status-success: #10B981;
   --status-error: #EF4444;
@@ -45,9 +43,9 @@
 
 @theme inline {
   --color-background: var(--background);
-  --color-background-soft: #F0F8FD;
-  --color-foreground: #243447;
-  --color-text-main: #243447;
+  --color-background-soft: #F8FAFC;
+  --color-foreground: #1E293B;
+  --color-text-main: #1E293B;
   --color-text-muted: #64748B;
   --color-primary: #079FE8;
   --color-primary-hover: #0588c7;
@@ -60,17 +58,30 @@
   --color-gold-light: #FDF6E9;
   --color-gold-hover: #C59132;
   --color-surface: #FFFFFF;
-  --color-border: #DCEAF3;
-  --color-border-subtle: #EBF3F8;
-  --font-sans: var(--font-mitr), var(--font-geist-sans), sans-serif;
+  --color-border: #E2E8F0;
+  --color-border-subtle: #F1F5F9;
+  --font-sans: var(--font-prompt), 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: var(--font-geist-mono);
+}
+
+/* Enforce Prompt font globally everywhere across every component, input, modal, and button */
+*,
+*::before,
+*::after,
+html,
+body,
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: var(--font-prompt), 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 html,
 body {
   background: var(--background);
-  color: #243447;
-  font-family: var(--font-sans);
+  color: #1E293B;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -113,7 +124,7 @@ body {
 
 /* Ranking Number Outline / Webtoon Style */
 .rank-number {
-  font-family: var(--font-mitr), var(--font-geist-sans), sans-serif;
+  font-family: var(--font-prompt), 'Prompt', sans-serif;
   font-weight: 900;
   line-height: 0.85;
   letter-spacing: -0.05em;

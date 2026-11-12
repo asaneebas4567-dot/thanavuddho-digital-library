@@ -289,10 +289,10 @@ export default function SurveyMascotWidget() {
   return (
     <>
       {/* ------------------------------------------------------------- */}
-      {/* 1. FLOATING SIDE MASCOT WIDGET (LEFT MARGIN / BOTTOM-LEFT)     */}
+      {/* 1. FLOATING SIDE MASCOT WIDGET (DESKTOP / TABLET ONLY)        */}
       {/* ------------------------------------------------------------- */}
       <div 
-        className={`fixed z-40 transition-all duration-300 ease-out select-none ${
+        className={`hidden sm:block fixed z-40 transition-all duration-300 ease-out select-none ${
           isMinimized 
             ? 'left-0 bottom-24 lg:bottom-1/3' 
             : 'left-3 lg:left-6 bottom-24 lg:bottom-1/3'

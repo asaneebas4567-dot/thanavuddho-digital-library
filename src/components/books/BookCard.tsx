@@ -41,23 +41,21 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
   const theme = cardFallbackThemes[hash % cardFallbackThemes.length];
 
   return (
-    <div className="group relative bg-white border border-[#DCEAF3] rounded-2xl shadow-xs hover:shadow-xl hover:border-[#079FE8]/40 transition-all duration-300 flex flex-col h-full hover:-translate-y-1 overflow-hidden">
+    <div className="group relative bg-white border border-slate-200/90 rounded-xl shadow-xs hover:shadow-md hover:border-[#079FE8]/60 transition-all duration-200 flex flex-col h-full overflow-hidden">
       
       {/* Cover Artwork Container */}
-      <div className="relative aspect-[3/4] w-full bg-[#F0F8FD]/50 overflow-hidden flex items-center justify-center p-4 sm:p-5 border-b border-[#DCEAF3]">
+      <div className="relative aspect-[3/4] w-full bg-slate-50/70 overflow-hidden flex items-center justify-center p-4 sm:p-5 border-b border-slate-100">
         
-        {/* Ambient glow */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+        {/* Subtle shadow on hover */}
+        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
 
         {/* 3D Book Frame */}
-        <div className="book-cover-3d relative w-32 sm:w-36 aspect-[1/1.42] rounded-md overflow-hidden bg-slate-900 ring-1 ring-black/10 group-hover:scale-105 transition-transform duration-300 shadow-md">
+        <div className="book-cover-3d relative w-32 sm:w-36 aspect-[1/1.42] rounded-md overflow-hidden bg-slate-900 ring-1 ring-black/10 group-hover:scale-102 transition-transform duration-200 shadow-sm">
           
-
-          {/* Copyright Red Badge - หนังสือลิขสิทธิ์ ตัวแดงเด่นชัดเจน */}
+          {/* Clean Copyright Badge */}
           {(book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) && (
-            <div className="absolute top-1.5 right-1.5 bg-gradient-to-r from-red-600 to-rose-600 text-white font-extrabold text-[8px] sm:text-[8.5px] leading-none px-2 py-0.5 rounded-full shadow-md tracking-wider z-20 select-none border border-red-300/80 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              หนังสือลิขสิทธิ์
+            <div className="absolute top-1.5 right-1.5 bg-rose-700/95 text-white font-medium text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider z-20 select-none">
+              ลิขสิทธิ์
             </div>
           )}
 
@@ -125,9 +123,8 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
             {(book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) && (
               <>
                 <span className="text-gray-300">•</span>
-                <span className="bg-red-50 text-red-600 border border-red-200/90 px-1.5 py-0.5 rounded-md font-bold text-[10.5px] inline-flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-600" />
-                  หนังสือลิขสิทธิ์
+                <span className="bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded text-[10px] font-medium">
+                  ลิขสิทธิ์
                 </span>
               </>
             )}

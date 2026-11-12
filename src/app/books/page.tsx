@@ -245,18 +245,18 @@ function BooksContent() {
   };
 
   return (
-    <div className="bg-[#F0F8FD]/40 min-h-screen py-8 sm:py-12">
+    <div className="bg-[#F8FAFC] min-h-screen py-6 sm:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#F0F8FD] text-[#073B65] border border-[#DCEAF3] inline-flex items-center gap-1.5 mb-2">
+              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-white text-[#073B65] border border-slate-200 inline-flex items-center gap-1.5 mb-2 shadow-2xs">
                 <Sparkles size={13} className="text-[#079FE8]" />
                 คลังหนังสือธรรมะและวิชาการ
               </span>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#073B65] tracking-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#073B65] tracking-tight">
                 ห้องสมุดดิจิทัล (Digital Library)
               </h1>
               <p className="mt-1 text-sm text-[#64748B]">
@@ -265,25 +265,25 @@ function BooksContent() {
             </div>
 
             {/* Quick Stats Pill */}
-            <div className="flex items-center gap-3 text-xs text-[#64748B] font-semibold bg-white px-4 py-2 rounded-2xl border border-[#DCEAF3] shadow-xs">
-              <span>กำลังแสดง: <strong className="text-[#079FE8]">{filteredBooks.length}</strong> เล่ม</span>
+            <div className="flex items-center gap-3 text-xs text-[#64748B] font-medium bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-2xs">
+              <span>กำลังแสดง: <strong className="text-[#079FE8] font-bold">{filteredBooks.length}</strong> เล่ม</span>
               <span>•</span>
               <span>อ่านฟรีทุกอุปกรณ์</span>
             </div>
           </div>
         </div>
 
-        {/* Webtoon-Style Category Navigation Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-2 mb-6 border-b border-[#DCEAF3]">
+        {/* Category Navigation Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-2 mb-6 border-b border-slate-200">
           <button
             onClick={() => setSelectedCategory('')}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+            className={`px-4 py-2 rounded-full text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
               selectedCategory === ''
                 ? 'bg-[#073B65] text-white shadow-xs'
-                : 'bg-white text-[#243447] hover:bg-[#F0F8FD] border border-[#DCEAF3]'
+                : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
             }`}
           >
-            🌟 ทั้งหมด ({allBooks.length})
+            ทั้งหมด ({allBooks.length})
           </button>
 
           {allCategories.map((cat) => {

@@ -57,11 +57,11 @@ export default function Footer() {
           </div>
           
           <div>
-            <h3 className="font-bold text-[#073B65] mb-4">ระบบและนวัตกรรม</h3>
+            <h3 className="font-bold text-[#073B65] mb-4">ระบบและบริการ</h3>
             <ul className="space-y-2 text-sm text-[#64748B]">
               <li><Link href="/quiz" className="hover:text-[#079FE8] transition-colors">แบบทดสอบ XP & เกียรติบัตร</Link></li>
               <li><Link href="/rewards" className="hover:text-[#079FE8] transition-colors">ร้านแลกของรางวัลธรรมะ</Link></li>
-              <li><Link href="/chatbot" className="hover:text-[#079FE8] transition-colors">AI ธรรมะถามตอบอัจฉริยะ</Link></li>
+              <li><Link href="/welcome" className="hover:text-[#079FE8] transition-colors">แนะนำการใช้งานห้องสมุด</Link></li>
               <li><Link href="/dashboard" className="hover:text-[#079FE8] transition-colors">ชั้นหนังสือส่วนบุคคล</Link></li>
             </ul>
           </div>
