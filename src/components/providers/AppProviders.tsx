@@ -4,6 +4,7 @@ import React from 'react';
 import { AuthProvider } from '@/context/AuthContext';
 import { LoanProvider } from '@/context/LoanContext';
 import { PodcastPlayerProvider } from '@/context/PodcastPlayerContext';
+import SurveyMascotWidget from '@/components/survey/SurveyMascotWidget';
 import GlobalPodcastPlayer from '@/components/podcast/GlobalPodcastPlayer';
 import BottomNav from '@/components/layout/BottomNav';
 
@@ -13,6 +14,7 @@ export default function AppProviders({ children }: { children: React.ReactNode }
       <LoanProvider>
         <PodcastPlayerProvider>
           {children}
+          <SurveyMascotWidget />
           <GlobalPodcastPlayer />
           <BottomNav />
         </PodcastPlayerProvider>

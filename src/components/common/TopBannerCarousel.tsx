@@ -549,8 +549,8 @@ export default function TopBannerCarousel({
     return null;
   }
 
-  // Calculate slide percentage width
-  const cardWidthPercent = 100 / visibleCount;
+  // Calculate slide percentage width (88% on mobile so adjacent card peeks at the side)
+  const cardWidthPercent = visibleCount === 1 ? 88 : 100 / visibleCount;
 
   return (
     <section 
