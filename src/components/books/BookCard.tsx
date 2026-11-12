@@ -131,18 +131,18 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1.5 line-clamp-2 leading-snug group-hover:text-sky-700 transition-colors">
+          <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-1.5 line-clamp-2 leading-snug group-hover:text-sky-700 transition-colors">
             <Link href={`/books/${book.id}`}>
               {book.title}
             </Link>
           </h3>
 
-          <p className="text-xs text-gray-500 font-medium mb-3">
+          <p className="text-xs text-gray-500 font-normal mb-3">
             {author}
           </p>
 
           {/* Description */}
-          <p className="text-gray-500 text-xs line-clamp-2 leading-relaxed mb-4">
+          <p className="text-gray-500 text-xs line-clamp-2 leading-relaxed mb-4 font-normal">
             {book.description || 'รวบรวมหลักธรรมคำสอนและแนวทางการดำเนินชีวิตอย่างมีความสุขและสงบใจ'}
           </p>
         </div>
@@ -151,7 +151,7 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
         <div className="pt-3 border-t border-gray-100 flex items-center justify-between mt-auto">
           <Link 
             href={`/books/${book.id}`}
-            className="text-xs font-bold text-slate-800 hover:text-sky-700 flex items-center gap-1 group/btn"
+            className="text-xs font-semibold text-slate-700 hover:text-sky-700 flex items-center gap-1 group/btn"
           >
             <span>รายละเอียด</span>
             <ArrowRight size={13} className="transition-transform group-hover/btn:translate-x-0.5" />

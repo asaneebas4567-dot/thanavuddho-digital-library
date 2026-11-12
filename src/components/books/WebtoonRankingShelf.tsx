@@ -66,11 +66,11 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
             <span className="p-1.5 rounded-xl bg-[#FDF6E9] text-[#D9A441]">
               <Flame size={19} />
             </span>
-            <h2 className="text-xl sm:text-2xl font-black text-[#073B65] tracking-tight">
+            <h2 className="text-lg sm:text-2xl font-semibold text-[#073B65] tracking-tight">
               จัดอันดับหนังสือยอดนิยม (Weekly TOP 5)
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-[#64748B] font-medium">
+          <p className="text-xs sm:text-sm text-slate-500 font-normal">
             คัดเลือกหนังสือที่มีผู้อ่านและศึกษาต่อเนื่องสูงสุด พร้อมสีสันและภาพปกคุณภาพสูง
           </p>
         </div>

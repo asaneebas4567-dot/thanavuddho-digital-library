@@ -173,8 +173,7 @@ function BookCoverItem({
 
         {/* Copyright Badge on Cover */}
         {(book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) && (
-          <div className="absolute top-1.5 left-1.5 bg-gradient-to-r from-red-600 to-rose-600 text-white font-extrabold text-[8px] leading-none px-2 py-0.5 rounded-full shadow-md tracking-wider z-20 select-none border border-red-300/80 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+          <div className="absolute top-1.5 left-1.5 bg-rose-700/90 text-white font-semibold text-[8px] leading-none px-1.5 py-0.5 rounded shadow-xs z-20 select-none">
             <span>ลิขสิทธิ์</span>
           </div>
         )}
@@ -184,7 +183,7 @@ function BookCoverItem({
           <Link
             href={`/reader/${book.id}`}
             onClick={(e) => e.stopPropagation()}
-            className="px-3 py-1.5 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 text-white font-extrabold text-[11px] shadow-lg flex items-center gap-1.5 hover:from-sky-600 hover:to-blue-700 active:scale-95 transition-all"
+            className="px-3 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white font-semibold text-[11px] shadow-md flex items-center gap-1.5 active:scale-95 transition-all"
           >
             <BookOpen size={12} />
             <span>เปิดอ่าน</span>
@@ -210,7 +209,7 @@ function BookCoverItem({
 
         {/* Book Title (2 lines clamp, high contrast) */}
         <h3 
-          className="font-bold text-xs sm:text-[13px] text-slate-900 line-clamp-2 leading-snug min-h-[2.2rem] group-hover/card:text-sky-700 transition-colors"
+          className="font-semibold text-xs sm:text-[13px] text-slate-800 line-clamp-2 leading-snug min-h-[2.2rem] group-hover/card:text-sky-700 transition-colors"
           title={book.title}
         >
           {book.title}
@@ -271,7 +270,7 @@ export default function ScrollableBookRow({
   if (!books || books.length === 0) return null;
 
   return (
-    <div className={`rounded-3xl p-4 sm:p-6 border ${theme.containerBorder} ${theme.containerBg} shadow-2xs transition-all relative group/row`}>
+    <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200/90 bg-white shadow-xs transition-all relative group/row">
       
       {/* 1. Category Header: Icon + Title + Subtitle on Left, 'ดูทั้งหมด >' on Right */}
       <div className="flex items-center justify-between gap-3 mb-4 px-0.5">
@@ -284,9 +283,9 @@ export default function ScrollableBookRow({
             </div>
           )}
           <div className="min-w-0">
-            <h2 className="text-base sm:text-lg md:text-xl font-black text-slate-900 tracking-tight flex items-center gap-2 truncate">
+            <h2 className="text-base sm:text-lg md:text-xl font-semibold text-[#073B65] tracking-tight flex items-center gap-2 truncate">
               <span>{title}</span>
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border hidden sm:inline-block ${theme.badgeColor}`}>
+              <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border hidden sm:inline-block ${theme.badgeColor}`}>
                 {books.length} เล่ม
               </span>
             </h2>

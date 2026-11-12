@@ -218,7 +218,7 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     badgeLabel: 'หนังสือแนะนำ',
     themeKey: 'orange',
     actionUrl: '/reader/book_สมดุลเท่ากับดี',
-    actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
+    actionLabel: 'เปิดอ่านหนังสือ',
     isCopyright: true,
   },
 
@@ -230,10 +230,10 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     description: 'เปลี่ยนศัตรูให้เป็นมิตร ศิลปะป้องกันใจ และสร้างมิตรภาพอันงดงามร่วมกันในสังคม',
     coverImage: '/images/books/khao-kor-sook-rao-kor-sook.jpg',
     categoryName: 'มิตรภาพ & สังคม',
-    badgeLabel: '📖 หนังสือแนะนำ',
+    badgeLabel: 'หนังสือแนะนำ',
     themeKey: 'mint',
     actionUrl: '/reader/book_khao_kor_sook_rao_kor_sook',
-    actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
+    actionLabel: 'เปิดอ่านหนังสือ',
     isCopyright: true,
   },
 
@@ -245,10 +245,10 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     description: 'กะเทาะเปลือกความทุกข์ ค้นพบความสุขรอบตัวในทุกมิติของชีวิตอย่างยั่งยืนจากภายใน',
     coverImage: '/images/books/ความสุข-360-องศา.jpg',
     categoryName: 'ความสุข & ความสงบใจ',
-    badgeLabel: '📖 หนังสือแนะนำ',
+    badgeLabel: 'หนังสือแนะนำ',
     themeKey: 'rose',
     actionUrl: '/reader/book_ความสุข-360-องศา',
-    actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
+    actionLabel: 'เปิดอ่านหนังสือ',
     isCopyright: true,
   },
 
@@ -260,10 +260,10 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     description: 'หลักธรรม 38 ประการอันเป็นบันไดสู่ความสำเร็จและความเจริญรุ่งเรืองในชีวิต',
     coverImage: '/images/books/mongkol-124.jpg',
     categoryName: 'หลักธรรม & มงคลชีวิต',
-    badgeLabel: '📖 มงคลชีวิต',
+    badgeLabel: 'มงคลชีวิต',
     themeKey: 'indigo',
     actionUrl: '/reader/book_mongkol_chiwit_124',
-    actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
+    actionLabel: 'เปิดอ่านหนังสือ',
     isCopyright: true,
   },
 ];
@@ -828,43 +828,43 @@ export default function TopBannerCarousel({
                         </p>
                       </div>
 
-                      {/* Bottom Action: Prominent Action Button for Every Card */}
+                      {/* Bottom Action: Clean Library Button for Every Card */}
                       <div className="mt-2.5 sm:mt-3 flex items-center justify-start">
                         {item.isSurveyTrigger ? (
                           <button
                             type="button"
                             onClick={handleTriggerSurvey}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#D9A441] hover:bg-[#c59132] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
                             title="ทำแบบประเมิน รับทันที 200 แต้ม"
                           >
-                            <Coins size={12} className="shrink-0 text-yellow-200" />
+                            <Coins size={12} className="shrink-0 text-yellow-100" />
                             <span>{item.actionLabel}</span>
                             <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
                           </button>
                         ) : item.type === 'podcast' ? (
                           <Link
                             href={item.actionUrl}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-rose-500 via-pink-600 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
                             title={item.title}
                           >
-                            <Headphones size={12} className="shrink-0 text-pink-200" />
+                            <Headphones size={12} className="shrink-0 text-white" />
                             <span>{item.actionLabel}</span>
                             <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
                           </Link>
                         ) : item.type === 'video' ? (
                           <Link
                             href={item.actionUrl}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-teal-600 via-cyan-600 to-sky-600 hover:from-teal-700 hover:to-sky-700 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
                             title={item.title}
                           >
-                            <Play size={12} className="shrink-0 text-cyan-200 fill-current" />
+                            <Play size={12} className="shrink-0 text-white fill-current" />
                             <span>{item.actionLabel}</span>
                             <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
                           </Link>
                         ) : item.type === 'welcome' ? (
                           <Link
                             href={item.actionUrl}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#073B65] via-[#0A4D82] to-[#079FE8] hover:from-[#052946] hover:to-[#079FE8] text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#073B65] hover:bg-[#052946] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
                             title={item.title}
                           >
                             <Compass size={12} className="shrink-0 text-sky-200" />
@@ -874,7 +874,7 @@ export default function TopBannerCarousel({
                         ) : (
                           <Link
                             href={item.actionUrl}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
                             title={`เปิดอ่านหนังสือ: ${item.title}`}
                           >
                             <BookOpen size={12} className="shrink-0" />

@@ -117,12 +117,12 @@ export default function Navbar() {
           
           {/* Left: Brand Identity (Logo + Thanavuddho Library) */}
           <Link href="/" className="flex items-center gap-2 sm:gap-2.5 shrink-0 group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white text-[#079FE8] rounded-xl flex items-center justify-center font-black text-base sm:text-xl shadow-sm group-hover:scale-105 transition-transform border border-white/80 shrink-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white text-[#079FE8] rounded-xl flex items-center justify-center font-bold text-base sm:text-xl shadow-sm group-hover:scale-105 transition-transform border border-white/80 shrink-0">
               ถ
             </div>
             <div className="block min-w-0">
-              <span className="font-extrabold text-xs sm:text-base md:text-lg text-white tracking-tight block leading-tight truncate">
-                Thanavuddho <span className="text-sky-200 font-black">Library</span>
+              <span className="font-bold text-xs sm:text-base md:text-lg text-white tracking-tight block leading-tight truncate">
+                Thanavuddho <span className="text-sky-200 font-bold">Library</span>
               </span>
               <span className="text-[9px] sm:text-[11px] text-white/90 font-medium hidden xs:block truncate">
                 พระครูปลัดสุวัฒนโพธิคุณ
@@ -265,9 +265,9 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black transition-all duration-200 cursor-pointer ${
+                  className={`group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
                     active
-                      ? 'bg-white text-[#073B65] shadow-md ring-2 ring-white/60 scale-[1.03]'
+                      ? 'bg-white text-[#073B65] shadow-md ring-2 ring-white/60 scale-[1.02]'
                       : 'bg-white/10 hover:bg-white/20 text-white/90 hover:text-white border border-white/15 hover:border-white/40 shadow-xs'
                   }`}
                 >
