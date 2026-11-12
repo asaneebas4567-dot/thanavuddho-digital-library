@@ -31,7 +31,8 @@ import {
   Timer,
   Coins,
   Flame,
-  Award
+  Award,
+  RotateCcw
 } from 'lucide-react';
 import { loadPdfDocument, renderPdfPageToCanvas, unloadPdfDocument, searchPdfText, SearchMatch } from '@/lib/pdfReaderHelper';
 import BookQuestManager from '@/components/gamification/BookQuestManager';
@@ -39,6 +40,7 @@ import LazadaRewardPopup, { RewardCelebrationData } from '@/components/rewards/L
 import PubHtml5Reader from '@/components/reader/PubHtml5Reader';
 import { detectBookDimension, BookDimensionInfo, calculateReadingPoints } from '@/lib/readingPacingEngine';
 import { useLearningPoints } from '@/lib/useLearningPoints';
+import { useLoan } from '@/context/LoanContext';
 
 export type ReaderTheme = 'white' | 'sepia' | 'night';
 export type ReadingMode = 'flip' | 'scroll';
@@ -269,6 +271,16 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
       router.push('/books');
     }
   }, [router, searchParams, book.id]);
+
+  const { returnMediaByBookId, isMediaBorrowed } = useLoan();
+  const isBorrowed = isMediaBorrowed(book.id);
+
+  const handleReturnBook = useCallback(() => {
+    if (confirm('คุณต้องการคืนหนังสือเล่มนี้เพื่อเพิ่มโควตายืมใช่หรือไม่?')) {
+      returnMediaByBookId(book.id);
+      handleGoBack();
+    }
+  }, [book.id, returnMediaByBookId, handleGoBack]);
 
   // -------------------------------------------------------------------------
   // STEP 6: READING PROGRESS PERSISTENCE
@@ -757,6 +769,18 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
             <span className="hidden md:inline">รับแต้ม</span>
           </button>
           
+          {/* Return Book Button (For active loan) */}
+          {isBorrowed && (
+            <button
+              onClick={handleReturnBook}
+              className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white/10 hover:bg-rose-500/20 hover:text-rose-200 border border-white/15 text-zinc-300 text-xs font-semibold transition-all shadow-xs cursor-pointer"
+              title="คืนหนังสือเล่มนี้เพื่อเพิ่มโควตายืม"
+            >
+              <RotateCcw size={12} />
+              <span className="hidden sm:inline">คืนหนังสือ</span>
+            </button>
+          )}
+
           {/* Mode Switcher: 📖 หน้าต่อหน้า (Flip) vs 📜 เลื่อนอ่าน (Scroll) */}
           <div className="flex items-center rounded-xl p-0.5 border border-white/15 bg-white/5 shrink-0">
             <button

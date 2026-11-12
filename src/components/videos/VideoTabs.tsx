@@ -35,7 +35,7 @@ export default function VideoTabs({
     },
     {
       id: 'vertical' as VideoFilterTab,
-      label: 'วิดีโอแนวตั้ง (9:16)',
+      label: '🔥 วิดีโอสั้น (Shorts & TikTok)',
       count: counts.vertical,
       icon: Smartphone
     }

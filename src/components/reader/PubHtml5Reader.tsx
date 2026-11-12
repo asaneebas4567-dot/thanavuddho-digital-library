@@ -3,8 +3,9 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ChevronLeft, Maximize, Minimize, ExternalLink, BookOpen, Sparkles, Clock, BookMarked, Coins } from 'lucide-react';
+import { ChevronLeft, Maximize, Minimize, ExternalLink, BookOpen, Sparkles, Clock, BookMarked, Coins, RotateCcw } from 'lucide-react';
 import { useLearningPoints } from '@/lib/useLearningPoints';
+import { useLoan } from '@/context/LoanContext';
 import LazadaRewardPopup, { RewardCelebrationData } from '@/components/rewards/LazadaRewardPopup';
 
 interface PubHtml5ReaderProps {
@@ -32,6 +33,15 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
   const [celebrationData, setCelebrationData] = useState<RewardCelebrationData>({ points: 15 });
   const hasRewardedRef = useRef<boolean>(false);
   const { recordEarn } = useLearningPoints();
+  const { returnMediaByBookId, isMediaBorrowed } = useLoan();
+  const isBorrowed = isMediaBorrowed(book.id);
+
+  const handleReturnBook = useCallback(() => {
+    if (confirm('คุณต้องการคืนหนังสือเล่มนี้เพื่อเพิ่มโควตายืมใช่หรือไม่?')) {
+      returnMediaByBookId(book.id);
+      router.push(`/books/${book.id}`);
+    }
+  }, [book.id, returnMediaByBookId, router]);
 
   // Timer tracking for reading session
   useEffect(() => {
@@ -172,6 +182,18 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
             <Clock size={12} className="text-[#079FE8]" />
             <span>{formatTimer(sessionSeconds)}</span>
           </div>
+
+          {/* Return Book Button */}
+          {isBorrowed && (
+            <button
+              onClick={handleReturnBook}
+              className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white/10 hover:bg-rose-500/20 hover:text-rose-200 border border-white/15 text-zinc-300 text-xs font-semibold transition-all shadow-xs cursor-pointer"
+              title="คืนหนังสือเล่มนี้เพื่อเพิ่มโควตายืม"
+            >
+              <RotateCcw size={12} />
+              <span className="hidden sm:inline">คืนหนังสือ</span>
+            </button>
+          )}
 
           {/* Switch to Flipbook Mode (if local PDF is available) */}
           {hasLocalPdf && (

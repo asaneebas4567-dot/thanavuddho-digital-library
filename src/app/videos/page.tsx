@@ -167,7 +167,7 @@ function VideosMainContent() {
             <h2 className="text-lg sm:text-xl font-extrabold text-foreground tracking-tight">
               {activeTab === 'all' && 'วิดีโอทั้งหมดในคลังดิจิทัล'}
               {activeTab === 'horizontal' && 'วิดีโอแนวนอน 16:9'}
-              {activeTab === 'vertical' && 'วิดีโอแนวตั้ง 9:16 (Shorts)'}
+              {activeTab === 'vertical' && '🔥 วิดีโอสั้นแนวตั้ง (Shorts & TikTok)'}
             </h2>
             <span className="text-xs px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-600 font-bold border border-zinc-200">
               พบ {filteredVideos.length} รายการ

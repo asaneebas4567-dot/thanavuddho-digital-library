@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { Book } from '@/types';
 import BorrowButton from '@/components/common/BorrowButton';
+import { useLoan } from '@/context/LoanContext';
 import { getBookCustomContent } from '@/data/bookCustomData';
 
 interface BookPreviewModalProps {
@@ -29,6 +30,7 @@ interface BookPreviewModalProps {
 }
 
 export default function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProps) {
+  const { isMediaBorrowed, activeLoans, maxLoans } = useLoan();
   // Handle ESC key to close
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -198,32 +200,63 @@ export default function BookPreviewModal({ book, isOpen, onClose }: BookPreviewM
                 </p>
               </div>
 
-              {/* Call to Actions */}
-              <div className="flex flex-wrap items-center gap-3">
-                <Link
-                  href={`/reader/${book.id}?from=/books`}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#079FE8] hover:bg-[#0588c7] text-white font-extrabold text-xs sm:text-sm shadow-md transition-all cursor-pointer active:scale-95"
-                >
-                  <BookOpen size={16} />
-                  <span>เปิดอ่านฉบับเต็ม ({totalPages} หน้า)</span>
-                </Link>
+              {/* Call to Actions (DRM Gate Protected: Cannot read without borrowing) */}
+              {(() => {
+                const isBorrowed = isMediaBorrowed(book.id);
+                return (
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap items-center gap-3">
+                      {isBorrowed ? (
+                        <>
+                          <Link
+                            href={`/reader/${book.id}?from=/books`}
+                            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm shadow-md transition-all cursor-pointer active:scale-95"
+                          >
+                            <BookOpen size={16} />
+                            <span>เปิดอ่านหนังสือที่ยืมแล้ว ({totalPages} หน้า)</span>
+                          </Link>
 
-                <BorrowButton
-                  mediaId={book.id}
-                  mediaTitle={book.title}
-                  mediaType="book"
-                  mediaCover={coverUrl}
-                  className="py-3 px-4 text-xs sm:text-sm"
-                />
+                          <BorrowButton
+                            mediaId={book.id}
+                            mediaTitle={book.title}
+                            mediaType="book"
+                            mediaCover={coverUrl}
+                            className="py-3 px-4 text-xs sm:text-sm"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <BorrowButton
+                            mediaId={book.id}
+                            mediaTitle={book.title}
+                            mediaType="book"
+                            mediaCover={coverUrl}
+                            className="py-3 px-6 text-xs sm:text-sm font-bold shadow-md"
+                          />
 
-                <Link
-                  href={`/books/${book.id}`}
-                  className="inline-flex items-center gap-1.5 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition-colors"
-                >
-                  <span>หน้ารายละเอียด</span>
-                  <ArrowRight size={14} />
-                </Link>
-              </div>
+                          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 text-amber-900 border border-amber-200/80 text-xs font-semibold">
+                            <span>โควตายืม: {activeLoans.length}/{maxLoans} เล่ม</span>
+                          </div>
+                        </>
+                      )}
+
+                      <Link
+                        href={`/books/${book.id}`}
+                        className="inline-flex items-center gap-1.5 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition-colors"
+                      >
+                        <span>หน้ารายละเอียด</span>
+                        <ArrowRight size={14} />
+                      </Link>
+                    </div>
+
+                    {!isBorrowed && (
+                      <p className="text-[11px] text-slate-500 font-medium">
+                        🔒 ตามเงื่อนไขหนังสือลิขสิทธิ์ ต้องกดยืมหนังสือก่อนจึงจะสามารถเปิดอ่านได้ (ยืมได้สูงสุด {maxLoans} เล่มพร้อมกัน)
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
 
             </div>
 

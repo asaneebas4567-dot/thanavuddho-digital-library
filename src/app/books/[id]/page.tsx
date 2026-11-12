@@ -19,6 +19,7 @@ import { books as dbBooks, author as dbAuthor, categories as dbCategories } from
 import { getAllCombinedBooks, getBookReadStats } from '@/lib/serverBookStore';
 import persistentBooks from '@/data/persistentBooks.json';
 import BorrowButton from '@/components/common/BorrowButton';
+import BookLoanAction from '@/components/books/BookLoanAction';
 import { getBookCustomContent } from '@/data/bookCustomData';
 
 function resolveBook(rawId: string): any {
@@ -244,34 +245,14 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
                 </div>
               </div>
 
-              {/* Actions */}
-              <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-slate-100 mt-auto">
-                <Link 
-                  href={`/reader/${book.id}?from=/books/${book.id}`} 
-                  className="flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-7 py-3 rounded-xl font-bold text-sm transition-all shadow-md w-full sm:w-auto"
-                >
-                  <BookOpen size={18} />
-                  <span>เปิดอ่านฉบับเต็ม ({totalPages} หน้า)</span>
-                </Link>
-
-                <BorrowButton
-                  mediaId={book.id}
-                  mediaTitle={book.title}
-                  mediaType="book"
-                  mediaCover={book.cover}
-                  className="py-3 px-5 text-sm"
-                />
-
-                {(book.audio_id || book.id === 'book_tam_jai_hai_prom_buak' || book.title?.includes('ทำใจให้พร้อมบวก')) && (
-                  <Link
-                    href="/audios?podcast=pod-tam-jai-hai-prom-buak"
-                    className="flex items-center justify-center gap-2 bg-[#F0F8FD] hover:bg-sky-100 text-[#073B65] border border-[#DCEAF3] px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-xs w-full sm:w-auto"
-                  >
-                    <Headphones size={18} className="text-[#079FE8]" />
-                    <span>ฟังพอดแคสต์ (5 ตอน) 🎧</span>
-                  </Link>
-                )}
-              </div>
+              {/* Actions: Strict Digital Copyright & 3-Book Loan Control */}
+              <BookLoanAction
+                bookId={book.id}
+                bookTitle={book.title}
+                bookCover={book.cover}
+                totalPages={totalPages}
+                audioId={book.audio_id}
+              />
             </div>
 
           </div>

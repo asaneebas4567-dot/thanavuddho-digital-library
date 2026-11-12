@@ -13,9 +13,11 @@ import {
   Coins,
   Headphones,
   Video,
-  Compass
+  Compass,
+  BookMarked
 } from 'lucide-react';
 import { Book } from '@/types';
+import { useLoan } from '@/context/LoanContext';
 
 // Dynamic Pastel Theme System (BKK Book inspired: soft, gentle, readable contrast)
 export type PastelThemeKey = 'mint' | 'sky' | 'rose' | 'cream' | 'orange' | 'indigo' | 'teal';
@@ -177,7 +179,7 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     actionLabel: 'รับชมวิดีโอธรรมะ',
   },
 
-  // 5. VIP Book: ทำใจให้พร้อมบวก (Flipbook reader)
+  // 5. VIP Book: ทำใจให้พร้อมบวก (Digital Library Loan)
   {
     id: 'book_tam_jai_hai_prom_buak',
     type: 'book',
@@ -187,12 +189,12 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     categoryName: 'จิตวิทยา & พัฒนาตนเอง',
     badgeLabel: 'ยอดนิยม',
     themeKey: 'mint',
-    actionUrl: '/reader/book_tam_jai_hai_prom_buak',
-    actionLabel: 'เปิดอ่านหนังสือ',
+    actionUrl: '/books/book_tam_jai_hai_prom_buak',
+    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
     isCopyright: true,
   },
 
-  // 6. VIP Book: อย่ามโน (Flipbook reader)
+  // 6. VIP Book: อย่ามโน (Digital Library Loan)
   {
     id: 'book_อย่ามโน',
     type: 'book',
@@ -202,12 +204,12 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     categoryName: 'จิตใจ & สติรู้ทัน',
     badgeLabel: 'หนังสือแนะนำ',
     themeKey: 'sky',
-    actionUrl: '/reader/book_อย่ามโน',
-    actionLabel: 'เปิดอ่านหนังสือ',
+    actionUrl: '/books/book_อย่ามโน',
+    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
     isCopyright: true,
   },
 
-  // 7. VIP Book: สมดุลเท่ากับดี (Flipbook reader)
+  // 7. VIP Book: สมดุลเท่ากับดี (Digital Library Loan)
   {
     id: 'book_สมดุลเท่ากับดี',
     type: 'book',
@@ -217,12 +219,12 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     categoryName: 'การทำงาน & ความสำเร็จ',
     badgeLabel: 'หนังสือแนะนำ',
     themeKey: 'orange',
-    actionUrl: '/reader/book_สมดุลเท่ากับดี',
-    actionLabel: 'เปิดอ่านหนังสือ',
+    actionUrl: '/books/book_สมดุลเท่ากับดี',
+    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
     isCopyright: true,
   },
 
-  // 8. VIP Book: เขาก็สุข เราก็สุข (Flipbook reader)
+  // 8. VIP Book: เขาก็สุข เราก็สุข (Digital Library Loan)
   {
     id: 'book_khao_kor_sook_rao_kor_sook',
     type: 'book',
@@ -232,12 +234,12 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     categoryName: 'มิตรภาพ & สังคม',
     badgeLabel: 'หนังสือแนะนำ',
     themeKey: 'mint',
-    actionUrl: '/reader/book_khao_kor_sook_rao_kor_sook',
-    actionLabel: 'เปิดอ่านหนังสือ',
+    actionUrl: '/books/book_khao_kor_sook_rao_kor_sook',
+    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
     isCopyright: true,
   },
 
-  // 9. VIP Book: ความสุข 360 องศา (Flipbook reader)
+  // 9. VIP Book: ความสุข 360 องศา (Digital Library Loan)
   {
     id: 'book_ความสุข-360-องศา',
     type: 'book',
@@ -247,12 +249,12 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     categoryName: 'ความสุข & ความสงบใจ',
     badgeLabel: 'หนังสือแนะนำ',
     themeKey: 'rose',
-    actionUrl: '/reader/book_ความสุข-360-องศา',
-    actionLabel: 'เปิดอ่านหนังสือ',
+    actionUrl: '/books/book_ความสุข-360-องศา',
+    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
     isCopyright: true,
   },
 
-  // 10. VIP Book: มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า (Flipbook reader)
+  // 10. VIP Book: มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า (Digital Library Loan)
   {
     id: 'book_mongkol_chiwit_124',
     type: 'book',
@@ -262,8 +264,8 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     categoryName: 'หลักธรรม & มงคลชีวิต',
     badgeLabel: 'มงคลชีวิต',
     themeKey: 'indigo',
-    actionUrl: '/reader/book_mongkol_chiwit_124',
-    actionLabel: 'เปิดอ่านหนังสือ',
+    actionUrl: '/books/book_mongkol_chiwit_124',
+    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
     isCopyright: true,
   },
 ];
@@ -379,6 +381,7 @@ export default function TopBannerCarousel({
   badge = 'รายการแนะนำ',
   autoPlayIntervalMs = 8000,
 }: TopBannerCarouselProps) {
+  const { isMediaBorrowed } = useLoan();
   // Use custom showcase items, or default curated 10 items
   const items: ShowcaseCard[] = React.useMemo(() => {
     if (showcaseItems && showcaseItems.length > 0) {
@@ -402,8 +405,8 @@ export default function TopBannerCarousel({
           categoryName: category,
           badgeLabel: '📖 หนังสือแนะนำ',
           themeKey,
-          actionUrl: `/reader/${book.id}`,
-          actionLabel: 'เปิดอ่านหนังสือ (Flipbook)',
+          actionUrl: `/books/${book.id}`,
+          actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
           isCopyright: book.is_copyright ?? true,
         };
       });
@@ -647,6 +650,13 @@ export default function TopBannerCarousel({
           >
             {items.map((item, index) => {
               const theme = PASTEL_THEMES[item.themeKey] || PASTEL_THEMES.mint;
+              const isBorrowed = item.type === 'book' && isMediaBorrowed(item.id);
+              const resolvedUrl = item.type === 'book'
+                ? (isBorrowed ? `/reader/${item.id}` : `/books/${item.id}`)
+                : item.actionUrl;
+              const resolvedLabel = item.type === 'book'
+                ? (isBorrowed ? 'เปิดอ่าน (ยืมแล้ว)' : 'ยืมหนังสือ (จำกัด 3 เล่ม)')
+                : item.actionLabel;
 
               return (
                 <div 
@@ -745,15 +755,28 @@ export default function TopBannerCarousel({
                     ) : (
                       /* Standard Book Visual: 3D Book Cover with Spine Line */
                       <Link
-                        href={item.actionUrl}
+                        href={resolvedUrl}
                         className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.14)] border border-slate-200/70 group-hover:shadow-[3px_6px_16px_rgba(0,0,0,0.18)] transition-shadow duration-300 block"
-                        title={`เปิดอ่านหนังสือ: ${item.title}`}
+                        title={isBorrowed ? `เปิดอ่านหนังสือที่ยืมแล้ว: ${item.title}` : `ยืมหนังสือ: ${item.title}`}
                       >
                         {/* 3D Spine Highlight */}
                         <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-r from-black/25 via-white/20 to-transparent pointer-events-none z-10" />
                         {/* Right Edge Page-stack Simulation */}
                         <div className="absolute right-0 inset-y-0 w-0.5 bg-slate-300/70 pointer-events-none z-10" />
                         
+                        {/* DRM / Borrowed Badge */}
+                        <div className="absolute top-1 right-1 z-20">
+                          {isBorrowed ? (
+                            <span className="px-1.5 py-0.5 rounded bg-emerald-600 text-white text-[7.5px] font-bold shadow-xs">
+                              ยืมแล้ว
+                            </span>
+                          ) : (
+                            <span className="px-1.5 py-0.5 rounded bg-rose-600 text-white text-[7.5px] font-bold shadow-xs">
+                              ลิขสิทธิ์
+                            </span>
+                          )}
+                        </div>
+
                         {item.coverImage && (
                           <Image
                             src={encodeURI(item.coverImage)}
@@ -793,7 +816,7 @@ export default function TopBannerCarousel({
                             </h3>
                           </button>
                         ) : (
-                          <Link href={item.actionUrl}>
+                          <Link href={resolvedUrl}>
                             <h3 
                               className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-sky-700 transition-colors line-clamp-2 leading-snug"
                               title={item.title}
@@ -819,47 +842,57 @@ export default function TopBannerCarousel({
                             title="ทำแบบประเมิน รับทันที 200 แต้ม"
                           >
                             <Coins size={12} className="shrink-0 text-yellow-100" />
-                            <span>{item.actionLabel}</span>
+                            <span>{resolvedLabel}</span>
                             <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
                           </button>
                         ) : item.type === 'podcast' ? (
                           <Link
-                            href={item.actionUrl}
+                            href={resolvedUrl}
                             className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
                             title={item.title}
                           >
                             <Headphones size={12} className="shrink-0 text-white" />
-                            <span>{item.actionLabel}</span>
+                            <span>{resolvedLabel}</span>
                             <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
                           </Link>
                         ) : item.type === 'video' ? (
                           <Link
-                            href={item.actionUrl}
+                            href={resolvedUrl}
                             className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
                             title={item.title}
                           >
                             <Play size={12} className="shrink-0 text-white fill-current" />
-                            <span>{item.actionLabel}</span>
+                            <span>{resolvedLabel}</span>
                             <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
                           </Link>
                         ) : item.type === 'welcome' ? (
                           <Link
-                            href={item.actionUrl}
+                            href={resolvedUrl}
                             className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#073B65] hover:bg-[#052946] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
                             title={item.title}
                           >
                             <Compass size={12} className="shrink-0 text-sky-200" />
-                            <span>{item.actionLabel}</span>
+                            <span>{resolvedLabel}</span>
+                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                          </Link>
+                        ) : isBorrowed ? (
+                          <Link
+                            href={resolvedUrl}
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            title={`เปิดอ่านหนังสือที่ยืมแล้ว: ${item.title}`}
+                          >
+                            <BookOpen size={12} className="shrink-0" />
+                            <span>เปิดอ่าน (ยืมแล้ว)</span>
                             <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
                           </Link>
                         ) : (
                           <Link
-                            href={item.actionUrl}
+                            href={resolvedUrl}
                             className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
-                            title={`เปิดอ่านหนังสือ: ${item.title}`}
+                            title={`ยืมหนังสือลิขสิทธิ์: ${item.title}`}
                           >
-                            <BookOpen size={12} className="shrink-0" />
-                            <span>{item.actionLabel}</span>
+                            <BookMarked size={12} className="shrink-0" />
+                            <span>{resolvedLabel}</span>
                             <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
                           </Link>
                         )}

@@ -20,7 +20,8 @@ import {
   Gift,
   LogIn,
   LogOut,
-  Compass
+  Compass,
+  BookMarked
 } from 'lucide-react';
 import Image from 'next/image';
 import { useLoan } from '@/context/LoanContext';
@@ -65,6 +66,13 @@ export default function Navbar() {
       icon: BookOpen,
       iconColor: 'text-sky-200 group-hover:text-white',
       activeIconColor: 'text-sky-600'
+    },
+    { 
+      label: 'ยืมอ่าน (3 เล่ม)', 
+      href: '/loans', 
+      icon: BookMarked,
+      iconColor: 'text-emerald-200 group-hover:text-emerald-100',
+      activeIconColor: 'text-emerald-600'
     },
     { 
       label: 'Podcast', 
@@ -173,6 +181,23 @@ export default function Navbar() {
                 {mounted ? availablePoints.toLocaleString() : '0'}
               </span>
               <span className="text-[9px] sm:text-[10px] text-[#64748B]">แต้ม</span>
+            </Link>
+
+            {/* Active Digital Loans Quota Pill (Max 3 Books) */}
+            <Link 
+              href="/loans" 
+              className={`inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer border active:scale-95 shrink-0 ${
+                activeLoanCount > 0
+                  ? 'bg-emerald-600 text-white border-emerald-400/80 shadow-xs hover:bg-emerald-700'
+                  : 'bg-white/15 hover:bg-white/25 text-white border-white/20'
+              }`}
+              title="ชั้นหนังสือดิจิทัลที่ยืมไว้ (สูงสุด 3 เล่ม)"
+            >
+              <BookMarked size={12} className="shrink-0" />
+              <span className="hidden xs:inline">ยืม</span>
+              <span className="font-mono font-bold text-[11px] sm:text-xs" suppressHydrationWarning>
+                {mounted ? `${activeLoanCount}/3` : '0/3'}
+              </span>
             </Link>
 
             {/* User Profile or Login CTA */}

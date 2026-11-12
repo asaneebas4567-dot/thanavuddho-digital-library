@@ -204,7 +204,7 @@ export default function HomeMediaShowcase() {
               }`}
             >
               <Smartphone size={12} />
-              <span>แนวตั้ง (9:16)</span>
+              <span>🔥 วิดีโอสั้น (Shorts & TikTok)</span>
             </button>
           </div>
 

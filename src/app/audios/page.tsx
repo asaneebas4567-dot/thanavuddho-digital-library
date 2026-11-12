@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { usePodcastPlayer } from '@/context/PodcastPlayerContext';
 import { PodcastItem } from '@/types/podcast';
+import { INITIAL_PODCASTS } from '@/data/initialPodcasts';
 
 function PodcastLibraryContent() {
   const searchParams = useSearchParams();
@@ -32,8 +33,8 @@ function PodcastLibraryContent() {
 
   const { currentPodcast, isPlaying, playPodcast, pausePodcast, resumePodcast, expandPlayer } = usePodcastPlayer();
 
-  const [podcasts, setPodcasts] = useState<PodcastItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [podcasts, setPodcasts] = useState<PodcastItem[]>(INITIAL_PODCASTS);
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
   const [selectedSource, setSelectedSource] = useState<string>(initialSource);

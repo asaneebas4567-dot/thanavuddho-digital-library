@@ -38,17 +38,11 @@ export default function BorrowButton({
     e.preventDefault();
     e.stopPropagation();
 
-    // Check if user is authenticated with Google
-    if (!isAuthenticated) {
-      setShowLoginPrompt(true);
-      return;
-    }
-
     if (borrowed) {
       if (currentLoan) {
         returnMedia(currentLoan.id);
         setIsError(false);
-        setFeedback('คืนสื่อเรียบร้อยแล้ว');
+        setFeedback('คืนหนังสือเรียบร้อยแล้ว (เพิ่มโควตายืม)');
         setTimeout(() => setFeedback(null), 3000);
       }
       return;
@@ -98,7 +92,7 @@ export default function BorrowButton({
           } ${className}`}
         >
           <BookMarked size={16} />
-          <span>ยืมสื่อ (14 วัน)</span>
+          <span>ยืมหนังสือ (จำกัด 3 เล่ม)</span>
         </button>
       )}
 

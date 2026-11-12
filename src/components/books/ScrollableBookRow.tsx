@@ -3,8 +3,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, Eye, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Eye, BookOpen, BookMarked, Check } from 'lucide-react';
 import { Book } from '@/types';
+import { useLoan } from '@/context/LoanContext';
 
 export type CategoryShelfTheme = 
   | 'peach' 
@@ -133,6 +134,9 @@ function BookCoverItem({
   const hasCover = rawCover && rawCover !== '/images/books/book-placeholder.jpg' && !imageError;
   const coverUrl = rawCover ? encodeURI(rawCover) : '/images/books/book-placeholder.jpg';
 
+  const { isMediaBorrowed } = useLoan();
+  const isBorrowed = isMediaBorrowed(book.id);
+
   const readCount = book.read_count ?? book.view_count ?? 0;
   const pages = book.page_count ?? (book as any).pages ?? null;
   const authorName = book.author_id === 'author_001' || !book.author_id 
@@ -171,23 +175,40 @@ function BookCoverItem({
           </div>
         )}
 
-        {/* Copyright Badge on Cover */}
-        {(book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) && (
-          <div className="absolute top-1.5 left-1.5 bg-rose-700/90 text-white font-semibold text-[8px] leading-none px-1.5 py-0.5 rounded shadow-xs z-20 select-none">
-            <span>ลิขสิทธิ์</span>
-          </div>
-        )}
+        {/* Badges on Cover */}
+        <div className="absolute top-1.5 left-1.5 flex flex-col gap-1 z-20 select-none">
+          {isBorrowed ? (
+            <div className="bg-emerald-600/95 text-white font-bold text-[7.5px] leading-none px-1.5 py-0.5 rounded shadow-xs flex items-center gap-0.5">
+              <Check size={8} /> ยืมแล้ว
+            </div>
+          ) : (book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) ? (
+            <div className="bg-rose-700/90 text-white font-semibold text-[8px] leading-none px-1.5 py-0.5 rounded shadow-xs">
+              <span>ลิขสิทธิ์</span>
+            </div>
+          ) : null}
+        </div>
 
         {/* Hover Quick-Action Overlay */}
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center p-2 z-20">
-          <Link
-            href={`/reader/${book.id}`}
-            onClick={(e) => e.stopPropagation()}
-            className="px-3 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white font-semibold text-[11px] shadow-md flex items-center gap-1.5 active:scale-95 transition-all"
-          >
-            <BookOpen size={12} />
-            <span>เปิดอ่าน</span>
-          </Link>
+          {isBorrowed ? (
+            <Link
+              href={`/reader/${book.id}`}
+              onClick={(e) => e.stopPropagation()}
+              className="px-3 py-1.5 rounded-full bg-[#073B65] hover:bg-[#052946] text-white font-semibold text-[11px] shadow-md flex items-center gap-1.5 active:scale-95 transition-all"
+            >
+              <BookOpen size={12} className="text-[#D9A441]" />
+              <span>อ่าน (ยืมแล้ว)</span>
+            </Link>
+          ) : (
+            <Link
+              href={`/books/${book.id}`}
+              onClick={(e) => e.stopPropagation()}
+              className="px-3 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white font-semibold text-[11px] shadow-md flex items-center gap-1.5 active:scale-95 transition-all"
+            >
+              <BookMarked size={12} />
+              <span>ยืมหนังสือ</span>
+            </Link>
+          )}
         </div>
 
       </div>

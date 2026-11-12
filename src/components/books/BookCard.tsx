@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BookOpen, ArrowRight, Eye, Star, Sparkles } from 'lucide-react';
+import { BookOpen, ArrowRight, Eye, Star, Sparkles, BookMarked, Check } from 'lucide-react';
 import { Book } from '@/types';
+import { useLoan } from '@/context/LoanContext';
 
 interface BookCardProps {
   book: Book;
@@ -23,6 +24,8 @@ const cardFallbackThemes = [
 
 export default function BookCard({ book, onQuickView }: BookCardProps) {
   const [imageError, setImageError] = useState(false);
+  const { isMediaBorrowed } = useLoan();
+  const isBorrowed = isMediaBorrowed(book.id);
 
   let rawCover = book.cover_image || (book as any).cover;
   if (book.id?.startsWith('pubhtml5_')) {
@@ -52,12 +55,18 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
         {/* 3D Book Frame */}
         <div className="book-cover-3d relative w-32 sm:w-36 aspect-[1/1.42] rounded-md overflow-hidden bg-slate-900 ring-1 ring-black/10 group-hover:scale-102 transition-transform duration-200 shadow-sm">
           
-          {/* Clean Copyright Badge */}
-          {(book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) && (
-            <div className="absolute top-1.5 right-1.5 bg-rose-700/95 text-white font-medium text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider z-20 select-none">
-              ลิขสิทธิ์
-            </div>
-          )}
+          {/* Copyright & Borrowed Badges */}
+          <div className="absolute top-1.5 right-1.5 flex flex-col items-end gap-1 z-20">
+            {isBorrowed ? (
+              <div className="bg-emerald-600/95 text-white font-bold text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider flex items-center gap-0.5 select-none">
+                <Check size={9} /> ยืมแล้ว
+              </div>
+            ) : (book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) ? (
+              <div className="bg-rose-700/95 text-white font-medium text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider select-none">
+                ลิขสิทธิ์
+              </div>
+            ) : null}
+          </div>
 
           {hasCover ? (
             <Image
@@ -96,13 +105,23 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
 
         {/* Hover Quick Action */}
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 opacity-0 group-hover:opacity-100 transition-all duration-200">
-          <Link
-            href={`/reader/${book.id}?from=/books`}
-            className="px-4 py-1.5 rounded-full bg-[#073B65] hover:bg-[#052946] text-white font-bold text-xs shadow-lg flex items-center gap-1.5 whitespace-nowrap active:scale-95"
-          >
-            <BookOpen size={13} className="text-[#D9A441]" />
-            <span>อ่านทันที</span>
-          </Link>
+          {isBorrowed ? (
+            <Link
+              href={`/reader/${book.id}?from=/books`}
+              className="px-4 py-1.5 rounded-full bg-[#073B65] hover:bg-[#052946] text-white font-bold text-xs shadow-lg flex items-center gap-1.5 whitespace-nowrap active:scale-95"
+            >
+              <BookOpen size={13} className="text-[#D9A441]" />
+              <span>อ่าน (ยืมแล้ว)</span>
+            </Link>
+          ) : (
+            <Link
+              href={`/books/${book.id}`}
+              className="px-4 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white font-bold text-xs shadow-lg flex items-center gap-1.5 whitespace-nowrap active:scale-95"
+            >
+              <BookMarked size={13} />
+              <span>ยืมหนังสือ</span>
+            </Link>
+          )}
         </div>
 
       </div>
