@@ -270,13 +270,13 @@ export default function Home() {
     .filter(Boolean) as Book[];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
+    <div className="flex flex-col min-h-screen bg-white">
       
       {/* 1. ไฮไลต์ชุดหนังสือดิจิทัล */}
       <TopBannerCarousel autoPlayIntervalMs={8000} />
 
       {/* 2. Main Content Container */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full space-y-5 sm:space-y-7 pt-3 sm:pt-4 pb-24 lg:pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full space-y-8 sm:space-y-10 pt-4 sm:pt-6 pb-24 lg:pb-16">
         
         {/* 1. Webtoon Ranking Shelf (Weekly TOP 5) - Showcase books first */}
         <div id="ranking" className="pt-1">

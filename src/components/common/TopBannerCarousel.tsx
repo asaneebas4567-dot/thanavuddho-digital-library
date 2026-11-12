@@ -580,16 +580,10 @@ export default function TopBannerCarousel({
         {/* 1. Header Bar: Title + Badge (10 รายการ) + Controls */}
         <div className="flex items-center justify-between gap-2.5 mb-3.5">
           
-          {/* Left: Dot + Title + Badge */}
+          {/* Left: Title */}
           <div className="flex items-center gap-2 min-w-0">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#D9A441] ring-2 ring-amber-200/50 shrink-0" />
-            <h2 className="text-sm sm:text-base md:text-lg font-bold text-white tracking-tight flex items-center gap-2 truncate">
-              <span>{title}</span>
-              <span className="text-[11px] font-bold text-white bg-white/20 border border-white/30 px-2.5 py-0.5 rounded-full hidden sm:inline-flex items-center gap-1 shadow-2xs backdrop-blur-xs">
-                <Sparkles size={11} className="text-[#D9A441]" />
-                <span>{badge}</span>
-                <span className="text-sky-100 font-normal">({totalCards} รายการ)</span>
-              </span>
+            <h2 className="text-base sm:text-lg font-semibold text-white tracking-tight truncate">
+              {title}
             </h2>
           </div>
 
@@ -777,24 +771,11 @@ export default function TopBannerCarousel({
                     {/* RIGHT COLUMN: Details & Clear Action Button */}
                     <div className="flex-1 min-w-0 flex flex-col justify-between h-full py-0.5">
                       <div>
-                        {/* Top: Category Badge & Badges */}
-                        <div className="flex items-center flex-wrap gap-1.5 mb-1.5">
-                          <span className={`text-[10px] sm:text-[11px] font-semibold px-2 sm:px-2.5 py-0.5 rounded-full border shadow-2xs flex items-center gap-1 ${theme.badgeBg}`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${theme.dotColor}`} />
-                            <span className="truncate max-w-[130px] sm:max-w-none">{item.categoryName}</span>
+                        {/* Top: Clean Category Label */}
+                        <div className="flex items-center gap-1.5 mb-1.5">
+                          <span className="text-[11px] font-medium text-slate-500">
+                            {item.categoryName}
                           </span>
-
-                          {item.badgeLabel && (
-                            <span className="text-[9.5px] font-bold text-sky-800 bg-sky-100/90 border border-sky-200/90 px-1.5 py-0.5 rounded-full">
-                              {item.badgeLabel}
-                            </span>
-                          )}
-
-                          {item.isCopyright && (
-                            <span className="text-[9.5px] font-bold text-sky-900 bg-sky-200/70 border border-sky-300/80 px-1.5 py-0.5 rounded-full">
-                              ลิขสิทธิ์
-                            </span>
-                          )}
                         </div>
 
                         {/* Title: High Contrast Slate-800 */}

@@ -42,7 +42,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${prompt.variable} font-sans antialiased min-h-screen flex flex-col bg-[#F8FAFC] text-[#1E293B] overflow-x-hidden w-full`}
+        className={`${prompt.variable} font-sans antialiased min-h-screen flex flex-col bg-white text-[#1E293B] overflow-x-hidden w-full`}
       >
         <AppProviders>
           <Navbar />

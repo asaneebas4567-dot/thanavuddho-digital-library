@@ -57,20 +57,15 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
   ];
 
   return (
-    <section className="w-full bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-[#DCEAF3] shadow-xs">
+    <section className="w-full bg-white py-2">
       
       {/* Header & Genre Filter Tabs */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#DCEAF3]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5 pb-3 border-b border-slate-100">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="p-1.5 rounded-xl bg-[#FDF6E9] text-[#D9A441]">
-              <Flame size={19} />
-            </span>
-            <h2 className="text-lg sm:text-2xl font-semibold text-[#073B65] tracking-tight">
-              จัดอันดับหนังสือยอดนิยม (Weekly TOP 5)
-            </h2>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-500 font-normal">
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#073B65] tracking-tight">
+            จัดอันดับหนังสือยอดนิยม (Weekly TOP 5)
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500 font-normal mt-0.5">
             คัดเลือกหนังสือที่มีผู้อ่านและศึกษาต่อเนื่องสูงสุด พร้อมสีสันและภาพปกคุณภาพสูง
           </p>
         </div>
@@ -86,10 +81,10 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'bg-[#073B65] text-white shadow-xs'
-                  : 'bg-slate-100/80 text-slate-700 border border-slate-200 hover:bg-slate-200/60'
+                  ? 'bg-[#073B65] text-white'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70'
               }`}
             >
               {tab.label}
@@ -115,7 +110,7 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
           return (
             <div
               key={book.id}
-              className="group relative flex sm:flex-col items-center sm:items-start bg-white hover:bg-slate-50/60 rounded-2xl p-3 sm:p-3.5 border border-slate-200/80 hover:border-slate-400 hover:shadow-lg transition-all duration-300 cursor-pointer"
+              className="group relative flex sm:flex-col items-center sm:items-start bg-white hover:bg-slate-50/50 rounded-xl p-2 sm:p-2.5 transition-all duration-300 cursor-pointer"
               onClick={() => onSelectBook(book)}
             >
               {/* Cover with Rank Overlay */}

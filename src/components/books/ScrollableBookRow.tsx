@@ -270,40 +270,33 @@ export default function ScrollableBookRow({
   if (!books || books.length === 0) return null;
 
   return (
-    <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200/90 bg-white shadow-xs transition-all relative group/row">
+    <div className="py-2 sm:py-3 bg-white relative group/row">
       
-      {/* 1. Category Header: Icon + Title + Subtitle on Left, 'ดูทั้งหมด >' on Right */}
-      <div className="flex items-center justify-between gap-3 mb-4 px-0.5">
+      {/* 1. Category Header: Title + Subtitle on Left, 'ดูทั้งหมด >' on Right */}
+      <div className="flex items-end justify-between gap-3 mb-3.5 pb-2 border-b border-slate-100">
         
-        {/* Left: Icon & Category Names */}
-        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-          {icon && (
-            <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 font-bold shadow-2xs ${theme.iconBg}`}>
-              {icon}
-            </div>
+        {/* Left: Category Names */}
+        <div className="min-w-0">
+          <h2 className="text-lg sm:text-xl font-semibold text-[#073B65] tracking-tight flex items-center gap-2 truncate">
+            <span>{title}</span>
+            <span className="text-[11px] font-medium text-slate-400">
+              ({books.length} เล่ม)
+            </span>
+          </h2>
+          {subtitle && (
+            <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+              {subtitle}
+            </p>
           )}
-          <div className="min-w-0">
-            <h2 className="text-base sm:text-lg md:text-xl font-semibold text-[#073B65] tracking-tight flex items-center gap-2 truncate">
-              <span>{title}</span>
-              <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border hidden sm:inline-block ${theme.badgeColor}`}>
-                {books.length} เล่ม
-              </span>
-            </h2>
-            {subtitle && (
-              <p className="text-[11px] sm:text-xs text-slate-600 line-clamp-1 mt-0.5">
-                {subtitle}
-              </p>
-            )}
-          </div>
         </div>
 
-        {/* Right: "ดูทั้งหมด" Button */}
+        {/* Right: "ดูทั้งหมด" Link */}
         <Link 
           href={viewAllHref}
-          className={`text-xs sm:text-sm font-bold flex items-center gap-1 shrink-0 transition-colors group/link cursor-pointer px-3 py-1.5 rounded-full bg-white/80 hover:bg-white border border-slate-200/60 shadow-2xs ${theme.viewAllColor}`}
+          className="text-xs sm:text-sm font-semibold text-[#079FE8] hover:text-[#0588c7] flex items-center gap-0.5 shrink-0 transition-colors"
         >
           <span>ดูทั้งหมด</span>
-          <ChevronRight size={15} className="transition-transform group-hover/link:translate-x-0.5" />
+          <ChevronRight size={15} />
         </Link>
       </div>
 
