@@ -412,6 +412,10 @@ export const QUEST_BOOKS_CATALOG: Record<string, { title: string; coverImage: st
     title: '124. มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า',
     coverImage: '/images/books/book-mongkol-chiwit-38.jpg'
   },
+  'book_มงคลชีวิตฉบับทางก้าวหน้า-1': {
+    title: 'มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า (1)',
+    coverImage: '/images/books/มงคลชีวิตฉบับทางก้าวหน้า-1.jpg'
+  },
   'book_tham_jai_hai_phrom_buak': {
     title: 'ทำใจให้พร้อมบวก',
     coverImage: '/images/books/tham-jai-hai-phrom-buak.png'
@@ -427,10 +431,55 @@ export const QUEST_BOOKS_CATALOG: Record<string, { title: string; coverImage: st
 };
 
 /**
+ * แปลง Book ID ให้ตรงกับ Master Catalog ในระบบเควส
+ */
+export function normalizeQuestBookId(bookId: string): string {
+  if (!bookId) return '';
+  const decoded = decodeURIComponent(bookId).trim();
+  
+  if (
+    decoded === 'book_mongkol_chiwit_124' ||
+    decoded === 'book_001' ||
+    decoded.includes('มงคลชีวิต') ||
+    decoded.includes('mongkol')
+  ) {
+    return 'book_mongkol_chiwit_124';
+  }
+
+  if (
+    decoded === 'book_tham_jai_hai_phrom_buak' ||
+    decoded === 'book_tam_jai_hai_prom_buak' ||
+    decoded === 'book_003' ||
+    decoded.includes('พร้อมบวก')
+  ) {
+    return 'book_tham_jai_hai_phrom_buak';
+  }
+
+  if (
+    decoded === 'book_yoo_sook_nai_yook_digital' ||
+    decoded === 'book_005' ||
+    decoded.includes('ดิจิทัล') ||
+    decoded.includes('digital')
+  ) {
+    return 'book_yoo_sook_nai_yook_digital';
+  }
+
+  if (
+    decoded === 'book_phoo_soon_sia_tee_mai_sin_soon' ||
+    decoded.includes('สูญเสีย')
+  ) {
+    return 'book_phoo_soon_sia_tee_mai_sin_soon';
+  }
+
+  return decoded;
+}
+
+/**
  * ดึงเควสของหนังสือเล่มที่ระบุ
  */
 export function getBookQuests(bookId: string): BookEasterEggQuest[] {
-  return bookEasterEggQuests[bookId] || [];
+  const normId = normalizeQuestBookId(bookId);
+  return bookEasterEggQuests[normId] || bookEasterEggQuests[bookId] || [];
 }
 
 /**
