@@ -151,15 +151,15 @@ function NongDhammaMascot({ className = "w-20 h-20" }: { className?: string }) {
 export default function SurveyMascotWidget() {
   const { user, isAuthenticated, updateUserPoints } = useAuth();
   
-  // Widget Open State (Default to true so mobile is never blocked by expanded mascot)
+  // Widget Open State (Default to false for minimized on mobile, true for expanded on desktop)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(true);
+  const [isMinimized, setIsMinimized] = useState(false);
   const [viewMode, setViewMode] = useState<'info' | 'embed'>('info');
 
-  // Auto-expand on desktop screens (>=1024px) after mount, while keeping sleek edge pill on mobile
+  // Keep expanded on tablet/desktop (>=768px), auto-minimize to sleek pill on small mobile (<768px)
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
-      setIsMinimized(false);
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      setIsMinimized(true);
     }
   }, []);
 
@@ -294,8 +294,8 @@ export default function SurveyMascotWidget() {
       <div 
         className={`fixed z-40 transition-all duration-300 ease-out select-none ${
           isMinimized 
-            ? 'left-0 bottom-24 lg:bottom-1/3' 
-            : 'left-2 sm:left-3 lg:left-6 bottom-24 lg:bottom-1/3'
+            ? 'left-0 bottom-20 sm:bottom-24' 
+            : 'left-2 sm:left-4 lg:left-6 bottom-20 sm:bottom-24'
         }`}
       >
         {isMinimized ? (
@@ -394,7 +394,10 @@ export default function SurveyMascotWidget() {
       {/* 2. SURVEY INVITATION & CLAIM MODAL DIALOG                     */}
       {/* ------------------------------------------------------------- */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/60 backdrop-blur-sm animate-fadeIn">
+        <div 
+          id="survey-modal-overlay" 
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/60 backdrop-blur-sm animate-fadeIn"
+        >
           <div 
             className={`relative w-full bg-white rounded-3xl border border-[#DCEAF3] shadow-2xl overflow-hidden flex flex-col transition-all max-h-[92vh] ${
               viewMode === 'embed' ? 'max-w-4xl h-[90vh]' : 'max-w-xl'
@@ -405,13 +408,25 @@ export default function SurveyMascotWidget() {
               {/* Background Glow */}
               <div className="absolute top-0 right-0 w-64 h-full bg-white/5 rounded-full blur-2xl pointer-events-none" />
               
-              {/* Close Button */}
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer z-10"
-              >
-                <X size={18} />
-              </button>
+              {/* Header Action Buttons */}
+              <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
+                <Link
+                  href="/survey"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 text-white text-[11px] font-semibold flex items-center gap-1 transition-all"
+                  title="เปิดหน้าต่างประเมินเต็มจอ"
+                >
+                  <ExternalLink size={12} />
+                  <span className="hidden sm:inline">หน้าเต็มจอ</span>
+                </Link>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer"
+                  title="ปิดหน้าต่าง"
+                >
+                  <X size={18} />
+                </button>
+              </div>
 
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-white/10 rounded-2xl p-1 border border-white/20 backdrop-blur-xs flex items-center justify-center">

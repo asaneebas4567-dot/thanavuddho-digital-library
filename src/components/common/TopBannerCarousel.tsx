@@ -146,7 +146,7 @@ export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
     categoryName: 'ภารกิจรับแต้ม',
     badgeLabel: 'รับ 200 แต้ม',
     themeKey: 'cream',
-    actionUrl: '#',
+    actionUrl: '/survey',
     actionLabel: 'ทำแบบประเมิน รับ 200 แต้ม',
     isSurveyTrigger: true,
   },
@@ -539,11 +539,16 @@ export default function TopBannerCarousel({
     setIsHovered(false);
   };
 
-  // Trigger Survey Modal
+  // Trigger Survey Modal with seamless fallback to /survey page
   const handleTriggerSurvey = (e?: React.MouseEvent) => {
-    if (e) e.preventDefault();
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('open-survey-modal'));
+      setTimeout(() => {
+        const modal = document.getElementById('survey-modal-overlay');
+        if (!modal) {
+          window.location.href = '/survey';
+        }
+      }, 150);
     }
   };
 
@@ -685,10 +690,10 @@ export default function TopBannerCarousel({
                       </Link>
                     ) : item.type === 'survey' ? (
                       /* Survey Visual: Cute Novice Monk with 200 Coin */
-                      <button
-                        type="button"
+                      <Link
+                        href="/survey"
                         onClick={handleTriggerSurvey}
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-gradient-to-br from-amber-100 via-orange-50 to-amber-200/90 shadow-md border border-amber-300 flex flex-col items-center justify-center p-1 group-hover:scale-102 transition-transform duration-300 cursor-pointer"
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-gradient-to-br from-amber-100 via-orange-50 to-amber-200/90 shadow-md border border-amber-300 flex flex-col items-center justify-center p-1 group-hover:scale-102 transition-transform duration-300 cursor-pointer block"
                         title="คลิกเพื่อทำแบบประเมิน รับทันที 200 แต้ม"
                       >
                         <div className="w-full h-full p-1 flex items-center justify-center">
@@ -697,7 +702,7 @@ export default function TopBannerCarousel({
                         <span className="absolute bottom-1 px-1.5 py-0.5 rounded-full bg-[#D9A441] text-white text-[8px] font-extrabold shadow-xs">
                           🪙 200 P
                         </span>
-                      </button>
+                      </Link>
                     ) : item.type === 'podcast' ? (
                       /* Podcast Visual: Cover with Pulsing Headphones Overlay */
                       <Link
@@ -803,10 +808,10 @@ export default function TopBannerCarousel({
 
                         {/* Title: High Contrast Slate-800 */}
                         {item.isSurveyTrigger ? (
-                          <button
-                            type="button"
+                          <Link
+                            href="/survey"
                             onClick={handleTriggerSurvey}
-                            className="text-left cursor-pointer"
+                            className="text-left cursor-pointer block"
                           >
                             <h3 
                               className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-amber-800 transition-colors line-clamp-2 leading-snug"
@@ -814,7 +819,7 @@ export default function TopBannerCarousel({
                             >
                               {item.title}
                             </h3>
-                          </button>
+                          </Link>
                         ) : (
                           <Link href={resolvedUrl}>
                             <h3 
@@ -835,8 +840,8 @@ export default function TopBannerCarousel({
                       {/* Bottom Action: Clean Library Button for Every Card */}
                       <div className="mt-2.5 sm:mt-3 flex items-center justify-start">
                         {item.isSurveyTrigger ? (
-                          <button
-                            type="button"
+                          <Link
+                            href="/survey"
                             onClick={handleTriggerSurvey}
                             className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#D9A441] hover:bg-[#c59132] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
                             title="ทำแบบประเมิน รับทันที 200 แต้ม"
@@ -844,7 +849,7 @@ export default function TopBannerCarousel({
                             <Coins size={12} className="shrink-0 text-yellow-100" />
                             <span>{resolvedLabel}</span>
                             <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                          </button>
+                          </Link>
                         ) : item.type === 'podcast' ? (
                           <Link
                             href={resolvedUrl}
