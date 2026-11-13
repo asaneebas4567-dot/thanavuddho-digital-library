@@ -167,62 +167,79 @@ export function calculateReadingPoints(params: ReadingPointParams): ReadingPoint
  * ============================================================================
  * CHAPTER READING PACING & GENUINE STUDY VERIFICATION ENGINE
  * ============================================================================
- * Research Foundation (Brysbaert 2019, Cambridge, UCSD, UT Austin):
- * - Adult silent reading speed: ~238 WPM (Words Per Minute)
- * - Academic textbook: ~800 words/page (3.2 min/page)
- * - Thai pocketbook / Dhamma book (A5): ~150 - 250 words/page (font & layout spacing)
- * - Standard chapter (e.g. 10 pages): ~1,500 words => Average read time = ~5.0 minutes (300s)
+ * Research Foundation (Brysbaert 2019, Scholar Within 2020, Rayner et al. 2016):
+ * - Adult silent reading speed: ~238 WPM (Words Per Minute) globally
+ * - Reflective / Dhamma / Thai analytical reading speed: ~200 WPM
+ * - Standard Thai Dhamma book (A5 pocketbook): ~350 - 400 words/page
  * 
- * Anti-Skimming Quest Unlock Rule (User Formula: 1.5 in 5 minutes ratio = 30%):
- * - Minimum required study dwell time = 30% of average reading time.
- * - For a 10-page chapter: 300s * 0.30 = 90s (1.5 minutes) minimum dwell.
- * - Rate: ~9 seconds per page minimum active presence.
- * - Prevents users from rapid-skimming ("เปิดคลิกๆ ไปแล้วเควสเด้ง").
+ * Mathematical Formulation (70% Discount Factor Model):
+ * 1. Standard Reading Time: T_standard = (Total Words / WPM) * 60 (seconds)
+ *    Example: 1 page of 400 words at 200 WPM = (400 / 200) * 60 = 120 seconds (2.0 minutes)
+ * 2. Minimum Dwell Threshold (70% Factor): T_required = T_standard * 0.70
+ *    Example: 120s * 0.70 = 84 seconds (1 minute 24 seconds, or ~1m 20s)
+ * 
+ * Anti-Skimming Dual-Criteria Rule:
+ * IF (Current_Page >= Target_Page AND Reading_Time >= Minimum_Threshold) THEN Trigger_Quest()
  */
 export interface ChapterDwellCalculation {
   chapterPageCount: number;
-  averageReadingSeconds: number; // e.g. 300s (5.0 min) for 10 pages
-  requiredDwellSeconds: number;  // e.g. 90s (1.5 min) for 10 pages (30% threshold)
-  minimumSecondsPerPage: number; // e.g. 9.0s/page
-  recommendedMinutesDisplay: string; // e.g. "5.0 นาที"
-  requiredMinutesDisplay: string;    // e.g. "1.5 นาที"
+  wordCountEstimate: number;
+  averageReadingSeconds: number; // e.g. 120s (2.0 min) for 1 page of 400 words
+  requiredDwellSeconds: number;  // e.g. 84s (1m 24s) for 70% threshold
+  minimumSecondsPerPage: number; // e.g. 84s/page
+  recommendedMinutesDisplay: string; // e.g. "2.0 นาที"
+  requiredMinutesDisplay: string;    // e.g. "1 นาที 24 วินาที"
   antiSkimmingExplanation: string;
 }
+
+export const ACADEMIC_READING_BENCHMARKS = {
+  WPM_ENGLISH_BENCHMARK: 238, // Brysbaert (2019)
+  WPM_THAI_REFLECTIVE: 200,   // Thai reflective / philosophical reading baseline
+  WORDS_PER_PAGE_DEFAULT: 400, // 400 words per page standard
+  DISCOUNT_FACTOR_ACADEMIC: 0.70 // 70% threshold accommodating fast & normal readers
+};
 
 export function calculateChapterRequiredDwellTime(
   pageCount: number,
   dimension: BookDimension = 'A5',
-  customDwellRatio: number = 0.30 // 1.5 out of 5 minutes = 30%
+  customDwellRatio: number = 0.70, // Default to 70% Discount Factor Model
+  wordsPerPage: number = 400,
+  readingWpm: number = 200
 ): ChapterDwellCalculation {
   const safePageCount = Math.max(1, pageCount || 1);
-  const dimensionInfo = BOOK_DIMENSIONS[dimension] || BOOK_DIMENSIONS.A5;
-  const secondsPerPage = dimensionInfo.recommendedReadingSpeedSecondsPerPage || 30;
+  const totalWords = safePageCount * wordsPerPage;
 
-  // Average reading time (100% thorough read)
-  // e.g. 10 pages * 30s = 300s = 5 minutes
-  const averageReadingSeconds = safePageCount * secondsPerPage;
+  // 1. Standard Reading Time (100% thorough reading at baseline WPM)
+  // T_standard = (Words / WPM) * 60
+  const averageReadingSeconds = Math.round((totalWords / readingWpm) * 60);
 
-  // Required Dwell Time (User rule: 1.5 in 5 minutes ratio = 30%)
-  // e.g. 10 pages * 30s * 0.30 = 90s = 1.5 minutes
+  // 2. Minimum Dwell Time based on Academic Discount Factor (e.g. 70%)
+  // T_required = T_standard * Discount_Factor
   const rawRequiredSeconds = Math.round(averageReadingSeconds * customDwellRatio);
 
   // Reasonable clamps:
-  // - Minimum: at least 30 seconds (even for 1-2 page short intro)
-  // - Maximum: at most 300 seconds (5 minutes) so it never frustrates fast readers
+  // - Minimum: at least 30 seconds (even for 1 page brief summary)
+  // - Maximum: at most 300 seconds (5 minutes) so it never hinders advanced readers
   const requiredDwellSeconds = Math.max(30, Math.min(300, rawRequiredSeconds));
   const minimumSecondsPerPage = Math.round((requiredDwellSeconds / safePageCount) * 10) / 10;
 
-  const averageMinutes = (averageReadingSeconds / 60).toFixed(1);
-  const requiredMinutes = (requiredDwellSeconds / 60).toFixed(1);
+  const avgMin = Math.floor(averageReadingSeconds / 60);
+  const avgSec = averageReadingSeconds % 60;
+  const reqMin = Math.floor(requiredDwellSeconds / 60);
+  const reqSec = requiredDwellSeconds % 60;
+
+  const recommendedMinutesDisplay = avgMin > 0 ? (avgSec > 0 ? `${avgMin} นาที ${avgSec} วินาที` : `${avgMin} นาที`) : `${avgSec} วินาที`;
+  const requiredMinutesDisplay = reqMin > 0 ? (reqSec > 0 ? `${reqMin} นาที ${reqSec} วินาที` : `${reqMin} นาที`) : `${reqSec} วินาที`;
 
   return {
     chapterPageCount: safePageCount,
+    wordCountEstimate: totalWords,
     averageReadingSeconds,
     requiredDwellSeconds,
     minimumSecondsPerPage,
-    recommendedMinutesDisplay: `${averageMinutes} นาที`,
-    requiredMinutesDisplay: `${requiredMinutes} นาที`,
-    antiSkimmingExplanation: `บทนี้มี ${safePageCount} หน้า เวลาอ่านเฉลี่ย ${averageMinutes} นาที (238 คำ/นาที) ระบบกำหนดเวลาศึกษาจริงอย่างน้อย ${requiredMinutes} นาที (1.5 ใน 5 ส่วน) เพื่อปลดล็อกเควส`
+    recommendedMinutesDisplay,
+    requiredMinutesDisplay,
+    antiSkimmingExplanation: `บทนี้มี ${safePageCount} หน้า (ประมาณ ${totalWords.toLocaleString()} คำ) เวลาอ่านมาตรฐาน ${recommendedMinutesDisplay} (อัตรา 200 คำ/นาที) ระบบกำหนดเวลาศึกษาจริงอย่างน้อย ${requiredMinutesDisplay} (เกณฑ์ 70% เพื่อความยืดหยุ่น) ก่อนปลดล็อกเควส`
   };
 }
 

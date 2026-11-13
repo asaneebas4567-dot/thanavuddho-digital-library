@@ -34,7 +34,11 @@ import {
   QUEST_BOOKS_CATALOG 
 } from '@/data/bookEasterEggQuests';
 import { useLearningPoints } from '@/lib/useLearningPoints';
-import { calculateChapterRequiredDwellTime, ChapterDwellCalculation } from '@/lib/readingPacingEngine';
+import { 
+  calculateChapterRequiredDwellTime, 
+  ChapterDwellCalculation,
+  ACADEMIC_READING_BENCHMARKS 
+} from '@/lib/readingPacingEngine';
 import { triggerFlyingCoins } from '@/components/common/FlyingCoinAnimation';
 
 export interface QuestAttemptRecord {
@@ -319,7 +323,7 @@ export default function BookQuestManager({
   const pageQuestPacing = useMemo(() => {
     if (!pageQuest) return null;
     const pageCount = (pageQuest.triggerPageEnd ?? pageQuest.triggerPage) - pageQuest.triggerPage + 1;
-    return calculateChapterRequiredDwellTime(pageCount, 'A5', 0.30);
+    return calculateChapterRequiredDwellTime(pageCount, 'A5', ACADEMIC_READING_BENCHMARKS.DISCOUNT_FACTOR_ACADEMIC);
   }, [pageQuest]);
 
   const pageQuestSpentSeconds = pageQuest ? (chapterDwellSeconds[pageQuest.id] || 0) : 0;
@@ -333,7 +337,7 @@ export default function BookQuestManager({
   const activeQuestPacing = useMemo(() => {
     if (!activeQuest) return null;
     const pageCount = (activeQuest.triggerPageEnd ?? activeQuest.triggerPage) - activeQuest.triggerPage + 1;
-    return calculateChapterRequiredDwellTime(pageCount, 'A5', 0.30);
+    return calculateChapterRequiredDwellTime(pageCount, 'A5', ACADEMIC_READING_BENCHMARKS.DISCOUNT_FACTOR_ACADEMIC);
   }, [activeQuest]);
 
   const activeQuestSpentSeconds = activeQuest ? (chapterDwellSeconds[activeQuest.id] || 0) : 0;
@@ -388,7 +392,7 @@ export default function BookQuestManager({
 
     if (endingChapter && !readChapterIds.includes(endingChapter.id)) {
       const pages = (endingChapter.triggerPageEnd ?? endingChapter.triggerPage) - endingChapter.triggerPage + 1;
-      const pacing = calculateChapterRequiredDwellTime(pages, 'A5', 0.30);
+      const pacing = calculateChapterRequiredDwellTime(pages, 'A5', ACADEMIC_READING_BENCHMARKS.DISCOUNT_FACTOR_ACADEMIC);
       const spent = chapterDwellSeconds[endingChapter.id] || 0;
 
       // Anti-skimming rule: Must have actually studied the chapter for >= minimum dwell time!
@@ -1302,7 +1306,7 @@ export default function BookQuestManager({
 
                       const questSpent = chapterDwellSeconds[quest.id] || 0;
                       const questPages = (quest.triggerPageEnd ?? quest.triggerPage) - quest.triggerPage + 1;
-                      const questPacing = calculateChapterRequiredDwellTime(questPages, 'A5', 0.30);
+                      const questPacing = calculateChapterRequiredDwellTime(questPages, 'A5', ACADEMIC_READING_BENCHMARKS.DISCOUNT_FACTOR_ACADEMIC);
                       const isQuestDwellUnlocked = isCompleted || !!questAttempt || questSpent >= questPacing.requiredDwellSeconds;
 
                       return (

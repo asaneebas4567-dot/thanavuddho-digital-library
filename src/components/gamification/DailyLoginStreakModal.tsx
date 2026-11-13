@@ -265,3 +265,4 @@ export default function DailyLoginStreakModal({ isOpen, onClose }: DailyLoginStr
     </div>
   );
 }
+
