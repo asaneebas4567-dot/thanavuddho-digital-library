@@ -12,12 +12,15 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- 2. SYSTEM 1 & 2: DIGITAL LIBRARY & DATABASE MANAGEMENT (CONTENT ENTITIES)
 -- ==============================================================================
 
--- Table: authors (ข้อมูลผู้แต่ง / พระวิทยากร)
+-- Table: authors (ข้อมูลผู้แต่งเฉพาะ: พระครูปลัดสุวัฒนโพธิคุณ / พระมหาสมชาย ฐานวุฑฺโฒ)
 CREATE TABLE IF NOT EXISTS public.authors (
     id VARCHAR(50) PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    title VARCHAR(255) DEFAULT 'พระราชาคณะ / ผู้บรรยายธรรม',
-    monastic_title VARCHAR(255) DEFAULT 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
+    name VARCHAR(255) NOT NULL, -- พระครูปลัดสุวัฒนโพธิคุณ
+    monastic_title VARCHAR(255) DEFAULT 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ, M.D., Ph.D.)',
+    pen_name VARCHAR(100) DEFAULT 'พระมหาสมชาย ฐานวุฑฺโฒ (เปรียญธรรม ๗ ประโยค)',
+    academic_degrees TEXT DEFAULT 'แพทยศาสตรบัณฑิต เกียรตินิยม จุฬาลงกรณ์มหาวิทยาลัย, ปริญญาเอกพุทธศาสตร์ (Ph.D.) มหาวิทยาลัยโตเกียว ญี่ปุ่น',
+    exclusive_works_count INT DEFAULT 33, -- ผลงานและลิขสิทธิ์เฉพาะ 33 เล่ม
+    title VARCHAR(255) DEFAULT 'ประธานศูนย์เผยแผ่ธรรมะเพื่อประชาชน / พระวิทยากรผู้ประพันธ์',
     biography TEXT,
     avatar_url TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
@@ -168,10 +171,16 @@ CREATE TABLE IF NOT EXISTS public.media_files (
 -- Table: profiles (ข้อมูลสมาชิกห้องสมุด เชื่อมต่อ Supabase Auth / Google OAuth)
 CREATE TABLE IF NOT EXISTS public.profiles (
     id UUID PRIMARY KEY, -- ตรงกับ auth.users.id ใน Supabase
-    member_card_id VARCHAR(50) UNIQUE NOT NULL, -- เช่น 69001, 69002
+    member_card_id VARCHAR(50) UNIQUE NOT NULL, -- รหัสบัตรสมาชิก เช่น 69001, 69002
     email VARCHAR(255) UNIQUE NOT NULL,
     full_name VARCHAR(255) NOT NULL,
     phone VARCHAR(50),
+    points INT DEFAULT 0, -- แต้ม Point สะสมปัจจุบัน
+    current_book VARCHAR(255), -- หนังสือที่กำลังอ่านล่าสุด
+    current_page INT DEFAULT 1, -- หน้าที่อ่านค้างไว้
+    total_pages INT DEFAULT 1, -- จำนวนหน้าทั้งหมดของเล่ม
+    books_finished_count INT DEFAULT 0, -- จำนวนเล่มที่อ่านจบแล้ว
+    last_read_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()),
     avatar_url TEXT,
     role VARCHAR(20) DEFAULT 'member' CHECK (role IN ('member', 'admin', 'moderator')),
     age_range VARCHAR(50),

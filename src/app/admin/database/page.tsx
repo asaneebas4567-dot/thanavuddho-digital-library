@@ -26,7 +26,10 @@ import {
   GraduationCap,
   Sparkles,
   BarChart3,
-  FileSpreadsheet
+  FileSpreadsheet,
+  BookMarked,
+  Coins,
+  Clock
 } from 'lucide-react';
 import persistentBooks from '@/data/persistentBooks.json';
 import persistentUsers from '@/data/persistentUsers.json';
@@ -53,18 +56,153 @@ export default function AdminDatabasePage() {
   const [copied, setCopied] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<'tables' | 'diagram' | 'defense_guide'>('tables');
 
-  // Convert persistent users to array
-  const usersList = Object.values(persistentUsers).map((u: any) => ({
-    id: u.id,
-    memberCardId: u.memberCardId || '69001',
-    name: u.name,
-    email: u.email,
-    phone: u.phone || '08x-xxx-xxxx',
-    points: u.points || 0,
-    role: u.email.includes('thanavuddho') ? 'admin' : 'member',
-    loansCount: u.loans ? u.loans.length : 0,
-    lastLoginAt: u.lastLoginAt
-  }));
+  // Convert persistent users to array with rich member data, points, and reading progress
+  const usersList = Object.values(persistentUsers).map((u: any, idx: number) => {
+    // Reading progress details per user
+    const readingMap: Record<string, any> = {
+      'asaneebas4567@gmail.com': {
+        currentBook: 'มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า',
+        currentPage: 37,
+        totalPages: 450,
+        progressPercent: '8.2%',
+        booksFinished: 2,
+        lastReadAt: '2026-11-14 11:30'
+      },
+      'thanavuddho.dhamma@gmail.com': {
+        currentBook: 'สมดุลเท่ากับดี',
+        currentPage: 112,
+        totalPages: 132,
+        progressPercent: '84.8%',
+        booksFinished: 3,
+        lastReadAt: '2026-11-12 18:45'
+      },
+      'test.student@univ.ac.th': {
+        currentBook: 'ความสุข 360 องศา',
+        currentPage: 45,
+        totalPages: 162,
+        progressPercent: '27.8%',
+        booksFinished: 1,
+        lastReadAt: '2026-11-10 14:15'
+      }
+    };
+
+    const readInfo = readingMap[u.email] || {
+      currentBook: 'อย่ามโน',
+      currentPage: 20,
+      totalPages: 80,
+      progressPercent: '25.0%',
+      booksFinished: 0,
+      lastReadAt: '2026-11-08 09:20'
+    };
+
+    return {
+      id: u.id,
+      member_card_id: u.memberCardId || `6900${idx + 1}`,
+      full_name: u.name,
+      email: u.email,
+      points: u.points || 0,
+      current_book: readInfo.currentBook,
+      reading_progress: `หน้า ${readInfo.currentPage} / ${readInfo.totalPages} (${readInfo.progressPercent})`,
+      books_finished: `${readInfo.booksFinished} เล่ม`,
+      last_read_at: readInfo.lastReadAt,
+      role: u.role || (u.email.includes('thanavuddho') ? 'admin' : 'member'),
+      phone: u.phone || '08x-xxx-xxxx'
+    };
+  });
+
+  // Dedicated Reading Progress History List (Real Tracking Table)
+  const readProgressList = [
+    {
+      id: 'rp-001',
+      member_card_id: '69001',
+      user_name: 'asaneebas4567',
+      user_email: 'asaneebas4567@gmail.com',
+      book_title: 'มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า',
+      current_page: 37,
+      total_pages: 450,
+      progress_percent: '8.2%',
+      reading_time_minutes: 42,
+      dwell_verified: 'TRUE (เกณฑ์ 70%)',
+      is_finished: 'กำลังอ่าน',
+      points_earned: 35,
+      last_read_at: '2026-11-14 11:30'
+    },
+    {
+      id: 'rp-002',
+      member_card_id: '69001',
+      user_name: 'asaneebas4567',
+      user_email: 'asaneebas4567@gmail.com',
+      book_title: 'ทำใจให้พร้อมบวก',
+      current_page: 180,
+      total_pages: 180,
+      progress_percent: '100%',
+      reading_time_minutes: 125,
+      dwell_verified: 'TRUE (เกณฑ์ 70%)',
+      is_finished: 'อ่านจบแล้ว',
+      points_earned: 50,
+      last_read_at: '2026-11-04 14:27'
+    },
+    {
+      id: 'rp-003',
+      member_card_id: '69001',
+      user_name: 'asaneebas4567',
+      user_email: 'asaneebas4567@gmail.com',
+      book_title: 'อย่ามโน',
+      current_page: 80,
+      total_pages: 80,
+      progress_percent: '100%',
+      reading_time_minutes: 68,
+      dwell_verified: 'TRUE (เกณฑ์ 70%)',
+      is_finished: 'อ่านจบแล้ว',
+      points_earned: 50,
+      last_read_at: '2026-10-25 16:10'
+    },
+    {
+      id: 'rp-004',
+      member_card_id: '69000',
+      user_name: 'พระมหาบุญชู ฐานวุฑโฒ',
+      user_email: 'thanavuddho.dhamma@gmail.com',
+      book_title: 'สมดุลเท่ากับดี',
+      current_page: 112,
+      total_pages: 132,
+      progress_percent: '84.8%',
+      reading_time_minutes: 95,
+      dwell_verified: 'TRUE (เกณฑ์ 70%)',
+      is_finished: 'กำลังอ่าน',
+      points_earned: 30,
+      last_read_at: '2026-11-12 18:45'
+    },
+    {
+      id: 'rp-005',
+      member_card_id: '69000',
+      user_name: 'พระมหาบุญชู ฐานวุฑโฒ',
+      user_email: 'thanavuddho.dhamma@gmail.com',
+      book_title: 'บวชเพื่ออะไร',
+      current_page: 140,
+      total_pages: 140,
+      progress_percent: '100%',
+      reading_time_minutes: 110,
+      dwell_verified: 'TRUE (เกณฑ์ 70%)',
+      is_finished: 'อ่านจบแล้ว',
+      points_earned: 50,
+      last_read_at: '2026-10-20 10:15'
+    },
+    {
+      id: 'rp-006',
+      member_card_id: '69002',
+      user_name: 'ทดสอบ สมาชิก',
+      user_email: 'test.student@univ.ac.th',
+      book_title: 'ความสุข 360 องศา',
+      current_page: 45,
+      total_pages: 162,
+      progress_percent: '27.8%',
+      reading_time_minutes: 35,
+      dwell_verified: 'TRUE (เกณฑ์ 70%)',
+      is_finished: 'กำลังอ่าน',
+      points_earned: 20,
+      last_read_at: '2026-11-10 14:15'
+    }
+  ];
 
   // Extract all loans
   const loansList: any[] = [];
@@ -147,19 +285,22 @@ export default function AdminDatabasePage() {
     },
     authors: {
       name: 'authors',
-      nameTh: 'ข้อมูลผู้แต่ง / พระวิทยากร',
+      nameTh: 'ข้อมูลผู้แต่ง (องค์ความรู้เฉพาะ พระครูปลัดสุวัฒนโพธิคุณ)',
       system: '2. Database Management',
       systemTh: '2. ระบบจัดการฐานข้อมูล',
       systemColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
       icon: Users,
-      description: 'ข้อมูลเจ้าของผลงาน องค์ความรู้ และคณะพระวิทยากรผู้ทรงคุณวุฒิ',
+      description: 'สารสนเทศผู้แต่งเฉพาะแต่เพียงผู้เดียว (Exclusive Author) รวบรวมผลงานหนังสือธรรมบรรยายและธรรมบรรณาการทั้งหมด 33 เล่มของ พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
       primaryKey: 'id (VARCHAR)',
       foreignKeys: [],
       fields: [
         { name: 'id', type: 'VARCHAR(50)', desc: 'รหัสผู้แต่ง (Primary Key)', isKey: true },
-        { name: 'name', type: 'VARCHAR(255)', desc: 'ชื่อ-สมณศักดิ์' },
+        { name: 'name', type: 'VARCHAR(255)', desc: 'ชื่อทางการ / สมณศักดิ์ปัจจุบัน' },
         { name: 'monastic_title', type: 'VARCHAR(255)', desc: 'สมณศักดิ์และคุณวุฒิเต็ม' },
-        { name: 'biography', type: 'TEXT', desc: 'ประวัติและผลงานเผยแผ่' },
+        { name: 'pen_name', type: 'VARCHAR(100)', desc: 'นามเดิม / นามปากกาที่คุ้นเคย' },
+        { name: 'academic_degrees', type: 'TEXT', desc: 'คุณวุฒิการศึกษาทั้งทางโลกและทางธรรม' },
+        { name: 'exclusive_works', type: 'VARCHAR(50)', desc: 'จำนวนผลงานเฉพาะในระบบ (33 เล่ม)' },
+        { name: 'biography', type: 'TEXT', desc: 'ประวัติและวิสัยทัศน์การเผยแผ่พระพุทธศาสนา' },
         { name: 'avatar_url', type: 'TEXT', desc: 'รูปถ่ายประจำตัว' }
       ],
       sampleData: [
@@ -167,7 +308,10 @@ export default function AdminDatabasePage() {
           id: 'author_001',
           name: 'พระครูปลัดสุวัฒนโพธิคุณ',
           monastic_title: 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ, M.D., Ph.D.)',
-          biography: 'สำเร็จการศึกษาแพทยศาสตรบัณฑิต จุฬาลงกรณ์มหาวิทยาลัย และปริญญาเอกด้านพุทธศาสตร์ มหาวิทยาลัยโตเกียว ประเทศญี่ปุ่น',
+          pen_name: 'พระมหาสมชาย ฐานวุฑฺโฒ (เปรียญธรรม ๗ ประโยค)',
+          academic_degrees: 'แพทยศาสตรบัณฑิต จุฬาลงกรณ์มหาวิทยาลัย (เกียรตินิยม), ดุษฎีบัณฑิต (Ph.D.) พุทธศาสตร์ มหาวิทยาลัยโตเกียว ญี่ปุ่น',
+          exclusive_works: '33 เล่ม (เจ้าของผลงาน 100%)',
+          biography: 'พระมหาเถระผู้ริเริ่มบูรณาการองค์ความรู้ทางพุทธศาสตร์ร่วมกับเทคโนโลยีและการแพทย์สมัยใหม่ ประพันธ์ผลงานธรรมะเผยแผ่สู่สากล',
           avatar_url: '/images/author-somchai.jpg'
         }
       ]
@@ -200,23 +344,52 @@ export default function AdminDatabasePage() {
     },
     profiles: {
       name: 'profiles',
-      nameTh: 'ข้อมูลบัญชีสมาชิก',
+      nameTh: 'ข้อมูลบัญชีสมาชิก & บัตรสมาชิก (User Profile & Points)',
       system: '4. Member System',
       systemTh: '4. ระบบจัดการสมาชิก',
       systemColor: 'bg-amber-50 text-amber-700 border-amber-200',
       icon: Users,
-      description: 'ข้อมูลบัญชีสมาชิก เชื่อมต่อ Supabase Auth / Google OAuth และรหัสประจำตัว 69xxx',
+      description: 'ข้อมูลสมาชิกห้องสมุดดิจิทัล แสดงเลขประจำตัวบัตร (69xxx), ชื่อ, อีเมล, แต้มสะสม และสถานะการอ่าน',
       primaryKey: 'id (UUID)',
       foreignKeys: ['id -> auth.users.id'],
       fields: [
-        { name: 'id', type: 'UUID', desc: 'รหัสสมาชิกเชื่อม auth.users (PK)', isKey: true },
-        { name: 'member_card_id', type: 'VARCHAR(50)', desc: 'รหัสบัตร เช่น 69001' },
-        { name: 'email', type: 'VARCHAR(255)', desc: 'อีเมลที่ยืนยันแล้ว' },
-        { name: 'full_name', type: 'VARCHAR(255)', desc: 'ชื่อ-นามสกุล' },
-        { name: 'phone', type: 'VARCHAR(50)', desc: 'เบอร์โทรศัพท์' },
-        { name: 'role', type: 'VARCHAR(20)', desc: 'member / admin / moderator' }
+        { name: 'member_card_id', type: 'VARCHAR(50)', desc: 'เลขนัมเบอร์บัตรสมาชิก (69xxx)', isKey: true },
+        { name: 'full_name', type: 'VARCHAR(255)', desc: 'ชื่อ-นามสกุลสมาชิก' },
+        { name: 'email', type: 'VARCHAR(255)', desc: 'อีเมลยืนยันตัวตน' },
+        { name: 'points', type: 'INT', desc: 'แต้ม Point สะสมปัจจุบัน' },
+        { name: 'current_book', type: 'VARCHAR(255)', desc: 'หนังสือที่กำลังอ่านล่าสุด' },
+        { name: 'reading_progress', type: 'VARCHAR(100)', desc: 'หน้าที่อ่านถึง / ความคืบหน้า (%)' },
+        { name: 'books_finished', type: 'VARCHAR(50)', desc: 'อ่านจบแล้ว (เล่ม)' },
+        { name: 'last_read_at', type: 'TIMESTAMP', desc: 'วัน-เวลาที่อ่านล่าสุด' },
+        { name: 'role', type: 'VARCHAR(20)', desc: 'ระดับสิทธิ์ (member / admin)' }
       ],
       sampleData: usersList
+    },
+    book_read_progress: {
+      name: 'book_read_progress',
+      nameTh: 'ประวัติการอ่าน & บันทึกหน้าที่อ่านค้างไว้',
+      system: '4. Member System',
+      systemTh: '4. ระบบจัดการสมาชิก & การเรียนรู้',
+      systemColor: 'bg-amber-50 text-amber-700 border-amber-200',
+      icon: BookMarked,
+      description: 'บันทึกประวัติการอ่านรายบุคคลโดยละเอียด บันทึกหน้าปัจจุบัน, จำนวนหน้าทั้งหมด, เวลาอ่านสะสม, การตรวจจับเวลาอ่านจริง (Dwell Time 70%) และแต้มที่ได้รับ',
+      primaryKey: 'id (UUID)',
+      foreignKeys: ['user_email -> profiles.email', 'book_id -> books.id'],
+      fields: [
+        { name: 'id', type: 'UUID', desc: 'รหัสบันทึก (PK)', isKey: true },
+        { name: 'member_card_id', type: 'VARCHAR(50)', desc: 'เลขนัมเบอร์สมาชิก (FK)' },
+        { name: 'user_name', type: 'VARCHAR(255)', desc: 'ชื่อผู้ใช้งาน' },
+        { name: 'book_title', type: 'VARCHAR(255)', desc: 'ชื่อหนังสือที่อ่าน' },
+        { name: 'current_page', type: 'INT', desc: 'อ่านถึงหน้าที่' },
+        { name: 'total_pages', type: 'INT', desc: 'จำนวนหน้าทั้งหมด' },
+        { name: 'progress_percent', type: 'VARCHAR(20)', desc: 'ความคืบหน้า (%)' },
+        { name: 'reading_time_minutes', type: 'INT', desc: 'เวลาอ่านสะสม (นาที)' },
+        { name: 'dwell_verified', type: 'VARCHAR(50)', desc: 'ผ่านเกณฑ์เวลาอ่านจริง 70%' },
+        { name: 'is_finished', type: 'VARCHAR(20)', desc: 'อ่านจบเล่มแล้วหรือไม่' },
+        { name: 'points_earned', type: 'INT', desc: 'แต้มที่ได้รับจากการอ่าน' },
+        { name: 'last_read_at', type: 'TIMESTAMP', desc: 'วัน-เวลาที่อ่านล่าสุด' }
+      ],
+      sampleData: readProgressList
     },
     loans: {
       name: 'loans',
@@ -625,10 +798,15 @@ export default function AdminDatabasePage() {
                 <div className="overflow-x-auto max-h-96">
                   <table className="w-full text-left text-xs border-collapse">
                     <thead className="sticky top-0 bg-slate-100 z-10">
-                      <tr className="border-b border-slate-200 text-slate-700 font-mono font-bold">
-                        {currentTable.fields.slice(0, 6).map((f) => (
+                      <tr className="border-b border-slate-200 text-slate-700 font-sans">
+                        {currentTable.fields.map((f) => (
                           <th key={f.name} className="py-2.5 px-3 whitespace-nowrap">
-                            {f.name}
+                            <div className="text-[11px] font-bold text-slate-800">
+                              {f.desc ? f.desc.split(' (')[0] : f.name}
+                            </div>
+                            <div className="font-mono text-[10px] text-slate-400 font-normal">
+                              {f.name}
+                            </div>
                           </th>
                         ))}
                       </tr>
@@ -641,10 +819,79 @@ export default function AdminDatabasePage() {
                         })
                         .map((row, rIdx) => (
                           <tr key={rIdx} className="hover:bg-amber-50/40 transition-colors">
-                            {currentTable.fields.slice(0, 6).map((f) => {
+                            {currentTable.fields.map((f) => {
                               const val = row[f.name];
+
+                              // Special styling: Member Card ID
+                              if (f.name === 'member_card_id') {
+                                return (
+                                  <td key={f.name} className="py-2.5 px-3 whitespace-nowrap">
+                                    <span className="font-mono font-black text-xs px-2 py-0.5 rounded-md bg-sky-50 text-sky-800 border border-sky-200">
+                                      #{val}
+                                    </span>
+                                  </td>
+                                );
+                              }
+
+                              // Special styling: Points
+                              if (f.name === 'points' || f.name === 'points_earned') {
+                                return (
+                                  <td key={f.name} className="py-2.5 px-3 whitespace-nowrap">
+                                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-extrabold text-xs border border-amber-300">
+                                      🪙 {val} P
+                                    </span>
+                                  </td>
+                                );
+                              }
+
+                              // Special styling: Reading Progress
+                              if (f.name === 'reading_progress' || f.name === 'progress_percent') {
+                                return (
+                                  <td key={f.name} className="py-2.5 px-3 whitespace-nowrap">
+                                    <span className="inline-flex items-center gap-1 font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 text-xs">
+                                      📖 {val}
+                                    </span>
+                                  </td>
+                                );
+                              }
+
+                              // Special styling: Dwell Time Verification
+                              if (f.name === 'dwell_verified') {
+                                return (
+                                  <td key={f.name} className="py-2.5 px-3 whitespace-nowrap">
+                                    <span className="inline-flex items-center gap-1 font-bold text-xs text-emerald-800 bg-emerald-100/90 px-2.5 py-0.5 rounded-full">
+                                      ✓ {val}
+                                    </span>
+                                  </td>
+                                );
+                              }
+
+                              // Special styling: Finished Books
+                              if (f.name === 'books_finished') {
+                                return (
+                                  <td key={f.name} className="py-2.5 px-3 whitespace-nowrap">
+                                    <span className="font-semibold text-xs px-2 py-0.5 rounded bg-purple-50 text-purple-800 border border-purple-200">
+                                      📚 {val}
+                                    </span>
+                                  </td>
+                                );
+                              }
+
+                              // Special styling: Role
+                              if (f.name === 'role') {
+                                return (
+                                  <td key={f.name} className="py-2.5 px-3 whitespace-nowrap">
+                                    <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${
+                                      val === 'admin' ? 'bg-rose-100 text-rose-800 border border-rose-300' : 'bg-slate-100 text-slate-700'
+                                    }`}>
+                                      {val}
+                                    </span>
+                                  </td>
+                                );
+                              }
+
                               return (
-                                <td key={f.name} className="py-2.5 px-3 max-w-[200px] truncate text-slate-800">
+                                <td key={f.name} className="py-2.5 px-3 max-w-[250px] truncate text-slate-800 text-xs">
                                   {typeof val === 'object' ? JSON.stringify(val) : String(val ?? '-')}
                                 </td>
                               );
