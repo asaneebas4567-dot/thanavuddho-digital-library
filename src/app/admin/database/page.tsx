@@ -35,7 +35,9 @@ import persistentPointsHistory from '@/data/persistentPointsHistory.json';
 
 interface TableDefinition {
   name: string;
+  nameTh: string;
   system: string;
+  systemTh: string;
   systemColor: string;
   icon: any;
   description: string;
@@ -86,7 +88,9 @@ export default function AdminDatabasePage() {
   const tables: Record<string, TableDefinition> = {
     books: {
       name: 'books',
+      nameTh: 'คลังหนังสือดิจิทัล',
       system: '1. Digital Library',
+      systemTh: '1. ระบบห้องสมุดดิจิทัล',
       systemColor: 'bg-blue-50 text-blue-700 border-blue-200',
       icon: BookOpen,
       description: 'จัดเก็บสารสนเทศหนังสือธรรมะดิจิทัล ไฟล์ PDF พิกัดหน้า และสถานะลิขสิทธิ์',
@@ -119,7 +123,9 @@ export default function AdminDatabasePage() {
     },
     categories: {
       name: 'categories',
+      nameTh: 'หมวดหมู่ธรรมะ',
       system: '2. Database Management',
+      systemTh: '2. ระบบจัดการฐานข้อมูล',
       systemColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
       icon: Layers,
       description: 'โครงสร้างหมวดหมู่วิชาการธรรมะเพื่อการสืบค้นและจัดหมวดหมู่สารสนเทศ',
@@ -141,7 +147,9 @@ export default function AdminDatabasePage() {
     },
     authors: {
       name: 'authors',
+      nameTh: 'ข้อมูลผู้แต่ง / พระวิทยากร',
       system: '2. Database Management',
+      systemTh: '2. ระบบจัดการฐานข้อมูล',
       systemColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
       icon: Users,
       description: 'ข้อมูลเจ้าของผลงาน องค์ความรู้ และคณะพระวิทยากรผู้ทรงคุณวุฒิ',
@@ -166,7 +174,9 @@ export default function AdminDatabasePage() {
     },
     media_files: {
       name: 'media_files',
+      nameTh: 'คลังไฟล์สื่อดิจิทัล',
       system: '3. Media Storage',
+      systemTh: '3. ระบบจัดเก็บไฟล์สื่อ',
       systemColor: 'bg-purple-50 text-purple-700 border-purple-200',
       icon: HardDrive,
       description: 'ตาราง Mapping จัดเก็บไฟล์ใน Supabase Storage Bucket เชื่อมโยงกับฐานข้อมูล',
@@ -190,7 +200,9 @@ export default function AdminDatabasePage() {
     },
     profiles: {
       name: 'profiles',
+      nameTh: 'ข้อมูลบัญชีสมาชิก',
       system: '4. Member System',
+      systemTh: '4. ระบบจัดการสมาชิก',
       systemColor: 'bg-amber-50 text-amber-700 border-amber-200',
       icon: Users,
       description: 'ข้อมูลบัญชีสมาชิก เชื่อมต่อ Supabase Auth / Google OAuth และรหัสประจำตัว 69xxx',
@@ -208,7 +220,9 @@ export default function AdminDatabasePage() {
     },
     loans: {
       name: 'loans',
+      nameTh: 'ประวัติการยืม-คืนหนังสือ',
       system: '4. Member System',
+      systemTh: '4. ระบบยืม-คืนสื่อดิจิทัล',
       systemColor: 'bg-amber-50 text-amber-700 border-amber-200',
       icon: Table,
       description: 'ระบบสารสนเทศยืม-คืนสื่อดิจิทัล สมาชิกยืมได้สูงสุด 3 รายการ นาน 14 วัน',
@@ -227,7 +241,9 @@ export default function AdminDatabasePage() {
     },
     user_points: {
       name: 'user_points & transactions',
+      nameTh: 'บัญชีแต้ม & ประวัติคะแนน',
       system: '5. Point & Reward System',
+      systemTh: '5. ระบบแต้มสะสมและการมีส่วนร่วม',
       systemColor: 'bg-rose-50 text-rose-700 border-rose-200',
       icon: Award,
       description: 'บัญชีแต้มการเรียนรู้ และประวัติการทำกิจกรรม (จำกัดเพดาน 100 P/วัน ป้องกันปั๊มแต้ม)',
@@ -249,7 +265,9 @@ export default function AdminDatabasePage() {
     },
     rewards: {
       name: 'reward_items & redemptions',
+      nameTh: 'ของรางวัล & รายการขอแลก',
       system: '5. Point & Reward System',
+      systemTh: '5. ระบบของรางวัลและการแลกของ',
       systemColor: 'bg-rose-50 text-rose-700 border-rose-200',
       icon: Award,
       description: 'แคตตาล็อกของรางวัลธรรมบรรณาการ และบันทึกคำสั่งขอแลกรางวัลพร้อมที่อยู่จัดส่ง',
@@ -274,7 +292,9 @@ export default function AdminDatabasePage() {
     },
     survey_questions: {
       name: 'survey_questions',
+      nameTh: 'ชุดข้อคำถามประเมิน',
       system: '6. Quality Assessment & Survey Feedback',
+      systemTh: '6. ระบบประเมินคุณภาพและข้อเสนอแนะ',
       systemColor: 'bg-teal-50 text-teal-700 border-teal-200',
       icon: FileSpreadsheet,
       description: 'ชุดข้อคำถามประเมินคุณภาพเว็บไซต์และสื่อดิจิทัล เชื่อมโยง Google Forms',
@@ -297,7 +317,9 @@ export default function AdminDatabasePage() {
     },
     survey_responses: {
       name: 'survey_responses',
+      nameTh: 'ผลการส่งแบบประเมินรายบุคคล',
       system: '6. Quality Assessment & Survey Feedback',
+      systemTh: '6. ระบบประเมินคุณภาพและข้อเสนอแนะ',
       systemColor: 'bg-teal-50 text-teal-700 border-teal-200',
       icon: BarChart3,
       description: 'ผลการส่งแบบประเมินรายบุคคล ตรวจสอบความซ้ำ และบันทึกคะแนน 200 แต้ม',
@@ -321,7 +343,9 @@ export default function AdminDatabasePage() {
     },
     survey_answers: {
       name: 'survey_answers',
+      nameTh: 'คำตอบรายข้อ & ข้อเสนอแนะ',
       system: '6. Quality Assessment & Survey Feedback',
+      systemTh: '6. ระบบประเมินคุณภาพและข้อเสนอแนะ',
       systemColor: 'bg-teal-50 text-teal-700 border-teal-200',
       icon: Table,
       description: 'คำตอบรายข้อ เชื่อมโยง response_id และ question_id พร้อมคะแนน Likert Scale 1-5',
@@ -470,7 +494,7 @@ export default function AdminDatabasePage() {
                   <button
                     key={key}
                     onClick={() => setActiveTable(key)}
-                    className={`w-full text-left p-3.5 rounded-2xl border transition-all cursor-pointer flex flex-col gap-1 ${
+                    className={`w-full text-left p-3.5 rounded-2xl border transition-all cursor-pointer flex flex-col gap-1.5 ${
                       isSelected
                         ? 'bg-amber-500 text-white border-amber-600 shadow-md font-bold'
                         : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 shadow-xs'
@@ -479,7 +503,7 @@ export default function AdminDatabasePage() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Icon size={16} className={isSelected ? 'text-white' : 'text-amber-600'} />
-                        <span className="font-mono text-sm font-black">{t.name}</span>
+                        <span className="text-sm font-bold tracking-tight">{t.nameTh}</span>
                       </div>
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
                         isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
@@ -487,9 +511,14 @@ export default function AdminDatabasePage() {
                         {t.sampleData.length} แถว
                       </span>
                     </div>
-                    <span className={`text-[11px] truncate ${isSelected ? 'text-white/80' : 'text-slate-500'}`}>
-                      {t.system}
-                    </span>
+                    <div className="flex items-center justify-between text-[11px] gap-1 pl-6">
+                      <span className={`font-mono text-[10.5px] font-semibold ${isSelected ? 'text-white/90' : 'text-slate-500'}`}>
+                        {t.name}
+                      </span>
+                      <span className={`text-[10px] truncate ${isSelected ? 'text-white/80' : 'text-slate-400'}`}>
+                        {t.systemTh}
+                      </span>
+                    </div>
                   </button>
                 );
               })}
@@ -506,15 +535,18 @@ export default function AdminDatabasePage() {
                       <currentTable.icon size={22} />
                     </div>
                     <div>
-                      <div className="flex items-center gap-2">
-                        <h2 className="text-xl font-mono font-black text-slate-900">
-                          public.{currentTable.name}
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h2 className="text-xl font-bold text-slate-900">
+                          {currentTable.nameTh}
                         </h2>
+                        <span className="font-mono text-xs px-2 py-0.5 bg-slate-100 text-slate-600 rounded-md font-semibold">
+                          public.{currentTable.name}
+                        </span>
                         <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${currentTable.systemColor}`}>
-                          {currentTable.system}
+                          {currentTable.systemTh}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-xs text-slate-500 mt-1">
                         {currentTable.description}
                       </p>
                     </div>
