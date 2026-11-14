@@ -640,10 +640,10 @@ export default function BookQuestManager({
           1. FLOATING QUEST BEACON / PILL (Non-intrusive notification)
          ========================================================================= */}
       {pageQuest && !isBeaconDismissed && (
-        <div className="fixed bottom-12 sm:bottom-14 left-1/2 -translate-x-1/2 z-40 max-w-[92vw] sm:max-w-lg animate-in fade-in slide-in-from-bottom-3 duration-300 pointer-events-auto">
+        <div className="fixed bottom-14 sm:bottom-16 left-1/2 -translate-x-1/2 z-40 w-auto max-w-[90vw] sm:max-w-md pointer-events-none animate-in fade-in slide-in-from-bottom-3 duration-300">
           <div 
             onClick={() => openQuestModal(pageQuest)}
-            className={`group relative flex items-center gap-2.5 sm:gap-3 p-2 sm:p-2.5 rounded-2xl cursor-pointer shadow-2xl backdrop-blur-xl border transition-all duration-300 hover:scale-[1.02] active:scale-98 ${
+            className={`pointer-events-auto group relative flex items-center gap-2 sm:gap-2.5 p-2 sm:p-2.5 rounded-2xl cursor-pointer shadow-2xl backdrop-blur-xl border transition-all duration-300 hover:scale-[1.02] active:scale-98 ${
               pageQuest.isLegendary
                 ? 'bg-gradient-to-r from-amber-950/95 via-yellow-950/90 to-amber-900/95 text-amber-100 border-amber-400/80 shadow-amber-500/25 ring-2 ring-amber-400/40 ring-offset-1 ring-offset-black'
                 : isCurrentPageQuestCompleted
@@ -896,7 +896,7 @@ export default function BookQuestManager({
                       className="w-full py-3.5 px-5 rounded-xl bg-[#073B65] hover:bg-[#0A4D82] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
                       <BookOpen size={18} />
-                      <span>กลับไปอ่านเนื้อหาในหนังสือ (ระบบจะนับเวลาต่ออัตโนมัติ)</span>
+                      <span>📖 ปิดหน้าต่างนี้เพื่ออ่านต่อ (เปิดหน้าถัดไปได้ทันที)</span>
                     </button>
                   </div>
                 </div>

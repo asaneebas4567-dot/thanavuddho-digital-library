@@ -254,15 +254,29 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
       </header>
 
       {/* Main Embed Stage */}
-      <main className="flex-grow w-full h-full relative bg-[#1c2226]">
+      <main className="flex-grow w-full h-full relative bg-[#1c2226] touch-manipulation overflow-hidden">
         {secureUrl ? (
-          <iframe
-            src={secureUrl}
-            className="w-full h-full border-0 block"
-            allowFullScreen
-            allow="clipboard-write; encrypted-media; autoplay"
-            title={book.title}
-          />
+          <>
+            <iframe
+              src={secureUrl}
+              className="w-full h-full border-0 block"
+              allowFullScreen
+              allow="clipboard-write; encrypted-media; autoplay"
+              title={book.title}
+            />
+            {/* Mobile Fallback: Direct full view if iframe scrolling is constrained by mobile browser */}
+            <div className="fixed bottom-3 left-1/2 -translate-x-1/2 z-30 sm:hidden pointer-events-auto">
+              <a
+                href={secureUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/80 hover:bg-black text-sky-300 border border-sky-400/30 text-[11px] font-bold shadow-xl backdrop-blur-md"
+              >
+                <ExternalLink size={12} />
+                <span>หากเลื่อนติดขัด แตะเปิดอ่านหน้าต่างใหม่</span>
+              </a>
+            </div>
+          </>
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center text-white/70 p-6 text-center">
             <Sparkles size={32} className="text-amber-400 mb-2" />

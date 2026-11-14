@@ -221,9 +221,16 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
   const canvasRightRef = useRef<HTMLCanvasElement | null>(null);
   const canvasSingleRef = useRef<HTMLCanvasElement | null>(null);
   const touchStartCoords = useRef<{ x: number; y: number } | null>(null);
+  const isRenderingRef = useRef<boolean>(false);
+  const pendingPageRef = useRef<number | null>(null);
 
   const rawPdfUrl = useMemo(() => resolveBookPdfUrl(book), [book]);
   const effectiveTotalPages = pdfActualPageCount || totalPages;
+
+  // Stable callback for continuous scroll mode page updates
+  const handlePageInView = useCallback((pNum: number) => {
+    setCurrentPage(prev => (prev !== pNum ? pNum : prev));
+  }, []);
 
   // Responsive Dual vs Single Page Mode Check (Hydration-safe)
   const isDualPage = useMemo(() => {
@@ -469,10 +476,43 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
   }, [loadPdf, rawPdfUrl]);
 
   // -------------------------------------------------------------------------
-  // STEP 3 & 4: RENDER PDF PAGES (PUB HTML5-LIKE ACCURACY & PERFORMANCE)
+  // STEP 3: PAGE NAVIGATION HANDLERS (DEFINED FIRST FOR SAFE ASYNC USAGE)
+  // -------------------------------------------------------------------------
+  const turnToPage = useCallback((newPage: number) => {
+    if (newPage < 1 || newPage > effectiveTotalPages) return;
+    setCurrentPage(newPage);
+    if (stageRef.current) {
+      stageRef.current.scrollTop = 0;
+    }
+  }, [effectiveTotalPages]);
+
+  const nextPage = useCallback(() => {
+    const step = isDualPage ? 2 : 1;
+    const target = Math.min(effectiveTotalPages, currentPage + step);
+    if (target !== currentPage) {
+      turnToPage(target);
+    }
+  }, [isDualPage, effectiveTotalPages, currentPage, turnToPage]);
+
+  const prevPage = useCallback(() => {
+    const step = isDualPage ? 2 : 1;
+    const target = Math.max(1, currentPage - step);
+    if (target !== currentPage) {
+      turnToPage(target);
+    }
+  }, [isDualPage, currentPage, turnToPage]);
+
+  // -------------------------------------------------------------------------
+  // STEP 4: RENDER PDF PAGES (CONCURRENCY-PROTECTED WITH PENDING PAGE QUEUE)
   // -------------------------------------------------------------------------
   const renderCurrentPdfPages = useCallback(async () => {
     if (!pdfDoc) return;
+
+    if (isRenderingRef.current) {
+      pendingPageRef.current = currentPage;
+      return;
+    }
+    isRenderingRef.current = true;
 
     try {
       const stageEl = stageRef.current;
@@ -562,8 +602,15 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
       if (err?.name !== 'RenderingCancelledException') {
         console.error('Error rendering PDF page:', err);
       }
+    } finally {
+      isRenderingRef.current = false;
+      if (pendingPageRef.current !== null && pendingPageRef.current !== currentPage) {
+        const nextTarget = pendingPageRef.current;
+        pendingPageRef.current = null;
+        turnToPage(nextTarget);
+      }
     }
-  }, [pdfDoc, isDualPage, currentPage, zoomScale]);
+  }, [pdfDoc, isDualPage, currentPage, zoomScale, turnToPage]);
 
   useEffect(() => {
     if (pdfDoc && mode === 'flip') {
@@ -581,31 +628,6 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [pdfDoc, mode, renderCurrentPdfPages]);
-
-  // Page Navigation Handlers
-  const turnToPage = (newPage: number) => {
-    if (newPage < 1 || newPage > effectiveTotalPages) return;
-    setCurrentPage(newPage);
-    if (stageRef.current) {
-      stageRef.current.scrollTop = 0;
-    }
-  };
-
-  const nextPage = () => {
-    const step = isDualPage ? 2 : 1;
-    const target = Math.min(effectiveTotalPages, currentPage + step);
-    if (target !== currentPage) {
-      turnToPage(target);
-    }
-  };
-
-  const prevPage = () => {
-    const step = isDualPage ? 2 : 1;
-    const target = Math.max(1, currentPage - step);
-    if (target !== currentPage) {
-      turnToPage(target);
-    }
-  };
 
   // Keyboard Navigation
   useEffect(() => {
@@ -635,22 +657,24 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  });
+  }, [nextPage, prevPage]);
 
-  // Touch Swipe Handlers for mobile
+  // Touch Swipe Handlers for mobile (flip mode only)
   const handleTouchStart = (e: React.TouchEvent) => {
+    if (mode !== 'flip') return;
     if (e.touches.length === 1) {
       touchStartCoords.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
     }
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!touchStartCoords.current || e.changedTouches.length === 0) return;
+    if (mode !== 'flip' || !touchStartCoords.current || e.changedTouches.length === 0) return;
     const diffX = e.changedTouches[0].clientX - touchStartCoords.current.x;
     const diffY = e.changedTouches[0].clientY - touchStartCoords.current.y;
     touchStartCoords.current = null;
 
-    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.5) {
+    // Responsive swipe sensitivity on mobile (30px threshold)
+    if (Math.abs(diffX) > 30 && Math.abs(diffX) > Math.abs(diffY) * 1.2) {
       if (diffX < 0) {
         nextPage();
       } else {
@@ -728,8 +752,6 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
   return (
     <div 
       className={`fixed inset-0 z-[100] flex flex-col font-sans select-none overflow-hidden ${themeClasses.viewportBg}`}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
       {/* =========================================================================
           1. TOP TOOLBAR: BACK BUTTON, TITLE, SEARCH, TOC, THEMES, ZOOM, FULLSCREEN
@@ -1058,12 +1080,14 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
          ========================================================================= */}
       <main 
         ref={stageRef}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
         onClick={(e) => {
           if (e.target === e.currentTarget) {
             setShowControls(s => !s);
           }
         }}
-        className={`flex-grow relative flex flex-col items-center justify-start overflow-y-auto overflow-x-auto select-none transition-colors duration-200 min-h-0 w-full p-2 sm:p-4 overscroll-contain ${themeClasses.stageBg}`}
+        className={`flex-grow relative flex flex-col items-center justify-start overflow-y-auto overflow-x-auto select-none transition-colors duration-200 min-h-0 w-full p-2 sm:p-4 overscroll-contain touch-manipulation ${themeClasses.stageBg}`}
       >
         {/* Loading Overlay */}
         {isPdfLoading && (
@@ -1107,34 +1131,34 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
            ======================================================================= */}
         {mode === 'flip' && !pdfError && (
           <>
-            {/* Desktop Left Page Navigation Button */}
+            {/* Desktop & Mobile Left Page Navigation Button */}
             <button 
               onClick={(e) => {
                 e.stopPropagation();
                 prevPage();
               }}
               disabled={currentPage <= 1}
-              className={`fixed left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-black/90 text-white shadow-2xl border border-white/20 flex items-center justify-center cursor-pointer transition-all hover:scale-110 active:scale-95 disabled:opacity-0 disabled:pointer-events-none group select-none backdrop-blur-md ${
-                showControls ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
+              className={`fixed left-2 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/70 hover:bg-black/90 text-white shadow-2xl border border-white/20 flex items-center justify-center cursor-pointer transition-all hover:scale-110 active:scale-90 disabled:opacity-0 disabled:pointer-events-none group select-none backdrop-blur-md ${
+                showControls ? 'opacity-100 scale-100' : 'opacity-40 hover:opacity-90 scale-90'
               }`}
-              title="หน้าก่อนหน้า (ลูกศรซ้าย)"
+              title="หน้าก่อนหน้า"
             >
-              <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
+              <ChevronLeft size={22} className="group-hover:-translate-x-0.5 transition-transform" />
             </button>
 
-            {/* Desktop Right Page Navigation Button */}
+            {/* Desktop & Mobile Right Page Navigation Button */}
             <button 
               onClick={(e) => {
                 e.stopPropagation();
                 nextPage();
               }}
               disabled={currentPage >= effectiveTotalPages}
-              className={`fixed right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-black/90 text-white shadow-2xl border border-white/20 flex items-center justify-center cursor-pointer transition-all hover:scale-110 active:scale-95 disabled:opacity-0 disabled:pointer-events-none group select-none backdrop-blur-md ${
-                showControls ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
+              className={`fixed right-2 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-sky-600/90 sm:bg-black/70 hover:bg-sky-600 sm:hover:bg-black/90 text-white shadow-2xl border border-white/20 flex items-center justify-center cursor-pointer transition-all hover:scale-110 active:scale-90 disabled:opacity-0 disabled:pointer-events-none group select-none backdrop-blur-md ${
+                showControls ? 'opacity-100 scale-100' : 'opacity-60 hover:opacity-90 scale-90'
               }`}
-              title="หน้าถัดไป (ลูกศรขวา)"
+              title="หน้าถัดไป"
             >
-              <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
+              <ChevronRight size={22} className="group-hover:translate-x-0.5 transition-transform" />
             </button>
 
             {/* Realistic Physical Book Stage Container Wrapper */}
@@ -1191,24 +1215,33 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
                   <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center bg-white border border-zinc-300">
                     <canvas ref={canvasSingleRef} className="block w-full h-full object-contain pointer-events-none" />
 
-                    {/* Left Click Zone (Prev Page - 25% width) */}
+                    {/* Left Click Zone (Prev Page - 32% width) */}
                     <div 
-                      onClick={prevPage}
-                      className="absolute left-0 top-0 bottom-0 w-[25%] z-20 cursor-pointer select-none"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        prevPage();
+                      }}
+                      className="absolute left-0 top-0 bottom-0 w-[32%] z-20 cursor-pointer select-none"
                       title="แตะด้านซ้ายเพื่อย้อนกลับ"
                     />
 
-                    {/* Middle Click Zone (Toggle Menu - 50% width) */}
+                    {/* Middle Click Zone (Toggle Menu - 36% width) */}
                     <div 
-                      onClick={() => setShowControls(s => !s)}
-                      className="absolute left-[25%] right-[25%] top-0 bottom-0 z-20 cursor-pointer select-none"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowControls(s => !s);
+                      }}
+                      className="absolute left-[32%] right-[32%] top-0 bottom-0 z-20 cursor-pointer select-none"
                       title="แตะตรงกลางเพื่อแสดง/ซ่อนแถบเมนู (อ่านเต็มตา)"
                     />
 
-                    {/* Right Click Zone (Next Page - 25% width) */}
+                    {/* Right Click Zone (Next Page - 32% width) */}
                     <div 
-                      onClick={nextPage}
-                      className="absolute right-0 top-0 bottom-0 w-[25%] z-20 cursor-pointer select-none"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        nextPage();
+                      }}
+                      className="absolute right-0 top-0 bottom-0 w-[32%] z-20 cursor-pointer select-none"
                       title="แตะด้านขวาเพื่อเปิดหน้าถัดไป"
                     />
 
@@ -1233,7 +1266,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
                 pdfDoc={pdfDoc} 
                 pageNum={pNum} 
                 zoomScale={zoomScale} 
-                onInView={() => setCurrentPage(pNum)}
+                onInView={handlePageInView}
               />
             ))}
           </div>
@@ -1467,8 +1500,9 @@ export default function PremiumBookReader({ book, initialPage = 1 }: PremiumBook
 
 // ---------------------------------------------------------------------------
 // Lazy-Loaded Continuous Scroll Page Item using IntersectionObserver
+// Optimized for mobile: Reclaims canvas memory when out of view & uses stable observer
 // ---------------------------------------------------------------------------
-function PdfLazyScrollItem({
+const PdfLazyScrollItem = React.memo(function PdfLazyScrollItem({
   pdfDoc,
   pageNum,
   zoomScale,
@@ -1477,12 +1511,14 @@ function PdfLazyScrollItem({
   pdfDoc: any;
   pageNum: number;
   zoomScale: number;
-  onInView?: () => void;
+  onInView?: (pageNum: number) => void;
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hasRendered, setHasRendered] = useState(false);
+  const onInViewRef = useRef(onInView);
+  onInViewRef.current = onInView;
 
   useEffect(() => {
     const el = containerRef.current;
@@ -1493,24 +1529,37 @@ function PdfLazyScrollItem({
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-            onInView?.();
+            onInViewRef.current?.(pageNum);
           } else {
             setIsVisible(false);
           }
         });
       },
-      { rootMargin: '300px 0px' }
+      { rootMargin: '200px 0px' }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [onInView]);
+  }, [pageNum]);
 
   useEffect(() => {
-    if (!isVisible || !pdfDoc || !canvasRef.current) return;
+    if (!isVisible) {
+      // Reclaim memory when scrolled out of view on mobile devices
+      if (canvasRef.current) {
+        canvasRef.current.width = 1;
+        canvasRef.current.height = 1;
+      }
+      setHasRendered(false);
+      return;
+    }
+
+    if (!pdfDoc || !canvasRef.current) return;
+
+    const screenW = typeof window !== 'undefined' ? window.innerWidth : 780;
+    const dynamicTargetW = Math.min(Math.floor(750 * zoomScale), Math.floor((screenW - 24) * zoomScale));
 
     renderPdfPageToCanvas(pdfDoc, pageNum, canvasRef.current, {
-      targetWidth: Math.floor(750 * zoomScale),
+      targetWidth: dynamicTargetW,
     })
       .then(() => setHasRendered(true))
       .catch(() => {});
@@ -1519,21 +1568,21 @@ function PdfLazyScrollItem({
   return (
     <div 
       ref={containerRef}
-      className="w-full max-w-[780px] min-h-[500px] bg-white rounded-2xl shadow-xl border border-zinc-200/90 p-3 sm:p-5 flex flex-col items-center"
+      className="w-full max-w-[780px] min-h-[420px] sm:min-h-[500px] bg-white rounded-2xl shadow-xl border border-zinc-200/90 p-2 sm:p-5 flex flex-col items-center"
     >
       <div className="w-full flex items-center justify-between pb-2 mb-2 border-b border-zinc-100 text-xs font-mono font-bold text-zinc-500">
         <span>หน้า {pageNum} / {pdfDoc?.numPages || ''}</span>
         <span className="text-[10px] bg-zinc-100 px-2 py-0.5 rounded text-zinc-600">เอกสารต้นฉบับจริง</span>
       </div>
 
-      <div className="w-full flex justify-center items-center flex-1">
+      <div className="w-full flex justify-center items-center flex-1 relative min-h-[360px]">
         <canvas ref={canvasRef} className="max-w-full object-contain rounded-lg shadow-sm" />
         {!hasRendered && isVisible && (
-          <div className="absolute flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center">
             <Loader2 className="w-8 h-8 animate-spin text-sky-600" />
           </div>
         )}
       </div>
     </div>
   );
-}
+});

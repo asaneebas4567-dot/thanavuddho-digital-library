@@ -135,8 +135,14 @@ export async function renderPdfPageToCanvas(
   // Clamp scale to reasonable bounds
   scale = Math.max(0.15, Math.min(scale, 4.0));
 
-  // High-DPI device pixel ratio for crystal clear text (at least 2.5x supersampling for razor-sharp Thai fonts)
-  const dpr = typeof window !== 'undefined' ? Math.max(window.devicePixelRatio || 1, 2.0) : 2.0;
+  // High-DPI device pixel ratio:
+  // Mobile (<768px): clamp DPR to 1.5 - 1.75 to prevent GPU out-of-memory crashes and scrolling stutter
+  // Desktop/Tablet: clamp to 2.0 for high resolution
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const rawDpr = typeof window !== 'undefined' ? (window.devicePixelRatio || 1) : 1;
+  const dpr = isMobile 
+    ? Math.min(Math.max(rawDpr, 1.25), 1.75) 
+    : Math.min(Math.max(rawDpr, 1.5), 2.25);
   const viewport = page.getViewport({ scale: scale * dpr });
 
   canvas.width = viewport.width;
