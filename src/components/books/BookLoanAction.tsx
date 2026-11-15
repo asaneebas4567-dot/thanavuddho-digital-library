@@ -153,7 +153,7 @@ export default function BookLoanAction({
                   <span>ยืมครบโควตา 3 เล่มแล้ว</span>
                 </button>
                 <Link
-                  href="/loans"
+                  href="/dashboard"
                   className="text-xs font-bold text-[#079FE8] hover:underline"
                 >
                   ไปยังชั้นหนังสือเพื่อคืนเล่มเดิม →
@@ -175,7 +175,7 @@ export default function BookLoanAction({
         )}
 
         <Link
-          href="/loans"
+          href="/dashboard"
           className="text-xs font-semibold text-slate-500 hover:text-[#073B65] ml-auto py-2"
         >
           ชั้นหนังสือที่ยืมไว้ ({activeLoanCount}/{maxLoans}) →

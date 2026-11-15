@@ -129,7 +129,7 @@ function BookReaderContent({ bookId }: { bookId: string }) {
           </Link>
 
           <Link
-            href="/loans"
+            href="/dashboard"
             className="text-xs sm:text-sm font-bold text-[#079FE8] hover:underline"
           >
             ชั้นหนังสือของฉัน (ยืมอยู่ {activeLoanCount}/{maxLoans})
@@ -208,7 +208,7 @@ function BookReaderContent({ bookId }: { bookId: string }) {
                     <span>คุณยืมหนังสือครบโควตา 3 เล่มแล้ว กรุณาคืนเล่มเดิมก่อน</span>
                   </div>
                   <Link
-                    href="/loans"
+                    href="/dashboard"
                     className="w-full py-3.5 px-6 rounded-xl bg-[#073B65] hover:bg-[#0A4D82] text-white font-bold text-sm shadow-md transition-all active:scale-98 flex items-center justify-center gap-2 block text-center"
                   >
                     <span>ไปยังชั้นหนังสือของฉันเพื่อคืนเล่มเดิม</span>
