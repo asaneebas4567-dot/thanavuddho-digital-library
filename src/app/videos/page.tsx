@@ -30,8 +30,48 @@ function VideosMainContent() {
     return null;
   });
 
-  // Fetch live YouTube views in background
+  // Fetch live YouTube views and custom videos from admin storage
   useEffect(() => {
+    // 1. Fetch persistent videos (including newly added TikTok and YouTube videos)
+    fetch('/api/admin/videos')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && Array.isArray(data.videos) && data.videos.length > 0) {
+          const customVideos: Video[] = data.videos.map((item: any) => {
+            const isTikTok = item.platform === 'tiktok' || !!item.tiktokId || item.url?.includes('tiktok.com');
+            return {
+              id: item.id,
+              title: item.title,
+              description: item.description || '',
+              video_url: item.url,
+              youtubeId: item.youtubeId,
+              tiktokId: item.tiktokId,
+              platform: isTikTok ? 'tiktok' : (item.platform || 'youtube'),
+              thumbnail: item.thumbnail || (isTikTok ? 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=600' : '/images/books/book-placeholder.jpg'),
+              duration: item.startFormatted || '01:00',
+              video_type: isTikTok ? 'tiktok_short' : 'dhamma',
+              orientation: isTikTok ? 'vertical' : (item.orientation || 'horizontal'),
+              aspect_ratio: isTikTok ? '9:16' : '16:9',
+              category_ids: ['cat_001', 'cat_006'],
+              tags: item.tags || [],
+              published_date: item.publishedDate || '2026-11-15',
+              view_count: item.recommendCount ? item.recommendCount * 120 : 15200,
+              author: item.channelName || (isTikTok ? 'ธรรมะรอบตัว (TikTok @udornsharo)' : 'พระครูปลัดสุวัฒนโพธิคุณ'),
+              channel_handle: item.channelHandle || (isTikTok ? '@udornsharo' : '@ThanavuddhoStory'),
+              is_available: true
+            };
+          });
+
+          setVideos(prev => {
+            const existingIds = new Set(prev.map(v => v.id));
+            const newOnes = customVideos.filter(v => !existingIds.has(v.id));
+            return [...newOnes, ...prev];
+          });
+        }
+      })
+      .catch(() => {});
+
+    // 2. Fetch live YouTube views
     fetch('/api/youtube/views')
       .then(res => res.json())
       .then(data => {

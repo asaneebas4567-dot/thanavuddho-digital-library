@@ -208,7 +208,7 @@ export default function VideoWatchView({
                       : 'w-full aspect-video'
                   }`}
                 >
-                  {isTikTok && tikTokId ? (
+                  {isTikTok && /^\d+$/.test(tikTokId || '') ? (
                     <iframe
                       src={`https://www.tiktok.com/embed/v2/${tikTokId}`}
                       title={video.title}
@@ -216,24 +216,24 @@ export default function VideoWatchView({
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     />
-                  ) : isTikTok && !tikTokId ? (
+                  ) : isTikTok ? (
                     <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-zinc-950">
                       <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-pink-600 to-rose-500 flex items-center justify-center text-white text-3xl mb-4 shadow-lg animate-pulse">
                         🎵
                       </div>
                       <span className="px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
-                        TikTok ธรรมะวิดีโอ
+                        TikTok ธรรมะรอบตัว
                       </span>
                       <h4 className="text-white font-bold text-base mb-2 max-w-xs">{video.title}</h4>
-                      <p className="text-xs text-zinc-400 mb-6">คลิปสั้นสอนใจจากช่อง @thanavuddhostory</p>
+                      <p className="text-xs text-zinc-400 mb-6">คลิปสั้นสอนใจจากช่อง {video.channel_handle || '@udornsharo'}</p>
                       <a
-                        href={video.video_url}
+                        href={video.video_url || 'https://www.tiktok.com/@udornsharo'}
                         target="_blank"
                         rel="noreferrer"
                         className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-400 hover:to-rose-500 text-white font-black text-xs shadow-lg transition-all flex items-center gap-2 active:scale-95"
                       >
                         <ExternalLink className="w-4 h-4" />
-                        <span>เปิดชมคลิปนี้บนแอป TikTok</span>
+                        <span>เปิดชมคลิปนี้บนแอป TikTok ({video.channel_handle || '@udornsharo'})</span>
                       </a>
                     </div>
                   ) : (

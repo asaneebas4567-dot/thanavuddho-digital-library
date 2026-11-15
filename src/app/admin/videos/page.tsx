@@ -139,7 +139,7 @@ export default function AdminVideosPage() {
 
   const handleSaveVideo = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formTitle.trim()) return;
+    if (!formTitle.trim() && !formUrl.trim()) return;
 
     setSaving(true);
     try {
@@ -731,33 +731,32 @@ export default function AdminVideosPage() {
               <form onSubmit={handleSaveVideo} className="space-y-4 text-xs sm:text-sm">
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
-                    ชื่อวิดีโอ / หัวข้อเทศนา *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formTitle}
-                    onChange={(e) => setFormTitle(e.target.value)}
-                    placeholder="เช่น พระไตรปิฎกกับชีวิตประจำวัน"
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-rose-400 font-semibold"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-slate-700 mb-1">
-                    URL วิดีโอ (YouTube หรือ TikTok) *
+                    URL วิดีโอ (TikTok หรือ YouTube) <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
                     required
                     value={formUrl}
                     onChange={(e) => setFormUrl(e.target.value)}
-                    placeholder="https://www.youtube.com/watch?v=... หรือ https://www.tiktok.com/@thanavuddhostory/video/..."
+                    placeholder="เช่น https://www.tiktok.com/@udornsharo หรือ https://www.tiktok.com/@udornsharo/video/..."
                     className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-rose-400 font-mono text-xs"
                   />
                   <p className="text-[10px] text-slate-400 mt-1">
-                    💡 รองรับทั้งลิงก์ YouTube (16:9 / Shorts) และลิงก์ TikTok (@thanavuddhostory)
+                    💡 เพียงแค่วางลิงก์ TikTok (เช่น @udornsharo) ระบบจะดึงชื่อคลิปและขึ้นแสดงผลที่หน้าแรกและคลังวิดีโอทันที
                   </p>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">
+                    ชื่อวิดีโอ / หัวข้อเทศนา <span className="text-slate-400 font-normal">(เว้นว่างได้ ระบบจะดึงอัตโนมัติ)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={formTitle}
+                    onChange={(e) => setFormTitle(e.target.value)}
+                    placeholder="เว้นว่างได้ ระบบจะดึงชื่อคลิปจาก TikTok / YouTube ให้อัตโนมัติ"
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-rose-400 font-semibold"
+                  />
                 </div>
 
                 <div>

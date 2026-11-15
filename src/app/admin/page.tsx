@@ -3,32 +3,32 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  Users, 
-  BookOpen, 
-  Video, 
+import {
+  Users,
+  BookOpen,
+  Video,
   Headphones,
-  Eye, 
-  Plus, 
-  Edit, 
-  Trash2, 
-  Database, 
-  Sparkles, 
-  Search, 
-  ExternalLink, 
-  CheckCircle2, 
-  AlertCircle, 
-  Save, 
-  X, 
-  Layers, 
-  LayoutDashboard, 
-  ShieldCheck, 
-  Star, 
-  Play, 
-  FileText, 
-  Globe, 
-  Flame, 
-  Lock, 
+  Eye,
+  Plus,
+  Edit,
+  Trash2,
+  Database,
+  Sparkles,
+  Search,
+  ExternalLink,
+  CheckCircle2,
+  AlertCircle,
+  Save,
+  X,
+  Layers,
+  LayoutDashboard,
+  ShieldCheck,
+  Star,
+  Play,
+  FileText,
+  Globe,
+  Flame,
+  Lock,
   KeyRound,
   ArrowRight,
   FileSpreadsheet,
@@ -39,7 +39,7 @@ import { useAuth } from '@/context/AuthContext';
 
 export default function AdminDashboardPage() {
   const { user, isAuthenticated } = useAuth();
-  
+
   // Security Unlock (Passcode fallback for offline presentations or direct browser access)
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [passcodeInput, setPasscodeInput] = useState('');
@@ -129,7 +129,7 @@ export default function AdminDashboardPage() {
       if (data.success && Array.isArray(data.books)) {
         setBooks(data.books);
       }
-    } catch {}
+    } catch { }
   };
 
   const fetchVideos = async () => {
@@ -139,7 +139,7 @@ export default function AdminDashboardPage() {
       if (data.success && Array.isArray(data.videos)) {
         setVideos(data.videos);
       }
-    } catch {}
+    } catch { }
   };
 
   const fetchPodcasts = async () => {
@@ -149,7 +149,7 @@ export default function AdminDashboardPage() {
       if (data.success && Array.isArray(data.podcasts)) {
         setPodcasts(data.podcasts);
       }
-    } catch {}
+    } catch { }
   };
 
   const fetchHomeSettings = async () => {
@@ -159,14 +159,14 @@ export default function AdminDashboardPage() {
       if (data.success && data.settings) {
         setHomeSettings(data.settings);
       }
-    } catch {}
+    } catch { }
   };
 
   const fetchUsers = async () => {
     try {
       const res = await fetch('/api/user/sync?email=all');
       // If endpoint doesn't support 'all', fallback to known users
-    } catch {}
+    } catch { }
   };
 
   // Passcode verification
@@ -269,7 +269,7 @@ export default function AdminDashboardPage() {
         showStatus(`${book.featured ? 'ยกเลิก' : 'ตั้งค่า'} หนังสือแนะนำหน้าแรกเรียบร้อยแล้ว`);
         fetchBooks();
       }
-    } catch {}
+    } catch { }
   };
 
   // ----------------------------------------------------
@@ -330,7 +330,7 @@ export default function AdminDashboardPage() {
         showStatus(`ลบวิดีโอ "${title}" เรียบร้อยแล้ว`);
         fetchVideos();
       }
-    } catch {}
+    } catch { }
   };
 
   // ----------------------------------------------------
@@ -419,7 +419,7 @@ export default function AdminDashboardPage() {
         showStatus(`ลบ Podcast "${title}" เรียบร้อยแล้ว`);
         fetchPodcasts();
       }
-    } catch {}
+    } catch { }
   };
 
   // ----------------------------------------------------
@@ -466,8 +466,8 @@ export default function AdminDashboardPage() {
 
   // Filtered books
   const filteredBooks = books.filter(b => {
-    const matchesSearch = !searchQuery || 
-      b.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    const matchesSearch = !searchQuery ||
+      b.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (b.author && b.author.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesCat = filterCategory === 'all' || b.category_id === filterCategory;
     return matchesSearch && matchesCat;
@@ -476,7 +476,7 @@ export default function AdminDashboardPage() {
   return (
     <div className="bg-slate-50 min-h-screen py-8 text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Security Gate Overlay if not unlocked */}
         {!isUnlocked && (
           <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
@@ -532,11 +532,10 @@ export default function AdminDashboardPage() {
 
         {/* Global Feedback Alert */}
         {statusMessage && (
-          <div className={`fixed top-4 right-4 z-50 px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs sm:text-sm font-bold border animate-in slide-in-from-top-3 ${
-            statusMessage.type === 'success' 
-              ? 'bg-emerald-50 border-emerald-300 text-emerald-900' 
-              : 'bg-rose-50 border-rose-300 text-rose-900'
-          }`}>
+          <div className={`fixed top-4 right-4 z-50 px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs sm:text-sm font-bold border animate-in slide-in-from-top-3 ${statusMessage.type === 'success'
+            ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
+            : 'bg-rose-50 border-rose-300 text-rose-900'
+            }`}>
             {statusMessage.type === 'success' ? <CheckCircle2 size={18} className="text-emerald-600" /> : <AlertCircle size={18} className="text-rose-600" />}
             <span>{statusMessage.text}</span>
           </div>
@@ -609,7 +608,7 @@ export default function AdminDashboardPage() {
 
         {/* Real-time Metrics Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-          
+
           <div className="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-between">
             <div className="flex items-center justify-between text-blue-600 mb-2">
               <span className="text-xs font-bold text-slate-500">คลังหนังสือจริง</span>
@@ -694,7 +693,7 @@ export default function AdminDashboardPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            
+
             {/* 1. Add Books Card */}
             <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all flex flex-col justify-between">
               <div>
@@ -830,9 +829,8 @@ export default function AdminDashboardPage() {
         <div className="flex items-center gap-2 mb-6 border-b border-slate-200 pb-3 overflow-x-auto">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'overview' ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
-            }`}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${activeTab === 'overview' ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
+              }`}
           >
             <LayoutDashboard size={16} />
             <span>ภาพรวมการจัดการ (Overview)</span>
@@ -840,9 +838,8 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => setActiveTab('books')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'books' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
-            }`}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${activeTab === 'books' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
+              }`}
           >
             <BookOpen size={16} />
             <span>จัดการหนังสือ & แนบ Link ({books.length})</span>
@@ -850,9 +847,8 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => setActiveTab('videos')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'videos' ? 'bg-rose-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
-            }`}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${activeTab === 'videos' ? 'bg-rose-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
+              }`}
           >
             <Video size={16} />
             <span>จัดการวิดีโอ & YouTube Embed ({videos.length})</span>
@@ -860,9 +856,8 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => setActiveTab('podcasts')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'podcasts' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
-            }`}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${activeTab === 'podcasts' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
+              }`}
           >
             <Headphones size={16} />
             <span>จัดการ Podcast & เสียงอ่าน ({podcasts.length})</span>
@@ -870,9 +865,8 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => setActiveTab('home_showcase')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'home_showcase' ? 'bg-amber-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
-            }`}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${activeTab === 'home_showcase' ? 'bg-amber-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
+              }`}
           >
             <Sparkles size={16} />
             <span>ปรับแต่งหน้าแรก & ประกาศ (Showcase)</span>
@@ -884,7 +878,7 @@ export default function AdminDashboardPage() {
            ========================================================================= */}
         {activeTab === 'overview' && (
           <div className="space-y-6">
-            
+
             {/* Quick Actions Card */}
             <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
               <h2 className="text-lg font-black text-slate-900 mb-4 flex items-center gap-2">
@@ -893,7 +887,7 @@ export default function AdminDashboardPage() {
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                
+
                 <button
                   onClick={() => {
                     setEditingBook(null);
@@ -952,7 +946,7 @@ export default function AdminDashboardPage() {
 
             {/* Sub-systems Directory */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              
+
               <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 text-emerald-700 font-black text-sm mb-2">
@@ -1021,7 +1015,7 @@ export default function AdminDashboardPage() {
         {activeTab === 'books' && (
           <div className="space-y-6">
             <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
-              
+
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
                   <h2 className="text-xl font-black text-slate-900">คลังหนังสือธรรมะทั้งหมด ({filteredBooks.length} เล่ม)</h2>
@@ -1119,11 +1113,10 @@ export default function AdminDashboardPage() {
                         <td className="py-3 px-3">
                           <button
                             onClick={() => handleToggleBookFeatured(book)}
-                            className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
-                              book.featured 
-                                ? 'bg-amber-100 text-amber-800 border-amber-300 font-bold' 
-                                : 'bg-slate-50 text-slate-400 border-slate-200 hover:text-slate-600'
-                            }`}
+                            className={`p-1.5 rounded-lg border transition-all cursor-pointer ${book.featured
+                              ? 'bg-amber-100 text-amber-800 border-amber-300 font-bold'
+                              : 'bg-slate-50 text-slate-400 border-slate-200 hover:text-slate-600'
+                              }`}
                             title={book.featured ? 'ปักหมุดหน้าแรกอยู่ (คลิกเพื่อยกเลิก)' : 'คลิกเพื่อปักหมุดหน้าแรก'}
                           >
                             <Star size={14} className={book.featured ? 'fill-amber-500 text-amber-500' : ''} />
@@ -1131,9 +1124,8 @@ export default function AdminDashboardPage() {
                         </td>
 
                         <td className="py-3 px-3">
-                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
-                            book.status === 'published' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
-                          }`}>
+                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${book.status === 'published' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                            }`}>
                             {book.status === 'published' ? 'เผยแพร่' : 'แบบร่าง'}
                           </span>
                         </td>
@@ -1175,7 +1167,7 @@ export default function AdminDashboardPage() {
         {activeTab === 'videos' && (
           <div className="space-y-6">
             <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
-              
+
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
                   <h2 className="text-xl font-black text-slate-900">คลังวิดีโอธรรมบรรยาย ({videos.length} รายการ)</h2>
@@ -1204,9 +1196,8 @@ export default function AdminDashboardPage() {
                       <div>
                         <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-900 mb-3">
                           <Image src={vid.thumbnail || (vid.youtubeId && vid.youtubeId !== 'tiktok' ? `https://img.youtube.com/vi/${vid.youtubeId}/hqdefault.jpg` : '/images/books/book-placeholder.jpg')} alt={vid.title} fill className="object-cover" unoptimized />
-                          <span className={`absolute top-2 left-2 text-[9px] font-black uppercase px-2 py-0.5 rounded shadow-sm text-white ${
-                            isTikTok ? 'bg-pink-600' : 'bg-red-600'
-                          }`}>
+                          <span className={`absolute top-2 left-2 text-[9px] font-black uppercase px-2 py-0.5 rounded shadow-sm text-white ${isTikTok ? 'bg-pink-600' : 'bg-red-600'
+                            }`}>
                             {isTikTok ? '🎵 TikTok' : '🔴 YouTube'}
                           </span>
                           {!isTikTok && vid.youtubeId && vid.youtubeId !== 'tiktok' && (
@@ -1240,26 +1231,26 @@ export default function AdminDashboardPage() {
                           <span>{isTikTok ? 'เปิดดูบน TikTok' : 'เปิดคลิป YouTube'}</span>
                         </a>
 
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => {
-                            setEditingVideo(vid);
-                            setVideoModalOpen(true);
-                          }}
-                          className="p-1.5 rounded-lg text-blue-600 hover:bg-slate-100 cursor-pointer"
-                        >
-                          <Edit size={14} />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteVideo(vid.id, vid.title)}
-                          className="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50 cursor-pointer"
-                        >
-                          <Trash2 size={14} />
-                        </button>
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => {
+                              setEditingVideo(vid);
+                              setVideoModalOpen(true);
+                            }}
+                            className="p-1.5 rounded-lg text-blue-600 hover:bg-slate-100 cursor-pointer"
+                          >
+                            <Edit size={14} />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteVideo(vid.id, vid.title)}
+                            className="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50 cursor-pointer"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
 
             </div>
@@ -1272,7 +1263,7 @@ export default function AdminDashboardPage() {
         {activeTab === 'podcasts' && (
           <div className="space-y-6">
             <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
-              
+
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
                   <h2 className="text-xl font-black text-slate-900">คลัง Podcast & เสียงอ่าน ({podcasts.length} รายการ)</h2>
@@ -1301,16 +1292,15 @@ export default function AdminDashboardPage() {
                   <div key={pod.id} className="p-4 rounded-2xl border border-slate-200 hover:border-slate-300 transition-all flex flex-col justify-between bg-white shadow-2xs">
                     <div>
                       <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-900 mb-3 border border-slate-200">
-                        <Image 
-                          src={pod.cover_image || pod.cover || '/images/books/tam-jai-hai-prom-buak.jpg'} 
-                          alt={pod.title} 
-                          fill 
-                          className="object-cover" 
-                          unoptimized 
+                        <Image
+                          src={pod.cover_image || pod.cover || '/images/books/tam-jai-hai-prom-buak.jpg'}
+                          alt={pod.title}
+                          fill
+                          className="object-cover"
+                          unoptimized
                         />
-                        <span className={`absolute top-2 left-2 text-[9px] font-black uppercase px-2 py-0.5 rounded shadow-sm text-white ${
-                          pod.source_type === 'mp3' ? 'bg-amber-600' : 'bg-red-600'
-                        }`}>
+                        <span className={`absolute top-2 left-2 text-[9px] font-black uppercase px-2 py-0.5 rounded shadow-sm text-white ${pod.source_type === 'mp3' ? 'bg-amber-600' : 'bg-red-600'
+                          }`}>
                           {pod.source_type === 'mp3' ? '🎵 MP3 Audio' : '🔴 YouTube'}
                         </span>
                       </div>
@@ -1357,7 +1347,8 @@ export default function AdminDashboardPage() {
                       </div>
                     </div>
                   </div>
-                ))}
+                );
+              })}
               </div>
 
             </div>
@@ -1370,7 +1361,7 @@ export default function AdminDashboardPage() {
         {activeTab === 'home_showcase' && (
           <div className="space-y-6">
             <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
-              
+
               <div className="mb-6">
                 <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
                   <Sparkles size={20} className="text-amber-600" />
@@ -1382,7 +1373,7 @@ export default function AdminDashboardPage() {
               </div>
 
               <form onSubmit={handleSaveHomeSettings} className="space-y-6 max-w-2xl">
-                
+
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1.5">
                     ข้อความพาดหัวประกาศหลัก (Hero Announcement Title)
@@ -1467,7 +1458,7 @@ export default function AdminDashboardPage() {
         {bookModalOpen && (
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
             <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative animate-in zoom-in-95 duration-200">
-              
+
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
                 <div>
                   <h3 className="text-xl font-black text-slate-900">
@@ -1486,7 +1477,7 @@ export default function AdminDashboardPage() {
               </div>
 
               <form onSubmit={handleSaveBook} className="space-y-4 text-xs sm:text-sm">
-                
+
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
                     ชื่อหนังสือธรรมะ <span className="text-rose-500">*</span>
@@ -1643,7 +1634,7 @@ export default function AdminDashboardPage() {
         {videoModalOpen && (
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
             <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl border border-slate-200 relative animate-in zoom-in-95 duration-200">
-              
+
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
                 <div>
                   <h3 className="text-xl font-black text-slate-900">
@@ -1662,7 +1653,7 @@ export default function AdminDashboardPage() {
               </div>
 
               <form onSubmit={handleSaveVideo} className="space-y-4 text-xs sm:text-sm">
-                
+
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
                     ลิงก์วิดีโอ (YouTube URL หรือ TikTok URL) <span className="text-rose-500">*</span>
@@ -1671,25 +1662,24 @@ export default function AdminDashboardPage() {
                     type="text"
                     name="url"
                     defaultValue={editingVideo?.url || ''}
-                    placeholder="เช่น https://www.youtube.com/watch?v=... หรือ https://www.tiktok.com/@thanavuddhostory/video/..."
+                    placeholder="เช่น https://www.tiktok.com/@udornsharo หรือ https://www.tiktok.com/@udornsharo/video/..."
                     required
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-mono text-xs focus:ring-2 focus:ring-rose-500"
                   />
                   <p className="text-[10px] text-slate-400 mt-1">
-                    💡 วางลิงก์ YouTube (16:9 หรือ Shorts) หรือลิงก์ TikTok (@thanavuddhostory) ได้ทันที
+                    💡 เพียงแค่วางลิงก์คลิปหรือช่อง TikTok (เช่น @udornsharo) ระบบจะดึงชื่อคลิปและขึ้นแสดงผลที่หน้าแรกและคลังวิดีโอทันที
                   </p>
                 </div>
 
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
-                    ชื่อคลิปธรรมบรรยาย <span className="text-rose-500">*</span>
+                    ชื่อคลิปวิดีโอ <span className="text-slate-400 font-normal">(เว้นว่างได้ ระบบจะดึงอัตโนมัติ)</span>
                   </label>
                   <input
                     type="text"
                     name="title"
                     defaultValue={editingVideo?.title || ''}
-                    placeholder="เช่น ธรรมะเพื่อความสุขในชีวิตประจำวัน"
-                    required
+                    placeholder="เว้นว่างได้ ระบบจะดึงชื่อคลิปจาก TikTok / YouTube ให้อัตโนมัติ"
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-bold"
                   />
                 </div>
@@ -1754,7 +1744,7 @@ export default function AdminDashboardPage() {
         {podcastModalOpen && (
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
             <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl border border-slate-200 relative animate-in zoom-in-95 duration-200">
-              
+
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
                 <div>
                   <h3 className="text-xl font-black text-slate-900">
@@ -1773,7 +1763,7 @@ export default function AdminDashboardPage() {
               </div>
 
               <form onSubmit={handleSavePodcast} className="space-y-4 text-xs sm:text-sm">
-                
+
                 {/* 1. SOURCE TYPE SELECTOR (YOUTUBE VS. MP3) */}
                 <div>
                   <label className="block font-bold text-slate-700 mb-1.5">
@@ -1783,22 +1773,20 @@ export default function AdminDashboardPage() {
                     <button
                       type="button"
                       onClick={() => setPodcastSourceType('youtube')}
-                      className={`p-3 rounded-2xl border font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                        podcastSourceType === 'youtube'
-                          ? 'bg-red-50 border-red-500 text-red-700 ring-2 ring-red-200'
-                          : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
-                      }`}
+                      className={`p-3 rounded-2xl border font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${podcastSourceType === 'youtube'
+                        ? 'bg-red-50 border-red-500 text-red-700 ring-2 ring-red-200'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                        }`}
                     >
                       <span>🔴 YouTube (IFrame Stream)</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setPodcastSourceType('mp3')}
-                      className={`p-3 rounded-2xl border font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                        podcastSourceType === 'mp3'
-                          ? 'bg-purple-50 border-purple-500 text-purple-700 ring-2 ring-purple-200'
-                          : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
-                      }`}
+                      className={`p-3 rounded-2xl border font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${podcastSourceType === 'mp3'
+                        ? 'bg-purple-50 border-purple-500 text-purple-700 ring-2 ring-purple-200'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                        }`}
                     >
                       <span>🎵 MP3 (Supabase Storage)</span>
                     </button>

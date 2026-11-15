@@ -3,6 +3,62 @@
   "lastUpdated": "2026-11-04T07:54:34.475Z",
   "videos": [
     {
+      "id": "vid-tiktok-udorn-01",
+      "platform": "tiktok",
+      "tiktokId": "udornsharo",
+      "title": "ข้อคิดธรรมะเตือนใจ | ธรรมะรอบตัว TikTok @udornsharo",
+      "url": "https://www.tiktok.com/@udornsharo",
+      "thumbnail": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=600",
+      "channelName": "ธรรมะรอบตัว (TikTok @udornsharo)",
+      "channelHandle": "@udornsharo",
+      "description": "ข้อคิดเตือนใจสั้นกระชับจากช่อง TikTok @udornsharo (ธรรมะรอบตัว) ถ่ายทอดหลักคิดและคำสอนในการดำเนินชีวิต ฝึกวางใจให้สงบและปล่อยวาง",
+      "hasVerifiedTranscript": false,
+      "tags": [
+        "TikTok",
+        "คลิปติ๊กต๊อก",
+        "ธรรมะรอบตัว",
+        "udornsharo",
+        "ข้อคิดเตือนใจ"
+      ],
+      "keywords": [
+        "TikTok",
+        "udornsharo",
+        "ธรรมะรอบตัว"
+      ],
+      "publishedDate": "2026-11-15",
+      "status": "published",
+      "isOfficialChannel": true,
+      "recommendCount": 18
+    },
+    {
+      "id": "vid-tiktok-udorn-02",
+      "platform": "tiktok",
+      "tiktokId": "udornsharo",
+      "title": "วิธีคิดเปลี่ยนชีวิตให้เป็นสุข | ธรรมะรอบตัว TikTok @udornsharo",
+      "url": "https://www.tiktok.com/@udornsharo",
+      "thumbnail": "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&q=80&w=600",
+      "channelName": "ธรรมะรอบตัว (TikTok @udornsharo)",
+      "channelHandle": "@udornsharo",
+      "description": "หลักคิดในการดำเนินชีวิตจาก TikTok @udornsharo (ธรรมะรอบตัว) เปลี่ยนมุมมองความคิดเพื่อดึงดูดความสุขและความสงบในใจทุกวัน",
+      "hasVerifiedTranscript": false,
+      "tags": [
+        "TikTok",
+        "คลิปติ๊กต๊อก",
+        "ธรรมะรอบตัว",
+        "udornsharo",
+        "คิดบวก"
+      ],
+      "keywords": [
+        "TikTok",
+        "udornsharo",
+        "คิดบวก"
+      ],
+      "publishedDate": "2026-11-15",
+      "status": "published",
+      "isOfficialChannel": true,
+      "recommendCount": 24
+    },
+    {
       "id": "vid-01",
       "youtubeId": "CwelH4QSZqY",
       "title": "สูตรลับความสำเร็จ | ไขข้อสงสัย ep.475 | 25-09-69",
