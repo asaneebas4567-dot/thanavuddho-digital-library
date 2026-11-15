@@ -70,6 +70,13 @@ export default function AdminSurveysPage() {
   useEffect(() => {
     if (user && (user.role === 'admin' || user.email === 'asaneebas4567@gmail.com' || user.email === 'thanavuddho.dhamma@gmail.com')) {
       setIsUnlocked(true);
+      return;
+    }
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('thanavuddho_admin_session') || localStorage.getItem('thanavuddho_admin_session');
+      if (saved === 'active') {
+        setIsUnlocked(true);
+      }
     }
   }, [user]);
 
@@ -189,9 +196,13 @@ export default function AdminSurveysPage() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              if (['admin69', '69001', 'thanavuddho'].includes(passcodeInput.trim())) {
+              if (['admin69', '69001', 'thanavuddho', 'thanavuddho2026'].includes(passcodeInput.trim())) {
                 setIsUnlocked(true);
                 setPasscodeError(false);
+                if (typeof window !== 'undefined') {
+                  sessionStorage.setItem('thanavuddho_admin_session', 'active');
+                  localStorage.setItem('thanavuddho_admin_session', 'active');
+                }
               } else {
                 setPasscodeError(true);
               }

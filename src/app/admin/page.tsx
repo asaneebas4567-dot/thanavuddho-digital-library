@@ -85,10 +85,17 @@ export default function AdminDashboardPage() {
   const [statusMessage, setStatusMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Auto-unlock if logged in as Admin
+  // Auto-unlock if logged in as Admin or if active session exists
   useEffect(() => {
     if (user && (user.role === 'admin' || user.email === 'asaneebas4567@gmail.com' || user.email === 'thanavuddho.dhamma@gmail.com')) {
       setIsUnlocked(true);
+      return;
+    }
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('thanavuddho_admin_session') || localStorage.getItem('thanavuddho_admin_session');
+      if (saved === 'active') {
+        setIsUnlocked(true);
+      }
     }
   }, [user]);
 
@@ -104,6 +111,15 @@ export default function AdminDashboardPage() {
   const showStatus = (text: string, type: 'success' | 'error' = 'success') => {
     setStatusMessage({ text, type });
     setTimeout(() => setStatusMessage(null), 3500);
+  };
+
+  const handleLockAdmin = () => {
+    setIsUnlocked(false);
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('thanavuddho_admin_session');
+      localStorage.removeItem('thanavuddho_admin_session');
+    }
+    showStatus('ล็อกเซสชันผู้ดูแลระบบเรียบร้อยแล้ว');
   };
 
   const fetchBooks = async () => {
@@ -160,6 +176,10 @@ export default function AdminDashboardPage() {
     if (clean === 'admin69' || clean === 'thanavuddho2026' || clean === '69001') {
       setIsUnlocked(true);
       setPasscodeError(false);
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('thanavuddho_admin_session', 'active');
+        localStorage.setItem('thanavuddho_admin_session', 'active');
+      }
       showStatus('ปลดล็อกสิทธิ์ผู้ดูแลระบบเรียบร้อยแล้ว');
     } else {
       setPasscodeError(true);
@@ -572,6 +592,14 @@ export default function AdminDashboardPage() {
               <span>เปิดดูหน้าบ้าน (Live Web)</span>
               <ExternalLink size={13} />
             </Link>
+            <button
+              onClick={handleLockAdmin}
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-200 hover:bg-rose-100 hover:text-rose-700 text-slate-700 font-bold text-xs transition-colors cursor-pointer"
+              title="ล็อกเซสชันผู้ดูแลระบบ"
+            >
+              <Lock size={13} />
+              <span>ล็อกเซสชัน</span>
+            </button>
           </div>
         </div>
 
@@ -633,6 +661,165 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
+        </div>
+
+        {/* PROMINENT ACTION HUB: ศูนย์นำเข้า & จัดการข้อมูลสื่อธรรมะ */}
+        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-slate-700/60 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-white/10">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] uppercase">
+                  Data Ingestion & Updates
+                </span>
+                <span className="text-xs text-slate-300 font-semibold">
+                  ศูนย์รับเข้าและอัปเดตข้อมูลเข้าคลัง
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2.5">
+                <Sparkles size={22} className="text-amber-400" />
+                <span>เพิ่มหนังสือ วิดีโอ และอัปเดตฐานข้อมูล (Admin Action Hub)</span>
+              </h2>
+            </div>
+            <Link
+              href="/admin/database"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs shadow-md transition-all active:scale-95 shrink-0"
+            >
+              <Database size={15} />
+              <span>เปิดดูตารางฐานข้อมูลจริง (11 ตาราง) →</span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            {/* 1. Add Books Card */}
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold mb-3 border border-blue-400/30">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="font-black text-white text-base">เพิ่มหนังสือใหม่</h3>
+                <p className="text-xs text-slate-300 mt-1 mb-4 leading-relaxed">
+                  กรอกชื่อหนังสือ แนบไฟล์ PDF หรือพิกัด Flipbook เพื่อเพิ่มเข้าสู่ระบบทันที
+                </p>
+              </div>
+              <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    setEditingBook(null);
+                    setBookModalOpen(true);
+                  }}
+                  className="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
+                >
+                  <Plus size={15} />
+                  <span>+ โพสต์หนังสือเล่มใหม่</span>
+                </button>
+                <div className="grid grid-cols-2 gap-1.5">
+                  <Link
+                    href="/admin/import-pdf"
+                    className="py-1.5 px-2 rounded-lg bg-white/10 hover:bg-white/20 text-blue-200 text-center font-bold text-[11px] transition-colors"
+                  >
+                    สกัดปก PDF
+                  </Link>
+                  <Link
+                    href="/admin/import-drive"
+                    className="py-1.5 px-2 rounded-lg bg-white/10 hover:bg-white/20 text-indigo-200 text-center font-bold text-[11px] transition-colors"
+                  >
+                    ซิงก์ Drive
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Add Videos Card */}
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold mb-3 border border-rose-400/30">
+                  <Video size={20} />
+                </div>
+                <h3 className="font-black text-white text-base">เพิ่มคลิปวิดีโอ</h3>
+                <p className="text-xs text-slate-300 mt-1 mb-4 leading-relaxed">
+                  แนบลิงก์คลิป YouTube ID ระบบดึงภาพ Thumbnail และจัดเก็บลงฐานข้อมูล
+                </p>
+              </div>
+              <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    setEditingVideo(null);
+                    setVideoModalOpen(true);
+                  }}
+                  className="w-full py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
+                >
+                  <Plus size={15} />
+                  <span>+ โพสต์วิดีโอใหม่</span>
+                </button>
+                <Link
+                  href="/admin/videos"
+                  className="block py-1.5 px-2 rounded-lg bg-white/10 hover:bg-white/20 text-rose-200 text-center font-bold text-[11px] transition-colors"
+                >
+                  จัดการคลังวิดีโอ & บทถอดเสียง
+                </Link>
+              </div>
+            </div>
+
+            {/* 3. Add Podcasts Card */}
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold mb-3 border border-purple-400/30">
+                  <Headphones size={20} />
+                </div>
+                <h3 className="font-black text-white text-base">เพิ่มพอดแคสต์ & MP3</h3>
+                <p className="text-xs text-slate-300 mt-1 mb-4 leading-relaxed">
+                  อัปโหลดไฟล์เสียงอ่านธรรมะ MP3 หรือแนบลิงก์เสียงออนไลน์
+                </p>
+              </div>
+              <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    setEditingPodcast(null);
+                    setPodcastModalOpen(true);
+                  }}
+                  className="w-full py-2.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
+                >
+                  <Plus size={15} />
+                  <span>+ โพสต์ Podcast ใหม่</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('podcasts')}
+                  className="w-full py-1.5 px-2 rounded-lg bg-white/10 hover:bg-white/20 text-purple-200 text-center font-bold text-[11px] transition-colors cursor-pointer"
+                >
+                  ดูรายการเสียงอ่านทั้งหมด
+                </button>
+              </div>
+            </div>
+
+            {/* 4. Quests & Surveys Card */}
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all flex flex-col justify-between">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold mb-3 border border-amber-400/30">
+                  <Star size={20} />
+                </div>
+                <h3 className="font-black text-white text-base">เควส & แบบประเมิน</h3>
+                <p className="text-xs text-slate-300 mt-1 mb-4 leading-relaxed">
+                  จัดการชุดคำถามเควสตามบทหนังสือ และตรวจผลคะแนนประเมิน 200 แต้ม
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Link
+                  href="/admin/quests"
+                  className="w-full py-2.5 px-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all"
+                >
+                  <span>🎯 จัดการเควสหนังสือ</span>
+                </Link>
+                <Link
+                  href="/admin/surveys"
+                  className="block py-1.5 px-2 rounded-lg bg-white/10 hover:bg-white/20 text-amber-200 text-center font-bold text-[11px] transition-colors"
+                >
+                  ผลประเมิน & ส่งแต้มรางวัล
+                </Link>
+              </div>
+            </div>
+
+          </div>
         </div>
 
         {/* Navigation Tabs Bar */}

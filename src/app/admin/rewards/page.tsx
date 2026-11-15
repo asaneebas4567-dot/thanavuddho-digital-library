@@ -20,11 +20,48 @@ import {
   Coins, 
   Users, 
   Filter, 
-  ExternalLink 
+  ExternalLink,
+  Lock,
+  KeyRound
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 import { RewardItem, RewardRedemption, PointTransaction } from '@/lib/learningPointsServer';
 
 export default function AdminRewardsPage() {
+  const { user } = useAuth();
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [passcodeInput, setPasscodeInput] = useState('');
+  const [passcodeError, setPasscodeError] = useState(false);
+
+  // Sync unlock session
+  useEffect(() => {
+    if (user && (user.role === 'admin' || user.email === 'asaneebas4567@gmail.com' || user.email === 'thanavuddho.dhamma@gmail.com')) {
+      setIsUnlocked(true);
+      return;
+    }
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('thanavuddho_admin_session') || localStorage.getItem('thanavuddho_admin_session');
+      if (saved === 'active') {
+        setIsUnlocked(true);
+      }
+    }
+  }, [user]);
+
+  const handlePasscodeUnlock = (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = passcodeInput.trim();
+    if (clean === 'admin69' || clean === 'thanavuddho2026' || clean === '69001') {
+      setIsUnlocked(true);
+      setPasscodeError(false);
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('thanavuddho_admin_session', 'active');
+        localStorage.setItem('thanavuddho_admin_session', 'active');
+      }
+    } else {
+      setPasscodeError(true);
+    }
+  };
+
   const [activeTab, setActiveTab] = useState<'rewards' | 'orders' | 'logs'>('orders');
   const [rewards, setRewards] = useState<RewardItem[]>([]);
   const [redemptions, setRedemptions] = useState<RewardRedemption[]>([]);
@@ -136,6 +173,69 @@ export default function AdminRewardsPage() {
     }
     return true;
   });
+
+  if (!isUnlocked) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 font-sans">
+        <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border-2 border-purple-400 text-center animate-in zoom-in-95 duration-200">
+          <div className="w-16 h-16 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center mx-auto mb-4 shadow-inner">
+            <Lock size={32} />
+          </div>
+          <span className="text-[10px] font-black uppercase tracking-wider bg-purple-100 text-purple-700 px-3 py-1 rounded-full border border-purple-200 mb-2 inline-block">
+            Private Admin Rewards Center
+          </span>
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1 mb-2">
+            ระบบจัดการของรางวัล & คำขอแลก
+          </h2>
+          <p className="text-xs text-slate-500 mb-6 leading-relaxed">
+            เฉพาะผู้ดูแลระบบที่ได้รับอนุญาตเท่านั้น ป้อนรหัสผ่านด่วนเพื่อเข้าสู่ระบบจัดการของรางวัลและอนุมัติจัดส่ง
+          </p>
+
+          <form onSubmit={handlePasscodeUnlock} className="space-y-4">
+            <div className="relative text-left">
+              <label className="text-xs font-bold text-slate-700 block mb-1">
+                รหัสผ่านแอดมิน (Admin Passcode):
+              </label>
+              <div className="relative">
+                <KeyRound size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="password"
+                  placeholder="ป้อนรหัสแอดมิน เช่น admin69"
+                  value={passcodeInput}
+                  onChange={(e) => setPasscodeInput(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm font-mono font-bold"
+                  autoFocus
+                />
+              </div>
+            </div>
+
+            {passcodeError && (
+              <div className="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-bold flex items-center justify-center gap-1.5">
+                <AlertCircle size={15} />
+                <span>รหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบและลองใหม่อีกครั้ง</span>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white font-black text-sm shadow-md transition-all active:scale-95 cursor-pointer"
+            >
+              ปลดล็อกเข้าสู่คลังของรางวัล
+            </button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-xs">
+            <Link href="/login?redirect=/admin/rewards" className="text-purple-700 font-bold hover:underline">
+              เข้าสู่ระบบด้วย Google
+            </Link>
+            <Link href="/" className="text-slate-500 hover:text-slate-800">
+              กลับหน้าแรกห้องสมุด
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 text-foreground font-sans pb-24 pt-8">

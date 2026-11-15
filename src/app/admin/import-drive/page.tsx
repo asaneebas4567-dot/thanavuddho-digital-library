@@ -105,6 +105,13 @@ export default function ImportDrivePage() {
   useEffect(() => {
     if (user && (user.role === 'admin' || user.email === 'asaneebas4567@gmail.com' || user.email === 'thanavuddho.dhamma@gmail.com')) {
       setIsUnlocked(true);
+      return;
+    }
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('thanavuddho_admin_session') || localStorage.getItem('thanavuddho_admin_session');
+      if (saved === 'active') {
+        setIsUnlocked(true);
+      }
     }
   }, [user]);
 
@@ -155,6 +162,10 @@ export default function ImportDrivePage() {
     ) {
       setIsUnlocked(true);
       setPasscodeError(false);
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('thanavuddho_admin_session', 'active');
+        localStorage.setItem('thanavuddho_admin_session', 'active');
+      }
       showStatus('ปลดล็อกสิทธิ์แอดมินเรียบร้อยแล้ว');
     } else {
       setPasscodeError(true);

@@ -134,16 +134,6 @@ export default function UserDashboard() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-2 shrink-0">
-              {(authUser.role === 'admin' || authUser.email === 'asaneebas4567@gmail.com' || authUser.email === 'thanavuddho.dhamma@gmail.com') && (
-                <Link
-                  href="/admin/database"
-                  className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2.5 rounded-xl text-xs font-extrabold transition-all shadow-md active:scale-95 cursor-pointer"
-                  title="จัดการฐานข้อมูลและสารสนเทศ"
-                >
-                  <Database size={15} />
-                  <span>ศูนย์จัดการฐานข้อมูล</span>
-                </Link>
-              )}
               <Link 
                 href="/rewards"
                 className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 cursor-pointer"
@@ -158,44 +148,6 @@ export default function UserDashboard() {
                 <LogOut size={15} />
                 <span>ออกจากระบบ</span>
               </button>
-            </div>
-          </div>
-        )}
-
-        {/* Admin Access Panel Banner */}
-        {isAuthenticated && authUser && (authUser.role === 'admin' || authUser.email === 'asaneebas4567@gmail.com' || authUser.email === 'thanavuddho.dhamma@gmail.com') && (
-          <div className="bg-gradient-to-r from-emerald-800 via-teal-800 to-emerald-900 rounded-3xl p-6 mb-8 text-white shadow-lg border border-emerald-600/70 flex flex-col md:flex-row md:items-center justify-between gap-5 animate-in fade-in">
-            <div className="flex items-center gap-4">
-              <div className="p-3.5 rounded-2xl bg-white/10 text-emerald-300 border border-white/10 shrink-0">
-                <Database size={26} />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="font-black text-base sm:text-lg">สิทธิ์ผู้ดูแลระบบ (Admin Database & Media Center)</h3>
-                  <span className="text-[10px] bg-emerald-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full uppercase">
-                    Admin Access
-                  </span>
-                </div>
-                <p className="text-xs sm:text-sm text-emerald-100/90 max-w-2xl leading-relaxed">
-                  บัญชีนี้มีสิทธิ์ระดับผู้ดูแลระบบ สามารถตรวจสอบ Entity ตารางฐานข้อมูล เพิ่มหนังสือ นำเข้า PDF สกัดปก และจัดการของรางวัลได้
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
-              <Link
-                href="/admin/database"
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white text-emerald-950 font-black text-xs hover:bg-emerald-50 transition-all shadow-md active:scale-95"
-              >
-                <Database size={15} className="text-emerald-700" />
-                <span>เปิดศูนย์จัดการฐานข้อมูล</span>
-              </Link>
-              <Link
-                href="/admin"
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs transition-all border border-emerald-500/60 active:scale-95"
-              >
-                <span>หน้าแดชบอร์ดแอดมิน</span>
-                <ArrowRight size={14} />
-              </Link>
             </div>
           </div>
         )}

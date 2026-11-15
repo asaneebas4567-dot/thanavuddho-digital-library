@@ -20,11 +20,48 @@ import {
   MapPin,
   RefreshCw,
   Search,
-  Filter
+  Filter,
+  Lock,
+  KeyRound
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 import { BookEasterEggQuest, QUEST_BOOKS_CATALOG } from '@/data/bookEasterEggQuests';
 
 export default function QuestEditorPage() {
+  const { user } = useAuth();
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [passcodeInput, setPasscodeInput] = useState('');
+  const [passcodeError, setPasscodeError] = useState(false);
+
+  // Sync unlock session
+  useEffect(() => {
+    if (user && (user.role === 'admin' || user.email === 'asaneebas4567@gmail.com' || user.email === 'thanavuddho.dhamma@gmail.com')) {
+      setIsUnlocked(true);
+      return;
+    }
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('thanavuddho_admin_session') || localStorage.getItem('thanavuddho_admin_session');
+      if (saved === 'active') {
+        setIsUnlocked(true);
+      }
+    }
+  }, [user]);
+
+  const handlePasscodeUnlock = (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = passcodeInput.trim();
+    if (clean === 'admin69' || clean === 'thanavuddho2026' || clean === '69001') {
+      setIsUnlocked(true);
+      setPasscodeError(false);
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('thanavuddho_admin_session', 'active');
+        localStorage.setItem('thanavuddho_admin_session', 'active');
+      }
+    } else {
+      setPasscodeError(true);
+    }
+  };
+
   const [selectedBookId, setSelectedBookId] = useState<string>('book_mongkol_chiwit_124');
   const [quests, setQuests] = useState<BookEasterEggQuest[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -221,6 +258,69 @@ export default function QuestEditorPage() {
       item.question.toLowerCase().includes(q)
     );
   }, [quests, searchFilter]);
+
+  if (!isUnlocked) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 font-sans">
+        <div className="bg-slate-900 rounded-3xl p-8 max-w-md w-full shadow-2xl border-2 border-amber-500/40 text-center animate-in zoom-in-95 duration-200">
+          <div className="w-16 h-16 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-4 border border-amber-500/30">
+            <Lock size={32} />
+          </div>
+          <span className="text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full border border-amber-500/30 mb-2 inline-block">
+            Quest Editor • Private Admin Access
+          </span>
+          <h2 className="text-xl sm:text-2xl font-black text-white mt-1 mb-2">
+            ระบบจัดการเควส & แบบทดสอบ
+          </h2>
+          <p className="text-xs text-slate-400 mb-6 leading-relaxed">
+            เฉพาะผู้ดูแลระบบที่ได้รับอนุญาตเท่านั้น ป้อนรหัสผ่านด่วนเพื่อเข้าสู่ระบบจัดการเควสหนังสือ
+          </p>
+
+          <form onSubmit={handlePasscodeUnlock} className="space-y-4">
+            <div className="relative text-left">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
+                รหัสผ่านแอดมิน (Admin Passcode):
+              </label>
+              <div className="relative">
+                <KeyRound size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="password"
+                  placeholder="ป้อนรหัสแอดมิน เช่น admin69"
+                  value={passcodeInput}
+                  onChange={(e) => setPasscodeInput(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm font-mono font-bold placeholder-slate-500"
+                  autoFocus
+                />
+              </div>
+            </div>
+
+            {passcodeError && (
+              <div className="p-2.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-xs text-rose-300 font-bold flex items-center justify-center gap-1.5">
+                <AlertCircle size={15} />
+                <span>รหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบและลองใหม่อีกครั้ง</span>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black text-sm shadow-md transition-all active:scale-95 cursor-pointer"
+            >
+              ปลดล็อกเข้าสู่เครื่องมือจัดการเควส
+            </button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-slate-800 flex items-center justify-between text-xs">
+            <Link href="/login?redirect=/admin/quests" className="text-amber-400 font-bold hover:underline">
+              เข้าสู่ระบบด้วย Google
+            </Link>
+            <Link href="/" className="text-slate-400 hover:text-white">
+              กลับหน้าแรกห้องสมุด
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-slate-950 min-h-screen text-slate-100 py-10 px-4 sm:px-6 lg:px-8 font-sans">

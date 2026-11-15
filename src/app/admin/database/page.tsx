@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   Database, 
@@ -29,8 +29,16 @@ import {
   FileSpreadsheet,
   BookMarked,
   Coins,
-  Clock
+  Clock,
+  Lock,
+  KeyRound,
+  AlertCircle,
+  Plus,
+  ChevronDown,
+  ChevronUp,
+  LogOut
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 import persistentBooks from '@/data/persistentBooks.json';
 import persistentUsers from '@/data/persistentUsers.json';
 import rewardsCatalog from '@/data/rewardsCatalog.json';
@@ -51,10 +59,55 @@ interface TableDefinition {
 }
 
 export default function AdminDatabasePage() {
+  const { user, isAuthenticated } = useAuth();
+  
+  // Security Unlock State (Private Admin Only)
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [passcodeInput, setPasscodeInput] = useState('');
+  const [passcodeError, setPasscodeError] = useState(false);
+
   const [activeTable, setActiveTable] = useState<string>('books');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<'tables' | 'diagram' | 'defense_guide'>('tables');
+  const [showDataDictionary, setShowDataDictionary] = useState<boolean>(true);
+
+  // Sync unlock session
+  useEffect(() => {
+    if (user && (user.role === 'admin' || user.email === 'asaneebas4567@gmail.com' || user.email === 'thanavuddho.dhamma@gmail.com')) {
+      setIsUnlocked(true);
+      return;
+    }
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('thanavuddho_admin_session') || localStorage.getItem('thanavuddho_admin_session');
+      if (saved === 'active') {
+        setIsUnlocked(true);
+      }
+    }
+  }, [user]);
+
+  const handlePasscodeUnlock = (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = passcodeInput.trim();
+    if (clean === 'admin69' || clean === 'thanavuddho2026' || clean === '69001') {
+      setIsUnlocked(true);
+      setPasscodeError(false);
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('thanavuddho_admin_session', 'active');
+        localStorage.setItem('thanavuddho_admin_session', 'active');
+      }
+    } else {
+      setPasscodeError(true);
+    }
+  };
+
+  const handleLockAdmin = () => {
+    setIsUnlocked(false);
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('thanavuddho_admin_session');
+      localStorage.removeItem('thanavuddho_admin_session');
+    }
+  };
 
   // Convert persistent users to array with rich member data, points, and reading progress
   const usersList = Object.values(persistentUsers).map((u: any, idx: number) => {
@@ -552,22 +605,120 @@ export default function AdminDatabasePage() {
     setTimeout(() => setCopied(false), 2500);
   };
 
+  // Private Admin Access Gate
+  if (!isUnlocked) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+        <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border-2 border-amber-400 text-center animate-in zoom-in-95 duration-200">
+          <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-4 shadow-inner">
+            <Lock size={32} />
+          </div>
+          <span className="text-[10px] font-black uppercase tracking-wider bg-rose-100 text-rose-700 px-3 py-1 rounded-full border border-rose-200 mb-2 inline-block">
+            Private Admin Database Only
+          </span>
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1 mb-2">
+            ศูนย์จัดการฐานข้อมูลระดับผู้ดูแลระบบ
+          </h2>
+          <p className="text-xs text-slate-500 mb-6 leading-relaxed">
+            ระบบรักษาความปลอดภัย: เฉพาะผู้ดูแลระบบและแอดมินที่มีสิทธิ์เท่านั้นที่สามารถเปิดดู Entity ข้อมูลจริง โครงสร้างตาราง และประวัติระบบได้
+          </p>
+
+          <form onSubmit={handlePasscodeUnlock} className="space-y-4">
+            <div className="relative text-left">
+              <label className="text-xs font-bold text-slate-700 block mb-1">
+                รหัสผ่านแอดมิน (Admin Passcode):
+              </label>
+              <div className="relative">
+                <KeyRound size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="password"
+                  placeholder="ป้อนรหัสแอดมิน เช่น admin69"
+                  value={passcodeInput}
+                  onChange={(e) => setPasscodeInput(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm font-mono font-bold"
+                  autoFocus
+                />
+              </div>
+            </div>
+
+            {passcodeError && (
+              <div className="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-bold flex items-center justify-center gap-1.5">
+                <AlertCircle size={15} />
+                <span>รหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบและลองใหม่อีกครั้ง</span>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black text-sm shadow-md transition-all active:scale-95 cursor-pointer"
+            >
+              ปลดล็อกเข้าสู่ศูนย์จัดการฐานข้อมูล
+            </button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-xs">
+            <Link href="/login?redirect=/admin/database" className="text-amber-700 font-bold hover:underline">
+              เข้าสู่ระบบด้วย Google
+            </Link>
+            <Link href="/" className="text-slate-500 hover:text-slate-800">
+              กลับหน้าแรกห้องสมุด
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-slate-50 min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Navigation Breadcrumb & Back */}
-        <div className="flex items-center justify-between mb-6">
-          <Link
-            href="/admin"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 transition-colors"
-          >
-            <ArrowLeft size={16} />
-            <span>กลับหน้าหลักผู้ดูแลระบบ (Admin Dashboard)</span>
-          </Link>
-          <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-300">
-            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-            <span>PostgreSQL / Supabase Schema Ready</span>
+        {/* Navigation Breadcrumb & Admin Suite Shortcuts */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+          <div className="flex items-center gap-2 flex-wrap">
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 bg-white hover:bg-slate-100 px-3.5 py-2 rounded-xl border border-slate-200 shadow-xs transition-colors"
+            >
+              <ArrowLeft size={16} />
+              <span>แดชบอร์ดหลัก (Admin Portal)</span>
+            </Link>
+            <Link
+              href="/admin/import-pdf"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-2 rounded-xl border border-blue-200 transition-colors"
+            >
+              <BookOpen size={14} />
+              <span>นำเข้า PDF สกัดปก</span>
+            </Link>
+            <Link
+              href="/admin/import-drive"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-2 rounded-xl border border-indigo-200 transition-colors"
+            >
+              <HardDrive size={14} />
+              <span>ดึงจาก Google Drive</span>
+            </Link>
+            <Link
+              href="/admin/videos"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-2 rounded-xl border border-rose-200 transition-colors"
+            >
+              <Video size={14} />
+              <span>จัดการวิดีโอ & สื่อ</span>
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 bg-emerald-100 px-3 py-1.5 rounded-xl border border-emerald-300">
+              <ShieldCheck size={14} className="text-emerald-700" />
+              <span>แอดมินปลดล็อกแล้ว</span>
+            </div>
+            <button
+              onClick={handleLockAdmin}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-rose-100 hover:text-rose-700 text-slate-700 font-bold text-xs transition-colors cursor-pointer"
+              title="ล็อกเซสชันผู้ดูแลระบบ"
+            >
+              <Lock size={13} />
+              <span>ล็อกเซสชัน</span>
+            </button>
           </div>
         </div>
 
@@ -741,63 +892,72 @@ export default function AdminDatabasePage() {
                 )}
               </div>
 
-              {/* Data Dictionary / Field Definitions */}
-              <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
-                <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
-                  <Database size={16} className="text-amber-600" />
-                  <span>พจนานุกรมข้อมูล (Data Dictionary / Schema Columns)</span>
-                </h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs border-collapse">
-                    <thead>
-                      <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
-                        <th className="py-2.5 px-4 font-mono">Column Name</th>
-                        <th className="py-2.5 px-4 font-mono">Data Type</th>
-                        <th className="py-2.5 px-4">คำอธิบายการจัดเก็บ</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100 font-sans">
-                      {currentTable.fields.map((f, i) => (
-                        <tr key={i} className="hover:bg-slate-50/50">
-                          <td className="py-2 px-4 font-mono font-black text-slate-900 flex items-center gap-1.5">
-                            {f.isKey && <Key size={12} className="text-amber-600" />}
-                            <span>{f.name}</span>
-                          </td>
-                          <td className="py-2 px-4 font-mono text-amber-700 font-bold">
-                            {f.type}
-                          </td>
-                          <td className="py-2 px-4 text-slate-600">
-                            {f.desc}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              {/* Live Sample Records in Table */}
+              {/* 1. Live Sample Records in Table (HERO SECTION: ข้อมูลจริงในระบบ) */}
               <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                    <Table size={16} className="text-emerald-600" />
-                    <span>ข้อมูลจริงในระบบ (Live Records: {currentTable.sampleData.length} แถว)</span>
-                  </h3>
-                  <div className="relative">
-                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                    <input
-                      type="text"
-                      placeholder="กรองข้อมูลในตารางนี้..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 text-xs w-48 focus:outline-none focus:ring-1 focus:ring-amber-500"
-                    />
+                  <div>
+                    <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                      <Table size={18} className="text-emerald-600" />
+                      <span>ข้อมูลจริงในระบบ (Live Records: {currentTable.sampleData.length} แถว)</span>
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      แสดงรายการข้อมูลแถวจริงที่จัดเก็บในตาราง <code className="font-mono text-emerald-800 font-bold">{currentTable.name}</code> และใช้งานบนเว็บไซต์ปัจจุบัน
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {activeTable === 'books' && (
+                      <Link
+                        href="/admin/import-pdf"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-all active:scale-95"
+                      >
+                        <Plus size={13} />
+                        <span>เพิ่มหนังสือ / นำเข้า PDF</span>
+                      </Link>
+                    )}
+                    {activeTable === 'media_files' && (
+                      <Link
+                        href="/admin/videos"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-xs transition-all active:scale-95"
+                      >
+                        <Plus size={13} />
+                        <span>จัดการ / เพิ่มวิดีโอ</span>
+                      </Link>
+                    )}
+                    {activeTable === 'reward_items' && (
+                      <Link
+                        href="/admin/rewards"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-xs transition-all active:scale-95"
+                      >
+                        <Plus size={13} />
+                        <span>จัดการของรางวัล</span>
+                      </Link>
+                    )}
+                    {(activeTable === 'survey_questions' || activeTable === 'survey_responses' || activeTable === 'survey_answers') && (
+                      <Link
+                        href="/admin/surveys"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-xs transition-all active:scale-95"
+                      >
+                        <FileSpreadsheet size={13} />
+                        <span>เปิดรายงานแบบประเมิน</span>
+                      </Link>
+                    )}
+                    <div className="relative">
+                      <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type="text"
+                        placeholder="กรองข้อมูลในตารางนี้..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 text-xs w-48 focus:outline-none focus:ring-1 focus:ring-amber-500 font-medium"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div className="overflow-x-auto max-h-96">
+                <div className="overflow-x-auto max-h-[500px] border border-slate-100 rounded-2xl">
                   <table className="w-full text-left text-xs border-collapse">
-                    <thead className="sticky top-0 bg-slate-100 z-10">
+                    <thead className="sticky top-0 bg-slate-100 z-10 shadow-xs">
                       <tr className="border-b border-slate-200 text-slate-700 font-sans">
                         {currentTable.fields.map((f) => (
                           <th key={f.name} className="py-2.5 px-3 whitespace-nowrap">
@@ -901,6 +1061,52 @@ export default function AdminDatabasePage() {
                     </tbody>
                   </table>
                 </div>
+              </div>
+
+              {/* 2. Data Dictionary / Field Definitions (Secondary / Below Live Records) */}
+              <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                    <Database size={16} className="text-amber-600" />
+                    <span>พจนานุกรมข้อมูล (Data Dictionary / Schema Columns - {currentTable.fields.length} ฟิลด์)</span>
+                  </h3>
+                  <button
+                    onClick={() => setShowDataDictionary(!showDataDictionary)}
+                    className="inline-flex items-center gap-1 text-xs text-slate-600 hover:text-slate-900 px-3 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 font-semibold cursor-pointer transition-colors"
+                  >
+                    {showDataDictionary ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                    <span>{showDataDictionary ? 'ย่อซ่อนพจนานุกรม' : 'ขยายดูคำอธิบายคอลัมน์'}</span>
+                  </button>
+                </div>
+                {showDataDictionary && (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs border-collapse">
+                      <thead>
+                        <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+                          <th className="py-2.5 px-4 font-mono">Column Name</th>
+                          <th className="py-2.5 px-4 font-mono">Data Type</th>
+                          <th className="py-2.5 px-4">คำอธิบายการจัดเก็บ</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 font-sans">
+                        {currentTable.fields.map((f, i) => (
+                          <tr key={i} className="hover:bg-slate-50/50">
+                            <td className="py-2 px-4 font-mono font-black text-slate-900 flex items-center gap-1.5">
+                              {f.isKey && <Key size={12} className="text-amber-600" />}
+                              <span>{f.name}</span>
+                            </td>
+                            <td className="py-2 px-4 font-mono text-amber-700 font-bold">
+                              {f.type}
+                            </td>
+                            <td className="py-2 px-4 text-slate-600">
+                              {f.desc}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
 
             </div>

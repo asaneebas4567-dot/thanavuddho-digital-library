@@ -54,6 +54,13 @@ export default function ImportPdfPage() {
   useEffect(() => {
     if (user && (user.role === 'admin' || user.email === 'asaneebas4567@gmail.com' || user.email === 'thanavuddho.dhamma@gmail.com')) {
       setIsUnlocked(true);
+      return;
+    }
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('thanavuddho_admin_session') || localStorage.getItem('thanavuddho_admin_session');
+      if (saved === 'active') {
+        setIsUnlocked(true);
+      }
     }
   }, [user]);
 
@@ -79,6 +86,10 @@ export default function ImportPdfPage() {
     if (!clean || validKeys.includes(clean)) {
       setIsUnlocked(true);
       setPasskeyError('');
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('thanavuddho_admin_session', 'active');
+        localStorage.setItem('thanavuddho_admin_session', 'active');
+      }
     } else {
       setPasskeyError('รหัสผ่านไม่ถูกต้อง (สามารถคลิกปุ่มปลดล็อกทันทีด้านล่างได้เลยครับ)');
     }
