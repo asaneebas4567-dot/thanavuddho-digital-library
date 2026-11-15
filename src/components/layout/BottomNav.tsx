@@ -47,14 +47,6 @@ export default function BottomNav() {
       pillColor: 'bg-purple-600',
     },
     {
-      label: 'วิดีโอ',
-      href: '/videos',
-      icon: Video,
-      color: 'text-[#073B65]',
-      activeColor: 'text-rose-600',
-      pillColor: 'bg-rose-600',
-    },
-    {
       label: 'ร้านรางวัล',
       href: '/rewards',
       icon: Gift,
@@ -62,6 +54,15 @@ export default function BottomNav() {
       activeColor: 'text-[#D9A441]',
       pillColor: 'bg-[#D9A441]',
       badge: '🪙',
+    },
+    {
+      label: 'ผู้ใช้งาน',
+      href: '/dashboard',
+      icon: User,
+      color: 'text-[#073B65]',
+      activeColor: 'text-[#079FE8]',
+      pillColor: 'bg-[#079FE8]',
+      count: activeLoanCount > 0 ? activeLoanCount : undefined,
     },
   ];
 

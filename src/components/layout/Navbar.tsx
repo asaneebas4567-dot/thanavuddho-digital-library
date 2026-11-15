@@ -99,8 +99,16 @@ export default function Navbar() {
       label: 'ร้านรางวัล', 
       href: '/rewards', 
       icon: Gift,
-      iconColor: 'text-sky-100 group-hover:text-white',
-      activeIconColor: 'text-sky-600'
+      iconColor: 'text-amber-200 group-hover:text-amber-100',
+      activeIconColor: 'text-[#D9A441]'
+    },
+    { 
+      label: 'ผู้ใช้งาน', 
+      href: '/dashboard', 
+      icon: User,
+      iconColor: 'text-sky-200 group-hover:text-white',
+      activeIconColor: 'text-[#079FE8]',
+      badge: activeLoanCount > 0 ? `${activeLoanCount}` : undefined
     },
   ];
 
@@ -175,23 +183,6 @@ export default function Navbar() {
                 {mounted ? availablePoints.toLocaleString() : '0'}
               </span>
               <span className="text-[9px] sm:text-[10px] text-[#64748B]">แต้ม</span>
-            </Link>
-
-            {/* Active Digital Loans Quota Pill (Links to User Dashboard) */}
-            <Link 
-              href="/dashboard" 
-              className={`inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer border active:scale-95 shrink-0 ${
-                activeLoanCount > 0
-                  ? 'bg-emerald-600 text-white border-emerald-400/80 shadow-xs hover:bg-emerald-700'
-                  : 'bg-white/15 hover:bg-white/25 text-white border-white/20'
-              }`}
-              title="รายการสื่อที่กำลังยืมอยู่ (ดูในหน้าผู้ใช้)"
-            >
-              <BookMarked size={12} className="shrink-0" />
-              <span className="hidden xs:inline">ยืม</span>
-              <span className="font-mono font-bold text-[11px] sm:text-xs" suppressHydrationWarning>
-                {mounted ? `${activeLoanCount}/3` : '0/3'}
-              </span>
             </Link>
 
             {/* User Profile or Login CTA */}
@@ -292,6 +283,11 @@ export default function Navbar() {
                 >
                   <Icon size={14} className={active ? 'text-[#079FE8]' : 'text-white/80 group-hover:text-white'} />
                   <span>{link.label}</span>
+                  {(link as any).badge && (
+                    <span className="bg-[#079FE8] text-white text-[9px] font-bold px-1.5 py-0.2 rounded-full shadow-xs">
+                      {(link as any).badge}
+                    </span>
+                  )}
                 </Link>
               );
             })}
@@ -319,6 +315,11 @@ export default function Navbar() {
                 >
                   <Icon size={16} className={active ? 'text-white' : 'text-sky-600'} />
                   <span>{link.label}</span>
+                  {(link as any).badge && (
+                    <span className="bg-[#079FE8] text-white text-[9px] font-bold px-1.5 py-0.2 rounded-full shadow-xs">
+                      {(link as any).badge}
+                    </span>
+                  )}
                 </Link>
               );
             })}
