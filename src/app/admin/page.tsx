@@ -1222,7 +1222,7 @@ export default function AdminDashboardPage() {
 
                       <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                         <a
-                          href={vid.url || (isTikTok ? 'https://www.tiktok.com/@thanavuddhostory' : `https://www.youtube.com/watch?v=${vid.youtubeId}`)}
+                          href={vid.url || (isTikTok ? 'https://www.tiktok.com/@udornsharo' : `https://www.youtube.com/watch?v=${vid.youtubeId}`)}
                           target="_blank"
                           rel="noreferrer"
                           className="text-xs font-bold text-rose-600 hover:underline flex items-center gap-1"
@@ -1250,7 +1250,8 @@ export default function AdminDashboardPage() {
                         </div>
                       </div>
                     </div>
-                  ))}
+                  );
+                })}
               </div>
 
             </div>
@@ -1347,8 +1348,7 @@ export default function AdminDashboardPage() {
                       </div>
                     </div>
                   </div>
-                );
-              })}
+                ))}
               </div>
 
             </div>
