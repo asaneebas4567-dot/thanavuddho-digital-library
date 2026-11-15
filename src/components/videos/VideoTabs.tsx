@@ -3,7 +3,7 @@
 import React from 'react';
 import { Video, Monitor, Smartphone } from 'lucide-react';
 
-export type VideoFilterTab = 'all' | 'horizontal' | 'vertical';
+export type VideoFilterTab = 'all' | 'horizontal' | 'vertical' | 'tiktok';
 
 interface VideoTabsProps {
   activeTab: VideoFilterTab;
@@ -12,6 +12,7 @@ interface VideoTabsProps {
     all: number;
     horizontal: number;
     vertical: number;
+    tiktok: number;
   };
 }
 
@@ -29,14 +30,20 @@ export default function VideoTabs({
     },
     {
       id: 'horizontal' as VideoFilterTab,
-      label: 'วิดีโอแนวนอน (16:9)',
+      label: 'YouTube แนวนอน (16:9)',
       count: counts.horizontal,
       icon: Monitor
     },
     {
       id: 'vertical' as VideoFilterTab,
-      label: '🔥 วิดีโอสั้น (Shorts & TikTok)',
+      label: '🔥 YouTube Shorts',
       count: counts.vertical,
+      icon: Smartphone
+    },
+    {
+      id: 'tiktok' as VideoFilterTab,
+      label: '🎵 คลิปติ๊กต๊อก TikTok',
+      count: counts.tiktok,
       icon: Smartphone
     }
   ];

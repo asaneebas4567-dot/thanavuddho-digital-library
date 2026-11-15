@@ -122,6 +122,7 @@ export interface Audio {
 }
 
 export type VideoOrientation = 'horizontal' | 'vertical';
+export type VideoPlatform = 'youtube' | 'tiktok' | 'facebook' | 'other';
 
 export interface Video {
   id: string;
@@ -142,7 +143,9 @@ export interface Video {
   is_finished?: boolean;
   orientation?: VideoOrientation;
   aspect_ratio?: '16:9' | '9:16';
+  platform?: VideoPlatform;
   youtubeId?: string;
+  tiktokId?: string;
   author?: string;
   channel_handle?: string;
   is_available?: boolean;
@@ -377,6 +380,8 @@ export interface VideoTranscriptSegment {
 export interface VideoKnowledgeItem {
   id: string;
   youtubeId: string;
+  tiktokId?: string;
+  platform?: VideoPlatform;
   title: string;
   url: string;
   thumbnail: string;

@@ -10,7 +10,8 @@ interface VideoCardProps {
 }
 
 export default function VideoCard({ video, onSelect }: VideoCardProps) {
-  const isVertical = video.orientation === 'vertical' || video.aspect_ratio === '9:16';
+  const isTikTok = video.platform === 'tiktok' || !!video.tiktokId || video.video_url?.includes('tiktok.com');
+  const isVertical = isTikTok || video.orientation === 'vertical' || video.aspect_ratio === '9:16';
   const isAvailable = video.is_available !== false;
 
   const handleClick = (e: React.MouseEvent) => {
@@ -55,17 +56,22 @@ export default function VideoCard({ video, onSelect }: VideoCardProps) {
 
         {/* Top Badges: Orientation & Availability */}
         <div className="absolute top-2.5 inset-x-2.5 z-20 flex items-center justify-between pointer-events-none">
-          {/* Orientation Badge */}
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/65 backdrop-blur-md text-white text-[10px] font-bold border border-white/10 shadow-sm">
-            {isVertical ? (
+          {/* Orientation & Platform Badge */}
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md text-white text-[10px] font-bold border border-white/10 shadow-sm">
+            {isTikTok ? (
+              <>
+                <span className="text-pink-400 font-black">🎵 TikTok</span>
+                <span className="text-white/80">9:16</span>
+              </>
+            ) : isVertical ? (
               <>
                 <Smartphone className="w-3 h-3 text-rose-400" />
-                <span>แนวตั้ง 9:16</span>
+                <span>Shorts 9:16</span>
               </>
             ) : (
               <>
                 <Monitor className="w-3 h-3 text-sky-400" />
-                <span>แนวนอน 16:9</span>
+                <span>YouTube 16:9</span>
               </>
             )}
           </span>

@@ -43,6 +43,7 @@ import persistentBooks from '@/data/persistentBooks.json';
 import persistentUsers from '@/data/persistentUsers.json';
 import rewardsCatalog from '@/data/rewardsCatalog.json';
 import persistentPointsHistory from '@/data/persistentPointsHistory.json';
+import { libraryVideos } from '@/data/videoData';
 
 interface TableDefinition {
   name: string;
@@ -394,6 +395,39 @@ export default function AdminDatabasePage() {
         { id: 'f103-uuid', file_name: 'somdul_tao_kub_dee.pdf', bucket_name: 'library-pdfs', storage_path: 'library-pdfs/somdul.pdf', mime_type: 'application/pdf', file_size_bytes: 28490000, entity_type: 'book' },
         { id: 'f104-uuid', file_name: 'tam_jai_hai_prom_buak.pdf', bucket_name: 'library-pdfs', storage_path: 'library-pdfs/tam_jai.pdf', mime_type: 'application/pdf', file_size_bytes: 21900400, entity_type: 'book' }
       ]
+    },
+    videos: {
+      name: 'videos',
+      nameTh: 'คลังคลิปวิดีโอ & TikTok (Video & TikTok Media)',
+      system: '3. Media Storage',
+      systemTh: '3. ระบบคลังสื่อดิจิทัล & โซเชียลมีเดีย',
+      systemColor: 'bg-rose-50 text-rose-700 border-rose-200',
+      icon: Video,
+      description: 'จัดเก็บคลิปธรรมะ รายการ Thanavuddho Story และคลิปสั้น TikTok (@thanavuddhostory) รองรับทั้ง 16:9 และแนวตั้ง 9:16',
+      primaryKey: 'id (VARCHAR)',
+      foreignKeys: ['category_ids -> categories.id'],
+      fields: [
+        { name: 'id', type: 'VARCHAR(100)', desc: 'รหัสวิดีโอ (Primary Key)', isKey: true },
+        { name: 'title', type: 'VARCHAR(255)', desc: 'ชื่อคลิปวิดีโอ / คลิปติ๊กต๊อก' },
+        { name: 'platform', type: 'VARCHAR(20)', desc: 'แพลตฟอร์ม (youtube / tiktok)' },
+        { name: 'video_id', type: 'VARCHAR(100)', desc: 'YouTube ID หรือ TikTok Video ID' },
+        { name: 'orientation', type: 'VARCHAR(20)', desc: 'ทิศทาง (horizontal 16:9 / vertical 9:16)' },
+        { name: 'duration', type: 'VARCHAR(20)', desc: 'ความยาวคลิป (เช่น 01:15, 12:30)' },
+        { name: 'channel_handle', type: 'VARCHAR(100)', desc: 'ช่องเผยแพร่ (@ThanavuddhoStory / @thanavuddhostory)' },
+        { name: 'view_count', type: 'INT', desc: 'ยอดผู้เข้าชม (ครั้ง)' },
+        { name: 'is_available', type: 'BOOLEAN', desc: 'สถานะเปิดให้บริการ' }
+      ],
+      sampleData: libraryVideos.map(v => ({
+        id: v.id,
+        title: v.title,
+        platform: v.platform === 'tiktok' || v.tiktokId ? '🎵 tiktok' : '🔴 youtube',
+        video_id: v.platform === 'tiktok' || v.tiktokId ? v.tiktokId || '-' : v.youtubeId || '-',
+        orientation: v.orientation === 'vertical' ? 'แนวตั้ง (9:16)' : 'แนวนอน (16:9)',
+        duration: v.duration,
+        channel_handle: v.channel_handle || '@ThanavuddhoStory',
+        view_count: v.view_count.toLocaleString(),
+        is_available: v.is_available ? 'TRUE' : 'FALSE'
+      }))
     },
     profiles: {
       name: 'profiles',

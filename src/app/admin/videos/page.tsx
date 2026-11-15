@@ -361,7 +361,7 @@ export default function AdminVideosPage() {
             className="flex items-center gap-2 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer active:scale-95"
           >
             <Plus size={16} />
-            <span>เพิ่มวิดีโอ YouTube เข้าคลัง</span>
+            <span>เพิ่มวิดีโอ (YouTube / TikTok) เข้าคลัง</span>
           </button>
         </div>
 
@@ -497,8 +497,12 @@ export default function AdminVideosPage() {
                         {/* Title & Channel */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-1.5 mb-1 flex-wrap">
-                            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200/60">
-                              YouTube
+                            <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
+                              v.platform === 'tiktok' || v.url?.includes('tiktok.com') 
+                                ? 'bg-pink-50 text-pink-700 border border-pink-200/80 font-black' 
+                                : 'bg-rose-50 text-rose-700 border border-rose-200/60'
+                            }`}>
+                              {v.platform === 'tiktok' || v.url?.includes('tiktok.com') ? '🎵 TikTok' : '🔴 YouTube'}
                             </span>
                             {v.hasVerifiedTranscript ? (
                               <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center gap-0.5">
@@ -717,7 +721,7 @@ export default function AdminVideosPage() {
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 className="font-extrabold text-base sm:text-lg text-slate-900 flex items-center gap-2">
                   <Video className="text-rose-600" size={20} />
-                  <span>{editingId ? 'แก้ไขข้อมูลวิดีโอ' : 'เพิ่มวิดีโอ YouTube ของพระอาจารย์'}</span>
+                  <span>{editingId ? 'แก้ไขข้อมูลวิดีโอ' : 'เพิ่มวิดีโอ (YouTube / TikTok)'}</span>
                 </h3>
                 <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600">
                   <X size={20} />
@@ -741,16 +745,19 @@ export default function AdminVideosPage() {
 
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
-                    YouTube URL หรือ Video ID *
+                    URL วิดีโอ (YouTube หรือ TikTok) *
                   </label>
                   <input
                     type="text"
                     required
                     value={formUrl}
                     onChange={(e) => setFormUrl(e.target.value)}
-                    placeholder="https://www.youtube.com/watch?v=..."
+                    placeholder="https://www.youtube.com/watch?v=... หรือ https://www.tiktok.com/@thanavuddhostory/video/..."
                     className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-rose-400 font-mono text-xs"
                   />
+                  <p className="text-[10px] text-slate-400 mt-1">
+                    💡 รองรับทั้งลิงก์ YouTube (16:9 / Shorts) และลิงก์ TikTok (@thanavuddhostory)
+                  </p>
                 </div>
 
                 <div>

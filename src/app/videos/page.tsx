@@ -65,12 +65,14 @@ function VideosMainContent() {
   // Compute counts for tabs
   const counts = useMemo(() => {
     const horizontal = videos.filter(v => v.orientation === 'horizontal').length;
-    const vertical = videos.filter(v => v.orientation === 'vertical').length;
+    const vertical = videos.filter(v => v.orientation === 'vertical' && v.platform !== 'tiktok' && !v.video_url?.includes('tiktok.com')).length;
+    const tiktok = videos.filter(v => v.platform === 'tiktok' || !!v.tiktokId || v.video_url?.includes('tiktok.com')).length;
     const ready = videos.filter(v => v.is_available).length;
     return {
       all: videos.length,
       horizontal,
       vertical,
+      tiktok,
       ready
     };
   }, [videos]);
@@ -78,9 +80,12 @@ function VideosMainContent() {
   // Filtered videos based on activeTab and optional search
   const filteredVideos = useMemo(() => {
     return videos.filter(v => {
+      const isTikTok = v.platform === 'tiktok' || !!v.tiktokId || v.video_url?.includes('tiktok.com');
+
       // Tab filter
       if (activeTab === 'horizontal' && v.orientation !== 'horizontal') return false;
-      if (activeTab === 'vertical' && v.orientation !== 'vertical') return false;
+      if (activeTab === 'vertical' && (v.orientation !== 'vertical' || isTikTok)) return false;
+      if (activeTab === 'tiktok' && !isTikTok) return false;
 
       // Search keyword filter
       if (searchQuery.trim()) {
@@ -93,7 +98,7 @@ function VideosMainContent() {
 
       return true;
     });
-  }, [activeTab, searchQuery]);
+  }, [activeTab, searchQuery, videos]);
 
   // Handle switching video / opening watch view
   const handleSelectVideo = (video: Video) => {

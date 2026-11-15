@@ -16,6 +16,15 @@ function extractYouTubeId(url: string): string | null {
   return (match && match[2].length === 11) ? match[2] : null;
 }
 
+function extractTikTokId(url: string): string | null {
+  if (!url) return null;
+  const match = url.match(/(?:video\/|v\/|embed\/v2\/|embed\/)(\d+)/);
+  if (match && match[1]) return match[1];
+  const digits = url.match(/\/(\d{15,25})/);
+  if (digits && digits[1]) return digits[1];
+  return null;
+}
+
 export async function GET() {
   try {
     const videos = getAllVideoKnowledge();
@@ -42,22 +51,29 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: false, error: 'กรุณาระบุชื่อวิดีโอ' }, { status: 400 });
       }
 
+      const isTikTok = video.platform === 'tiktok' || (video.url && video.url.includes('tiktok.com'));
+      const tiktokId = isTikTok ? (video.tiktokId || extractTikTokId(video.url || '') || undefined) : undefined;
+      const platform = isTikTok ? 'tiktok' : 'youtube';
+
       let youtubeId = video.youtubeId;
-      if (!youtubeId && video.url) {
+      if (!isTikTok && !youtubeId && video.url) {
         youtubeId = extractYouTubeId(video.url) || '';
       }
 
       const id = video.id || `vid-${Date.now()}`;
-      const url = video.url || (youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : '');
+      const url = video.url || (isTikTok ? (tiktokId ? `https://www.tiktok.com/@thanavuddhostory/video/${tiktokId}` : '') : (youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : ''));
       const thumbnail = video.thumbnail || (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : '/images/books/book-placeholder.jpg');
 
       const newItem: VideoKnowledgeItem = {
         id,
-        youtubeId: youtubeId || 'custom',
+        platform,
+        youtubeId: youtubeId || (isTikTok ? 'tiktok' : 'custom'),
+        tiktokId,
         title: video.title.trim(),
         url,
         thumbnail,
-        channelName: video.channelName || 'Thanavuddho Story (พระครูปลัดสุวัฒนโพธิคุณ)',
+        channelName: video.channelName || (isTikTok ? 'Thanavuddho Story TikTok (@thanavuddhostory)' : 'Thanavuddho Story (พระครูปลัดสุวัฒนโพธิคุณ)'),
+        channelHandle: video.channelHandle || (isTikTok ? '@thanavuddhostory' : '@ThanavuddhoStory'),
         channelHandle: video.channelHandle || '@ThanavuddhoStory',
         description: video.description || '',
         transcript: video.transcript || undefined,

@@ -26,6 +26,15 @@ import { Video } from '@/types';
 import MeloloWatchToEarnWidget from '@/components/rewards/MeloloWatchToEarnWidget';
 import TranscriptViewer from '@/components/media/TranscriptViewer';
 
+function extractTikTokId(url?: string): string {
+  if (!url) return '';
+  const match = url.match(/(?:video\/|v\/|embed\/v2\/|embed\/)(\d+)/);
+  if (match && match[1]) return match[1];
+  const digits = url.match(/\/(\d{15,25})/);
+  if (digits && digits[1]) return digits[1];
+  return '';
+}
+
 interface VideoWatchViewProps {
   video: Video;
   allVideos: Video[];
@@ -39,8 +48,10 @@ export default function VideoWatchView({
   onBackToGrid,
   onSelectVideo
 }: VideoWatchViewProps) {
-  const isVertical = video.orientation === 'vertical' || video.aspect_ratio === '9:16';
-  const isAvailable = video.is_available !== false && Boolean(video.youtubeId || video.video_url);
+  const isTikTok = video.platform === 'tiktok' || !!video.tiktokId || video.video_url?.includes('tiktok.com');
+  const tikTokId = video.tiktokId || extractTikTokId(video.video_url);
+  const isVertical = isTikTok || video.orientation === 'vertical' || video.aspect_ratio === '9:16';
+  const isAvailable = video.is_available !== false && Boolean(video.youtubeId || tikTokId || video.video_url);
 
   const [isMuted, setIsMuted] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -136,8 +147,22 @@ export default function VideoWatchView({
           />
 
           <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30">
-            {isVertical ? <Smartphone className="w-3.5 h-3.5" /> : <Monitor className="w-3.5 h-3.5" />}
-            <span>{isVertical ? 'คลิปแนวตั้ง (9:16)' : 'วิดีโอแนวนอน (16:9)'}</span>
+            {isTikTok ? (
+              <>
+                <span className="text-pink-400 font-black">🎵 TikTok</span>
+                <span>• คลิปแนวตั้ง (9:16)</span>
+              </>
+            ) : isVertical ? (
+              <>
+                <Smartphone className="w-3.5 h-3.5 text-rose-400" />
+                <span>Shorts แนวตั้ง (9:16)</span>
+              </>
+            ) : (
+              <>
+                <Monitor className="w-3.5 h-3.5 text-sky-400" />
+                <span>วิดีโอแนวนอน (16:9)</span>
+              </>
+            )}
           </span>
 
           {isAvailable && (
@@ -183,13 +208,43 @@ export default function VideoWatchView({
                       : 'w-full aspect-video'
                   }`}
                 >
-                  <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&mute=${isMuted ? 1 : 0}&rel=0&modestbranding=1&playsinline=1${seekSeconds !== null ? `&start=${seekSeconds}` : ''}`}
-                    title={video.title}
-                    className="w-full h-full object-cover border-0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  />
+                  {isTikTok && tikTokId ? (
+                    <iframe
+                      src={`https://www.tiktok.com/embed/v2/${tikTokId}`}
+                      title={video.title}
+                      className="w-full h-full object-cover border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  ) : isTikTok && !tikTokId ? (
+                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-zinc-950">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-pink-600 to-rose-500 flex items-center justify-center text-white text-3xl mb-4 shadow-lg animate-pulse">
+                        🎵
+                      </div>
+                      <span className="px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
+                        TikTok ธรรมะวิดีโอ
+                      </span>
+                      <h4 className="text-white font-bold text-base mb-2 max-w-xs">{video.title}</h4>
+                      <p className="text-xs text-zinc-400 mb-6">คลิปสั้นสอนใจจากช่อง @thanavuddhostory</p>
+                      <a
+                        href={video.video_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-400 hover:to-rose-500 text-white font-black text-xs shadow-lg transition-all flex items-center gap-2 active:scale-95"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        <span>เปิดชมคลิปนี้บนแอป TikTok</span>
+                      </a>
+                    </div>
+                  ) : (
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&mute=${isMuted ? 1 : 0}&rel=0&modestbranding=1&playsinline=1${seekSeconds !== null ? `&start=${seekSeconds}` : ''}`}
+                      title={video.title}
+                      className="w-full h-full object-cover border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  )}
                 </div>
               ) : (
                 /* Unavailable Video Error Notice Card */
@@ -244,10 +299,21 @@ export default function VideoWatchView({
               <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 text-xs font-bold">
-                    {isVertical ? 'วิดีโอแนวตั้ง 9:16' : 'วิดีโอแนวนอน 16:9'}
+                    {isTikTok ? '🎵 TikTok ธรรมะ (9:16)' : isVertical ? 'วิดีโอแนวตั้ง 9:16' : 'วิดีโอแนวนอน 16:9'}
                   </span>
                   {video.category_ids && video.category_ids.length > 0 && (
                     <span className="text-xs text-zinc-400">หมวดธรรมะ</span>
+                  )}
+                  {isTikTok && video.video_url && (
+                    <a
+                      href={video.video_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 text-xs font-bold hover:bg-pink-500/30 transition-colors"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      <span>เปิดดูบน TikTok</span>
+                    </a>
                   )}
                 </div>
 

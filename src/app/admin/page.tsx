@@ -280,10 +280,14 @@ export default function AdminDashboardPage() {
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
 
+    const rawUrl = (formData.get('url') as string) || '';
+    const isTikTok = rawUrl.includes('tiktok.com');
+
     const videoData = {
       id: editingVideo?.id || '',
+      platform: isTikTok ? 'tiktok' : 'youtube',
       title: formData.get('title') as string,
-      url: formData.get('url') as string,
+      url: rawUrl,
       youtubeId: formData.get('youtubeId') as string,
       description: formData.get('description') as string,
       channelName: formData.get('channelName') as string,
@@ -1188,42 +1192,53 @@ export default function AdminDashboardPage() {
                   className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-black text-xs shadow-md transition-all active:scale-95 cursor-pointer self-start sm:self-auto"
                 >
                   <Plus size={16} />
-                  <span>เพิ่มวิดีโอใหม่ / แนบ Link YouTube</span>
+                  <span>เพิ่มวิดีโอใหม่ (YouTube / TikTok)</span>
                 </button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {videos.map((vid) => (
-                  <div key={vid.id} className="p-4 rounded-2xl border border-slate-200 hover:border-slate-300 transition-all flex flex-col justify-between bg-white shadow-2xs">
-                    <div>
-                      <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-900 mb-3">
-                        <Image src={vid.thumbnail || `https://img.youtube.com/vi/${vid.youtubeId}/hqdefault.jpg`} alt={vid.title} fill className="object-cover" unoptimized />
-                        {vid.youtubeId && (
-                          <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/40 transition-colors">
-                            <div className="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg">
-                              <Play size={18} className="fill-white ml-0.5" />
+                {videos.map((vid) => {
+                  const isTikTok = vid.platform === 'tiktok' || vid.url?.includes('tiktok.com');
+                  return (
+                    <div key={vid.id} className="p-4 rounded-2xl border border-slate-200 hover:border-slate-300 transition-all flex flex-col justify-between bg-white shadow-2xs">
+                      <div>
+                        <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-900 mb-3">
+                          <Image src={vid.thumbnail || (vid.youtubeId && vid.youtubeId !== 'tiktok' ? `https://img.youtube.com/vi/${vid.youtubeId}/hqdefault.jpg` : '/images/books/book-placeholder.jpg')} alt={vid.title} fill className="object-cover" unoptimized />
+                          <span className={`absolute top-2 left-2 text-[9px] font-black uppercase px-2 py-0.5 rounded shadow-sm text-white ${
+                            isTikTok ? 'bg-pink-600' : 'bg-red-600'
+                          }`}>
+                            {isTikTok ? '🎵 TikTok' : '🔴 YouTube'}
+                          </span>
+                          {!isTikTok && vid.youtubeId && vid.youtubeId !== 'tiktok' && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/40 transition-colors">
+                              <div className="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg">
+                                <Play size={18} className="fill-white ml-0.5" />
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
+
+                        <h4 className="font-black text-slate-900 text-sm line-clamp-2 leading-snug">{vid.title}</h4>
+                        <p className="text-xs text-slate-500 mt-1 line-clamp-2">{vid.description || 'ไม่มีคำอธิบาย'}</p>
+                        <div className="text-[11px] font-mono text-slate-400 mt-2">
+                          {isTikTok ? (
+                            <span>แพลตฟอร์ม: <strong className="text-pink-600">TikTok ธรรมะ</strong></span>
+                          ) : (
+                            <span>YouTube ID: <strong className="text-slate-800">{vid.youtubeId}</strong></span>
+                          )}
+                        </div>
                       </div>
 
-                      <h4 className="font-black text-slate-900 text-sm line-clamp-2 leading-snug">{vid.title}</h4>
-                      <p className="text-xs text-slate-500 mt-1 line-clamp-2">{vid.description || 'ไม่มีคำอธิบาย'}</p>
-                      <div className="text-[11px] font-mono text-slate-400 mt-2">
-                        YouTube ID: <strong className="text-slate-800">{vid.youtubeId}</strong>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                      <a
-                        href={vid.url || `https://www.youtube.com/watch?v=${vid.youtubeId}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-xs font-bold text-rose-600 hover:underline flex items-center gap-1"
-                      >
-                        <ExternalLink size={12} />
-                        <span>เปิดคลิป</span>
-                      </a>
+                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <a
+                          href={vid.url || (isTikTok ? 'https://www.tiktok.com/@thanavuddhostory' : `https://www.youtube.com/watch?v=${vid.youtubeId}`)}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-xs font-bold text-rose-600 hover:underline flex items-center gap-1"
+                        >
+                          <ExternalLink size={12} />
+                          <span>{isTikTok ? 'เปิดดูบน TikTok' : 'เปิดคลิป YouTube'}</span>
+                        </a>
 
                       <div className="flex items-center gap-1">
                         <button
@@ -1632,10 +1647,10 @@ export default function AdminDashboardPage() {
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
                 <div>
                   <h3 className="text-xl font-black text-slate-900">
-                    {editingVideo ? 'แก้ไขข้อมูลวิดีโอ' : 'เพิ่มวิดีโอใหม่ / แนบ Link YouTube'}
+                    {editingVideo ? 'แก้ไขข้อมูลวิดีโอ' : 'เพิ่มวิดีโอใหม่ (YouTube / TikTok)'}
                   </h3>
                   <p className="text-xs text-slate-500">
-                    ใส่ลิงก์ YouTube ระบบจะสกัด YouTube ID และภาพปกให้อัตโนมัติ
+                    รองรับทั้ง YouTube และ TikTok ระบบจะตรวจจับแพลตฟอร์มและสกัด ID ให้อัตโนมัติ
                   </p>
                 </div>
                 <button
@@ -1650,16 +1665,19 @@ export default function AdminDashboardPage() {
                 
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">
-                    ลิงก์คลิป YouTube หรือ Video URL <span className="text-rose-500">*</span>
+                    ลิงก์วิดีโอ (YouTube URL หรือ TikTok URL) <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
                     name="url"
                     defaultValue={editingVideo?.url || ''}
-                    placeholder="เช่น https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                    placeholder="เช่น https://www.youtube.com/watch?v=... หรือ https://www.tiktok.com/@thanavuddhostory/video/..."
                     required
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-mono text-xs focus:ring-2 focus:ring-rose-500"
                   />
+                  <p className="text-[10px] text-slate-400 mt-1">
+                    💡 วางลิงก์ YouTube (16:9 หรือ Shorts) หรือลิงก์ TikTok (@thanavuddhostory) ได้ทันที
+                  </p>
                 </div>
 
                 <div>
