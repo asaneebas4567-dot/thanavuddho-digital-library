@@ -10,26 +10,24 @@ import {
   Play, 
   BookOpen, 
   Headphones, 
-  Video, 
-  Compass, 
-  Coins, 
-  Sparkles,
-  ArrowRight
+  ArrowRight,
+  Sparkles
 } from 'lucide-react';
 import { useLoan } from '@/context/LoanContext';
 
 export interface MebBannerSlide {
   id: string;
-  type: 'book' | 'podcast' | 'video' | 'survey' | 'welcome';
+  type: 'book' | 'podcast' | 'video' | 'survey';
   title: string;
   subtitle: string;
-  description: string;
+  quote: string;
   coverImage: string;
   badge: string;
   targetUrl: string;
-  themeGradient: string; // Rich colorful background theme for the whole banner
+  themeGradient: string; // Tailored, sophisticated, non-harsh background
   glowColor: string;
   tagColor: string;
+  customBannerImage?: string; // Support for custom full-bleed banner artwork
 }
 
 export const HERO_SLIDES: MebBannerSlide[] = [
@@ -37,14 +35,14 @@ export const HERO_SLIDES: MebBannerSlide[] = [
   {
     id: 'slide-mongkol-38',
     type: 'book',
-    title: 'มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า',
-    subtitle: 'แผนที่ชีวิตฉบับสมบูรณ์ 433 หน้าแห่งปัญญา',
-    description: 'บันได 10 ขั้นแห่งการพัฒนาตนเอง ตั้งแต่ก้าวแรกของการไม่คบคนพาล จนถึงจิตเกษมไม่หวั่นไหวในโลกธรรม คำสอนอันทรงคุณค่าโดย พระครูปลัดสุวัฒนโพธิคุณ',
+    title: 'มงคลชีวิต 38 ประการ',
+    subtitle: 'ฉบับทางก้าวหน้า (433 หน้า)',
+    quote: 'แผนที่ชีวิตฉบับสมบูรณ์ ก้าวแรกแห่งปัญญาสู่ความสุขแท้จริง',
     coverImage: '/images/books/mongkol-124.jpg',
     badge: '👑 อันดับ 1 ยอดนิยมสูงสุด',
     targetUrl: '/books/book_mongkol_chiwit_124',
-    themeGradient: 'from-[#072B4A] via-[#0B4B7F] to-[#079FE8]',
-    glowColor: 'bg-sky-400/20',
+    themeGradient: 'from-[#0B1E36] via-[#112F53] to-[#1A4270]',
+    glowColor: 'bg-sky-500/15',
     tagColor: 'bg-amber-400 text-slate-950',
   },
   // 2. ทำใจให้พร้อมบวก
@@ -52,27 +50,27 @@ export const HERO_SLIDES: MebBannerSlide[] = [
     id: 'slide-tamjai-prombuak',
     type: 'book',
     title: 'ทำใจให้พร้อมบวก',
-    subtitle: 'สร้างสุขที่แท้จริง เปลี่ยนวิกฤตเป็นโอกาสด้วยปัญญาธรรม',
-    description: 'สูตรสำเร็จ 3 ประการ "ยอมรับ เข้าใจ เกิดประโยชน์" ดึงมุมมองความคิดสร้างสรรค์ นำพาสติและความสุขสงบสู่ชีวิตประจำวัน',
+    subtitle: 'สร้างสุขแท้จริง เปลี่ยนวิกฤตเป็นโอกาส',
+    quote: 'สูตรสำเร็จ 3 ประการ: "ยอมรับ เข้าใจ เกิดประโยชน์"',
     coverImage: '/images/books/tam-jai-hai-prom-buak.jpg',
     badge: '✨ หนังสือแนะนำประจำสัปดาห์',
     targetUrl: '/books/book_tam_jai_hai_prom_buak',
-    themeGradient: 'from-[#044E54] via-[#0D7C85] to-[#14B8A6]',
-    glowColor: 'bg-teal-400/20',
+    themeGradient: 'from-[#063B2B] via-[#09563F] to-[#0E6C50]',
+    glowColor: 'bg-emerald-500/15',
     tagColor: 'bg-emerald-300 text-teal-950',
   },
-  // 3. อย่ามโน
+  // 3. อย่ามโน (อ้างอิงตามรูปตัวอย่าง อย่ามโน รักแท้มันใหญ่มาก)
   {
     id: 'slide-ya-mano',
     type: 'book',
     title: 'อย่ามโน',
-    subtitle: 'ดึงสติรู้เท่าทันความคิด สลายภาพลวงตาด้วยสัมมาทิฏฐิ',
-    description: 'เรียนรู้วิธีหยุดความคิดฟุ้งซ่านและอุปาทานที่หลอกหลอนตนเอง คืนความปลอดโปร่งและสันติสุขแท้จริงสู่ใจด้วยสติในปัจจุบันขณะ',
+    subtitle: 'รักแท้มันใหญ่มาก',
+    quote: 'ดึงสติรู้เท่าทันความคิด สลายภาพลวงตาด้วยสัมมาทิฏฐิ',
     coverImage: '/images/books/อย่ามโน.jpg',
     badge: '🌸 พัฒนาจิตใจ & ฝึกสติ',
     targetUrl: '/books/book_อย่ามโน',
-    themeGradient: 'from-[#701A75] via-[#9D174D] to-[#F43F5E]',
-    glowColor: 'bg-rose-400/20',
+    themeGradient: 'from-[#421223] via-[#5C1A32] to-[#782242]',
+    glowColor: 'bg-rose-500/15',
     tagColor: 'bg-pink-300 text-rose-950',
   },
   // 4. สมดุลเท่ากับดี
@@ -80,42 +78,70 @@ export const HERO_SLIDES: MebBannerSlide[] = [
     id: 'slide-samdun-dee',
     type: 'book',
     title: 'สมดุลเท่ากับดี',
-    subtitle: 'มัชฌิมาปฏิปทาเพื่อการทำงานและการใช้ชีวิตที่ยั่งยืน',
-    description: 'รักษาสมดุล กาย-ใจ-งาน ไม่ตึงจนหมดไฟ และไม่หย่อนจนคั่งค้าง ประสบความสำเร็จอย่างมีความสุขตามหลักธรรมร่วมสมัย',
+    subtitle: 'มัชฌิมาปฏิปทา กาย-ใจ-งาน',
+    quote: 'สร้างความสำเร็จอย่างยั่งยืน ไม่ตึงจนท้อ ไม่หย่อนจนทิ้ง',
     coverImage: '/images/books/สมดุลเท่ากับดี.jpg',
     badge: '🌿 การทำงาน & ความสำเร็จ',
     targetUrl: '/books/book_สมดุลเท่ากับดี',
-    themeGradient: 'from-[#14532D] via-[#15803D] to-[#22C55E]',
-    glowColor: 'bg-emerald-400/20',
-    tagColor: 'bg-lime-300 text-emerald-950',
+    themeGradient: 'from-[#0E3854] via-[#144F75] to-[#1B6494]',
+    glowColor: 'bg-cyan-500/15',
+    tagColor: 'bg-cyan-300 text-slate-950',
   },
-  // 5. พอดแคสต์ทำใจให้พร้อมบวก
+  // 5. อยู่สุขในยุคดิจิทัล
+  {
+    id: 'slide-yoo-sook-digital',
+    type: 'book',
+    title: 'อยู่สุขในยุคดิจิทัล',
+    subtitle: 'ศิลปะการรับมือผู้คนบนโลกออนไลน์',
+    quote: 'เรียนรู้และสร้างภูมิคุ้มกันใจ ใช้ออนไลน์อย่างมีความสุข',
+    coverImage: '/images/books/yoo-sook-nai-yook-digital.jpg',
+    badge: '📱 วิถีชีวิตดิจิทัล & เควสต์สะสมแต้ม',
+    targetUrl: '/books/book_อยู่สุขในยุคดิจิทัล',
+    themeGradient: 'from-[#172554] via-[#1E3A8A] to-[#2563EB]',
+    glowColor: 'bg-blue-500/15',
+    tagColor: 'bg-sky-300 text-blue-950',
+  },
+  // 6. ความสุข 360 องศา
+  {
+    id: 'slide-happiness-360',
+    type: 'book',
+    title: 'ความสุข 360 องศา',
+    subtitle: 'กะเทาะเปลือกความทุกข์สู่แก่นแท้',
+    quote: 'ค้นพบความสุขรอบตัวที่ยั่งยืนจากภายในในทุกมิติของชีวิต',
+    coverImage: '/images/books/ความสุข-360-องศา.jpg',
+    badge: '☀️ ค้นหาความสุขแท้',
+    targetUrl: '/books/book_ความสุข-360-องศา',
+    themeGradient: 'from-[#522504] via-[#753607] to-[#994709]',
+    glowColor: 'bg-amber-500/15',
+    tagColor: 'bg-amber-300 text-amber-950',
+  },
+  // 7. เขาก็สุข เราก็สุข
+  {
+    id: 'slide-khao-suk-rao-suk',
+    type: 'book',
+    title: 'เขาก็สุข เราก็สุข',
+    subtitle: 'ศิลปะป้องกันใจ สร้างสัมพันธ์งดงาม',
+    quote: 'เปลี่ยนศัตรูให้เป็นมิตร อยู่ร่วมกับผู้อื่นอย่างสันติสุข',
+    coverImage: '/images/books/khao-kor-sook-rao-kor-sook.jpg',
+    badge: '🤝 มิตรภาพ & สังคม',
+    targetUrl: '/books/book_khao_kor_sook_rao_kor_sook',
+    themeGradient: 'from-[#2E1045] via-[#451866] to-[#5C2087]',
+    glowColor: 'bg-purple-500/15',
+    tagColor: 'bg-purple-200 text-purple-950',
+  },
+  // 8. พอดแคสต์ธรรมะเสียงใส
   {
     id: 'slide-podcast-tamjai',
     type: 'podcast',
-    title: 'พอดแคสต์ "ทำใจให้พร้อมบวก" (5 ตอนจบ)',
-    subtitle: 'ฟังเพลิน เติมพลังใจ ได้ทุกที่ทุกเวลา',
-    description: 'เสียงบรรยายธรรมะฟังสบาย ถ่ายทอดแก่นคิดและกำลังใจจากหนังสือเล่มโปรด ให้คุณเริ่มต้นวันใหม่อย่างสดใสและมีสติ',
+    title: 'พอดแคสต์ธรรมะ 5 ตอนจบ',
+    subtitle: 'ฟังสบาย เติมพลังบวกให้ชีวิต',
+    quote: 'เสียงบรรยายธรรมะแง่คิดพัฒนาตนเอง พร้อมเปิดฟังทุกที่ทุกเวลา',
     coverImage: '/images/books/tam-jai-hai-prom-buak.jpg',
-    badge: '🎧 พอดแคสต์ซีรีส์ยอดนิยม',
+    badge: '🎧 พอดแคสต์เสียงธรรม',
     targetUrl: '/audios?podcast=pod-tam-jai-hai-prom-buak',
-    themeGradient: 'from-[#4C1D95] via-[#6D28D9] to-[#8B5CF6]',
-    glowColor: 'bg-purple-400/20',
-    tagColor: 'bg-purple-200 text-purple-950',
-  },
-  // 6. แบบประเมินคุณภาพห้องสมุด รับ 200 แต้ม
-  {
-    id: 'slide-survey-200',
-    type: 'survey',
-    title: 'ร่วมตอบแบบประเมินห้องสมุดดิจิทัล',
-    subtitle: 'รับทันที 200 แต้มสะสมแลกรับของรางวัลที่ระลึก',
-    description: 'ช่วยเราพัฒนาคุณภาพบริการ Thanavuddho Digital Library ให้ดียิ่งขึ้น ตอบแบบสอบถามง่ายๆ ใน 2 นาที รับแต้มสะสมเข้าสู่บัญชีสมาชิกทันที',
-    coverImage: '/images/rewards/bookmark-mongkol.jpg',
-    badge: '🪙 ภารกิจรับแต้ม 200 P',
-    targetUrl: '/survey',
-    themeGradient: 'from-[#78350F] via-[#B45309] to-[#D9A441]',
-    glowColor: 'bg-amber-400/20',
-    tagColor: 'bg-amber-200 text-amber-950',
+    themeGradient: 'from-[#1E1B4B] via-[#2E2875] to-[#3E349E]',
+    glowColor: 'bg-indigo-500/15',
+    tagColor: 'bg-indigo-200 text-indigo-950',
   }
 ];
 
@@ -123,185 +149,242 @@ interface TopBannerCarouselProps {
   autoPlayIntervalMs?: number;
 }
 
-export default function TopBannerCarousel({ autoPlayIntervalMs = 6500 }: TopBannerCarouselProps = {}) {
+export default function TopBannerCarousel({ autoPlayIntervalMs = 7000 }: TopBannerCarouselProps = {}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(3);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchEndXRef = useRef<number | null>(null);
   const { isMediaBorrowed } = useLoan();
 
   const total = HERO_SLIDES.length;
 
+  // Responsive items per page: 3 on desktop, 2 on tablet, 1 on mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (typeof window === 'undefined') return;
+      if (window.innerWidth < 640) {
+        setVisibleCount(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(3);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxIndex = Math.max(0, total - visibleCount);
+
   const nextSlide = useCallback(() => {
-    setCurrentIndex(prev => (prev + 1) % total);
-  }, [total]);
+    setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
+  }, [maxIndex]);
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex(prev => (prev - 1 + total) % total);
-  }, [total]);
+    setCurrentIndex(prev => (prev <= 0 ? maxIndex : prev - 1));
+  }, [maxIndex]);
 
-  // Autoplay (6.5s interval like meb/standard stores)
+  // Autoplay
   useEffect(() => {
     if (isPlaying && !isHovered) {
       timerRef.current = setInterval(() => {
         nextSlide();
-      }, 6500);
+      }, autoPlayIntervalMs);
     }
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isPlaying, isHovered, nextSlide]);
+  }, [isPlaying, isHovered, nextSlide, autoPlayIntervalMs]);
 
-  const active = HERO_SLIDES[currentIndex];
-  const isBorrowed = active.type === 'book' && isMediaBorrowed(active.targetUrl.replace('/books/', ''));
-  const finalUrl = isBorrowed ? active.targetUrl.replace('/books/', '/reader/') : active.targetUrl;
+  // Touch swipe support
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndXRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartXRef.current || !touchEndXRef.current) return;
+    const diff = touchStartXRef.current - touchEndXRef.current;
+    if (diff > 50) {
+      nextSlide();
+    } else if (diff < -50) {
+      prevSlide();
+    }
+    touchStartXRef.current = null;
+    touchEndXRef.current = null;
+  };
 
   return (
     <section 
-      className="relative w-full overflow-hidden select-none"
+      className="w-full bg-gradient-to-b from-slate-100/90 via-slate-50 to-slate-50/50 pt-3 sm:pt-4 pb-4 sm:pb-6 border-b border-slate-200/60 select-none"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      aria-label="แบนเนอร์ประชาสัมพันธ์ห้องสมุดดิจิทัล"
+      aria-label="ไฮไลต์หนังสือและสื่อเด่นประจำสัปดาห์"
     >
-      {/* FULL-WIDTH BANNER STAGE (mebmarket & 2ebook inspired) */}
-      <div className={`relative w-full bg-gradient-to-r ${active.themeGradient} transition-colors duration-700 ease-in-out`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Soft Background Texture & Ambient Lighting */}
-        <div className={`absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none transition-all duration-700 ${active.glowColor}`} />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-black/25 pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
+        {/* CAROUSEL STAGE CONTAINER (MEB Multi-Card Slider) */}
+        <div className="relative group/carousel">
           
-          {/* Entire Banner is 1 Clickable Container */}
-          <Link
-            href={finalUrl}
-            className="group relative flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-12 cursor-pointer focus:outline-none"
-            title={`${active.title} — คลิกเพื่อเข้าสู่เนื้อหา`}
+          {/* TRACK VIEWPORT */}
+          <div 
+            className="overflow-hidden rounded-2xl"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
-            {/* LEFT / CENTER: Promotional Text & Book Info */}
-            <div className="flex-1 min-w-0 text-white z-10 text-center md:text-left space-y-3 sm:space-y-4">
-              
-              {/* Category / Campaign Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold shadow-md tracking-wide"
-                style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', backdropFilter: 'blur(8px)' }}
-              >
-                <span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${active.tagColor}`}>
-                  {active.badge}
-                </span>
-                <span className="text-white/90 text-xs font-medium">Thanavuddho Digital Library</span>
-              </div>
+            <div 
+              className="flex transition-transform duration-500 ease-out"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
+              }}
+            >
+              {HERO_SLIDES.map((slide, idx) => {
+                const isBorrowed = slide.type === 'book' && isMediaBorrowed(slide.targetUrl.replace('/books/', ''));
+                const finalUrl = isBorrowed ? slide.targetUrl.replace('/books/', '/reader/') : slide.targetUrl;
 
-              {/* Main Headline */}
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md group-hover:text-amber-200 transition-colors">
-                {active.title}
-              </h1>
+                return (
+                  <div 
+                    key={slide.id}
+                    className="shrink-0 px-2 sm:px-2.5"
+                    style={{ width: `${100 / visibleCount}%` }}
+                  >
+                    {/* Entire Banner Card is 1 direct clickable Link */}
+                    <Link
+                      href={finalUrl}
+                      className={`group relative h-[195px] sm:h-[210px] lg:h-[220px] rounded-2xl overflow-hidden bg-gradient-to-r ${slide.themeGradient} p-4 sm:p-5 flex items-center justify-between shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-white/10 cursor-pointer block`}
+                      title={`${slide.title} — คลิกเพื่อเข้าสู่เนื้อหา`}
+                    >
+                      {/* Ambient Glow */}
+                      <div className={`absolute top-0 right-1/3 w-40 h-40 rounded-full blur-2xl pointer-events-none transition-all ${slide.glowColor}`} />
+                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-black/25 pointer-events-none" />
 
-              {/* Subtitle / Catchphrase */}
-              <p className="text-sm sm:text-base lg:text-lg font-bold text-white/90 drop-shadow-xs max-w-2xl">
-                {active.subtitle}
-              </p>
+                      {/* LEFT CONTENT: Title, Subtitle, Quote & CTA Indicator */}
+                      <div className="relative z-10 flex-1 min-w-0 pr-3 sm:pr-4 flex flex-col justify-between h-full py-0.5">
+                        
+                        {/* Top: Category Badge */}
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold shadow-xs w-fit"
+                          style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', backdropFilter: 'blur(6px)' }}
+                        >
+                          <span className={`px-1.5 py-0.2 rounded-full text-[9px] sm:text-[10px] font-black ${slide.tagColor}`}>
+                            {slide.badge}
+                          </span>
+                        </div>
 
-              {/* Narrative Description */}
-              <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-2xl line-clamp-3 md:line-clamp-none font-normal">
-                {active.description}
-              </p>
+                        {/* Middle: Title & Slogan */}
+                        <div className="my-auto space-y-1">
+                          <h2 className="text-base sm:text-lg lg:text-xl font-black text-white leading-tight line-clamp-1 group-hover:text-amber-200 transition-colors drop-shadow-sm">
+                            {slide.title}
+                          </h2>
+                          <p className="text-xs sm:text-[13px] font-semibold text-white/90 line-clamp-1 drop-shadow-xs">
+                            {slide.subtitle}
+                          </p>
+                          <p className="text-[11px] sm:text-xs text-white/70 line-clamp-2 leading-relaxed italic font-light">
+                            &ldquo;{slide.quote}&rdquo;
+                          </p>
+                        </div>
 
-              {/* High-visibility Action Indicator (Click to enter) */}
-              <div className="pt-2 sm:pt-4 flex items-center justify-center md:justify-start gap-3">
-                <span className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white text-slate-900 font-bold text-xs sm:text-sm shadow-xl hover:bg-amber-300 transition-all group-hover:scale-105 active:scale-95">
-                  {active.type === 'podcast' ? (
-                    <Headphones size={16} className="text-purple-600" />
-                  ) : active.type === 'survey' ? (
-                    <Coins size={16} className="text-amber-500" />
-                  ) : (
-                    <BookOpen size={16} className="text-[#079FE8]" />
-                  )}
-                  <span>{isBorrowed ? 'คลิกเปิดอ่านได้ทันที' : 'เข้าสู่หน้าหนังสือ / เนื้อหา'}</span>
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                </span>
-                <span className="hidden sm:inline-block text-xs text-white/70 font-light">
-                  *กดที่ป้ายหรือรูปภาพเพื่อเปิดหน้าเนื้อหา
-                </span>
-              </div>
+                        {/* Bottom: Direct Entry Cue */}
+                        <div className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-white/90 group-hover:text-amber-200 transition-colors">
+                          {slide.type === 'podcast' ? (
+                            <Headphones size={13} className="text-purple-300" />
+                          ) : (
+                            <BookOpen size={13} className="text-sky-300" />
+                          )}
+                          <span>{isBorrowed ? 'คลิกเปิดอ่านได้ทันที' : 'เข้าสู่หน้าเนื้อหา'}</span>
+                          <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                        </div>
 
+                      </div>
+
+                      {/* RIGHT: High-Definition 3D Standing Book Cover */}
+                      <div className="relative shrink-0 flex items-center justify-center z-10">
+                        <div className="relative w-24 sm:w-28 lg:w-32 aspect-[1/1.42] rounded-lg overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,0.55)] border border-white/20 group-hover:scale-105 group-hover:-rotate-1 transition-all duration-300 bg-slate-900">
+                          {/* 3D Spine Highlight */}
+                          <div className="absolute left-0 inset-y-0 w-2 bg-gradient-to-r from-black/40 via-white/30 to-transparent z-20 pointer-events-none" />
+                          <div className="absolute right-0 inset-y-0 w-1 bg-slate-300/80 z-20 pointer-events-none" />
+
+                          <Image
+                            src={slide.coverImage}
+                            alt={slide.title}
+                            fill
+                            priority={idx < 3}
+                            className="object-cover"
+                            unoptimized
+                          />
+
+                          {/* Gloss Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/15 pointer-events-none" />
+                        </div>
+                      </div>
+
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
+          </div>
 
-            {/* RIGHT: High-Definition 3D Book Showcase */}
-            <div className="relative shrink-0 flex items-center justify-center z-10">
-              <div className="relative w-44 sm:w-56 md:w-64 lg:w-72 aspect-[1/1.42] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-2 border-white/30 group-hover:scale-104 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.65)] transition-all duration-500 bg-slate-900">
-                {/* 3D Spine Highlight */}
-                <div className="absolute left-0 inset-y-0 w-2.5 bg-gradient-to-r from-black/40 via-white/30 to-transparent z-20 pointer-events-none" />
-                <div className="absolute right-0 inset-y-0 w-1 bg-slate-300/80 z-20 pointer-events-none" />
+          {/* PREV / NEXT ARROWS (Floating Clean Controls) */}
+          <button
+            onClick={prevSlide}
+            aria-label="เลื่อนไปแถบก่อนหน้า"
+            className="absolute -left-3 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white text-slate-800 shadow-xl flex items-center justify-center hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all border border-slate-200 cursor-pointer opacity-90 hover:opacity-100"
+          >
+            <ChevronLeft size={20} className="sm:size-6" />
+          </button>
 
-                <Image
-                  src={active.coverImage}
-                  alt={active.title}
-                  fill
-                  priority
-                  className="object-cover"
-                  unoptimized
-                />
-
-                {/* Subtle Gloss Sheen Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-white/20 pointer-events-none" />
-              </div>
-            </div>
-
-          </Link>
+          <button
+            onClick={nextSlide}
+            aria-label="เลื่อนไปแถบถัดไป"
+            className="absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white text-slate-800 shadow-xl flex items-center justify-center hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all border border-slate-200 cursor-pointer opacity-90 hover:opacity-100"
+          >
+            <ChevronRight size={20} className="sm:size-6" />
+          </button>
 
         </div>
 
-        {/* BOTTOM CONTROLS & PAGINATION (meb style) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-3 sm:pb-4 flex items-center justify-between gap-4 border-t border-white/10 pt-2 sm:pt-3">
+        {/* BOTTOM PAGINATION & CONTROLS */}
+        <div className="mt-3 sm:mt-4 flex items-center justify-between gap-4 px-1">
           
-          {/* Slide Indicator Dots */}
+          {/* Slide Dots Indicator */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {HERO_SLIDES.map((slide, idx) => (
+            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
               <button
-                key={slide.id}
+                key={idx}
                 onClick={() => setCurrentIndex(idx)}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   idx === currentIndex 
-                    ? 'w-7 sm:w-8 h-2 sm:h-2.5 bg-white shadow-md' 
-                    : 'w-2 sm:w-2.5 h-2 sm:h-2.5 bg-white/40 hover:bg-white/70'
+                    ? 'w-6 sm:w-7 h-2 sm:h-2.5 bg-blue-600 shadow-sm' 
+                    : 'w-2 sm:w-2.5 h-2 sm:h-2.5 bg-slate-300 hover:bg-slate-400'
                 }`}
-                title={`ไปที่สไลด์ ${idx + 1}: ${slide.title}`}
-                aria-label={`ไปที่สไลด์ ${idx + 1}`}
+                title={`ไปที่ชุดที่ ${idx + 1}`}
+                aria-label={`ไปที่ชุดที่ ${idx + 1}`}
               />
             ))}
           </div>
 
-          {/* Controls: Prev / Next / Pause */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="text-[11px] font-mono text-white/80 mr-1 sm:mr-2">
-              {currentIndex + 1} / {total}
+          {/* Play/Pause & Counter */}
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] font-mono text-slate-500">
+              {currentIndex + 1} / {maxIndex + 1}
             </span>
 
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center transition-all cursor-pointer"
+              className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition-all cursor-pointer"
               title={isPlaying ? 'หยุดเล่นอัตโนมัติ' : 'เล่นอัตโนมัติ'}
               aria-label={isPlaying ? 'หยุดเล่นอัตโนมัติ' : 'เล่นอัตโนมัติ'}
             >
-              {isPlaying ? <Pause size={12} /> : <Play size={12} className="translate-x-0.5" />}
-            </button>
-
-            <button
-              onClick={prevSlide}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center transition-all cursor-pointer"
-              title="สไลด์ก่อนหน้า"
-              aria-label="สไลด์ก่อนหน้า"
-            >
-              <ChevronLeft size={16} />
-            </button>
-
-            <button
-              onClick={nextSlide}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center transition-all cursor-pointer"
-              title="สไลด์ถัดไป"
-              aria-label="สไลด์ถัดไป"
-            >
-              <ChevronRight size={16} />
+              {isPlaying ? <Pause size={11} /> : <Play size={11} className="translate-x-0.5" />}
             </button>
           </div>
 
