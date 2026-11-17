@@ -194,7 +194,7 @@ export default function WelcomeIntroSection() {
                   <tr>
                     <td className="py-2 pr-4 font-medium">ระบบสุ่มภารกิจ Game Quest ประจำวัน</td>
                     <td className="py-2 px-3 text-center bg-white/5 text-zinc-400">✕ ต้องเป็นสมาชิก</td>
-                    <td className="py-2 px-3 text-center bg-[#D9A441]/10 font-bold text-[#FEF08A]">✓ รับเควสสุ่มและโบนัส</td>
+                    <td className="py-2 px-3 text-center bg-[#D9A441]/10 font-bold text-[#FEF08A]">✓ รับเควสต์สุ่มและโบนัส</td>
                   </tr>
                   <tr>
                     <td className="py-2 pr-4 font-medium">นำคะแนนไปแลกหนังสือเล่มจริงและของรางวัล</td>
@@ -343,7 +343,7 @@ export default function WelcomeIntroSection() {
                 <Gift size={20} />
               </div>
               <h4 className="font-extrabold text-sm text-white group-hover:text-[#FEF08A] transition-colors">
-                เควส & ร้านแลกรางวัล
+                เควสต์ & ร้านแลกรางวัล
               </h4>
               <p className="text-[11px] text-sky-100/90 mt-1 line-clamp-2">
                 สะสมแต้มบุญจากการศึกษาธรรมะ แลกหนังสือเล่มจริงและของที่ระลึก 21 ชิ้น

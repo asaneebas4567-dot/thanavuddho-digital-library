@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       questNumber: Number(body.questNumber) || 1,
       title: body.title.trim(),
       subtitle: body.subtitle?.trim() || '',
-      categoryTag: body.categoryTag?.trim() || '🥚 เควสลับประจำหน้า',
+      categoryTag: body.categoryTag?.trim() || '🥚 เควสต์ลับประจำหน้า',
       questType: body.questType || 'side',
       isLegendary: Boolean(body.isLegendary),
       difficulty: body.difficulty || 'ปกติ',
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error saving quest:', error);
     return NextResponse.json(
-      { success: false, error: 'ไม่สามารถบันทึกเควสได้' },
+      { success: false, error: 'ไม่สามารถบันทึกเควสต์ได้' },
       { status: 500 }
     );
   }
@@ -100,7 +100,7 @@ export async function DELETE(request: NextRequest) {
 
     if (!id) {
       return NextResponse.json(
-        { success: false, error: 'กรุณาระบุ id ของเควสที่ต้องการลบ' },
+        { success: false, error: 'กรุณาระบุ id ของเควสต์ที่ต้องการลบ' },
         { status: 400 }
       );
     }
@@ -108,12 +108,12 @@ export async function DELETE(request: NextRequest) {
     const deleted = deleteCustomQuest(id);
     if (!deleted) {
       return NextResponse.json(
-        { success: false, error: 'ไม่พบเควสนี้ในระบบ หรือเป็นเควสระบบหลักที่ไม่สามารถลบได้' },
+        { success: false, error: 'ไม่พบเควสต์นี้ในระบบ หรือเป็นเควสต์ระบบหลักที่ไม่สามารถลบได้' },
         { status: 404 }
       );
     }
 
-    return NextResponse.json({ success: true, message: 'ลบเควสเรียบร้อยแล้ว' });
+    return NextResponse.json({ success: true, message: 'ลบเควสต์เรียบร้อยแล้ว' });
   } catch (error) {
     console.error('Error deleting quest:', error);
     return NextResponse.json(

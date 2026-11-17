@@ -356,7 +356,7 @@ export default function BookQuestManager({
         playWebAudioSound('discover', soundEnabled);
         setChapterToast({
           show: true,
-          title: `ปลดล็อกเควสสำเร็จ: ${pageQuest.title}`,
+          title: `ปลดล็อกเควสต์สำเร็จ: ${pageQuest.title}`,
           detail: `คุณศึกษาบทนี้ครบ ${pageQuestPacing.requiredMinutesDisplay} แล้ว พร้อมตอบคำถามรับแต้มสะสม!`
         });
       }
@@ -753,7 +753,7 @@ export default function BookQuestManager({
           title="เปิดสมุดภารกิจ Quest Journal & Easter Eggs"
         >
           <Compass size={14} className="text-sky-100 group-hover:rotate-45 transition-transform" />
-          <span>เควส ({completedQuestIds.length}/{allBookQuests.length})</span>
+          <span>เควสต์ ({completedQuestIds.length}/{allBookQuests.length})</span>
         </button>
       </div>
 
@@ -801,7 +801,7 @@ export default function BookQuestManager({
                   <button 
                     onClick={closeQuestModal}
                     className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
-                    aria-label="ปิดหน้าต่างเควส"
+                    aria-label="ปิดหน้าต่างเควสต์"
                   >
                     <X size={20} />
                   </button>

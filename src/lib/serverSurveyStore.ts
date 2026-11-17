@@ -96,7 +96,7 @@ export const DEFAULT_SURVEY_QUESTIONS: SurveyQuestion[] = [
     id: 'q_gamification_rewards',
     category: 'website',
     categoryTitleTh: 'ระบบแต้มสะสมและของรางวัล',
-    questionText: 'ความพึงพอใจต่อระบบสะสมแต้มปัญญาบารมี เควสธรรมะ และการแลกของที่ระลึก',
+    questionText: 'ความพึงพอใจต่อระบบสะสมแต้มปัญญาบารมี เควสต์ธรรมะ และการแลกของที่ระลึก',
     questionType: 'rating',
     scaleMin: 1,
     scaleMax: 5,

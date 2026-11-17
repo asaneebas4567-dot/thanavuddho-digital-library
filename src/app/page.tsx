@@ -286,7 +286,7 @@ export default function Home() {
           />
         </div>
 
-        {/* 2. ศูนย์รวมเควสธรรมะ & กระเป๋าแต้มสะสม (Sleek Compact Bar) */}
+        {/* 2. ศูนย์รวมเควสต์ธรรมะ & กระเป๋าแต้มสะสม (Sleek Compact Bar) */}
         <HomeQuestWidget />
 
         {/* Shelf 0: หนังสือลิขสิทธิ์มาใหม่ล่าสุด (Rose/Red Pastel Tint) */}

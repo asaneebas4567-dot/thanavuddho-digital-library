@@ -56,7 +56,7 @@ const quests = all38.map((m) => {
   let categoryTag = '📜 ภารกิจมงคลชีวิต (Life Quest)';
   let questType = 'side';
   if (isLegendary) {
-    categoryTag = '🌟 เควสระดับตำนาน (Genshin Legendary Quest)';
+    categoryTag = '🌟 เควสต์ระดับตำนาน (Genshin Legendary Quest)';
     questType = 'legendary';
   } else if (isMain) {
     categoryTag = '👑 ภารกิจหลักสูงสุด (Main Quest)';
@@ -95,7 +95,7 @@ const quests = all38.map((m) => {
 
 // Generate TypeScript code
 const tsContent = `/**
- * รายการเควสมงคลชีวิต 38 ประการ ครบทุกมงคล (มงคลที่ 1 ถึง 38)
+ * รายการเควสต์มงคลชีวิต 38 ประการ ครบทุกมงคล (มงคลที่ 1 ถึง 38)
  * แต่ละมงคลมีชุดคำถามทดสอบปัญญา 5 ข้อ (หรือ 4 ข้อ) ครบถ้วนตามคำสอนในหนังสือมงคลชีวิต ฉบับทางก้าวหน้า
  * สร้างขึ้นอัตโนมัติตามโครงสร้าง BookEasterEggQuest
  */

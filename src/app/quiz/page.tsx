@@ -157,8 +157,8 @@ function QuizGamificationContent() {
       if (activeQuiz.level === 'comprehensive') {
         const newCert: DhammaCertificate = {
           id: `cert-${Date.now()}`,
-          user_name: 'ศิษย์ผู้มีศรัทธาในพระธรรม',
-          exam_title: 'การประมวลความรู้มหาบัณฑิตธรรมศึกษาดิจิทัล',
+          user_name: 'ผู้ศึกษาพระธรรม',
+          exam_title: 'การประมวลความรู้ธรรมศึกษาดิจิทัล',
           score: scorePercent,
           total_questions: activeQuiz.questions.length,
           issued_at: new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }),
@@ -180,13 +180,13 @@ function QuizGamificationContent() {
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#073B65] via-[#0B4E85] to-[#079FE8] text-white p-8 sm:p-12 mb-10 shadow-xl shadow-sky-950/10">
           <div className="relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/15 text-white text-xs font-bold border border-white/20 mb-3">
-              <Trophy size={14} className="text-[#D9A441]" /> ระบบเกมมิฟิเคชัน & แบบทดสอบความรู้ (Gamification & Quiz)
+              <Trophy size={14} className="text-[#D9A441]" /> ระบบแบบทดสอบความรู้และสะสมคะแนน
             </div>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight mb-4">
-              ทดสอบปัญญาธรรม <span className="text-sky-200">4 ระดับสู่ความรู้แจ้ง</span>
+              ทดสอบปัญญาธรรม <span className="text-sky-200">4 ระดับความเข้าใจ</span>
             </h1>
             <p className="text-sky-100/90 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
-              วัดระดับความเข้าใจ สะสมคะแนน XP ปลดล็อกเหรียญตราเกียรติยศ และรับใบประกาศนียบัตร "มหาบัณฑิตธรรมศึกษาดิจิทัล" ครอบคลุมตั้งแต่รายบทจนถึงภาพรวมทั้งหมด
+              วัดระดับความเข้าใจ สะสมคะแนน XP ปลดล็อกเหรียญตรา และรับใบประกาศนียบัตรประมวลความรู้ธรรมศึกษา ครอบคลุมตั้งแต่แบบทดสอบรายบทจนถึงภาพรวมท้ายเล่ม
             </p>
 
             {/* User Gamification Stats Bar */}
@@ -478,20 +478,20 @@ function QuizGamificationContent() {
         </div>
 
         {/* End-of-Book Exam Standards & Status Guide */}
-        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-sky-50 via-indigo-50 to-sky-50 border border-sky-200 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2">
+        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2">
           <div className="flex items-center gap-2 font-bold text-[#073B65]">
             <GraduationCap className="w-5 h-5 text-[#079FE8]" />
-            <span>มาตรฐานข้อสอบประมวลความรู้ท้ายเล่ม (End-of-Book Comprehensive Exam — รับ 500 คะแนน)</span>
+            <span>ข้อสอบประมวลความรู้ท้ายเล่ม (500 คะแนน)</span>
           </div>
           <div className="text-slate-600 text-xs leading-relaxed space-y-1">
             <p>
-              • <strong>ไม่มีการเด้งขัดจังหวะขณะอ่าน:</strong> ข้อสอบประมวลความรู้ท้ายเล่ม 500 คะแนน จะไม่เด้งขึ้นมาระหว่างอ่านหนังสือ ผู้เรียนต้องศึกษาเนื้อหาในเล่มให้เข้าใจลึกซึ้ง แล้วเข้ามาสอบวัดผลด้วยตนเองที่หน้านี้
+              • <strong>ไม่มีการเด้งขัดจังหวะขณะอ่าน:</strong> ข้อสอบประมวลความรู้ท้ายเล่มจะไม่ปรากฏขึ้นระหว่างอ่านหนังสือ ผู้เรียนสามารถศึกษาเนื้อหาและเข้ามาทำข้อสอบวัดผลได้ที่หน้านี้
             </p>
             <p>
-              • <strong>เล่มที่เปิดระบบข้อสอบท้ายเล่ม 500 แต้มแล้ว:</strong> มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า, ทำใจให้พร้อมบวก, อย่ามโน, สมดุลเท่ากับดี และ เขาก็สุข เราก็สุข
+              • <strong>เล่มที่มีข้อสอบท้ายเล่ม:</strong> มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า, ทำใจให้พร้อมบวก, อย่ามโน, สมดุลเท่ากับดี และ เขาก็สุข เราก็สุข
             </p>
-            <p className="text-amber-800 font-medium">
-              • <strong>สถานะหนังสือเล่มอื่น ๆ:</strong> เล่มที่ยังไม่มีข้อสอบท้ายเล่ม กำลังอยู่ในกระบวนการสแกนและสังเคราะห์ชุดคำถามมาตรฐานเชิงลึก เพื่อรับรองมาตรฐานวิชาการตามที่ผู้ใช้กำหนด
+            <p className="text-slate-500 font-normal">
+              • <strong>สถานะหนังสือเล่มอื่น ๆ:</strong> อยู่ระหว่างจัดเตรียมชุดข้อสอบวัดผล
             </p>
           </div>
         </div>

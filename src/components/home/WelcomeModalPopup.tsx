@@ -83,7 +83,7 @@ export default function WelcomeModalPopup() {
           ยินดีต้อนรับสู่ Thanavuddho Digital Library
         </h2>
         <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed max-w-md mx-auto mb-4 sm:mb-5">
-          คลังสารสนเทศเพื่อการเรียนรู้ธรรมะ รวบรวมหนังสือฉบับเต็ม วิดีโอธรรมบรรยาย พอดแคสต์ และเควสสะสมแต้มบุญปัญญา โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)
+          คลังสารสนเทศเพื่อการเรียนรู้ธรรมะ รวบรวมหนังสือฉบับเต็ม วิดีโอธรรมบรรยาย พอดแคสต์ และเควสต์สะสมแต้มบุญปัญญา โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)
         </p>
 
         {/* 4 Feature Pills (Clean, Light Pastels) */}
@@ -123,7 +123,7 @@ export default function WelcomeModalPopup() {
               <Award size={14} className="sm:w-4 sm:h-4" />
             </div>
             <div className="min-w-0">
-              <div className="text-[11px] sm:text-xs font-black text-slate-900 truncate">เควส & แต้มบุญ</div>
+              <div className="text-[11px] sm:text-xs font-black text-slate-900 truncate">เควสต์ & แต้มบุญ</div>
               <div className="text-[9px] sm:text-[10px] text-slate-500 truncate">แลกของรางวัล</div>
             </div>
           </div>

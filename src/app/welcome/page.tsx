@@ -187,7 +187,7 @@ export default function WelcomePage() {
               <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
                 <Gift size={20} />
               </div>
-              <h4 className="font-extrabold text-sm text-slate-900">4. เควสทางปัญญา & ร้านแลกรางวัล</h4>
+              <h4 className="font-extrabold text-sm text-slate-900">4. เควสต์ทางปัญญา & ร้านแลกรางวัล</h4>
               <p className="text-xs text-slate-600 leading-relaxed">
                 ทำภารกิจศึกษาธรรมะประจำวัน สะสมแต้มบุญบารมี แล้วนำคะแนนมาแลกหนังสือเล่มจริง กล่อง Boxset ที่ระลึก และของรางวัลจัดส่งถึงบ้าน
               </p>
@@ -249,7 +249,7 @@ export default function WelcomePage() {
                 <tr>
                   <td className="py-2.5 pr-4 font-medium">สุ่มภารกิจ Game Quest ประจำวัน</td>
                   <td className="py-2.5 px-3 text-center bg-slate-50 text-slate-400">✕ ต้องเป็นสมาชิก</td>
-                  <td className="py-2.5 px-3 text-center bg-amber-50/60 font-bold text-amber-600">✓ รับโบนัสเควส</td>
+                  <td className="py-2.5 px-3 text-center bg-amber-50/60 font-bold text-amber-600">✓ รับโบนัสเควสต์</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 pr-4 font-medium">แลกรับหนังสือเล่มจริงและของที่ระลึก</td>

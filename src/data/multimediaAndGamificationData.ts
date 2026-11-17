@@ -477,8 +477,8 @@ export const quizzes: Quiz[] = [
   // ระดับที่ 4: ทดสอบเมื่อจบเนื้อหาทั้งหมด (Comprehensive Grand Dhamma Exam)
   {
     id: 'quiz-lvl4-grand-exam',
-    title: 'แบบทดสอบมหาบัณฑิตธรรมศึกษาดิจิทัล (Comprehensive Grand Exam)',
-    description: 'ข้อสอบประมวลผลการเรียนรู้ทุกมิติของ Digital Library เพื่อรับใบประกาศนียบัตรเกียรติคุณธรรมศึกษา',
+    title: 'แบบทดสอบประมวลความรู้ธรรมศึกษาดิจิทัล (Comprehensive Grand Exam)',
+    description: 'ข้อสอบประมวลผลการเรียนรู้ทุกมิติของ Digital Library เพื่อรับใบประกาศนียบัตรประมวลความรู้',
     level: 'comprehensive',
     level_label: 'ระดับที่ 4: จบเนื้อหาทั้งหมด (Grand Dhamma Exam)',
     target_id: 'all',
@@ -576,9 +576,9 @@ export const initialBadges: Badge[] = [
   },
   {
     id: 'badge-grand-sage',
-    name: 'มหาบัณฑิตธรรมศึกษา (Grand Dhamma Sage)',
-    description: 'พิชิตแบบทดสอบครอบคลุมเนื้อหาทั้งหมด (Level 4) ได้รับวุฒิบัตรดิจิทัล',
-    icon: '🎓',
+    name: 'ผู้สำเร็จประมวลความรู้ธรรมศึกษา (Grand Dhamma Certificate)',
+    description: 'ผ่านแบบทดสอบประมวลความรู้ครอบคลุมเนื้อหาทั้งหมด (Level 4) ได้รับวุฒิบัตรดิจิทัล',
+    icon: '📜',
     level_required: 'comprehensive',
     earned: false
   }

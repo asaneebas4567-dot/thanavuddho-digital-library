@@ -88,7 +88,7 @@ export default function DailyActivityWidget({ onClose, isModal = false }: DailyA
               +{todayPoints.toLocaleString()} <span className="text-sm font-semibold text-white/90">P</span>
             </div>
             <div className="text-[10px] text-sky-200/80">
-              กิจกรรมทั่วไป {dailyLearningPoints} P • โบนัสเควส {Math.max(0, todayPoints - dailyLearningPoints)} P
+              กิจกรรมทั่วไป {dailyLearningPoints} P • โบนัสเควสต์ {Math.max(0, todayPoints - dailyLearningPoints)} P
             </div>
           </div>
         </div>
@@ -222,12 +222,12 @@ export default function DailyActivityWidget({ onClose, isModal = false }: DailyA
       <div className="mt-3.5 p-3.5 rounded-xl bg-sky-50/40 border border-sky-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
         <span className="text-foreground/90 flex items-center gap-2">
           <Award className="w-4 h-4 text-sky-600 shrink-0" />
-          <span>แบบทดสอบ/เควสปัญญาธรรมสำเร็จวันนี้:</span>
-          <strong>{quizzesCompletedToday} เควส</strong>
+          <span>แบบทดสอบ/เควสต์ปัญญาธรรมสำเร็จวันนี้:</span>
+          <strong>{quizzesCompletedToday} เควสต์</strong>
         </span>
         <div className="flex items-center gap-2">
           <span className="text-[11px] font-bold text-sky-700 bg-sky-100/90 px-2 py-0.5 rounded-md border border-sky-300/60">
-            โบนัสพิเศษ +5 ถึง 10 P/เควส
+            โบนัสพิเศษ +5 ถึง 10 P/เควสต์
           </span>
           <span className="text-[10px] text-muted-foreground hidden sm:inline">
             (ไม่นับรวมในโควตา 100 P)

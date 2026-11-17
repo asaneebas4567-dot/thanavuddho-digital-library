@@ -173,7 +173,7 @@ export default function QuestEditorPage() {
   };
 
   const handleDeleteQuest = async (questId: string) => {
-    if (!confirm('คุณต้องการลบเควสนี้ใช่หรือไม่? (เควส Built-in หลักจะไม่สามารถลบได้)')) return;
+    if (!confirm('คุณต้องการลบเควสต์นี้ใช่หรือไม่? (เควสต์ Built-in หลักจะไม่สามารถลบได้)')) return;
 
     try {
       const res = await fetch(`/api/quests?id=${encodeURIComponent(questId)}`, {
@@ -181,21 +181,21 @@ export default function QuestEditorPage() {
       });
       const data = await res.json();
       if (data.success) {
-        showToast('ลบเควสสำเร็จแล้ว');
+        showToast('ลบเควสต์สำเร็จแล้ว');
         fetchQuests(selectedBookId);
       } else {
-        alert(data.error || 'ไม่สามารถลบเควสได้');
+        alert(data.error || 'ไม่สามารถลบเควสต์ได้');
       }
     } catch (err) {
       console.error('Delete error:', err);
-      alert('เกิดข้อผิดพลาดในการลบเควส');
+      alert('เกิดข้อผิดพลาดในการลบเควสต์');
     }
   };
 
   const handleSaveQuest = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formTitle.trim() || !formQuestion.trim()) {
-      alert('กรุณากรอกชื่อเควสและคำถามให้ครบถ้วน');
+      alert('กรุณากรอกชื่อเควสต์และคำถามให้ครบถ้วน');
       return;
     }
 
@@ -235,15 +235,15 @@ export default function QuestEditorPage() {
 
       const data = await res.json();
       if (data.success) {
-        showToast(editingQuest ? 'อัปเดตข้อมูลเควสเรียบร้อยแล้ว' : 'สร้างเควสใหม่สำเร็จแล้ว');
+        showToast(editingQuest ? 'อัปเดตข้อมูลเควสต์เรียบร้อยแล้ว' : 'สร้างเควสต์ใหม่สำเร็จแล้ว');
         setIsFormOpen(false);
         fetchQuests(selectedBookId);
       } else {
-        alert(data.error || 'ไม่สามารถบันทึกเควสได้');
+        alert(data.error || 'ไม่สามารถบันทึกเควสต์ได้');
       }
     } catch (err) {
       console.error('Save error:', err);
-      alert('เกิดข้อผิดพลาดในการบันทึกเควส');
+      alert('เกิดข้อผิดพลาดในการบันทึกเควสต์');
     } finally {
       setIsSubmitting(false);
     }
@@ -270,10 +270,10 @@ export default function QuestEditorPage() {
             Quest Editor • Private Admin Access
           </span>
           <h2 className="text-xl sm:text-2xl font-black text-white mt-1 mb-2">
-            ระบบจัดการเควส & แบบทดสอบ
+            ระบบจัดการเควสต์ & แบบทดสอบ
           </h2>
           <p className="text-xs text-slate-400 mb-6 leading-relaxed">
-            เฉพาะผู้ดูแลระบบที่ได้รับอนุญาตเท่านั้น ป้อนรหัสผ่านด่วนเพื่อเข้าสู่ระบบจัดการเควสหนังสือ
+            เฉพาะผู้ดูแลระบบที่ได้รับอนุญาตเท่านั้น ป้อนรหัสผ่านด่วนเพื่อเข้าสู่ระบบจัดการเควสต์หนังสือ
           </p>
 
           <form onSubmit={handlePasscodeUnlock} className="space-y-4">
@@ -305,7 +305,7 @@ export default function QuestEditorPage() {
               type="submit"
               className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black text-sm shadow-md transition-all active:scale-95 cursor-pointer"
             >
-              ปลดล็อกเข้าสู่เครื่องมือจัดการเควส
+              ปลดล็อกเข้าสู่เครื่องมือจัดการเควสต์
             </button>
           </form>
 
@@ -377,7 +377,7 @@ export default function QuestEditorPage() {
               className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs transition-all shadow-lg shadow-amber-500/20 active:scale-95 cursor-pointer"
             >
               <Plus size={16} />
-              <span>เพิ่มเควสใหม่</span>
+              <span>เพิ่มเควสต์ใหม่</span>
             </button>
           </div>
         </div>
@@ -386,7 +386,7 @@ export default function QuestEditorPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="md:col-span-2 p-5 rounded-3xl bg-slate-900 border border-slate-800 space-y-3">
             <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
-              เลือกหนังสือที่ต้องการจัดการเควส
+              เลือกหนังสือที่ต้องการจัดการเควสต์
             </label>
             <select
               value={selectedBookId}
@@ -409,7 +409,7 @@ export default function QuestEditorPage() {
               <Sparkles size={24} />
             </div>
             <div>
-              <p className="text-xs text-slate-400 font-medium">จำนวนเควสทั้งหมด</p>
+              <p className="text-xs text-slate-400 font-medium">จำนวนเควสต์ทั้งหมด</p>
               <p className="text-2xl font-black text-white">{quests.length} จุด</p>
               <p className="text-[10px] text-emerald-400 font-mono">พร้อมทำงานในระบบ</p>
             </div>
@@ -447,7 +447,7 @@ export default function QuestEditorPage() {
                 type="text"
                 value={searchFilter}
                 onChange={(e) => setSearchFilter(e.target.value)}
-                placeholder="ค้นหาชื่อเควส คำถาม หรือหน้า..."
+                placeholder="ค้นหาชื่อเควสต์ คำถาม หรือหน้า..."
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
               />
             </div>
@@ -457,17 +457,17 @@ export default function QuestEditorPage() {
           {isLoading ? (
             <div className="p-12 text-center text-slate-400 text-sm flex items-center justify-center gap-2">
               <RefreshCw size={18} className="animate-spin text-amber-500" />
-              <span>กำลังโหลดข้อมูลเควส...</span>
+              <span>กำลังโหลดข้อมูลเควสต์...</span>
             </div>
           ) : filteredQuests.length === 0 ? (
             <div className="p-12 text-center text-slate-500 text-sm">
               <Sparkles size={32} className="mx-auto mb-2 opacity-40 text-amber-400" />
-              <p>ยังไม่มีเควสสำหรับหนังสือเล่มนี้</p>
+              <p>ยังไม่มีเควสต์สำหรับหนังสือเล่มนี้</p>
               <button
                 onClick={handleOpenCreate}
                 className="mt-3 text-xs text-amber-400 hover:text-amber-300 font-bold underline"
               >
-                + คลิกที่นี่เพื่อเพิ่มเควสแรก
+                + คลิกที่นี่เพื่อเพิ่มเควสต์แรก
               </button>
             </div>
           ) : (
@@ -541,14 +541,14 @@ export default function QuestEditorPage() {
                           <button
                             onClick={() => handleOpenEdit(q)}
                             className="p-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 transition-colors cursor-pointer"
-                            title="แก้ไขเควส"
+                            title="แก้ไขเควสต์"
                           >
                             <Edit size={14} />
                           </button>
                           <button
                             onClick={() => handleDeleteQuest(q.id)}
                             className="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 transition-colors cursor-pointer"
-                            title="ลบเควส"
+                            title="ลบเควสต์"
                           >
                             <Trash2 size={14} />
                           </button>
@@ -577,7 +577,7 @@ export default function QuestEditorPage() {
                   <Compass size={22} className="text-amber-400" />
                   <div>
                     <h3 className="font-black text-lg text-white">
-                      {editingQuest ? 'แก้ไขเควสประจำบท' : 'สร้างภารกิจ / Easter Egg ใหม่'}
+                      {editingQuest ? 'แก้ไขเควสต์ประจำบท' : 'สร้างภารกิจ / Easter Egg ใหม่'}
                     </h3>
                     <p className="text-xs text-slate-400">
                       บันทึกพิกัดหน้า เงื่อนไข และคำสอนแท้จริงเพื่อเปิดทางสำรวจ
@@ -612,14 +612,14 @@ export default function QuestEditorPage() {
                   </div>
 
                   <div>
-                    <label className="font-bold text-slate-300 block mb-1">ประเภทเควส</label>
+                    <label className="font-bold text-slate-300 block mb-1">ประเภทเควสต์</label>
                     <select
                       value={formQuestType}
                       onChange={(e) => {
                         const val = e.target.value as any;
                         setFormQuestType(val);
                         if (val === 'main') setFormCategoryTag('📜 ภารกิจหลัก');
-                        else if (val === 'legendary') setFormCategoryTag('🌟 เควสระดับตำนาน ⭐⭐⭐⭐⭐');
+                        else if (val === 'legendary') setFormCategoryTag('🌟 เควสต์ระดับตำนาน ⭐⭐⭐⭐⭐');
                         else if (val === 'discovery') setFormCategoryTag('🧭 การค้นพบลับ');
                         else setFormCategoryTag('🛡️ ภารกิจรอง');
                       }}
@@ -627,13 +627,13 @@ export default function QuestEditorPage() {
                     >
                       <option value="main">📜 ภารกิจหลัก (Main Quest)</option>
                       <option value="side">🛡️ ภารกิจรอง (Side Quest)</option>
-                      <option value="legendary">🌟 เควสระดับตำนาน (Legendary)</option>
+                      <option value="legendary">🌟 เควสต์ระดับตำนาน (Legendary)</option>
                       <option value="discovery">🧭 การค้นพบลับ (Discovery)</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="font-bold text-slate-300 block mb-1">ลำดับเควส (#)</label>
+                    <label className="font-bold text-slate-300 block mb-1">ลำดับเควสต์ (#)</label>
                     <input
                       type="number"
                       value={formQuestNumber}
@@ -648,7 +648,7 @@ export default function QuestEditorPage() {
                 {/* 2. Title & Subtitle */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="font-bold text-slate-300 block mb-1">ชื่อเควส / ภารกิจ *</label>
+                    <label className="font-bold text-slate-300 block mb-1">ชื่อเควสต์ / ภารกิจ *</label>
                     <input
                       type="text"
                       value={formTitle}
@@ -852,7 +852,7 @@ export default function QuestEditorPage() {
                     className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black shadow-lg shadow-amber-500/20 active:scale-95 disabled:opacity-50 cursor-pointer flex items-center gap-1.5"
                   >
                     <CheckCircle2 size={16} />
-                    <span>{isSubmitting ? 'กำลังบันทึก...' : editingQuest ? 'บันทึกการแก้ไข' : 'สร้างเควส'}</span>
+                    <span>{isSubmitting ? 'กำลังบันทึก...' : editingQuest ? 'บันทึกการแก้ไข' : 'สร้างเควสต์'}</span>
                   </button>
                 </div>
               </form>

@@ -15,7 +15,7 @@ function ensureStorageExists() {
 }
 
 /**
- * อ่านรายการเควสที่สร้างขึ้นเองจาก Quest Editor
+ * อ่านรายการเควสต์ที่สร้างขึ้นเองจาก Quest Editor
  */
 export function getCustomQuests(): BookEasterEggQuest[] {
   ensureStorageExists();
@@ -30,7 +30,7 @@ export function getCustomQuests(): BookEasterEggQuest[] {
 }
 
 /**
- * บันทึกหรืออัปเดตเควส (หากมี ID เดิมจะแก้ไข หากไม่มีจะเพิ่มใหม่)
+ * บันทึกหรืออัปเดตเควสต์ (หากมี ID เดิมจะแก้ไข หากไม่มีจะเพิ่มใหม่)
  */
 export function saveCustomQuest(quest: BookEasterEggQuest): BookEasterEggQuest {
   ensureStorageExists();
@@ -53,7 +53,7 @@ export function saveCustomQuest(quest: BookEasterEggQuest): BookEasterEggQuest {
 }
 
 /**
- * ลบเควสที่กำหนดโดย ID
+ * ลบเควสต์ที่กำหนดโดย ID
  */
 export function deleteCustomQuest(questId: string): boolean {
   ensureStorageExists();
@@ -61,7 +61,7 @@ export function deleteCustomQuest(questId: string): boolean {
   const filtered = list.filter(q => q.id !== questId);
 
   if (filtered.length === list.length) {
-    return false; // ไม่พบเควส
+    return false; // ไม่พบเควสต์
   }
 
   try {
@@ -74,13 +74,13 @@ export function deleteCustomQuest(questId: string): boolean {
 }
 
 /**
- * รวมเควสประจำเล่มทั้งที่เป็น Built-in และที่สร้างเพิ่มใหม่
+ * รวมเควสต์ประจำเล่มทั้งที่เป็น Built-in และที่สร้างเพิ่มใหม่
  */
 export function getMergedBookQuests(bookId: string): BookEasterEggQuest[] {
   const builtIn = bookEasterEggQuests[bookId] || [];
   const custom = getCustomQuests().filter(q => q.bookId === bookId);
 
-  // ให้เควส custom ทับหรือต่อท้าย built-in
+  // ให้เควสต์ custom ทับหรือต่อท้าย built-in
   const customIds = new Set(custom.map(q => q.id));
   const merged = [
     ...builtIn.filter(q => !customIds.has(q.id)),
@@ -95,7 +95,7 @@ export function getMergedBookQuests(bookId: string): BookEasterEggQuest[] {
 }
 
 /**
- * ดึงเควสทั้งหมดจากทุกเล่ม (Built-in + Custom)
+ * ดึงเควสต์ทั้งหมดจากทุกเล่ม (Built-in + Custom)
  */
 export function getAllMergedQuests(): BookEasterEggQuest[] {
   const custom = getCustomQuests();

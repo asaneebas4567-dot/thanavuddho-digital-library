@@ -519,7 +519,7 @@ export default function AdminDatabasePage() {
       ],
       sampleData: pointTxList.length > 0 ? pointTxList : [
         { id: 'tx-001', user_email: 'asaneebas4567@gmail.com', activity_type: 'read_chapter', points: 15, title: 'อ่านจบบทที่ 1 มงคลชีวิต 38 ประการ', created_at: '2026-11-04 14:10' },
-        { id: 'tx-002', user_email: 'asaneebas4567@gmail.com', activity_type: 'quest_completed', points: 10, title: 'พิชิตเควสปัญญาธรรม: มงคลที่ 1', created_at: '2026-11-04 14:35' },
+        { id: 'tx-002', user_email: 'asaneebas4567@gmail.com', activity_type: 'quest_completed', points: 10, title: 'พิชิตเควสต์ปัญญาธรรม: มงคลที่ 1', created_at: '2026-11-04 14:35' },
         { id: 'tx-003', user_email: 'asaneebas4567@gmail.com', activity_type: 'watch_video', points: 5, title: 'รับชมคลิปธรรมะครบ 10 นาที', created_at: '2026-11-04 15:20' }
       ]
     },

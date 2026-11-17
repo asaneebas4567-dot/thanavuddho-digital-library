@@ -801,9 +801,9 @@ export default function AdminDashboardPage() {
                 <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold mb-3 border border-amber-400/30">
                   <Star size={20} />
                 </div>
-                <h3 className="font-black text-white text-base">เควส & แบบประเมิน</h3>
+                <h3 className="font-black text-white text-base">เควสต์ & แบบประเมิน</h3>
                 <p className="text-xs text-slate-300 mt-1 mb-4 leading-relaxed">
-                  จัดการชุดคำถามเควสตามบทหนังสือ และตรวจผลคะแนนประเมิน 200 แต้ม
+                  จัดการชุดคำถามเควสต์ตามบทหนังสือ และตรวจผลคะแนนประเมิน 200 แต้ม
                 </p>
               </div>
               <div className="space-y-2">
@@ -811,7 +811,7 @@ export default function AdminDashboardPage() {
                   href="/admin/quests"
                   className="w-full py-2.5 px-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all"
                 >
-                  <span>🎯 จัดการเควสหนังสือ</span>
+                  <span>🎯 จัดการเควสต์หนังสือ</span>
                 </Link>
                 <Link
                   href="/admin/surveys"
@@ -970,17 +970,17 @@ export default function AdminDashboardPage() {
                 <div>
                   <div className="flex items-center gap-2 text-amber-700 font-black text-sm mb-2">
                     <Flame size={18} />
-                    <span>จัดการเควสปัญญาธรรม 38 มงคล</span>
+                    <span>จัดการเควสต์ปัญญาธรรม 38 มงคล</span>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    กำหนดเควสคำถามปรัศนีธรรมในหนังสือมงคลชีวิต 38 ประการ และ Easter Eggs ประจำหน้า
+                    กำหนดเควสต์คำถามปรัศนีธรรมในหนังสือมงคลชีวิต 38 ประการ และ Easter Eggs ประจำหน้า
                   </p>
                 </div>
                 <Link
                   href="/admin/quests"
                   className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 hover:text-amber-800"
                 >
-                  <span>จัดการเควส & ปริศนาธรรม</span>
+                  <span>จัดการเควสต์ & ปริศนาธรรม</span>
                   <ArrowRight size={14} />
                 </Link>
               </div>

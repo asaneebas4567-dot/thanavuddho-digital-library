@@ -40,11 +40,11 @@ export const bookCustomData: Record<string, BookCustomEntry> = {
       { chapter_number: 1, title: 'มงคลที่ 1: การไม่คบคนพาล (หนังสือ น. 12–21)', page_start: 37, page_end: 46, description: 'พฤติกรรมการคบ 3 ระดับ และพาลภายในตนเอง' },
       { chapter_number: 2, title: 'มงคลที่ 2: การคบบัณฑิต (หนังสือ น. 22–27)', page_start: 47, page_end: 52, description: 'ลักษณะบัณฑิตแท้และการเลือกกัลยาณมิตร' },
       { chapter_number: 3, title: 'มงคลที่ 3: การบูชาบุคคลที่ควรบูชา (หนังสือ น. 28–33)', page_start: 53, page_end: 58, description: 'การแสดงความเคารพและการปฏิบัติบูชา' },
-      { chapter_number: 4, title: 'มงคลที่ 4: อยู่ในถิ่นที่เหมาะสม [เควสตำนาน] (หนังสือ น. 34–41)', page_start: 59, page_end: 66, description: 'ถิ่นสบาย 4 ด้านและการจัดลำดับความสำคัญ' },
+      { chapter_number: 4, title: 'มงคลที่ 4: อยู่ในถิ่นที่เหมาะสม [เควสต์ตำนาน] (หนังสือ น. 34–41)', page_start: 59, page_end: 66, description: 'ถิ่นสบาย 4 ด้านและการจัดลำดับความสำคัญ' },
       { chapter_number: 5, title: 'มงคลที่ 8: มีศิลปะ (หนังสือ น. 64–70)', page_start: 89, page_end: 95, description: 'ศิลปะคิดเป็น พูดเป็น ทำเป็น และปริศนาผลมะม่วง' },
       { chapter_number: 6, title: 'มงคลที่ 9: มีวินัย (หนังสือ น. 71–81)', page_start: 96, page_end: 106, description: 'วินัยทางโลก ศีล 5 และวินัยทางธรรมของนักบวช' },
       { chapter_number: 7, title: 'มงคลที่ 10: มีวาจาสุภาษิต (หนังสือ น. 82–93)', page_start: 107, page_end: 118, description: 'ลักษณะเสียง 8 ประการของมหาบุรุษ' },
-      { chapter_number: 8, title: 'มงคลที่ 13: สงเคราะห์ภรรยา-สามี [เควสตำนาน] (หนังสือ น. 111–118)', page_start: 136, page_end: 143, description: 'รากศัพท์สามี-ภรรยา และสมชีวิธรรม 4' },
+      { chapter_number: 8, title: 'มงคลที่ 13: สงเคราะห์ภรรยา-สามี [เควสต์ตำนาน] (หนังสือ น. 111–118)', page_start: 136, page_end: 143, description: 'รากศัพท์สามี-ภรรยา และสมชีวิธรรม 4' },
       { chapter_number: 9, title: 'มงคลที่ 14: ทำงานไม่คั่งค้าง (หนังสือ น. 119–125)', page_start: 144, page_end: 150, description: 'อิทธิบาท 4 สลายความเกียจคร้านและงานคั่งค้าง' },
       { chapter_number: 10, title: 'มงคลที่ 18: ทำงานไม่มีโทษ (หนังสือ น. 153–162)', page_start: 178, page_end: 187, description: 'งานไม่มีโทษ 4 สถาน และมิจฉาวณิชชา 5 อาชีพต้องห้าม' },
     ]

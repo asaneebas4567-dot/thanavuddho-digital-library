@@ -452,9 +452,9 @@ export function processEarnPoints(params: EarnEventParams): EarnEventResult {
     // Mongkol quests award 60 points as requested; other chapter quizzes award customPoints or 25 points
     const isMongkol = quizKey.includes('mongkol');
     pointsToAward = isMongkol ? 60 : (params.customPoints || 25);
-    transactionTitle = `ผ่านแบบทดสอบ: ${params.chapterTitle || 'เควสธรรมะ'}`;
+    transactionTitle = `ผ่านแบบทดสอบ: ${params.chapterTitle || 'เควสต์ธรรมะ'}`;
     transactionDetail = isMongkol 
-      ? `ผ่านเควสมงคลชีวิต 38 ประการ (+60 P)` 
+      ? `ผ่านเควสต์มงคลชีวิต 38 ประการ (+60 P)` 
       : `ตอบคำถามผ่านเกณฑ์ (+${pointsToAward} P)`;
 
     if (!daily.quizzesCompleted.includes(quizKey)) {

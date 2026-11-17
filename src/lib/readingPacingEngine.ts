@@ -239,7 +239,7 @@ export function calculateChapterRequiredDwellTime(
     minimumSecondsPerPage,
     recommendedMinutesDisplay,
     requiredMinutesDisplay,
-    antiSkimmingExplanation: `บทนี้มี ${safePageCount} หน้า (ประมาณ ${totalWords.toLocaleString()} คำ) เวลาอ่านมาตรฐาน ${recommendedMinutesDisplay} (อัตรา 200 คำ/นาที) ระบบกำหนดเวลาศึกษาจริงอย่างน้อย ${requiredMinutesDisplay} (เกณฑ์ 70% เพื่อความยืดหยุ่น) ก่อนปลดล็อกเควส`
+    antiSkimmingExplanation: `บทนี้มี ${safePageCount} หน้า (ประมาณ ${totalWords.toLocaleString()} คำ) เวลาอ่านมาตรฐาน ${recommendedMinutesDisplay} (อัตรา 200 คำ/นาที) ระบบกำหนดเวลาศึกษาจริงอย่างน้อย ${requiredMinutesDisplay} (เกณฑ์ 70% เพื่อความยืดหยุ่น) ก่อนปลดล็อกเควสต์`
   };
 }
 

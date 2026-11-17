@@ -1,6 +1,6 @@
 import { mongkol38Quests } from './mongkolQuestsData';
 /**
- * ระบบเควสลับ / Easter Egg Quests สไตล์ Genshin Impact & Wuthering Waves
+ * ระบบเควสต์ลับ / Easter Egg Quests ตามหน้าหนังสือ
  * สำหรับฝังภารกิจโลกและปริศนาธรรมะลงในหนังสือแต่ละเล่ม
  * โครงสร้างเน้น "แต้มสะสมแลกของขวัญ (Reward Points)"
  */
@@ -31,22 +31,22 @@ export interface BookEasterEggQuest {
   questNumber: number;
   title: string;
   subtitle: string;
-  categoryTag: string; // เช่น [ ภารกิจหลัก ], [ ภารกิจรอง ], [ เควสระดับตำนาน ⭐⭐⭐⭐⭐ ]
+  categoryTag: string; // เช่น [ ภารกิจหลัก ], [ ภารกิจรอง ], [ เควสต์ระดับตำนาน ⭐⭐⭐⭐⭐ ]
   questType?: 'main' | 'side' | 'legendary' | 'discovery';
   isLegendary?: boolean;
   difficulty?: string;
   objectiveSteps?: QuestObjectiveStep[];
   printedPageStart?: number; // หน้าในหนังสือเล่มจริง
   printedPageEnd?: number;   // หน้าในหนังสือเล่มจริง
-  triggerPage: number; // หน้าที่เปิดเจอเควสใน PDF (หรือหน้าเริ่มต้นของช่วงเควส)
-  triggerPageEnd?: number; // หน้าสิ้นสุดของช่วงเควสใน PDF (ถ้ามี)
+  triggerPage: number; // หน้าที่เปิดเจอเควสต์ใน PDF (หรือหน้าเริ่มต้นของช่วงเควสต์)
+  triggerPageEnd?: number; // หน้าสิ้นสุดของช่วงเควสต์ใน PDF (ถ้ามี)
   loreStory: string; // เนื้อเรื่องเกริ่นนำตามหนังสือ
   hint: string; // คำใบ้จากเนื้อหาในหน้า
   question: string; // คำถามปริศนา
   options: [string, string, string, string]; // 4 ตัวเลือก
   correctIndex: number; // ดัชนีคำตอบที่ถูก (0-3) กระจายสมดุล
   explanation: string; // คำเฉลยและคติธรรม
-  questions?: QuestQuestionItem[]; // ชุดคำถามทั้งหมดประจำเควส
+  questions?: QuestQuestionItem[]; // ชุดคำถามทั้งหมดประจำเควสต์
   loot: QuestLoot;
 }
 
@@ -187,7 +187,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
     }
   ],
 
-  // หนังสือ: ผู้สูญเสีย ที่ไม่เสียศูนย์ (8 Easter Eggs & Quests รวมถึง 2 เควสระดับตำนาน และ Anti-Gravity)
+  // หนังสือ: ผู้สูญเสีย ที่ไม่เสียศูนย์ (8 Easter Eggs & Quests รวมถึง 2 เควสต์ระดับตำนาน และ Anti-Gravity)
   'book_phoo_soon_sia_tee_mai_sin_soon': [
     {
       id: 'quest_soon_01_anthropocene',
@@ -221,7 +221,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       questNumber: 2,
       title: 'ตำนานมหาเครื่องยนต์พิฆาต: คำสาปไอเสียแห่งยุคสงครามลืมเลือน',
       subtitle: 'The Calamity of Four Thousandfold Engines (ปรากฏการณ์ 4,000 เท่าตัว)',
-      categoryTag: 'เควสระดับตำนาน (Legendary Quest ⚔️)',
+      categoryTag: 'เควสต์ระดับตำนาน (Legendary Quest ⚔️)',
       triggerPage: 16,
       triggerPageEnd: 20,
       loreStory: '“ย้อนกลับไปก่อนยุคสงครามโลกครั้งที่ 2 สยามมีรถยนต์วิ่งทั่วประเทศไม่ถึง 10,000 คัน ทว่าเมื่อความทะเยอทะยานไร้ขีดจำกัด วงล้อจักรกลได้ตื่นขึ้นขยายพันธุ์เป็นกว่า 40 ล้านคัน (เพิ่มขึ้นสูงถึง 4,000 เท่าตัว!) สูบกลืนพลังงานฟอสซิลโบราณใต้พิภพ พ่นไอเสียควันดำปกคลุมท้องฟ้าทำลายสมดุลบรรยากาศ”',
@@ -325,7 +325,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       questNumber: 6,
       title: 'การล่มสลายของมหาผืนป่า: จากดงเพลิงผลาญสู่อรหันต์ช้างศึกหางวิบวับ',
       subtitle: 'The Fall of Dong Phaya Fai & The Shiny Tail Guardian (สัญลักษณ์ช้างติด CD)',
-      categoryTag: 'เควสระดับตำนาน (Legendary Quest ⚔️)',
+      categoryTag: 'เควสต์ระดับตำนาน (Legendary Quest ⚔️)',
       triggerPage: 103,
       triggerPageEnd: 115,
       loreStory: '“ในอดีตกาล มหาป่าดงทึบบรรพกาลครองพื้นที่กว่า 80–90% ของแผ่นดิน ขนานนามว่า \'เทือกเขาดงพญาไฟ\' ดินแดนปราการเหล็กที่ผู้เดินทางผ่านต้องแลกด้วยชีวิต ช้างป่าสามารถลัดเลาะจากยอดเขาใหญ่มาเดินเล่นถึงทุ่งบางกะปิหรือสุขุมวิทได้โดยไม่พบมนุษย์ ทว่ามนุษย์ได้โค่นป่าจนเหลือเพียง 20–30% กลายเป็นไร่นานาม \'ดงพญาเย็น\' บีบให้ช้างป่าต้องเดินบนถนนลาดยางมะตอยร้อนระอุ โดยมนุษย์นำ \'แผ่น CD สะท้อนแสง\' ไปผูกไว้ที่หางเพื่อป้องกันไม่ให้รถยนต์พุ่งชนยามค่ำคืน”',
@@ -431,7 +431,7 @@ export const QUEST_BOOKS_CATALOG: Record<string, { title: string; coverImage: st
 };
 
 /**
- * แปลง Book ID ให้ตรงกับ Master Catalog ในระบบเควส
+ * แปลง Book ID ให้ตรงกับ Master Catalog ในระบบเควสต์
  */
 export function normalizeQuestBookId(bookId: string): string {
   if (!bookId) return '';
@@ -475,7 +475,7 @@ export function normalizeQuestBookId(bookId: string): string {
 }
 
 /**
- * ดึงเควสของหนังสือเล่มที่ระบุ
+ * ดึงเควสต์ของหนังสือเล่มที่ระบุ
  */
 export function getBookQuests(bookId: string): BookEasterEggQuest[] {
   const normId = normalizeQuestBookId(bookId);
@@ -483,7 +483,7 @@ export function getBookQuests(bookId: string): BookEasterEggQuest[] {
 }
 
 /**
- * ตรวจสอบว่าในหน้าที่กำหนดมีเควสเริ่มทำงานหรือไม่
+ * ตรวจสอบว่าในหน้าที่กำหนดมีเควสต์เริ่มทำงานหรือไม่
  */
 export function findQuestByPage(bookId: string, page: number): BookEasterEggQuest | null {
   const quests = getBookQuests(bookId);
@@ -494,7 +494,7 @@ export function findQuestByPage(bookId: string, page: number): BookEasterEggQues
 }
 
 /**
- * ดึงเควสทั้งหมดจากทุกเล่มพร้อมชื่อหนังสือ
+ * ดึงเควสต์ทั้งหมดจากทุกเล่มพร้อมชื่อหนังสือ
  */
 export function getAllQuestsAcrossBooks(): (BookEasterEggQuest & { bookTitle: string; bookCover: string })[] {
   const all: (BookEasterEggQuest & { bookTitle: string; bookCover: string })[] = [];
@@ -512,7 +512,7 @@ export function getAllQuestsAcrossBooks(): (BookEasterEggQuest & { bookTitle: st
 }
 
 /**
- * คำนวณความคืบหน้ารวมจาก localStorage ของผู้ใช้ (คะแนนสะสม, เควสที่ค้นพบ, เควสที่สำเร็จ)
+ * คำนวณความคืบหน้ารวมจาก localStorage ของผู้ใช้ (คะแนนสะสม, เควสต์ที่ค้นพบ, เควสต์ที่สำเร็จ)
  */
 export function getGlobalUserQuestProgress() {
   if (typeof window === 'undefined') {
