@@ -69,9 +69,13 @@ export default function VideoWatchView({
     { time: 380, timestamp: '06:20', speaker: video.author || 'พระครูปลัดสุวัฒนโพธิคุณ', text: 'ขอให้ทุกท่านหมั่นสั่งสมบุญกุศล มีทาน ศีล ภาวนา เป็นประจำทุกวัน เพื่อสร้างบารมีและสันติสุขที่ยั่งยืน เจริญพร' }
   ];
 
-  // Recommended videos (other available videos first, matching orientation where possible)
+  // Recommended videos (strictly match platform: YouTube with YouTube, TikTok with TikTok)
   const recommendedVideos = allVideos
-    .filter(v => v.id !== video.id)
+    .filter(v => {
+      if (v.id === video.id) return false;
+      const vIsTikTok = v.platform === 'tiktok' || !!v.tiktokId || v.video_url?.includes('tiktok.com');
+      return isTikTok ? vIsTikTok : !vIsTikTok;
+    })
     .sort((a, b) => {
       // Prioritize available videos
       if (a.is_available && !b.is_available) return -1;

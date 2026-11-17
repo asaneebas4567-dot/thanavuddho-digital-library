@@ -104,12 +104,13 @@ function VideosMainContent() {
 
   // Compute counts for tabs
   const counts = useMemo(() => {
-    const horizontal = videos.filter(v => v.orientation === 'horizontal').length;
-    const vertical = videos.filter(v => v.orientation === 'vertical' && v.platform !== 'tiktok' && !v.video_url?.includes('tiktok.com')).length;
+    const nonTikTok = videos.filter(v => v.platform !== 'tiktok' && !v.tiktokId && !v.video_url?.includes('tiktok.com'));
+    const horizontal = nonTikTok.filter(v => v.orientation === 'horizontal').length;
+    const vertical = nonTikTok.filter(v => v.orientation === 'vertical').length;
     const tiktok = videos.filter(v => v.platform === 'tiktok' || !!v.tiktokId || v.video_url?.includes('tiktok.com')).length;
-    const ready = videos.filter(v => v.is_available).length;
+    const ready = nonTikTok.filter(v => v.is_available).length;
     return {
-      all: videos.length,
+      all: nonTikTok.length,
       horizontal,
       vertical,
       tiktok,
@@ -122,8 +123,9 @@ function VideosMainContent() {
     return videos.filter(v => {
       const isTikTok = v.platform === 'tiktok' || !!v.tiktokId || v.video_url?.includes('tiktok.com');
 
-      // Tab filter
-      if (activeTab === 'horizontal' && v.orientation !== 'horizontal') return false;
+      // TikTok is strictly kept in its own tab! Never mixed into 'all', 'horizontal', or 'vertical'!
+      if (activeTab === 'all' && isTikTok) return false;
+      if (activeTab === 'horizontal' && (v.orientation !== 'horizontal' || isTikTok)) return false;
       if (activeTab === 'vertical' && (v.orientation !== 'vertical' || isTikTok)) return false;
       if (activeTab === 'tiktok' && !isTikTok) return false;
 

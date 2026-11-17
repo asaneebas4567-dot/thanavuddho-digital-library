@@ -63,8 +63,10 @@ export default function HomeMediaShowcase() {
       .catch(() => {});
   }, []);
 
-  // Filtered videos
+  // Filtered videos (strictly YouTube library videos to maintain high quality)
   const filteredVideos = allVideos.filter((v) => {
+    const isTikTok = v.platform === 'tiktok' || !!v.tiktokId || v.video_url?.includes('tiktok.com');
+    if (isTikTok) return false;
     if (videoFilter === 'horizontal') return v.orientation === 'horizontal';
     if (videoFilter === 'vertical') return v.orientation === 'vertical';
     return true;
