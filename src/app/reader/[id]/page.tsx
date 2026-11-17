@@ -267,6 +267,8 @@ function BookReaderContent({ bookId }: { bookId: string }) {
     rawTitle.includes('รักเป็นจะเห็นใจ') ||
     rawId.includes('yoo_nai_lok_mai') ||
     rawTitle.includes('อยู่ในโลกใหม่') ||
+    rawId.includes('yoo_sook') ||
+    rawTitle.includes('อยู่สุข') ||
     rawTitle.includes('อย่ามโน') ||
     rawTitle.includes('สมดุลเท่ากับดี') ||
     rawTitle.includes('ตามหลวงพี่ไปโกอินเตอร์') ||

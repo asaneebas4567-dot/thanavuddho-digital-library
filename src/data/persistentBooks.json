@@ -658,8 +658,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1zjYSMEo0ZlwVMHr0Ek56zVaIs9R5AjHY/preview",
-    "reader_url": "https://drive.google.com/file/d/1zjYSMEo0ZlwVMHr0Ek56zVaIs9R5AjHY/preview",
+    "pdf_url": "/books/pdf/yoo-sook-nai-yook-digital.pdf",
+    "reader_url": "/books/pdf/yoo-sook-nai-yook-digital.pdf",
     "source_url": "https://drive.google.com/file/d/1zjYSMEo0ZlwVMHr0Ek56zVaIs9R5AjHY/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -671,8 +671,7 @@
     "is_finished": true,
     "view_count": 0,
     "read_count": 0,
-    "like_count": 0,
-    "drive_file_id": "1zjYSMEo0ZlwVMHr0Ek56zVaIs9R5AjHY"
+    "like_count": 0
   },
   {
     "id": "book_love-myself-รักในตัวตน",
