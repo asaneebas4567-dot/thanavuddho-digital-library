@@ -24,7 +24,7 @@ export type PastelThemeKey = 'mint' | 'sky' | 'rose' | 'cream' | 'orange' | 'ind
 
 export interface PastelTheme {
   name: string;
-  cardBg: string;             // pastel background tint
+  cardBg: string;             // vibrant & soft pastel gradient background
   cardBorder: string;         // delicate border
   badgeBg: string;            // category pill styling
   accentText: string;         // accent label text
@@ -35,74 +35,74 @@ export interface PastelTheme {
 
 export const PASTEL_THEMES: Record<PastelThemeKey, PastelTheme> = {
   mint: {
-    name: 'เขียวมิ้นต์',
-    cardBg: 'bg-white hover:bg-slate-50/60',
-    cardBorder: 'border-slate-200/90 hover:border-[#079FE8]/60',
-    badgeBg: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-    accentText: 'text-emerald-700',
+    name: 'เขียวมิ้นต์สดใส',
+    cardBg: 'bg-gradient-to-br from-emerald-50/95 via-teal-50/80 to-emerald-100/70 hover:from-emerald-100 hover:to-teal-100/90',
+    cardBorder: 'border-emerald-200/90 hover:border-emerald-400',
+    badgeBg: 'bg-emerald-600 text-white border-transparent',
+    accentText: 'text-emerald-900',
     dotColor: 'bg-emerald-500',
-    glowShadow: 'hover:shadow-md',
-    btnBg: 'bg-[#079FE8] hover:bg-[#0588c7] text-white shadow-xs',
+    glowShadow: 'hover:shadow-emerald-900/10',
+    btnBg: 'bg-emerald-700 hover:bg-emerald-800 text-white shadow-xs',
   },
   sky: {
-    name: 'ฟ้าอ่อน',
-    cardBg: 'bg-white hover:bg-slate-50/60',
-    cardBorder: 'border-slate-200/90 hover:border-[#079FE8]/60',
-    badgeBg: 'bg-sky-50 text-sky-800 border-sky-200',
-    accentText: 'text-sky-700',
+    name: 'ฟ้าน้ำทะเลประกาย',
+    cardBg: 'bg-gradient-to-br from-sky-50/95 via-blue-50/80 to-sky-100/70 hover:from-sky-100 hover:to-blue-100/90',
+    cardBorder: 'border-sky-200/90 hover:border-sky-400',
+    badgeBg: 'bg-sky-600 text-white border-transparent',
+    accentText: 'text-sky-950',
     dotColor: 'bg-sky-500',
-    glowShadow: 'hover:shadow-md',
+    glowShadow: 'hover:shadow-sky-900/10',
     btnBg: 'bg-[#079FE8] hover:bg-[#0588c7] text-white shadow-xs',
   },
   rose: {
-    name: 'ชมพูอ่อน',
-    cardBg: 'bg-white hover:bg-slate-50/60',
-    cardBorder: 'border-slate-200/90 hover:border-[#079FE8]/60',
-    badgeBg: 'bg-rose-50 text-rose-800 border-rose-200',
-    accentText: 'text-rose-700',
+    name: 'ชมพูพาสเทลละมุน',
+    cardBg: 'bg-gradient-to-br from-rose-50/95 via-pink-50/80 to-rose-100/70 hover:from-rose-100 hover:to-pink-100/90',
+    cardBorder: 'border-rose-200/90 hover:border-rose-400',
+    badgeBg: 'bg-rose-600 text-white border-transparent',
+    accentText: 'text-rose-950',
     dotColor: 'bg-rose-500',
-    glowShadow: 'hover:shadow-md',
-    btnBg: 'bg-[#079FE8] hover:bg-[#0588c7] text-white shadow-xs',
+    glowShadow: 'hover:shadow-rose-900/10',
+    btnBg: 'bg-rose-600 hover:bg-rose-700 text-white shadow-xs',
   },
   cream: {
-    name: 'ครีมทอง',
-    cardBg: 'bg-white hover:bg-slate-50/60',
-    cardBorder: 'border-slate-200/90 hover:border-[#D9A441]/60',
-    badgeBg: 'bg-amber-50 text-amber-900 border-amber-200',
-    accentText: 'text-amber-800',
+    name: 'ครีมทองอำพัน',
+    cardBg: 'bg-gradient-to-br from-amber-50/95 via-yellow-50/80 to-amber-100/70 hover:from-amber-100 hover:to-amber-200/80',
+    cardBorder: 'border-amber-200/90 hover:border-amber-400',
+    badgeBg: 'bg-amber-600 text-white border-transparent',
+    accentText: 'text-amber-950',
     dotColor: 'bg-amber-500',
-    glowShadow: 'hover:shadow-md',
+    glowShadow: 'hover:shadow-amber-900/10',
     btnBg: 'bg-[#D9A441] hover:bg-[#c59132] text-white shadow-xs',
   },
   orange: {
-    name: 'ฟ้าครามไซแอน',
-    cardBg: 'bg-white hover:bg-slate-50/60',
-    cardBorder: 'border-slate-200/90 hover:border-[#079FE8]/60',
-    badgeBg: 'bg-cyan-50 text-cyan-800 border-cyan-200',
-    accentText: 'text-cyan-700',
-    dotColor: 'bg-cyan-500',
-    glowShadow: 'hover:shadow-md',
-    btnBg: 'bg-[#079FE8] hover:bg-[#0588c7] text-white shadow-xs',
+    name: 'ส้มพีชอบอุ่น',
+    cardBg: 'bg-gradient-to-br from-orange-50/95 via-amber-50/80 to-orange-100/70 hover:from-orange-100 hover:to-amber-100/90',
+    cardBorder: 'border-orange-200/90 hover:border-orange-400',
+    badgeBg: 'bg-orange-600 text-white border-transparent',
+    accentText: 'text-orange-950',
+    dotColor: 'bg-orange-500',
+    glowShadow: 'hover:shadow-orange-900/10',
+    btnBg: 'bg-orange-600 hover:bg-orange-700 text-white shadow-xs',
   },
   indigo: {
-    name: 'ม่วงลาเวนเดอร์',
-    cardBg: 'bg-white hover:bg-slate-50/60',
-    cardBorder: 'border-slate-200/90 hover:border-[#079FE8]/60',
-    badgeBg: 'bg-indigo-50 text-indigo-800 border-indigo-200',
-    accentText: 'text-indigo-700',
+    name: 'ม่วงลาเวนเดอร์นุ่มลึก',
+    cardBg: 'bg-gradient-to-br from-indigo-50/95 via-purple-50/80 to-indigo-100/70 hover:from-indigo-100 hover:to-purple-100/90',
+    cardBorder: 'border-indigo-200/90 hover:border-indigo-400',
+    badgeBg: 'bg-indigo-600 text-white border-transparent',
+    accentText: 'text-indigo-950',
     dotColor: 'bg-indigo-500',
-    glowShadow: 'hover:shadow-md',
+    glowShadow: 'hover:shadow-indigo-900/10',
     btnBg: 'bg-[#073B65] hover:bg-[#052946] text-white shadow-xs',
   },
   teal: {
-    name: 'เขียวน้ำทะเล',
-    cardBg: 'bg-white hover:bg-slate-50/60',
-    cardBorder: 'border-slate-200/90 hover:border-[#079FE8]/60',
-    badgeBg: 'bg-teal-50 text-teal-800 border-teal-200',
-    accentText: 'text-teal-700',
+    name: 'เขียวน้ำทะเลสดใส',
+    cardBg: 'bg-gradient-to-br from-teal-50/95 via-cyan-50/80 to-teal-100/70 hover:from-teal-100 hover:to-cyan-100/90',
+    cardBorder: 'border-teal-200/90 hover:border-teal-400',
+    badgeBg: 'bg-teal-700 text-white border-transparent',
+    accentText: 'text-teal-950',
     dotColor: 'bg-teal-500',
-    glowShadow: 'hover:shadow-md',
-    btnBg: 'bg-[#079FE8] hover:bg-[#0588c7] text-white shadow-xs',
+    glowShadow: 'hover:shadow-teal-900/10',
+    btnBg: 'bg-teal-700 hover:bg-teal-800 text-white shadow-xs',
   },
 };
 
@@ -660,7 +660,7 @@ export default function TopBannerCarousel({
                 ? (isBorrowed ? `/reader/${item.id}` : `/books/${item.id}`)
                 : item.actionUrl;
               const resolvedLabel = item.type === 'book'
-                ? (isBorrowed ? 'เปิดอ่าน (ยืมแล้ว)' : 'ยืมหนังสือ (จำกัด 3 เล่ม)')
+                ? (isBorrowed ? 'เปิดอ่าน' : 'ยืมหนังสือ')
                 : item.actionLabel;
 
               return (
@@ -669,17 +669,18 @@ export default function TopBannerCarousel({
                   className="px-1.5 sm:px-2 shrink-0"
                   style={{ width: `${cardWidthPercent}%` }}
                 >
-                  <div
-                    className={`group relative rounded-2xl overflow-hidden ${theme.cardBg} ${theme.glowShadow} p-3.5 sm:p-4 shadow-xs hover:shadow-md transition-all duration-300 border ${theme.cardBorder} flex flex-row items-center gap-3.5 sm:gap-4 min-h-[175px] sm:min-h-[190px] h-full hover:-translate-y-1`}
+                  <Link
+                    href={resolvedUrl}
+                    onClick={item.isSurveyTrigger ? handleTriggerSurvey : undefined}
+                    className={`group relative rounded-2xl overflow-hidden ${theme.cardBg} ${theme.glowShadow} p-3.5 sm:p-4 shadow-sm hover:shadow-xl transition-all duration-300 border ${theme.cardBorder} flex flex-row items-center gap-3.5 sm:gap-4 min-h-[175px] sm:min-h-[190px] h-full hover:-translate-y-1 block cursor-pointer`}
+                    title={`${item.title} (คลิกเพื่อเข้าสู่เนื้อหา)`}
                   >
                     
                     {/* LEFT COLUMN: Customized Visual Slot (Book Spine / Mascot / Video / Welcome / Podcast) */}
                     {item.type === 'welcome' ? (
                       /* Welcome Visual: Elegant Emblem */
-                      <Link
-                        href={item.actionUrl}
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-gradient-to-br from-[#073B65] via-[#0A4D82] to-[#079FE8] shadow-md border border-sky-300/40 flex flex-col items-center justify-center p-2 text-center group-hover:scale-102 transition-transform duration-300"
-                        title="สำรวจห้องสมุดดิจิทัล"
+                      <div
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-gradient-to-br from-[#073B65] via-[#0A4D82] to-[#079FE8] shadow-md border border-sky-300/40 flex flex-col items-center justify-center p-2 text-center group-hover:scale-103 transition-transform duration-300"
                       >
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.25)_0%,transparent_70%)] pointer-events-none" />
                         <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 border border-white/40 flex items-center justify-center shadow-inner mb-1.5">
@@ -687,14 +688,11 @@ export default function TopBannerCarousel({
                         </div>
                         <span className="text-[10px] sm:text-[11px] font-black text-white tracking-wide uppercase">Thanavuddho</span>
                         <span className="text-[8px] sm:text-[9px] text-sky-200 font-medium">Digital Library</span>
-                      </Link>
+                      </div>
                     ) : item.type === 'survey' ? (
                       /* Survey Visual: Cute Novice Monk with 200 Coin */
-                      <Link
-                        href="/survey"
-                        onClick={handleTriggerSurvey}
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-gradient-to-br from-amber-100 via-orange-50 to-amber-200/90 shadow-md border border-amber-300 flex flex-col items-center justify-center p-1 group-hover:scale-102 transition-transform duration-300 cursor-pointer block"
-                        title="คลิกเพื่อทำแบบประเมิน รับทันที 200 แต้ม"
+                      <div
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-gradient-to-br from-amber-100 via-orange-50 to-amber-200/90 shadow-md border border-amber-300 flex flex-col items-center justify-center p-1 group-hover:scale-103 transition-transform duration-300"
                       >
                         <div className="w-full h-full p-1 flex items-center justify-center">
                           <MiniNoviceMascot />
@@ -702,13 +700,11 @@ export default function TopBannerCarousel({
                         <span className="absolute bottom-1 px-1.5 py-0.5 rounded-full bg-[#D9A441] text-white text-[8px] font-extrabold shadow-xs">
                           🪙 200 P
                         </span>
-                      </Link>
+                      </div>
                     ) : item.type === 'podcast' ? (
                       /* Podcast Visual: Cover with Pulsing Headphones Overlay */
-                      <Link
-                        href={item.actionUrl}
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-md border border-slate-200/70 group-hover:scale-102 transition-transform duration-300 block"
-                        title={item.title}
+                      <div
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-md border border-slate-200/70 group-hover:scale-103 transition-transform duration-300"
                       >
                         {item.coverImage && (
                           <Image
@@ -729,13 +725,11 @@ export default function TopBannerCarousel({
                         <span className="absolute bottom-1 inset-x-1 text-center py-0.5 rounded bg-black/70 text-white text-[8px] font-bold">
                           5 ตอนจบ
                         </span>
-                      </Link>
+                      </div>
                     ) : item.type === 'video' ? (
                       /* Video Visual: Cover with Play Badge Overlay */
-                      <Link
-                        href={item.actionUrl}
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-slate-900 shadow-md border border-slate-200/70 group-hover:scale-102 transition-transform duration-300 block"
-                        title={item.title}
+                      <div
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-slate-900 shadow-md border border-slate-200/70 group-hover:scale-103 transition-transform duration-300"
                       >
                         {item.coverImage && (
                           <Image
@@ -756,13 +750,11 @@ export default function TopBannerCarousel({
                         <span className="absolute bottom-1 inset-x-1 text-center py-0.5 rounded bg-black/70 text-teal-300 text-[8px] font-bold">
                           วิดีโอ HD
                         </span>
-                      </Link>
+                      </div>
                     ) : (
                       /* Standard Book Visual: 3D Book Cover with Spine Line */
-                      <Link
-                        href={resolvedUrl}
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.14)] border border-slate-200/70 group-hover:shadow-[3px_6px_16px_rgba(0,0,0,0.18)] transition-shadow duration-300 block"
-                        title={isBorrowed ? `เปิดอ่านหนังสือที่ยืมแล้ว: ${item.title}` : `ยืมหนังสือ: ${item.title}`}
+                      <div
+                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.14)] border border-slate-200/70 group-hover:shadow-[3px_6px_16px_rgba(0,0,0,0.22)] transition-shadow duration-300"
                       >
                         {/* 3D Spine Highlight */}
                         <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-r from-black/25 via-white/20 to-transparent pointer-events-none z-10" />
@@ -788,123 +780,59 @@ export default function TopBannerCarousel({
                             alt={`ปกหนังสือ ${item.title}`}
                             fill
                             loading={index < 3 ? 'eager' : 'lazy'}
-                            className="object-cover group-hover:scale-103 transition-transform duration-300"
+                            className="object-cover group-hover:scale-104 transition-transform duration-300"
                             sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 128px"
                             unoptimized
                           />
                         )}
-                      </Link>
+                      </div>
                     )}
 
-                    {/* RIGHT COLUMN: Details & Clear Action Button */}
+                    {/* RIGHT COLUMN: Details */}
                     <div className="flex-1 min-w-0 flex flex-col justify-between h-full py-0.5">
                       <div>
                         {/* Top: Clean Category Label */}
                         <div className="flex items-center gap-1.5 mb-1.5">
-                          <span className="text-[11px] font-medium text-slate-500">
+                          <span className={`text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-full ${theme.badgeBg}`}>
                             {item.categoryName}
                           </span>
                         </div>
 
-                        {/* Title: High Contrast Slate-800 */}
-                        {item.isSurveyTrigger ? (
-                          <Link
-                            href="/survey"
-                            onClick={handleTriggerSurvey}
-                            className="text-left cursor-pointer block"
-                          >
-                            <h3 
-                              className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-amber-800 transition-colors line-clamp-2 leading-snug"
-                              title={item.title}
-                            >
-                              {item.title}
-                            </h3>
-                          </Link>
-                        ) : (
-                          <Link href={resolvedUrl}>
-                            <h3 
-                              className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-sky-700 transition-colors line-clamp-2 leading-snug"
-                              title={item.title}
-                            >
-                              {item.title}
-                            </h3>
-                          </Link>
-                        )}
+                        {/* Title: High Contrast Slate-900 */}
+                        <h3 
+                          className="text-xs sm:text-sm md:text-base font-bold text-slate-900 group-hover:text-[#073B65] transition-colors line-clamp-2 leading-snug"
+                          title={item.title}
+                        >
+                          {item.title}
+                        </h3>
 
                         {/* Description: 2 lines */}
-                        <p className="text-[11px] sm:text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+                        <p className="text-[11px] sm:text-xs text-slate-700 mt-1 line-clamp-2 leading-relaxed">
                           {item.description}
                         </p>
                       </div>
 
-                      {/* Bottom Action: Clean Library Button for Every Card */}
+                      {/* Bottom Action Indicator */}
                       <div className="mt-2.5 sm:mt-3 flex items-center justify-start">
-                        {item.isSurveyTrigger ? (
-                          <Link
-                            href="/survey"
-                            onClick={handleTriggerSurvey}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#D9A441] hover:bg-[#c59132] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
-                            title="ทำแบบประเมิน รับทันที 200 แต้ม"
-                          >
+                        <span className={`inline-flex items-center gap-1 sm:gap-1.5 px-3 py-1 rounded-full ${theme.btnBg} text-[11px] sm:text-xs font-semibold shadow-xs group-hover:shadow-md transition-all`}>
+                          {item.type === 'survey' ? (
                             <Coins size={12} className="shrink-0 text-yellow-100" />
-                            <span>{resolvedLabel}</span>
-                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                          </Link>
-                        ) : item.type === 'podcast' ? (
-                          <Link
-                            href={resolvedUrl}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
-                            title={item.title}
-                          >
+                          ) : item.type === 'podcast' ? (
                             <Headphones size={12} className="shrink-0 text-white" />
-                            <span>{resolvedLabel}</span>
-                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                          </Link>
-                        ) : item.type === 'video' ? (
-                          <Link
-                            href={resolvedUrl}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
-                            title={item.title}
-                          >
+                          ) : item.type === 'video' ? (
                             <Play size={12} className="shrink-0 text-white fill-current" />
-                            <span>{resolvedLabel}</span>
-                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                          </Link>
-                        ) : item.type === 'welcome' ? (
-                          <Link
-                            href={resolvedUrl}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#073B65] hover:bg-[#052946] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
-                            title={item.title}
-                          >
+                          ) : item.type === 'welcome' ? (
                             <Compass size={12} className="shrink-0 text-sky-200" />
-                            <span>{resolvedLabel}</span>
-                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                          </Link>
-                        ) : isBorrowed ? (
-                          <Link
-                            href={resolvedUrl}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
-                            title={`เปิดอ่านหนังสือที่ยืมแล้ว: ${item.title}`}
-                          >
-                            <BookOpen size={12} className="shrink-0" />
-                            <span>เปิดอ่าน (ยืมแล้ว)</span>
-                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                          </Link>
-                        ) : (
-                          <Link
-                            href={resolvedUrl}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[11px] sm:text-xs font-semibold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
-                            title={`ยืมหนังสือลิขสิทธิ์: ${item.title}`}
-                          >
-                            <BookMarked size={12} className="shrink-0" />
-                            <span>{resolvedLabel}</span>
-                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                          </Link>
-                        )}
+                          ) : (
+                            <BookOpen size={12} className="shrink-0 text-white" />
+                          )}
+                          <span>{resolvedLabel}</span>
+                          <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                        </span>
                       </div>
 
                     </div>
-                  </div>
+                  </Link>
                 </div>
               );
             })}

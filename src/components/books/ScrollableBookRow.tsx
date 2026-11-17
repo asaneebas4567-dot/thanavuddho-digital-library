@@ -144,12 +144,13 @@ function BookCoverItem({
     : ((book as any).author || 'พระครูปลัดสุวัฒนโพธิคุณ');
 
   return (
-    <div 
-      className="shrink-0 w-[145px] sm:w-[160px] md:w-[172px] group/card cursor-pointer select-none"
-      onClick={() => onQuickView ? onQuickView(book) : undefined}
+    <Link 
+      href={isBorrowed ? `/reader/${book.id}` : `/books/${book.id}`}
+      className="shrink-0 w-[145px] sm:w-[160px] md:w-[172px] group/card cursor-pointer select-none block"
+      title={`${book.title} (คลิกเพื่อเข้าสู่หน้าหนังสือ)`}
     >
       {/* 1. Book Poster with 3D Spine and Polite Lift */}
-      <div className="relative aspect-[1/1.42] w-full rounded-xl overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.10)] border border-slate-200/90 group-hover/card:border-sky-400 group-hover/card:shadow-[3px_8px_18px_rgba(0,0,0,0.16)] group-hover/card:-translate-y-1.5 transition-all duration-300">
+      <div className="relative aspect-[1/1.42] w-full rounded-xl overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.10)] border border-slate-200/90 group-hover/card:border-sky-400 group-hover/card:shadow-[3px_8px_18px_rgba(7,159,232,0.22)] group-hover/card:-translate-y-1.5 transition-all duration-300">
         
         {/* Book Spine 3D Highlight Line on Left */}
         <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-r from-black/25 via-white/20 to-transparent pointer-events-none z-10" />
@@ -163,7 +164,7 @@ function BookCoverItem({
             src={coverUrl} 
             alt={`ปกหนังสือ ${book.title}`}
             fill
-            className="object-cover group-hover/card:scale-103 transition-transform duration-300"
+            className="object-cover group-hover/card:scale-104 transition-transform duration-300"
             unoptimized
             onError={() => setImageError(true)}
           />
@@ -188,27 +189,12 @@ function BookCoverItem({
           ) : null}
         </div>
 
-        {/* Hover Quick-Action Overlay */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center p-2 z-20">
-          {isBorrowed ? (
-            <Link
-              href={`/reader/${book.id}`}
-              onClick={(e) => e.stopPropagation()}
-              className="px-3 py-1.5 rounded-full bg-[#073B65] hover:bg-[#052946] text-white font-semibold text-[11px] shadow-md flex items-center gap-1.5 active:scale-95 transition-all"
-            >
-              <BookOpen size={12} className="text-[#D9A441]" />
-              <span>อ่าน (ยืมแล้ว)</span>
-            </Link>
-          ) : (
-            <Link
-              href={`/books/${book.id}`}
-              onClick={(e) => e.stopPropagation()}
-              className="px-3 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white font-semibold text-[11px] shadow-md flex items-center gap-1.5 active:scale-95 transition-all"
-            >
-              <BookMarked size={12} />
-              <span>ยืมหนังสือ</span>
-            </Link>
-          )}
+        {/* Subtle Hover Action Indicator */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#073B65]/70 via-black/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity flex items-end justify-center p-2.5 z-20">
+          <span className="w-full py-1.5 rounded-lg bg-white text-[#073B65] font-bold text-[11px] shadow-md flex items-center justify-center gap-1.5">
+            <BookOpen size={12} className="text-[#079FE8]" />
+            <span>{isBorrowed ? 'เปิดอ่าน' : 'ดูรายละเอียด'}</span>
+          </span>
         </div>
 
       </div>
@@ -222,15 +208,15 @@ function BookCoverItem({
             <span className="text-[10px] text-slate-400">ฉบับดิจิทัล</span>
           )}
           {readCount > 0 && (
-            <span className="flex items-center gap-0.5 text-slate-400 text-[10px]">
-              <Eye size={11} /> {readCount.toLocaleString()}
+            <span className="flex items-center gap-0.5 text-slate-500 font-semibold text-[10px]">
+              <Eye size={11} className="text-[#079FE8]" /> {readCount.toLocaleString()}
             </span>
           )}
         </div>
 
         {/* Book Title (2 lines clamp, high contrast) */}
         <h3 
-          className="font-semibold text-xs sm:text-[13px] text-slate-800 line-clamp-2 leading-snug min-h-[2.2rem] group-hover/card:text-sky-700 transition-colors"
+          className="font-semibold text-xs sm:text-[13px] text-slate-800 line-clamp-2 leading-snug min-h-[2.2rem] group-hover/card:text-[#079FE8] transition-colors"
           title={book.title}
         >
           {book.title}
@@ -242,7 +228,7 @@ function BookCoverItem({
         </p>
       </div>
 
-    </div>
+    </Link>
   );
 }
 

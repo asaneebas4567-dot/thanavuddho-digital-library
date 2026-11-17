@@ -270,7 +270,7 @@ export default function Home() {
     .filter(Boolean) as Book[];
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-slate-50/50">
       
       {/* 1. ไฮไลต์ชุดหนังสือดิจิทัล */}
       <TopBannerCarousel autoPlayIntervalMs={8000} />
