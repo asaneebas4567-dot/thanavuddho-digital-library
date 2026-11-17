@@ -214,11 +214,12 @@ export default function VideoWatchView({
                 >
                   {isTikTok && /^\d+$/.test(tikTokId || '') ? (
                     <iframe
-                      src={`https://www.tiktok.com/embed/v2/${tikTokId}`}
+                      src={`https://www.tiktok.com/player/v1/${tikTokId}?music_info=1&description=1`}
                       title={video.title}
                       className="w-full h-full object-cover border-0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
+                      loading="lazy"
                     />
                   ) : isTikTok ? (
                     <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-zinc-950">
