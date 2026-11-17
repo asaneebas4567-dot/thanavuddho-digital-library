@@ -673,6 +673,29 @@ export const libraryVideos: Video[] = [
     author: 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
     channel_handle: '@ThanavuddhoStory',
     is_available: true
+  },
+  {
+    id: 'vid-tiktok-7708248719312817429',
+    title: 'ธรรมะรอบตัว | TikTok @udornsharo',
+    description: 'ข้อคิดธรรมะเตือนใจสั้นกระชับจากช่อง TikTok @udornsharo (ธรรมะรอบตัว) ถ่ายทอดหลักคิดและคำสอนในการดำเนินชีวิต',
+    video_url: 'https://www.tiktok.com/@udornsharo/video/7708248719312817429',
+    platform: 'tiktok',
+    tiktokId: '7708248719312817429',
+    thumbnail: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=600',
+    duration: '01:00',
+    video_type: 'tiktok_short',
+    orientation: 'vertical',
+    aspect_ratio: '9:16',
+    category_ids: ['cat_001', 'cat_006'],
+    tags: ['TikTok', 'คลิปติ๊กต๊อก', 'ธรรมะรอบตัว', 'udornsharo', 'ข้อคิดเตือนใจ'],
+    related_book_ids: ['book_tam_jai_hai_prom_buak'],
+    source_url: 'https://www.tiktok.com/@udornsharo/video/7708248719312817429',
+    copyright_status: 'official',
+    published_date: '2026-11-17',
+    view_count: 3200,
+    author: 'ธรรมะรอบตัว (TikTok @udornsharo)',
+    channel_handle: '@udornsharo',
+    is_available: true
   }
 ];
 
