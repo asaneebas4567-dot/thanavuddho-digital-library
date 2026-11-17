@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Eye, Crown, Sparkles, TrendingUp, BookOpen, Check } from 'lucide-react';
@@ -14,18 +14,36 @@ interface WebtoonRankingShelfProps {
 
 export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRankingShelfProps) {
   const [activeTab, setActiveTab] = useState<'all' | 'mind' | 'family' | 'work'>('all');
+  const [dbReadStats, setDbReadStats] = useState<Record<string, number>>({});
   const { isMediaBorrowed } = useLoan();
 
-  // Deduplicate pool
+  // Fetch real database read stats on mount
+  useEffect(() => {
+    fetch('/api/books/reads')
+      .then(r => r.json())
+      .then(d => {
+        if (d.success && d.stats) {
+          setDbReadStats(d.stats);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  // Deduplicate pool & merge live stats directly
   const uniqueBooks = useMemo(() => {
     const map = new Map<string, Book>();
     books.forEach((b) => {
       if (b && b.id && !map.has(b.id)) {
-        map.set(b.id, b);
+        const liveCount = dbReadStats[b.id] ?? b.read_count ?? b.view_count ?? 0;
+        map.set(b.id, {
+          ...b,
+          read_count: liveCount,
+          view_count: liveCount,
+        });
       }
     });
     return Array.from(map.values());
-  }, [books]);
+  }, [books, dbReadStats]);
 
   // Dynamic ranking based strictly on REAL reading count from database/stats
   const rankedBooks = useMemo(() => {
