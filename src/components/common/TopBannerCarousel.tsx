@@ -7,869 +7,305 @@ import {
   ChevronLeft, 
   ChevronRight, 
   Pause, 
-  Play,
-  BookOpen,
+  Play, 
+  BookOpen, 
+  Headphones, 
+  Video, 
+  Compass, 
+  Coins, 
   Sparkles,
-  Coins,
-  Headphones,
-  Video,
-  Compass,
-  BookMarked
+  ArrowRight
 } from 'lucide-react';
-import { Book } from '@/types';
 import { useLoan } from '@/context/LoanContext';
 
-// Dynamic Pastel Theme System (BKK Book inspired: soft, gentle, readable contrast)
-export type PastelThemeKey = 'mint' | 'sky' | 'rose' | 'cream' | 'orange' | 'indigo' | 'teal';
-
-export interface PastelTheme {
-  name: string;
-  cardBg: string;             // vibrant & soft pastel gradient background
-  cardBorder: string;         // delicate border
-  badgeBg: string;            // category pill styling
-  accentText: string;         // accent label text
-  dotColor: string;           // decorative tiny badge dot
-  glowShadow: string;         // hover shadow hue
-  btnBg: string;              // button background style
-}
-
-export const PASTEL_THEMES: Record<PastelThemeKey, PastelTheme> = {
-  mint: {
-    name: 'เขียวมิ้นต์สดใส',
-    cardBg: 'bg-gradient-to-br from-emerald-50/95 via-teal-50/80 to-emerald-100/70 hover:from-emerald-100 hover:to-teal-100/90',
-    cardBorder: 'border-emerald-200/90 hover:border-emerald-400',
-    badgeBg: 'bg-emerald-600 text-white border-transparent',
-    accentText: 'text-emerald-900',
-    dotColor: 'bg-emerald-500',
-    glowShadow: 'hover:shadow-emerald-900/10',
-    btnBg: 'bg-emerald-700 hover:bg-emerald-800 text-white shadow-xs',
-  },
-  sky: {
-    name: 'ฟ้าน้ำทะเลประกาย',
-    cardBg: 'bg-gradient-to-br from-sky-50/95 via-blue-50/80 to-sky-100/70 hover:from-sky-100 hover:to-blue-100/90',
-    cardBorder: 'border-sky-200/90 hover:border-sky-400',
-    badgeBg: 'bg-sky-600 text-white border-transparent',
-    accentText: 'text-sky-950',
-    dotColor: 'bg-sky-500',
-    glowShadow: 'hover:shadow-sky-900/10',
-    btnBg: 'bg-[#079FE8] hover:bg-[#0588c7] text-white shadow-xs',
-  },
-  rose: {
-    name: 'ชมพูพาสเทลละมุน',
-    cardBg: 'bg-gradient-to-br from-rose-50/95 via-pink-50/80 to-rose-100/70 hover:from-rose-100 hover:to-pink-100/90',
-    cardBorder: 'border-rose-200/90 hover:border-rose-400',
-    badgeBg: 'bg-rose-600 text-white border-transparent',
-    accentText: 'text-rose-950',
-    dotColor: 'bg-rose-500',
-    glowShadow: 'hover:shadow-rose-900/10',
-    btnBg: 'bg-rose-600 hover:bg-rose-700 text-white shadow-xs',
-  },
-  cream: {
-    name: 'ครีมทองอำพัน',
-    cardBg: 'bg-gradient-to-br from-amber-50/95 via-yellow-50/80 to-amber-100/70 hover:from-amber-100 hover:to-amber-200/80',
-    cardBorder: 'border-amber-200/90 hover:border-amber-400',
-    badgeBg: 'bg-amber-600 text-white border-transparent',
-    accentText: 'text-amber-950',
-    dotColor: 'bg-amber-500',
-    glowShadow: 'hover:shadow-amber-900/10',
-    btnBg: 'bg-[#D9A441] hover:bg-[#c59132] text-white shadow-xs',
-  },
-  orange: {
-    name: 'ส้มพีชอบอุ่น',
-    cardBg: 'bg-gradient-to-br from-orange-50/95 via-amber-50/80 to-orange-100/70 hover:from-orange-100 hover:to-amber-100/90',
-    cardBorder: 'border-orange-200/90 hover:border-orange-400',
-    badgeBg: 'bg-orange-600 text-white border-transparent',
-    accentText: 'text-orange-950',
-    dotColor: 'bg-orange-500',
-    glowShadow: 'hover:shadow-orange-900/10',
-    btnBg: 'bg-orange-600 hover:bg-orange-700 text-white shadow-xs',
-  },
-  indigo: {
-    name: 'ม่วงลาเวนเดอร์นุ่มลึก',
-    cardBg: 'bg-gradient-to-br from-indigo-50/95 via-purple-50/80 to-indigo-100/70 hover:from-indigo-100 hover:to-purple-100/90',
-    cardBorder: 'border-indigo-200/90 hover:border-indigo-400',
-    badgeBg: 'bg-indigo-600 text-white border-transparent',
-    accentText: 'text-indigo-950',
-    dotColor: 'bg-indigo-500',
-    glowShadow: 'hover:shadow-indigo-900/10',
-    btnBg: 'bg-[#073B65] hover:bg-[#052946] text-white shadow-xs',
-  },
-  teal: {
-    name: 'เขียวน้ำทะเลสดใส',
-    cardBg: 'bg-gradient-to-br from-teal-50/95 via-cyan-50/80 to-teal-100/70 hover:from-teal-100 hover:to-cyan-100/90',
-    cardBorder: 'border-teal-200/90 hover:border-teal-400',
-    badgeBg: 'bg-teal-700 text-white border-transparent',
-    accentText: 'text-teal-950',
-    dotColor: 'bg-teal-500',
-    glowShadow: 'hover:shadow-teal-900/10',
-    btnBg: 'bg-teal-700 hover:bg-teal-800 text-white shadow-xs',
-  },
-};
-
-export interface ShowcaseCard {
+export interface MebBannerSlide {
   id: string;
-  type: 'welcome' | 'survey' | 'podcast' | 'video' | 'book';
+  type: 'book' | 'podcast' | 'video' | 'survey' | 'welcome';
   title: string;
+  subtitle: string;
   description: string;
-  coverImage?: string;
-  categoryName: string;
-  badgeLabel?: string;
-  themeKey: PastelThemeKey;
-  actionUrl: string;
-  actionLabel: string;
-  isCopyright?: boolean;
-  isExternal?: boolean;
-  isSurveyTrigger?: boolean;
+  coverImage: string;
+  badge: string;
+  targetUrl: string;
+  themeGradient: string; // Rich colorful background theme for the whole banner
+  glowColor: string;
+  tagColor: string;
 }
 
-// 10 Curated Highlight Showcase Items (Welcome, Survey 200pts, Podcast, Video, and 6 Copyright Books)
-export const DEFAULT_10_SHOWCASE_CARDS: ShowcaseCard[] = [
-  // 1. Welcome Card
+export const HERO_SLIDES: MebBannerSlide[] = [
+  // 1. มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า
   {
-    id: 'item-welcome',
-    type: 'welcome',
-    title: 'ยินดีต้อนรับสู่ Thanavuddho Digital Library',
-    description: 'คลังหนังสือธรรมะดิจิทัล เสียงพอดแคสต์ และสื่อการเรียนรู้พระพุทธศาสนาร่วมสมัย โดย พระครูปลัดสุวัฒนโพธิคุณ',
-    categoryName: 'ห้องสมุดธรรมะดิจิทัล',
-    badgeLabel: 'ยินดีต้อนรับ',
-    themeKey: 'sky',
-    actionUrl: '/books',
-    actionLabel: 'สำรวจคลังธรรมะ',
-  },
-
-  // 2. Survey Promotion Card (200 Points)
-  {
-    id: 'item-survey-200',
-    type: 'survey',
-    title: 'ตอบแบบสอบถาม รับทันที 200 แต้มสะสม',
-    description: 'ร่วมทำแบบประเมินคุณภาพเว็บไซต์และห้องสมุดดิจิทัล กรอกอีเมลสมาชิกแล้วกดยืนยันรับ 200 แต้มสะสมทันที',
-    categoryName: 'ภารกิจรับแต้ม',
-    badgeLabel: 'รับ 200 แต้ม',
-    themeKey: 'cream',
-    actionUrl: '/survey',
-    actionLabel: 'ทำแบบประเมิน รับ 200 แต้ม',
-    isSurveyTrigger: true,
-  },
-
-  // 3. Featured Podcast Card
-  {
-    id: 'item-podcast-tamjai',
-    type: 'podcast',
-    title: 'พอดแคสต์ "ทำใจให้พร้อมบวก"',
-    description: 'ซีรีส์ 5 ตอนจบ ฟังเพลิน เติมพลังบวก สติ และปัญญา จากหนังสือยอดนิยม โดย พระครูปลัดสุวัฒนโพธิคุณ',
-    coverImage: '/images/books/tam-jai-hai-prom-buak.jpg',
-    categoryName: 'พอดแคสต์ธรรมะ',
-    badgeLabel: 'พอดแคสต์ 5 ตอน',
-    themeKey: 'rose',
-    actionUrl: '/audios?podcast=pod-tam-jai-hai-prom-buak',
-    actionLabel: 'ฟังพอดแคสต์ธรรมะ',
-  },
-
-  // 4. Featured Video Card
-  {
-    id: 'item-video-thanavuddho',
-    type: 'video',
-    title: 'วิดีโอธรรมบรรยาย พระครูปลัดสุวัฒนโพธิคุณ',
-    description: 'เทศนาธรรมะร่วมสมัย สาระน่ารู้ ตอบโจทย์ชีวิต ข้อคิดเตือนใจ และแนวทางปฏิบัติธรรมสู่ความสุขแท้จริง',
-    coverImage: '/images/books/ตามหลวงพี่ไปโกอินเตอร์.jpg',
-    categoryName: 'สื่อธรรมะวิดีโอ',
-    badgeLabel: 'วิดีโอแนะนำ',
-    themeKey: 'teal',
-    actionUrl: '/videos',
-    actionLabel: 'รับชมวิดีโอธรรมะ',
-  },
-
-  // 5. VIP Book: ทำใจให้พร้อมบวก (Digital Library Loan)
-  {
-    id: 'book_tam_jai_hai_prom_buak',
-    type: 'book',
-    title: 'ทำใจให้พร้อมบวก',
-    description: 'สร้างสุขที่แท้จริง ด้วยการสร้างความคิดดี ๆ จากการมองสิ่งต่าง ๆ อย่างเข้าใจ ยอมรับ เข้าใจ เกิดประโยชน์',
-    coverImage: '/images/books/tam-jai-hai-prom-buak.jpg',
-    categoryName: 'จิตวิทยา & พัฒนาตนเอง',
-    badgeLabel: 'ยอดนิยม',
-    themeKey: 'mint',
-    actionUrl: '/books/book_tam_jai_hai_prom_buak',
-    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
-    isCopyright: true,
-  },
-
-  // 6. VIP Book: อย่ามโน (Digital Library Loan)
-  {
-    id: 'book_อย่ามโน',
-    type: 'book',
-    title: 'อย่ามโน',
-    description: 'ดึงสติไม่ให้หลงไปตามอารมณ์ ค้นพบความจริงของชีวิตด้วยสัมมาทิฏฐิและความรู้เท่าทันใจตนเอง',
-    coverImage: '/images/books/อย่ามโน.jpg',
-    categoryName: 'จิตใจ & สติรู้ทัน',
-    badgeLabel: 'หนังสือแนะนำ',
-    themeKey: 'sky',
-    actionUrl: '/books/book_อย่ามโน',
-    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
-    isCopyright: true,
-  },
-
-  // 7. VIP Book: สมดุลเท่ากับดี (Digital Library Loan)
-  {
-    id: 'book_สมดุลเท่ากับดี',
-    type: 'book',
-    title: 'สมดุลเท่ากับดี',
-    description: 'ปรับสมดุลกายและใจให้ลงตัว ทำงานอย่างมีความสุข ชีวิตราบรื่นด้วยหลักมัชฌิมาปฏิปทา',
-    coverImage: '/images/books/สมดุลเท่ากับดี.jpg',
-    categoryName: 'การทำงาน & ความสำเร็จ',
-    badgeLabel: 'หนังสือแนะนำ',
-    themeKey: 'orange',
-    actionUrl: '/books/book_สมดุลเท่ากับดี',
-    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
-    isCopyright: true,
-  },
-
-  // 8. VIP Book: เขาก็สุข เราก็สุข (Digital Library Loan)
-  {
-    id: 'book_khao_kor_sook_rao_kor_sook',
-    type: 'book',
-    title: 'เขาก็สุข เราก็สุข',
-    description: 'เปลี่ยนศัตรูให้เป็นมิตร ศิลปะป้องกันใจ และสร้างมิตรภาพอันงดงามร่วมกันในสังคม',
-    coverImage: '/images/books/khao-kor-sook-rao-kor-sook.jpg',
-    categoryName: 'มิตรภาพ & สังคม',
-    badgeLabel: 'หนังสือแนะนำ',
-    themeKey: 'mint',
-    actionUrl: '/books/book_khao_kor_sook_rao_kor_sook',
-    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
-    isCopyright: true,
-  },
-
-  // 9. VIP Book: ความสุข 360 องศา (Digital Library Loan)
-  {
-    id: 'book_ความสุข-360-องศา',
-    type: 'book',
-    title: 'ความสุข 360 องศา',
-    description: 'กะเทาะเปลือกความทุกข์ ค้นพบความสุขรอบตัวในทุกมิติของชีวิตอย่างยั่งยืนจากภายใน',
-    coverImage: '/images/books/ความสุข-360-องศา.jpg',
-    categoryName: 'ความสุข & ความสงบใจ',
-    badgeLabel: 'หนังสือแนะนำ',
-    themeKey: 'rose',
-    actionUrl: '/books/book_ความสุข-360-องศา',
-    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
-    isCopyright: true,
-  },
-
-  // 10. VIP Book: มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า (Digital Library Loan)
-  {
-    id: 'book_mongkol_chiwit_124',
+    id: 'slide-mongkol-38',
     type: 'book',
     title: 'มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า',
-    description: 'หลักธรรม 38 ประการอันเป็นบันไดสู่ความสำเร็จและความเจริญรุ่งเรืองในชีวิต',
+    subtitle: 'แผนที่ชีวิตฉบับสมบูรณ์ 433 หน้าแห่งปัญญา',
+    description: 'บันได 10 ขั้นแห่งการพัฒนาตนเอง ตั้งแต่ก้าวแรกของการไม่คบคนพาล จนถึงจิตเกษมไม่หวั่นไหวในโลกธรรม คำสอนอันทรงคุณค่าโดย พระครูปลัดสุวัฒนโพธิคุณ',
     coverImage: '/images/books/mongkol-124.jpg',
-    categoryName: 'หลักธรรม & มงคลชีวิต',
-    badgeLabel: 'มงคลชีวิต',
-    themeKey: 'indigo',
-    actionUrl: '/books/book_mongkol_chiwit_124',
-    actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
-    isCopyright: true,
+    badge: '👑 อันดับ 1 ยอดนิยมสูงสุด',
+    targetUrl: '/books/book_mongkol_chiwit_124',
+    themeGradient: 'from-[#072B4A] via-[#0B4B7F] to-[#079FE8]',
+    glowColor: 'bg-sky-400/20',
+    tagColor: 'bg-amber-400 text-slate-950',
   },
+  // 2. ทำใจให้พร้อมบวก
+  {
+    id: 'slide-tamjai-prombuak',
+    type: 'book',
+    title: 'ทำใจให้พร้อมบวก',
+    subtitle: 'สร้างสุขที่แท้จริง เปลี่ยนวิกฤตเป็นโอกาสด้วยปัญญาธรรม',
+    description: 'สูตรสำเร็จ 3 ประการ "ยอมรับ เข้าใจ เกิดประโยชน์" ดึงมุมมองความคิดสร้างสรรค์ นำพาสติและความสุขสงบสู่ชีวิตประจำวัน',
+    coverImage: '/images/books/tam-jai-hai-prom-buak.jpg',
+    badge: '✨ หนังสือแนะนำประจำสัปดาห์',
+    targetUrl: '/books/book_tam_jai_hai_prom_buak',
+    themeGradient: 'from-[#044E54] via-[#0D7C85] to-[#14B8A6]',
+    glowColor: 'bg-teal-400/20',
+    tagColor: 'bg-emerald-300 text-teal-950',
+  },
+  // 3. อย่ามโน
+  {
+    id: 'slide-ya-mano',
+    type: 'book',
+    title: 'อย่ามโน',
+    subtitle: 'ดึงสติรู้เท่าทันความคิด สลายภาพลวงตาด้วยสัมมาทิฏฐิ',
+    description: 'เรียนรู้วิธีหยุดความคิดฟุ้งซ่านและอุปาทานที่หลอกหลอนตนเอง คืนความปลอดโปร่งและสันติสุขแท้จริงสู่ใจด้วยสติในปัจจุบันขณะ',
+    coverImage: '/images/books/อย่ามโน.jpg',
+    badge: '🌸 พัฒนาจิตใจ & ฝึกสติ',
+    targetUrl: '/books/book_อย่ามโน',
+    themeGradient: 'from-[#701A75] via-[#9D174D] to-[#F43F5E]',
+    glowColor: 'bg-rose-400/20',
+    tagColor: 'bg-pink-300 text-rose-950',
+  },
+  // 4. สมดุลเท่ากับดี
+  {
+    id: 'slide-samdun-dee',
+    type: 'book',
+    title: 'สมดุลเท่ากับดี',
+    subtitle: 'มัชฌิมาปฏิปทาเพื่อการทำงานและการใช้ชีวิตที่ยั่งยืน',
+    description: 'รักษาสมดุล กาย-ใจ-งาน ไม่ตึงจนหมดไฟ และไม่หย่อนจนคั่งค้าง ประสบความสำเร็จอย่างมีความสุขตามหลักธรรมร่วมสมัย',
+    coverImage: '/images/books/สมดุลเท่ากับดี.jpg',
+    badge: '🌿 การทำงาน & ความสำเร็จ',
+    targetUrl: '/books/book_สมดุลเท่ากับดี',
+    themeGradient: 'from-[#14532D] via-[#15803D] to-[#22C55E]',
+    glowColor: 'bg-emerald-400/20',
+    tagColor: 'bg-lime-300 text-emerald-950',
+  },
+  // 5. พอดแคสต์ทำใจให้พร้อมบวก
+  {
+    id: 'slide-podcast-tamjai',
+    type: 'podcast',
+    title: 'พอดแคสต์ "ทำใจให้พร้อมบวก" (5 ตอนจบ)',
+    subtitle: 'ฟังเพลิน เติมพลังใจ ได้ทุกที่ทุกเวลา',
+    description: 'เสียงบรรยายธรรมะฟังสบาย ถ่ายทอดแก่นคิดและกำลังใจจากหนังสือเล่มโปรด ให้คุณเริ่มต้นวันใหม่อย่างสดใสและมีสติ',
+    coverImage: '/images/books/tam-jai-hai-prom-buak.jpg',
+    badge: '🎧 พอดแคสต์ซีรีส์ยอดนิยม',
+    targetUrl: '/audios?podcast=pod-tam-jai-hai-prom-buak',
+    themeGradient: 'from-[#4C1D95] via-[#6D28D9] to-[#8B5CF6]',
+    glowColor: 'bg-purple-400/20',
+    tagColor: 'bg-purple-200 text-purple-950',
+  },
+  // 6. แบบประเมินคุณภาพห้องสมุด รับ 200 แต้ม
+  {
+    id: 'slide-survey-200',
+    type: 'survey',
+    title: 'ร่วมตอบแบบประเมินห้องสมุดดิจิทัล',
+    subtitle: 'รับทันที 200 แต้มสะสมแลกรับของรางวัลที่ระลึก',
+    description: 'ช่วยเราพัฒนาคุณภาพบริการ Thanavuddho Digital Library ให้ดียิ่งขึ้น ตอบแบบสอบถามง่ายๆ ใน 2 นาที รับแต้มสะสมเข้าสู่บัญชีสมาชิกทันที',
+    coverImage: '/images/rewards/bookmark-mongkol.jpg',
+    badge: '🪙 ภารกิจรับแต้ม 200 P',
+    targetUrl: '/survey',
+    themeGradient: 'from-[#78350F] via-[#B45309] to-[#D9A441]',
+    glowColor: 'bg-amber-400/20',
+    tagColor: 'bg-amber-200 text-amber-950',
+  }
 ];
 
-// Cute Mini Novice Monk Mascot for the Survey Card
-function MiniNoviceMascot() {
-  return (
-    <svg 
-      viewBox="0 0 160 160" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-full drop-shadow-md select-none"
-    >
-      <defs>
-        <radialGradient id="miniHaloGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#FDE68A" stopOpacity="0.8" />
-          <stop offset="70%" stopColor="#F59E0B" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="#F59E0B" stopOpacity="0" />
-        </radialGradient>
-        <linearGradient id="miniSkinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#FFE0B2" />
-          <stop offset="100%" stopColor="#FFCC80" />
-        </linearGradient>
-        <linearGradient id="miniRobeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#F97316" />
-          <stop offset="50%" stopColor="#EA580C" />
-          <stop offset="100%" stopColor="#C2410C" />
-        </linearGradient>
-        <linearGradient id="miniCoinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FDE047" />
-          <stop offset="40%" stopColor="#EAB308" />
-          <stop offset="100%" stopColor="#CA8A04" />
-        </linearGradient>
-      </defs>
-
-      {/* Halo Background */}
-      <circle cx="80" cy="72" r="54" fill="url(#miniHaloGlow)" />
-
-      {/* Body / Saffron Robe */}
-      <path 
-        d="M48 108 C44 122 42 142 40 152 C52 154 108 154 120 152 C118 142 116 122 112 108 C102 116 58 116 48 108 Z" 
-        fill="url(#miniRobeGrad)" 
-      />
-      <path 
-        d="M50 110 C62 125 98 125 110 110 C100 135 60 135 50 110 Z" 
-        fill="#C2410C" 
-        opacity="0.35" 
-      />
-
-      {/* Ears */}
-      <circle cx="45" cy="76" r="8" fill="url(#miniSkinGrad)" />
-      <circle cx="115" cy="76" r="8" fill="url(#miniSkinGrad)" />
-
-      {/* Head */}
-      <circle cx="80" cy="72" r="36" fill="url(#miniSkinGrad)" />
-
-      {/* Eyebrows */}
-      <path d="M60 60 Q68 56 74 60" stroke="#795548" strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M86 60 Q92 56 100 60" stroke="#795548" strokeWidth="2.5" strokeLinecap="round" />
-
-      {/* Happy Curved Eyes */}
-      <path d="M60 69 Q67 76 74 69" stroke="#3E2723" strokeWidth="3.2" strokeLinecap="round" fill="none" />
-      <path d="M86 69 Q93 76 100 69" stroke="#3E2723" strokeWidth="3.2" strokeLinecap="round" fill="none" />
-
-      {/* Sweet Smile */}
-      <path d="M72 82 Q80 90 88 82" stroke="#3E2723" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-      <path d="M75 84 Q80 88 85 84" fill="#E57373" />
-
-      {/* Peach Cheeks */}
-      <ellipse cx="57" cy="77" rx="6" ry="4" fill="#FF8A80" opacity="0.65" />
-      <ellipse cx="103" cy="77" rx="6" ry="4" fill="#FF8A80" opacity="0.65" />
-
-      {/* Left Hand holding Dharma Tablet */}
-      <g transform="translate(32, 102)">
-        <rect x="0" y="0" width="22" height="28" rx="3" fill="#073B65" />
-        <rect x="2" y="2" width="18" height="24" rx="2" fill="#FFFFFF" />
-        <circle cx="11" cy="14" r="5" fill="#D9A441" />
-      </g>
-
-      {/* Right Hand Waving & Holding 200 Coin */}
-      <g transform="translate(108, 38)">
-        <circle cx="18" cy="18" r="18" fill="url(#miniCoinGrad)" />
-        <circle cx="18" cy="18" r="14.5" stroke="#FEF08A" strokeWidth="1.5" fill="none" />
-        <text 
-          x="18" 
-          y="23" 
-          textAnchor="middle" 
-          fill="#78350F" 
-          fontSize="11" 
-          fontWeight="900" 
-          fontFamily="sans-serif"
-        >
-          200
-        </text>
-        <path d="M8 8 L9 5 L10 8 L13 9 L10 10 L9 13 L8 10 L5 9 Z" fill="#FFFFFF" />
-      </g>
-    </svg>
-  );
-}
-
 interface TopBannerCarouselProps {
-  books?: Book[];
-  showcaseItems?: ShowcaseCard[];
-  title?: string;
-  badge?: string;
   autoPlayIntervalMs?: number;
 }
 
-export default function TopBannerCarousel({
-  books,
-  showcaseItems,
-  title = 'ไฮไลต์ห้องสมุดดิจิทัล',
-  badge = 'รายการแนะนำ',
-  autoPlayIntervalMs = 8000,
-}: TopBannerCarouselProps) {
-  const { isMediaBorrowed } = useLoan();
-  // Use custom showcase items, or default curated 10 items
-  const items: ShowcaseCard[] = React.useMemo(() => {
-    if (showcaseItems && showcaseItems.length > 0) {
-      return showcaseItems;
-    }
-    // If user explicitly provided books and wants them mapped:
-    if (books && books.length > 0 && !showcaseItems) {
-      // Map up to 10 books ensuring readerUrl goes to /reader/[id]
-      const themeKeys: PastelThemeKey[] = ['mint', 'sky', 'rose', 'cream', 'orange', 'indigo', 'teal'];
-      return books.slice(0, 10).map((book, index) => {
-        const themeKey = themeKeys[index % themeKeys.length];
-        const cover = book.cover_image || book.cover || '/images/books/tam-jai-hai-prom-buak.jpg';
-        const category = (book.tags && book.tags[0]) || book.category_id || 'หนังสือธรรมะ';
-        
-        return {
-          id: book.id,
-          type: 'book',
-          title: book.title,
-          description: book.description || 'คำสอนและข้อคิดธรรมะอันทรงคุณค่า เพื่อการดำเนินชีวิตอย่างมีความสุข',
-          coverImage: cover,
-          categoryName: category,
-          badgeLabel: '📖 หนังสือแนะนำ',
-          themeKey,
-          actionUrl: `/books/${book.id}`,
-          actionLabel: 'ยืมหนังสือ (จำกัด 3 เล่ม)',
-          isCopyright: book.is_copyright ?? true,
-        };
-      });
-    }
-
-    return DEFAULT_10_SHOWCASE_CARDS;
-  }, [books, showcaseItems]);
-
+export default function TopBannerCarousel({ autoPlayIntervalMs = 6500 }: TopBannerCarouselProps = {}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(3);
-  const [progressKey, setProgressKey] = useState(0);
-
-  const containerRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const { isMediaBorrowed } = useLoan();
 
-  // Swipe / Drag tracking
-  const touchStartXRef = useRef<number | null>(null);
-  const touchEndXRef = useRef<number | null>(null);
-  const isMouseDownRef = useRef(false);
-  const mouseStartXRef = useRef<number | null>(null);
-
-  // Responsive Breakpoints: Desktop (3), Tablet (2), Mobile (1)
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setVisibleCount(1);
-      } else if (window.innerWidth < 1024) {
-        setVisibleCount(2);
-      } else {
-        setVisibleCount(3);
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const totalCards = items.length;
-  const maxIndex = Math.max(0, totalCards - visibleCount);
-
-  // Clamp current index when screen resized
-  useEffect(() => {
-    if (currentIndex > maxIndex) {
-      setCurrentIndex(maxIndex);
-    }
-  }, [maxIndex, currentIndex]);
+  const total = HERO_SLIDES.length;
 
   const nextSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
-    setProgressKey((k) => k + 1);
-  }, [maxIndex]);
+    setCurrentIndex(prev => (prev + 1) % total);
+  }, [total]);
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
-    setProgressKey((k) => k + 1);
-  }, [maxIndex]);
+    setCurrentIndex(prev => (prev - 1 + total) % total);
+  }, [total]);
 
-  // Autoplay handler (8000ms by default, smoothly step-by-step)
+  // Autoplay (6.5s interval like meb/standard stores)
   useEffect(() => {
-    if (isPlaying && !isHovered && totalCards > visibleCount) {
+    if (isPlaying && !isHovered) {
       timerRef.current = setInterval(() => {
         nextSlide();
-      }, autoPlayIntervalMs);
+      }, 6500);
     }
-
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isPlaying, isHovered, nextSlide, autoPlayIntervalMs, totalCards, visibleCount]);
+  }, [isPlaying, isHovered, nextSlide]);
 
-  // Keyboard navigation
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      prevSlide();
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      nextSlide();
-    }
-  };
-
-  // Touch Swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartXRef.current = e.touches[0].clientX;
-    touchEndXRef.current = null;
-    setIsHovered(true);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndXRef.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStartXRef.current !== null && touchEndXRef.current !== null) {
-      const diff = touchStartXRef.current - touchEndXRef.current;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) nextSlide();
-        else prevSlide();
-      }
-    }
-    touchStartXRef.current = null;
-    touchEndXRef.current = null;
-    setIsHovered(false);
-  };
-
-  // Mouse Drag Support
-  const handleMouseDown = (e: React.MouseEvent) => {
-    isMouseDownRef.current = true;
-    mouseStartXRef.current = e.clientX;
-    setIsHovered(true);
-  };
-
-  const handleMouseMove = () => {
-    if (!isMouseDownRef.current) return;
-  };
-
-  const handleMouseUp = (e: React.MouseEvent) => {
-    if (isMouseDownRef.current && mouseStartXRef.current !== null) {
-      const diff = mouseStartXRef.current - e.clientX;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) nextSlide();
-        else prevSlide();
-      }
-    }
-    isMouseDownRef.current = false;
-    mouseStartXRef.current = null;
-    setIsHovered(false);
-  };
-
-  // Trigger Survey Modal with seamless fallback to /survey page
-  const handleTriggerSurvey = (e?: React.MouseEvent) => {
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('open-survey-modal'));
-      setTimeout(() => {
-        const modal = document.getElementById('survey-modal-overlay');
-        if (!modal) {
-          window.location.href = '/survey';
-        }
-      }, 150);
-    }
-  };
-
-  // Empty State handling
-  if (totalCards === 0) {
-    return null;
-  }
-
-  // Calculate slide percentage width (88% on mobile so adjacent card peeks at the side)
-  const cardWidthPercent = visibleCount === 1 ? 88 : 100 / visibleCount;
+  const active = HERO_SLIDES[currentIndex];
+  const isBorrowed = active.type === 'book' && isMediaBorrowed(active.targetUrl.replace('/books/', ''));
+  const finalUrl = isBorrowed ? active.targetUrl.replace('/books/', '/reader/') : active.targetUrl;
 
   return (
     <section 
-      ref={containerRef}
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-      className="relative bg-gradient-to-r from-[#073B65] via-[#0A4D82] to-[#079FE8] border-b border-[#073B65]/40 py-4 sm:py-5.5 select-none focus:outline-none shadow-md"
+      className="relative w-full overflow-hidden select-none"
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        isMouseDownRef.current = false;
-      }}
-      aria-label="ไฮไลต์ 10 หน้าต่าง Thanavuddho Digital Library"
+      onMouseLeave={() => setIsHovered(false)}
+      aria-label="แบนเนอร์ประชาสัมพันธ์ห้องสมุดดิจิทัล"
     >
-      <style>{`
-        @keyframes bannerProgressSmooth {
-          0% { width: 0%; }
-          100% { width: 100%; }
-        }
-        .banner-progress-bar-active {
-          animation: bannerProgressSmooth ${autoPlayIntervalMs}ms linear infinite;
-        }
-      `}</style>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* FULL-WIDTH BANNER STAGE (mebmarket & 2ebook inspired) */}
+      <div className={`relative w-full bg-gradient-to-r ${active.themeGradient} transition-colors duration-700 ease-in-out`}>
         
-        {/* 1. Header Bar: Title + Badge (10 รายการ) + Controls */}
-        <div className="flex items-center justify-between gap-2.5 mb-3.5">
+        {/* Soft Background Texture & Ambient Lighting */}
+        <div className={`absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none transition-all duration-700 ${active.glowColor}`} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-black/25 pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
           
-          {/* Left: Title */}
-          <div className="flex items-center gap-2 min-w-0">
-            <h2 className="text-base sm:text-lg font-semibold text-white tracking-tight truncate">
-              {title}
-            </h2>
+          {/* Entire Banner is 1 Clickable Container */}
+          <Link
+            href={finalUrl}
+            className="group relative flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-12 cursor-pointer focus:outline-none"
+            title={`${active.title} — คลิกเพื่อเข้าสู่เนื้อหา`}
+          >
+            {/* LEFT / CENTER: Promotional Text & Book Info */}
+            <div className="flex-1 min-w-0 text-white z-10 text-center md:text-left space-y-3 sm:space-y-4">
+              
+              {/* Category / Campaign Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold shadow-md tracking-wide"
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', backdropFilter: 'blur(8px)' }}
+              >
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${active.tagColor}`}>
+                  {active.badge}
+                </span>
+                <span className="text-white/90 text-xs font-medium">Thanavuddho Digital Library</span>
+              </div>
+
+              {/* Main Headline */}
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-md group-hover:text-amber-200 transition-colors">
+                {active.title}
+              </h1>
+
+              {/* Subtitle / Catchphrase */}
+              <p className="text-sm sm:text-base lg:text-lg font-bold text-white/90 drop-shadow-xs max-w-2xl">
+                {active.subtitle}
+              </p>
+
+              {/* Narrative Description */}
+              <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-2xl line-clamp-3 md:line-clamp-none font-normal">
+                {active.description}
+              </p>
+
+              {/* High-visibility Action Indicator (Click to enter) */}
+              <div className="pt-2 sm:pt-4 flex items-center justify-center md:justify-start gap-3">
+                <span className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white text-slate-900 font-bold text-xs sm:text-sm shadow-xl hover:bg-amber-300 transition-all group-hover:scale-105 active:scale-95">
+                  {active.type === 'podcast' ? (
+                    <Headphones size={16} className="text-purple-600" />
+                  ) : active.type === 'survey' ? (
+                    <Coins size={16} className="text-amber-500" />
+                  ) : (
+                    <BookOpen size={16} className="text-[#079FE8]" />
+                  )}
+                  <span>{isBorrowed ? 'คลิกเปิดอ่านได้ทันที' : 'เข้าสู่หน้าหนังสือ / เนื้อหา'}</span>
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </span>
+                <span className="hidden sm:inline-block text-xs text-white/70 font-light">
+                  *กดที่ป้ายหรือรูปภาพเพื่อเปิดหน้าเนื้อหา
+                </span>
+              </div>
+
+            </div>
+
+            {/* RIGHT: High-Definition 3D Book Showcase */}
+            <div className="relative shrink-0 flex items-center justify-center z-10">
+              <div className="relative w-44 sm:w-56 md:w-64 lg:w-72 aspect-[1/1.42] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-2 border-white/30 group-hover:scale-104 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.65)] transition-all duration-500 bg-slate-900">
+                {/* 3D Spine Highlight */}
+                <div className="absolute left-0 inset-y-0 w-2.5 bg-gradient-to-r from-black/40 via-white/30 to-transparent z-20 pointer-events-none" />
+                <div className="absolute right-0 inset-y-0 w-1 bg-slate-300/80 z-20 pointer-events-none" />
+
+                <Image
+                  src={active.coverImage}
+                  alt={active.title}
+                  fill
+                  priority
+                  className="object-cover"
+                  unoptimized
+                />
+
+                {/* Subtle Gloss Sheen Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-white/20 pointer-events-none" />
+              </div>
+            </div>
+
+          </Link>
+
+        </div>
+
+        {/* BOTTOM CONTROLS & PAGINATION (meb style) */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-3 sm:pb-4 flex items-center justify-between gap-4 border-t border-white/10 pt-2 sm:pt-3">
+          
+          {/* Slide Indicator Dots */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {HERO_SLIDES.map((slide, idx) => (
+              <button
+                key={slide.id}
+                onClick={() => setCurrentIndex(idx)}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  idx === currentIndex 
+                    ? 'w-7 sm:w-8 h-2 sm:h-2.5 bg-white shadow-md' 
+                    : 'w-2 sm:w-2.5 h-2 sm:h-2.5 bg-white/40 hover:bg-white/70'
+                }`}
+                title={`ไปที่สไลด์ ${idx + 1}: ${slide.title}`}
+                aria-label={`ไปที่สไลด์ ${idx + 1}`}
+              />
+            ))}
           </div>
 
-          {/* Right: Counter + Play/Pause + Prev + Next */}
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            {/* Position Counter Chip */}
-            <span 
-              className="text-[11px] sm:text-xs font-mono font-bold text-[#073B65] bg-white/95 border border-white/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-2xs tabular-nums"
-              title="ตำแหน่งสไลด์ปัจจุบัน"
-            >
-              {currentIndex + 1}{visibleCount > 1 ? ` - ${Math.min(currentIndex + visibleCount, totalCards)}` : ''} / {totalCards}
+          {/* Controls: Prev / Next / Pause */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="text-[11px] font-mono text-white/80 mr-1 sm:mr-2">
+              {currentIndex + 1} / {total}
             </span>
 
-            {/* Play / Pause Toggle Button */}
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 hover:bg-white text-[#073B65] flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95"
-              title={isPlaying ? 'หยุดเล่นอัตโนมัติ (8 วินาที)' : 'เริ่มเล่นอัตโนมัติ (8 วินาที)'}
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center transition-all cursor-pointer"
+              title={isPlaying ? 'หยุดเล่นอัตโนมัติ' : 'เล่นอัตโนมัติ'}
               aria-label={isPlaying ? 'หยุดเล่นอัตโนมัติ' : 'เล่นอัตโนมัติ'}
             >
               {isPlaying ? <Pause size={12} /> : <Play size={12} className="translate-x-0.5" />}
             </button>
 
-            {/* Prev Button */}
             <button
               onClick={prevSlide}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 hover:bg-white text-[#073B65] flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95 hover:scale-105"
-              title="ก่อนหน้า"
-              aria-label="เลื่อนไปก่อนหน้า"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center transition-all cursor-pointer"
+              title="สไลด์ก่อนหน้า"
+              aria-label="สไลด์ก่อนหน้า"
             >
               <ChevronLeft size={16} />
             </button>
 
-            {/* Next Button */}
             <button
               onClick={nextSlide}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 hover:bg-white text-[#073B65] flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95 hover:scale-105"
-              title="ถัดไป"
-              aria-label="เลื่อนไปถัดไป"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center transition-all cursor-pointer"
+              title="สไลด์ถัดไป"
+              aria-label="สไลด์ถัดไป"
             >
               <ChevronRight size={16} />
             </button>
           </div>
+
         </div>
-
-        {/* 2. Carousel Viewport (10 Cards: Desktop 3, Tablet 2, Mobile 1) */}
-        <div 
-          className="overflow-hidden rounded-2xl cursor-grab active:cursor-grabbing"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-        >
-          <div 
-            className="flex transition-transform duration-500 ease-out"
-            style={{ 
-              transform: `translateX(-${currentIndex * cardWidthPercent}%)`,
-            }}
-          >
-            {items.map((item, index) => {
-              const theme = PASTEL_THEMES[item.themeKey] || PASTEL_THEMES.mint;
-              const isBorrowed = item.type === 'book' && isMediaBorrowed(item.id);
-              const resolvedUrl = item.type === 'book'
-                ? (isBorrowed ? `/reader/${item.id}` : `/books/${item.id}`)
-                : item.actionUrl;
-              const resolvedLabel = item.type === 'book'
-                ? (isBorrowed ? 'เปิดอ่าน' : 'ยืมหนังสือ')
-                : item.actionLabel;
-
-              return (
-                <div 
-                  key={`${item.id}-${index}`}
-                  className="px-1.5 sm:px-2 shrink-0"
-                  style={{ width: `${cardWidthPercent}%` }}
-                >
-                  <Link
-                    href={resolvedUrl}
-                    onClick={item.isSurveyTrigger ? handleTriggerSurvey : undefined}
-                    className={`group relative rounded-2xl overflow-hidden ${theme.cardBg} ${theme.glowShadow} p-3.5 sm:p-4 shadow-sm hover:shadow-xl transition-all duration-300 border ${theme.cardBorder} flex flex-row items-center gap-3.5 sm:gap-4 min-h-[175px] sm:min-h-[190px] h-full hover:-translate-y-1 block cursor-pointer`}
-                    title={`${item.title} (คลิกเพื่อเข้าสู่เนื้อหา)`}
-                  >
-                    
-                    {/* LEFT COLUMN: Customized Visual Slot (Book Spine / Mascot / Video / Welcome / Podcast) */}
-                    {item.type === 'welcome' ? (
-                      /* Welcome Visual: Elegant Emblem */
-                      <div
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-gradient-to-br from-[#073B65] via-[#0A4D82] to-[#079FE8] shadow-md border border-sky-300/40 flex flex-col items-center justify-center p-2 text-center group-hover:scale-103 transition-transform duration-300"
-                      >
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.25)_0%,transparent_70%)] pointer-events-none" />
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 border border-white/40 flex items-center justify-center shadow-inner mb-1.5">
-                          <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-[#FDE68A]" />
-                        </div>
-                        <span className="text-[10px] sm:text-[11px] font-black text-white tracking-wide uppercase">Thanavuddho</span>
-                        <span className="text-[8px] sm:text-[9px] text-sky-200 font-medium">Digital Library</span>
-                      </div>
-                    ) : item.type === 'survey' ? (
-                      /* Survey Visual: Cute Novice Monk with 200 Coin */
-                      <div
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-gradient-to-br from-amber-100 via-orange-50 to-amber-200/90 shadow-md border border-amber-300 flex flex-col items-center justify-center p-1 group-hover:scale-103 transition-transform duration-300"
-                      >
-                        <div className="w-full h-full p-1 flex items-center justify-center">
-                          <MiniNoviceMascot />
-                        </div>
-                        <span className="absolute bottom-1 px-1.5 py-0.5 rounded-full bg-[#D9A441] text-white text-[8px] font-extrabold shadow-xs">
-                          🪙 200 P
-                        </span>
-                      </div>
-                    ) : item.type === 'podcast' ? (
-                      /* Podcast Visual: Cover with Pulsing Headphones Overlay */
-                      <div
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-md border border-slate-200/70 group-hover:scale-103 transition-transform duration-300"
-                      >
-                        {item.coverImage && (
-                          <Image
-                            src={encodeURI(item.coverImage)}
-                            alt={item.title}
-                            fill
-                            className="object-cover"
-                            sizes="128px"
-                            unoptimized
-                          />
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-purple-950/80 via-transparent to-black/20" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-rose-500/90 text-white flex items-center justify-center shadow-lg ring-2 ring-white/80 animate-pulse">
-                            <Headphones className="w-5 h-5" />
-                          </div>
-                        </div>
-                        <span className="absolute bottom-1 inset-x-1 text-center py-0.5 rounded bg-black/70 text-white text-[8px] font-bold">
-                          5 ตอนจบ
-                        </span>
-                      </div>
-                    ) : item.type === 'video' ? (
-                      /* Video Visual: Cover with Play Badge Overlay */
-                      <div
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-slate-900 shadow-md border border-slate-200/70 group-hover:scale-103 transition-transform duration-300"
-                      >
-                        {item.coverImage && (
-                          <Image
-                            src={encodeURI(item.coverImage)}
-                            alt={item.title}
-                            fill
-                            className="object-cover opacity-85"
-                            sizes="128px"
-                            unoptimized
-                          />
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-teal-950/80 via-transparent to-black/20" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-cyan-500 text-white flex items-center justify-center shadow-lg ring-2 ring-white/90">
-                            <Play className="w-5 h-5 translate-x-0.5 fill-current" />
-                          </div>
-                        </div>
-                        <span className="absolute bottom-1 inset-x-1 text-center py-0.5 rounded bg-black/70 text-teal-300 text-[8px] font-bold">
-                          วิดีโอ HD
-                        </span>
-                      </div>
-                    ) : (
-                      /* Standard Book Visual: 3D Book Cover with Spine Line */
-                      <div
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.14)] border border-slate-200/70 group-hover:shadow-[3px_6px_16px_rgba(0,0,0,0.22)] transition-shadow duration-300"
-                      >
-                        {/* 3D Spine Highlight */}
-                        <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-r from-black/25 via-white/20 to-transparent pointer-events-none z-10" />
-                        {/* Right Edge Page-stack Simulation */}
-                        <div className="absolute right-0 inset-y-0 w-0.5 bg-slate-300/70 pointer-events-none z-10" />
-                        
-                        {/* DRM / Borrowed Badge */}
-                        <div className="absolute top-1 right-1 z-20">
-                          {isBorrowed ? (
-                            <span className="px-1.5 py-0.5 rounded bg-emerald-600 text-white text-[7.5px] font-bold shadow-xs">
-                              ยืมแล้ว
-                            </span>
-                          ) : (
-                            <span className="px-1.5 py-0.5 rounded bg-rose-600 text-white text-[7.5px] font-bold shadow-xs">
-                              ลิขสิทธิ์
-                            </span>
-                          )}
-                        </div>
-
-                        {item.coverImage && (
-                          <Image
-                            src={encodeURI(item.coverImage)}
-                            alt={`ปกหนังสือ ${item.title}`}
-                            fill
-                            loading={index < 3 ? 'eager' : 'lazy'}
-                            className="object-cover group-hover:scale-104 transition-transform duration-300"
-                            sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 128px"
-                            unoptimized
-                          />
-                        )}
-                      </div>
-                    )}
-
-                    {/* RIGHT COLUMN: Details */}
-                    <div className="flex-1 min-w-0 flex flex-col justify-between h-full py-0.5">
-                      <div>
-                        {/* Top: Clean Category Label */}
-                        <div className="flex items-center gap-1.5 mb-1.5">
-                          <span className={`text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-full ${theme.badgeBg}`}>
-                            {item.categoryName}
-                          </span>
-                        </div>
-
-                        {/* Title: High Contrast Slate-900 */}
-                        <h3 
-                          className="text-xs sm:text-sm md:text-base font-bold text-slate-900 group-hover:text-[#073B65] transition-colors line-clamp-2 leading-snug"
-                          title={item.title}
-                        >
-                          {item.title}
-                        </h3>
-
-                        {/* Description: 2 lines */}
-                        <p className="text-[11px] sm:text-xs text-slate-700 mt-1 line-clamp-2 leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-
-                      {/* Bottom Action Indicator */}
-                      <div className="mt-2.5 sm:mt-3 flex items-center justify-start">
-                        <span className={`inline-flex items-center gap-1 sm:gap-1.5 px-3 py-1 rounded-full ${theme.btnBg} text-[11px] sm:text-xs font-semibold shadow-xs group-hover:shadow-md transition-all`}>
-                          {item.type === 'survey' ? (
-                            <Coins size={12} className="shrink-0 text-yellow-100" />
-                          ) : item.type === 'podcast' ? (
-                            <Headphones size={12} className="shrink-0 text-white" />
-                          ) : item.type === 'video' ? (
-                            <Play size={12} className="shrink-0 text-white fill-current" />
-                          ) : item.type === 'welcome' ? (
-                            <Compass size={12} className="shrink-0 text-sky-200" />
-                          ) : (
-                            <BookOpen size={12} className="shrink-0 text-white" />
-                          )}
-                          <span>{resolvedLabel}</span>
-                          <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                        </span>
-                      </div>
-
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* 3. Bottom Indicator Dots (Page & Item Progression) */}
-        {totalCards > visibleCount && (
-          <div className="flex items-center justify-center gap-1.5 mt-3">
-            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => {
-                  setCurrentIndex(idx);
-                  setProgressKey((k) => k + 1);
-                }}
-                className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${
-                  idx === currentIndex
-                    ? 'w-7 bg-sky-400 shadow-2xs'
-                    : 'w-2 bg-white/40 hover:bg-white/70'
-                }`}
-                title={`ไปที่หน้าต่างชุดที่ ${idx + 1}`}
-                aria-label={`ไปที่หน้าต่างชุดที่ ${idx + 1}`}
-              />
-            ))}
-          </div>
-        )}
-
-        {/* 4. Autoplay Progress Countdown Bar (8s per slide) */}
-        {isPlaying && !isHovered && totalCards > visibleCount && (
-          <div className="max-w-[160px] mx-auto h-0.5 bg-white/20 rounded-full overflow-hidden mt-1.5">
-            <div 
-              key={progressKey}
-              className="h-full bg-gradient-to-r from-amber-300 via-sky-300 to-white banner-progress-bar-active rounded-full"
-            />
-          </div>
-        )}
 
       </div>
     </section>
