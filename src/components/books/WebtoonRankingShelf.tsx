@@ -13,6 +13,7 @@ interface WebtoonRankingShelfProps {
 }
 
 export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRankingShelfProps) {
+  const [activeTab, setActiveTab] = useState<'all' | 'mind' | 'family' | 'work'>('all');
   const [dbReadStats, setDbReadStats] = useState<Record<string, number>>({});
   const { isMediaBorrowed } = useLoan();
 
@@ -46,8 +47,27 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
 
   // Dynamic ranking based strictly on REAL reading count from database/stats
   const rankedBooks = useMemo(() => {
-    // Sort descending strictly by real read_count (or view_count if read_count is equal/zero)
-    const sorted = [...uniqueBooks].sort((a, b) => {
+    // 1. Filter by active category if not 'all'
+    let filtered = uniqueBooks;
+    if (activeTab === 'mind') {
+      filtered = uniqueBooks.filter(b => {
+        const text = `${b.title} ${b.category_id || ''} ${(b.tags || []).join(' ')}`.toLowerCase();
+        return text.includes('จิต') || text.includes('สมาธิ') || text.includes('ปัญญา') || text.includes('ใจ') || text.includes('ทุกข์') || text.includes('สุข');
+      });
+    } else if (activeTab === 'family') {
+      filtered = uniqueBooks.filter(b => {
+        const text = `${b.title} ${b.category_id || ''} ${(b.tags || []).join(' ')}`.toLowerCase();
+        return text.includes('รัก') || text.includes('ครอบครัว') || text.includes('ลูก') || text.includes('คู่') || text.includes('เพื่อน') || text.includes('สังคม');
+      });
+    } else if (activeTab === 'work') {
+      filtered = uniqueBooks.filter(b => {
+        const text = `${b.title} ${b.category_id || ''} ${(b.tags || []).join(' ')}`.toLowerCase();
+        return text.includes('งาน') || text.includes('สำเร็จ') || text.includes('มงคล') || text.includes('สมดุล') || text.includes('ดิจิทัล') || text.includes('โลก');
+      });
+    }
+
+    // 2. Sort descending strictly by real read_count (or view_count if read_count is equal/zero)
+    const sorted = [...filtered].sort((a, b) => {
       const readsA = (a.read_count ?? a.view_count) || 0;
       const readsB = (b.read_count ?? b.view_count) || 0;
       if (readsB !== readsA) {
@@ -59,7 +79,7 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
       return pagesB - pagesA;
     });
 
-    // Guarantee strictly 5 books always
+    // 3. Guarantee strictly 5 books always (backfill if category has fewer than 5)
     const result: Book[] = [];
     const chosenIds = new Set<string>();
 
@@ -73,7 +93,12 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
 
     // Backfill from general pool if needed to reach 5
     if (result.length < 5) {
-      for (const b of sorted) {
+      const fallbackSorted = [...uniqueBooks].sort((a, b) => {
+        const readsA = (a.read_count ?? a.view_count) || 0;
+        const readsB = (b.read_count ?? b.view_count) || 0;
+        return readsB - readsA;
+      });
+      for (const b of fallbackSorted) {
         if (result.length >= 5) break;
         if (!chosenIds.has(b.id)) {
           chosenIds.add(b.id);
@@ -83,7 +108,7 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
     }
 
     return result.slice(0, 5);
-  }, [uniqueBooks]);
+  }, [uniqueBooks, activeTab]);
 
   // Distinct Colorful Rank Badges
   const rankStyles = [
@@ -112,11 +137,33 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
           </p>
         </div>
 
+        {/* Tab Filters (Sky Blue for Active State) */}
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+          {[
+            { id: 'all', label: 'ยอดนิยมทั้งหมด' },
+            { id: 'mind', label: 'จิตวิทยา & สมาธิ' },
+            { id: 'family', label: 'ครอบครัว & สังคม' },
+            { id: 'work', label: 'การงาน & ความสำเร็จ' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap active:scale-95 ${
+                activeTab === tab.id
+                  ? 'bg-[#079FE8] text-white shadow-xs ring-2 ring-[#079FE8]/25'
+                  : 'bg-slate-100 text-slate-600 hover:bg-sky-50 hover:text-[#079FE8]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         <Link
           href="/books"
-          className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-[#079FE8] hover:text-[#0588c7] transition-colors self-start sm:self-auto"
+          className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-[#079FE8] hover:text-[#0588c7] transition-colors self-start sm:self-auto shrink-0"
         >
-          <span>ดูหนังสือทั้งหมด</span>
+          <span>ดูทั้งหมด</span>
           <span>&rarr;</span>
         </Link>
       </div>
