@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { 
@@ -20,7 +20,10 @@ import {
   Play,
   Heart,
   MessageCircle,
-  Film
+  Film,
+  SkipForward,
+  SkipBack,
+  Radio
 } from 'lucide-react';
 import { Video } from '@/types';
 import MeloloWatchToEarnWidget from '@/components/rewards/MeloloWatchToEarnWidget';
@@ -59,6 +62,138 @@ export default function VideoWatchView({
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [infoTab, setInfoTab] = useState<'details' | 'transcript'>('details');
   const [seekSeconds, setSeekSeconds] = useState<number | null>(null);
+  const [isAutoplay, setIsAutoplay] = useState(true);
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Resolved list of horizontal YouTube clips in order
+  const ytVideos = useMemo(() => {
+    return allVideos.filter(v => (v.youtubeId || !v.platform || v.platform === 'youtube') && v.orientation !== 'vertical');
+  }, [allVideos]);
+
+  const currentYtIndex = useMemo(() => {
+    return ytVideos.findIndex(v => v.id === video.id || v.youtubeId === video.youtubeId);
+  }, [ytVideos, video.id, video.youtubeId]);
+
+  const nextVideo = useMemo(() => {
+    if (ytVideos.length <= 1) return null;
+    if (currentYtIndex >= 0) {
+      return ytVideos[(currentYtIndex + 1) % ytVideos.length];
+    }
+    return ytVideos[0];
+  }, [ytVideos, currentYtIndex]);
+
+  const prevVideo = useMemo(() => {
+    if (ytVideos.length <= 1) return null;
+    if (currentYtIndex > 0) {
+      return ytVideos[currentYtIndex - 1];
+    }
+    return ytVideos[ytVideos.length - 1];
+  }, [ytVideos, currentYtIndex]);
+
+  const showToast = useCallback((msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  }, []);
+
+  const handlePlayNext = useCallback(() => {
+    if (nextVideo) {
+      showToast(`เล่นคลิปถัดไป: ${nextVideo.title}`);
+      onSelectVideo(nextVideo);
+    }
+  }, [nextVideo, onSelectVideo, showToast]);
+
+  const handlePlayPrev = useCallback(() => {
+    if (prevVideo) {
+      showToast(`เล่นคลิปก่อนหน้า: ${prevVideo.title}`);
+      onSelectVideo(prevVideo);
+    }
+  }, [prevVideo, onSelectVideo, showToast]);
+
+  // YouTube Event Listener 1: postMessage handler for State 0 (ENDED)
+  useEffect(() => {
+    if (isTikTok || !video.youtubeId) return;
+
+    const handleMessage = (e: MessageEvent) => {
+      try {
+        const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+        if (!data) return;
+
+        // YouTube player state changed to ENDED (0)
+        const isEnded = 
+          (data.event === 'onStateChange' && data.info === 0) ||
+          (data.event === 'infoDelivery' && data.info && data.info.playerState === 0);
+
+        if (isEnded) {
+          if (isAutoplay && nextVideo) {
+            showToast(`เล่นจบแล้ว ▶ กำลังเริ่มคลิปถัดไป: ${nextVideo.title}`);
+            onSelectVideo(nextVideo);
+          }
+        }
+      } catch {
+        // non-JSON or other event
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [isTikTok, video.youtubeId, isAutoplay, nextVideo, onSelectVideo, showToast]);
+
+  // YouTube Event Listener 2: YouTube IFrame API binding for bulletproof detection
+  useEffect(() => {
+    if (typeof window === 'undefined' || isTikTok || !video.youtubeId) return;
+
+    // Load YT API script if not loaded
+    if (!(window as any).YT) {
+      const existing = document.getElementById('youtube-iframe-api');
+      if (!existing) {
+        const tag = document.createElement('script');
+        tag.id = 'youtube-iframe-api';
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.body.appendChild(tag);
+      }
+    }
+
+    let ytPlayer: any = null;
+    const initPlayer = () => {
+      const iframe = iframeRef.current;
+      const YT = (window as any).YT;
+      if (!iframe || !YT || !YT.Player) return;
+      try {
+        ytPlayer = new YT.Player(iframe, {
+          events: {
+            onStateChange: (event: any) => {
+              if (event.data === 0) { // 0 = YT.PlayerState.ENDED
+                if (isAutoplay && nextVideo) {
+                  showToast(`เล่นจบแล้ว ▶ เริ่มคลิปถัดไป: ${nextVideo.title}`);
+                  onSelectVideo(nextVideo);
+                }
+              }
+            }
+          }
+        });
+      } catch {
+        // fallback to message listener
+      }
+    };
+
+    const YT = (window as any).YT;
+    if (YT && YT.Player) {
+      initPlayer();
+    } else {
+      const prevCallback = (window as any).onYouTubeIframeAPIReady;
+      (window as any).onYouTubeIframeAPIReady = () => {
+        if (prevCallback) prevCallback();
+        initPlayer();
+      };
+    }
+
+    return () => {
+      if (ytPlayer && typeof ytPlayer.destroy === 'function') {
+        try { ytPlayer.destroy(); } catch {}
+      }
+    };
+  }, [video.youtubeId, isTikTok, isAutoplay, nextVideo, onSelectVideo, showToast]);
 
   // Resolved Authentic Dhamma Transcript
   const resolvedTranscript = video.transcript || [
@@ -87,10 +222,6 @@ export default function VideoWatchView({
     })
     .slice(0, 8);
 
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 2500);
-  };
 
   const handleToggleLike = () => {
     if (isLiked) {
@@ -169,6 +300,25 @@ export default function VideoWatchView({
             )}
           </span>
 
+          {/* Autoplay Toggle Button in Header */}
+          {!isTikTok && (
+            <button
+              onClick={() => {
+                setIsAutoplay(!isAutoplay);
+                showToast(!isAutoplay ? 'เปิดเล่นอัตโนมัติ (คลิปจบเล่นต่อทันที)' : 'ปิดเล่นอัตโนมัติ');
+              }}
+              className={`hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
+                isAutoplay
+                  ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
+                  : 'bg-white/10 border-white/20 text-zinc-400 hover:text-white'
+              }`}
+              title="เมื่อคลิปนี้จบ จะเริ่มเล่นคลิปถัดไปทันที"
+            >
+              <span className={`w-2 h-2 rounded-full ${isAutoplay ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-500'}`} />
+              <span>เล่นอัตโนมัติ: {isAutoplay ? 'เปิด' : 'ปิด'}</span>
+            </button>
+          )}
+
           {isAvailable && (
             <button
               onClick={() => setIsMuted(!isMuted)}
@@ -243,11 +393,18 @@ export default function VideoWatchView({
                     </div>
                   ) : (
                     <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&mute=${isMuted ? 1 : 0}&rel=0&modestbranding=1&playsinline=1${seekSeconds !== null ? `&start=${seekSeconds}` : ''}`}
+                      ref={iframeRef}
+                      id="youtube-player-embed"
+                      src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&mute=${isMuted ? 1 : 0}&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? encodeURIComponent(window.location.origin) : ''}${seekSeconds !== null ? `&start=${seekSeconds}` : ''}`}
                       title={video.title}
                       className="w-full h-full object-cover border-0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
+                      onLoad={() => {
+                        try {
+                          iframeRef.current?.contentWindow?.postMessage(JSON.stringify({ event: 'listening' }), '*');
+                        } catch {}
+                      }}
                     />
                   )}
                 </div>
@@ -296,6 +453,65 @@ export default function VideoWatchView({
                 </div>
               )}
             </div>
+
+            {/* Autoplay & Continuous Player Navigation Bar */}
+            {!isTikTok && (
+              <div className="w-full mt-3 px-4 py-3 rounded-2xl bg-zinc-900/90 border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs shadow-lg backdrop-blur-xs">
+                {/* Left: Previous & Next Controls */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handlePlayPrev}
+                    disabled={!prevVideo}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/15 disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium transition-all cursor-pointer border border-white/10 active:scale-95"
+                    title={prevVideo ? `เล่นคลิปก่อนหน้า: ${prevVideo.title}` : 'ไม่มีคลิปก่อนหน้า'}
+                  >
+                    <SkipBack className="w-3.5 h-3.5 text-zinc-300" />
+                    <span className="hidden sm:inline">คลิปก่อนหน้า</span>
+                  </button>
+
+                  <button
+                    onClick={handlePlayNext}
+                    disabled={!nextVideo}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold transition-all cursor-pointer shadow-md active:scale-95"
+                    title={nextVideo ? `เล่นคลิปถัดไป: ${nextVideo.title}` : 'ไม่มีคลิปถัดไป'}
+                  >
+                    <span>คลิปถัดไป</span>
+                    <SkipForward className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                {/* Center: Current Episode Progress */}
+                {currentYtIndex >= 0 && (
+                  <div className="flex items-center gap-2 text-zinc-300 font-medium">
+                    <span className="px-2.5 py-1 rounded-lg bg-sky-500/15 border border-sky-500/30 font-mono text-sky-300 font-bold">
+                      ตอนที่ {currentYtIndex + 1} / {ytVideos.length}
+                    </span>
+                    <span className="text-[11px] text-zinc-400 hidden md:inline">
+                      (ชุดธรรมะจับใจ)
+                    </span>
+                  </div>
+                )}
+
+                {/* Right: Autoplay Continuous Toggle */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      setIsAutoplay(!isAutoplay);
+                      showToast(!isAutoplay ? 'เปิดเล่นต่อเนื่องอัตโนมัติแล้ว (คลิปจบเล่นต่อทันที)' : 'ปิดการเล่นอัตโนมัติแล้ว');
+                    }}
+                    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                      isAutoplay
+                        ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300 shadow-xs'
+                        : 'bg-white/5 border-white/10 text-zinc-400 hover:text-white'
+                    }`}
+                    title="เมื่อคลิปนี้เล่นจบ จะเริ่มเล่นคลิปถัดไปในเพลย์ลิสต์ทันที"
+                  >
+                    <span className={`w-2 h-2 rounded-full ${isAutoplay ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-500'}`} />
+                    <span>เล่นต่อเนื่องอัตโนมัติ: <strong>{isAutoplay ? 'เปิด' : 'ปิด'}</strong></span>
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Video Details & Interaction Row */}
             <div className="w-full mt-6 bg-zinc-900/80 rounded-3xl p-5 sm:p-7 border border-white/10">

@@ -18,7 +18,7 @@ function VideosMainContent() {
   // Filter Tab State: 'all' | 'horizontal' | 'vertical'
   const [activeTab, setActiveTab] = useState<VideoFilterTab>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [visibleCount, setVisibleCount] = useState<number>(12);
+  const [visibleCount, setVisibleCount] = useState<number>(16);
 
   const [videos, setVideos] = useState<Video[]>(libraryVideos);
 
@@ -277,7 +277,7 @@ function VideosMainContent() {
         {hasMore && (
           <div className="mt-10 mb-6 flex flex-col items-center justify-center gap-2">
             <button
-              onClick={() => setVisibleCount(prev => prev + 8)}
+              onClick={() => setVisibleCount(prev => prev + 16)}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white hover:bg-zinc-50 border border-zinc-300 hover:border-amber-500 text-foreground text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer group"
             >
               <span>โหลดวิดีโอเพิ่มเติม</span>
