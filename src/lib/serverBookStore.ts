@@ -147,7 +147,7 @@ export function upsertCustomBook(book: Book): { success: boolean; book: Book } {
 }
 
 // ----------------------------------------------------
-// Real-time Book Read Statistics Tracking (Persistent)
+// Real-time Book Read Statistics Tracking (Persistent & Validated)
 // ----------------------------------------------------
 const STATS_FILE = path.join(DATA_DIR, 'bookReadStats.json');
 
@@ -155,6 +155,19 @@ export interface BookReadStatItem {
   readCount: number;
   readers: string[]; // List of user emails or user IDs who opened to read
   lastReadAt: string;
+}
+
+export function getCanonicalBookId(bookId: string): string {
+  if (!bookId) return '';
+  const decoded = decodeURIComponent(bookId).trim();
+  if (decoded.includes('มงคลชีวิต') || decoded.includes('mongkol')) return 'book_mongkol_chiwit_124';
+  if (decoded.includes('พร้อมบวก') || decoded.includes('prom_buak') || decoded.includes('phrom_buak')) return 'book_tam_jai_hai_prom_buak';
+  if (decoded.includes('อย่ามโน') || decoded.includes('ya_mano')) return 'book_อย่ามโน';
+  if (decoded.includes('สมดุล') || decoded.includes('samdun')) return 'book_สมดุลเท่ากับดี';
+  if (decoded.includes('ยุคดิจิทัล') || decoded.includes('digital')) return 'book_อยู่สุขในยุคดิจิทัล';
+  if (decoded.includes('360') || (decoded.includes('ความสุข') && !decoded.includes('เขาก็สุข'))) return 'book_ความสุข-360-องศา';
+  if (decoded.includes('เขาก็สุข') || decoded.includes('khao_kor_sook') || decoded.includes('khao_suk')) return 'book_khao_kor_sook_rao_kor_sook';
+  return bookId;
 }
 
 export function getBookReadStats(): Record<string, BookReadStatItem> {
@@ -165,7 +178,20 @@ export function getBookReadStats(): Record<string, BookReadStatItem> {
       return {};
     }
     const data = fs.readFileSync(STATS_FILE, 'utf-8');
-    return JSON.parse(data) || {};
+    const raw: Record<string, BookReadStatItem> = JSON.parse(data) || {};
+    const normalized: Record<string, BookReadStatItem> = { ...raw };
+
+    // Synchronize canonical and raw localized keys so statistics never desync
+    for (const [id, item] of Object.entries(raw)) {
+      const canon = getCanonicalBookId(id);
+      if (canon && canon !== id) {
+        if (!normalized[canon] || item.readCount > normalized[canon].readCount) {
+          normalized[canon] = item;
+        }
+      }
+    }
+
+    return normalized;
   } catch (err) {
     console.error('Failed to read bookReadStats:', err);
     return {};
@@ -175,24 +201,39 @@ export function getBookReadStats(): Record<string, BookReadStatItem> {
 export function recordBookRead(bookId: string, userEmail?: string, userName?: string): { success: boolean; readCount: number } {
   if (!bookId) return { success: false, readCount: 0 };
   ensureStorageExists();
+  const canonicalId = getCanonicalBookId(bookId) || bookId;
   const stats = getBookReadStats();
 
-  const currentItem = stats[bookId] || {
+  const currentItem = stats[canonicalId] || stats[bookId] || {
     readCount: 0,
     readers: [],
     lastReadAt: new Date().toISOString()
   };
 
-  // Increment real read count
-  currentItem.readCount = (currentItem.readCount || 0) + 1;
-  currentItem.lastReadAt = new Date().toISOString();
+  const readerIdentifier = (userEmail || userName || 'guest').toLowerCase().trim();
+  const now = new Date();
+  const lastReadDate = currentItem.lastReadAt ? new Date(currentItem.lastReadAt) : null;
+  
+  // Rate-limiting session reads: if the same reader accessed within the last 15 minutes, update timestamp but don't inflate view count repeatedly
+  const isRecentVisit = lastReadDate && 
+    (now.getTime() - lastReadDate.getTime()) < 15 * 60 * 1000 && 
+    currentItem.readers.includes(readerIdentifier) &&
+    readerIdentifier !== 'guest';
 
-  const readerIdentifier = userEmail || userName || 'guest';
+  if (!isRecentVisit) {
+    currentItem.readCount = (currentItem.readCount || 0) + 1;
+  }
+  
+  currentItem.lastReadAt = now.toISOString();
+
   if (!currentItem.readers.includes(readerIdentifier)) {
     currentItem.readers.push(readerIdentifier);
   }
 
-  stats[bookId] = currentItem;
+  stats[canonicalId] = currentItem;
+  if (canonicalId !== bookId) {
+    stats[bookId] = currentItem;
+  }
 
   try {
     fs.writeFileSync(STATS_FILE, JSON.stringify(stats, null, 2), 'utf-8');

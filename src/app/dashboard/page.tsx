@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { 
@@ -29,8 +29,24 @@ import { LogIn, LogOut, Lock, Database, ArrowRight, ShieldCheck } from 'lucide-r
 export default function UserDashboard() {
   const { user: authUser, isAuthenticated, logout } = useAuth();
   const { availablePoints } = useLearningPoints();
-  const readingHistory = books.slice(0, 2);
+  const [liveReadingHistory, setLiveReadingHistory] = useState<any[]>([]);
+  const [isLoadingHistory, setIsLoadingHistory] = useState<boolean>(false);
   const favorites = books.slice(1, 3);
+
+  useEffect(() => {
+    if (authUser?.email) {
+      setIsLoadingHistory(true);
+      fetch(`/api/books/progress?email=${encodeURIComponent(authUser.email)}`)
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.success && Array.isArray(data.history)) {
+            setLiveReadingHistory(data.history);
+          }
+        })
+        .catch(() => {})
+        .finally(() => setIsLoadingHistory(false));
+    }
+  }, [authUser?.email]);
 
   const { loans, returnMedia, renewMedia, activeLoanCount, maxLoans } = useLoan();
   const [activeTab, setActiveTab] = useState<'loans' | 'history' | 'achievements'>('loans');
@@ -412,33 +428,125 @@ export default function UserDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-8">
               <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <Clock className="text-sky-600" size={20} /> ประวัติการอ่านล่าสุด
-                </h3>
-                <div className="space-y-4">
-                  {readingHistory.map(b => (
-                    <Link key={b.id} href={`/books/${b.id}`} className="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-2xl transition-colors border border-transparent hover:border-gray-100">
-                      <div className="w-16 aspect-[3/4] relative rounded-lg overflow-hidden shrink-0 shadow-xs">
-                        <Image src={b.cover} alt={b.title} fill className="object-cover" unoptimized />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 text-sm line-clamp-1">{b.title}</h4>
-                        <p className="text-xs text-gray-400 mt-1">อ่านล่าสุดเมื่อ 2 วันที่แล้ว</p>
-                      </div>
-                    </Link>
-                  ))}
+                <div className="flex items-center justify-between mb-6 pb-2 border-b border-gray-100">
+                  <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <Clock className="text-sky-600" size={20} /> ประวัติและความคืบหน้าการอ่าน (Reading History & Progress)
+                  </h3>
+                  {liveReadingHistory.length > 0 && (
+                    <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-1 rounded-full">
+                      กำลังอ่าน {liveReadingHistory.length} เล่ม
+                    </span>
+                  )}
                 </div>
+
+                {!isAuthenticated ? (
+                  <div className="p-8 text-center bg-slate-50/60 rounded-2xl border border-slate-200">
+                    <Lock className="mx-auto mb-3 text-slate-400" size={32} />
+                    <h4 className="font-bold text-gray-800 text-sm mb-1">เข้าสู่ระบบเพื่อบันทึกประวัติการอ่านอัตโนมัติ</h4>
+                    <p className="text-xs text-gray-500 mb-4 max-w-md mx-auto">
+                      ระบบจะบันทึกหน้าที่อ่านค้างไว้ เปอร์เซ็นต์ความคืบหน้า และหน้าที่คั่นไว้ เชื่อมโยงกับบัญชีของคุณข้ามอุปกรณ์ได้ทันที
+                    </p>
+                    <Link
+                      href="/login?redirect=/dashboard"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-sky-600 text-white rounded-xl text-xs font-bold hover:bg-sky-700 transition-all shadow-sm"
+                    >
+                      <LogIn size={14} /> เข้าสู่ระบบเลย
+                    </Link>
+                  </div>
+                ) : isLoadingHistory ? (
+                  <div className="p-10 text-center text-gray-400 text-xs flex flex-col items-center justify-center gap-2">
+                    <div className="w-6 h-6 border-2 border-sky-500 border-t-transparent rounded-full animate-spin" />
+                    กำลังโหลดประวัติการอ่านของคุณ...
+                  </div>
+                ) : liveReadingHistory.length === 0 ? (
+                  <div className="p-8 text-center bg-slate-50/60 rounded-2xl border border-slate-200">
+                    <BookOpen className="mx-auto mb-3 text-slate-400 opacity-60" size={36} />
+                    <h4 className="font-bold text-gray-800 text-sm mb-1">ยังไม่มีประวัติการอ่าน</h4>
+                    <p className="text-xs text-gray-500 mb-4">
+                      เริ่มต้นเปิดอ่านหนังสือธรรมะในห้องสมุด ระบบจะจดจำหน้าและบันทึกความคืบหน้าให้อัตโนมัติ
+                    </p>
+                    <Link
+                      href="/books"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-sky-600 text-white rounded-xl text-xs font-bold hover:bg-sky-700 transition-all shadow-sm"
+                    >
+                      <BookOpen size={14} /> สำรวจชั้นหนังสือ
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {liveReadingHistory.map((item) => {
+                      const percent = item.progress_percent ?? Math.min(100, Math.round(((item.current_page || 1) / (item.total_pages || 1)) * 100));
+                      const bookmarkCount = Array.isArray(item.bookmarks) ? item.bookmarks.length : 0;
+                      return (
+                        <div
+                          key={item.book_id}
+                          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl border border-gray-100 hover:border-sky-200 hover:bg-sky-50/30 transition-all bg-white shadow-xs"
+                        >
+                          <div className="flex items-center gap-4 min-w-0">
+                            <div className="w-16 h-22 aspect-[3/4] relative rounded-xl overflow-hidden shrink-0 shadow-sm bg-gray-100 border border-gray-200">
+                              {item.book_cover ? (
+                                <Image src={item.book_cover} alt={item.book_title} fill className="object-cover" unoptimized />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center text-sky-600 font-bold text-xs p-1 text-center">
+                                  {item.book_title?.slice(0, 4)}
+                                </div>
+                              )}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <h4 className="font-bold text-gray-900 text-sm line-clamp-1 mb-1">
+                                {item.book_title}
+                              </h4>
+                              <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 mb-2">
+                                <span>อ่านถึงหน้า <strong className="text-sky-600">{item.current_page}</strong> จาก {item.total_pages} หน้า</span>
+                                {bookmarkCount > 0 && (
+                                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                                    <Bookmark size={11} className="fill-amber-500 text-amber-500" />
+                                    คั่นไว้ {bookmarkCount} หน้า
+                                  </span>
+                                )}
+                              </div>
+                              {/* Progress Bar */}
+                              <div className="w-full max-w-xs bg-gray-100 rounded-full h-2 overflow-hidden flex items-center">
+                                <div
+                                  className="bg-gradient-to-r from-sky-500 to-indigo-500 h-2 rounded-full transition-all duration-300"
+                                  style={{ width: `${percent}%` }}
+                                />
+                              </div>
+                              <span className="text-[10px] text-gray-400 mt-1 block">ความคืบหน้า {percent}%</span>
+                            </div>
+                          </div>
+
+                          <div className="flex sm:flex-col items-center sm:items-end gap-2 shrink-0">
+                            <Link
+                              href={`/reader/${item.book_id}?page=${item.current_page}`}
+                              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shadow-xs transition-all active:scale-95 text-center"
+                            >
+                              <span>อ่านต่อ (หน้า {item.current_page})</span>
+                              <ArrowRight size={13} />
+                            </Link>
+                            <Link
+                              href={`/books/${item.book_id}`}
+                              className="text-[11px] text-gray-400 hover:text-sky-600 transition-colors"
+                            >
+                              หน้ารายละเอียด &rarr;
+                            </Link>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
 
             <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
-                <Bookmark className="text-sky-600" size={20} /> รายการโปรด
+                <Bookmark className="text-sky-600" size={20} /> รายการโปรดแนะนำ
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 {favorites.map(b => (
                   <Link key={b.id} href={`/books/${b.id}`} className="group">
-                    <div className="aspect-[3/4] relative rounded-xl overflow-hidden shadow-xs mb-2">
+                    <div className="aspect-[3/4] relative rounded-xl overflow-hidden shadow-xs mb-2 bg-slate-100">
                       <Image src={b.cover} alt={b.title} fill className="object-cover group-hover:scale-105 transition-transform" unoptimized />
                     </div>
                     <h5 className="font-semibold text-xs text-gray-900 line-clamp-1 group-hover:text-sky-600">{b.title}</h5>

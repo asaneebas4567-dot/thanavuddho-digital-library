@@ -19,6 +19,7 @@ import {
   ZoomOut, 
   Scroll, 
   Search,
+  Bookmark,
   BookMarked,
   AlertCircle,
   Eye,
@@ -42,6 +43,7 @@ import DailyReadingSummaryModal from '@/components/reader/DailyReadingSummaryMod
 import { detectBookDimension, BookDimensionInfo, calculateReadingPoints } from '@/lib/readingPacingEngine';
 import { useLearningPoints } from '@/lib/useLearningPoints';
 import { useLoan } from '@/context/LoanContext';
+import { useAuth } from '@/context/AuthContext';
 
 export type ReaderTheme = 'white' | 'sepia' | 'night';
 export type ReadingMode = 'flip' | 'scroll';
@@ -196,10 +198,13 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
   const [pdfActualPageCount, setPdfActualPageCount] = useState<number | null>(null);
   const [renderedDimensions, setRenderedDimensions] = useState<{ width: number; height: number }>({ width: 520, height: 740 });
 
-  // 4. Persistence & Resume
+  // 4. Persistence, Resume & Bookmarks
+  const { user } = useAuth();
   const [showResumeBanner, setShowResumeBanner] = useState<boolean>(false);
   const [savedLastPage, setSavedLastPage] = useState<number | null>(null);
   const [hasMounted, setHasMounted] = useState<boolean>(false);
+  const [bookmarks, setBookmarks] = useState<number[]>([]);
+  const [tocDrawerTab, setTocDrawerTab] = useState<'pages' | 'bookmarks'>('pages');
 
   // 5. Reading Pacing, Book Dimension & Gamified Reward State
   const { recordEarn } = useLearningPoints();
@@ -315,7 +320,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
   }, [book.id, returnMediaByBookId, handleGoBack]);
 
   // -------------------------------------------------------------------------
-  // STEP 6: READING PROGRESS PERSISTENCE
+  // STEP 6: READING PROGRESS PERSISTENCE & BOOKMARKS
   // -------------------------------------------------------------------------
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -330,6 +335,12 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
       const savedLayout = localStorage.getItem('thanavuddho_reader_layout') as 'single' | 'dual';
       if (['single', 'dual'].includes(savedLayout)) setPageLayout(savedLayout);
 
+      const bookmarksKey = `thanavuddho_bookmarks_${book.id}`;
+      const savedBm = localStorage.getItem(bookmarksKey);
+      if (savedBm) {
+        setBookmarks(JSON.parse(savedBm));
+      }
+
       const progressKey = `thanavuddho_reading_progress_${book.id}`;
       const savedProgress = localStorage.getItem(progressKey);
       if (savedProgress) {
@@ -343,9 +354,31 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
     } catch {
       // ignore
     }
-  }, [book.id, initialPage, effectiveTotalPages]);
 
-  // Save Progress on Page Change
+    // Fetch cloud reading progress from server API if user is authenticated
+    if (user?.email) {
+      fetch(`/api/books/progress?email=${encodeURIComponent(user.email)}&bookId=${encodeURIComponent(book.id)}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.success && data.progress) {
+            if (Array.isArray(data.progress.bookmarks) && data.progress.bookmarks.length > 0) {
+              setBookmarks(data.progress.bookmarks);
+              try {
+                localStorage.setItem(`thanavuddho_bookmarks_${book.id}`, JSON.stringify(data.progress.bookmarks));
+              } catch {}
+            }
+            const serverPage = data.progress.current_page;
+            if (serverPage > 1 && serverPage <= effectiveTotalPages && serverPage !== initialPage) {
+              setSavedLastPage(serverPage);
+              setShowResumeBanner(true);
+            }
+          }
+        })
+        .catch(() => {});
+    }
+  }, [book.id, initialPage, effectiveTotalPages, user?.email]);
+
+  // Save Progress on Page Change (LocalStorage + Server API)
   useEffect(() => {
     if (typeof window === 'undefined') return;
     try {
@@ -355,6 +388,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
         JSON.stringify({
           page: currentPage,
           totalPages: effectiveTotalPages,
+          percent: Math.min(100, Math.round((currentPage / effectiveTotalPages) * 100)),
           mode,
           updatedAt: Date.now(),
         })
@@ -362,7 +396,57 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
     } catch {
       // ignore
     }
-  }, [book.id, currentPage, effectiveTotalPages, mode]);
+
+    // Debounced sync to cloud server API
+    if (user?.email) {
+      const timer = setTimeout(() => {
+        fetch('/api/books/progress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: user.email,
+            userId: user.id,
+            bookId: book.id,
+            bookTitle: book.title,
+            bookCover: book.cover || (book as any).cover_image,
+            currentPage,
+            totalPages: effectiveTotalPages,
+            bookmarks,
+          })
+        }).catch(() => {});
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [book.id, book.title, book.cover, currentPage, effectiveTotalPages, mode, bookmarks, user?.email, user?.id]);
+
+  const isCurrentPageBookmarked = bookmarks.includes(currentPage);
+
+  const handleToggleBookmark = () => {
+    const isBookmarked = bookmarks.includes(currentPage);
+    const updated = isBookmarked
+      ? bookmarks.filter((p) => p !== currentPage)
+      : [...bookmarks, currentPage].sort((a, b) => a - b);
+
+    setBookmarks(updated);
+    try {
+      localStorage.setItem(`thanavuddho_bookmarks_${book.id}`, JSON.stringify(updated));
+    } catch {}
+
+    if (user?.email) {
+      fetch('/api/books/progress', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: user.email,
+          bookId: book.id,
+          pageNumber: currentPage,
+          bookTitle: book.title,
+          bookCover: book.cover || (book as any).cover_image,
+          totalPages: effectiveTotalPages,
+        }),
+      }).catch(() => {});
+    }
+  };
 
   // -------------------------------------------------------------------------
   // STEP 2: LOAD PDF.JS DOCUMENT & DETECT BOOK DIMENSIONS (A4, A5, B5, POCKET)
@@ -978,6 +1062,20 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
             )}
           </div>
 
+          {/* Bookmark Button */}
+          <button
+            onClick={handleToggleBookmark}
+            className={`p-2 rounded-xl border transition-all cursor-pointer shrink-0 flex items-center gap-1.5 text-xs font-bold ${
+              isCurrentPageBookmarked
+                ? 'bg-amber-500/25 border-amber-400 text-amber-300 shadow-sm'
+                : 'bg-white/5 border-white/15 text-zinc-300 hover:text-white hover:bg-white/10'
+            }`}
+            title={isCurrentPageBookmarked ? 'นำที่คั่นหน้านี้ออก' : 'คั่นหน้านี้ไว้'}
+          >
+            <Bookmark size={15} className={isCurrentPageBookmarked ? 'fill-amber-400 text-amber-400' : ''} />
+            <span className="hidden sm:inline">{isCurrentPageBookmarked ? 'คั่นแล้ว' : 'คั่นหน้า'}</span>
+          </button>
+
           {/* Fullscreen Button */}
           <button
             onClick={toggleFullscreen}
@@ -1406,34 +1504,91 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
             <div className="p-4 border-b border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <List size={18} className="text-sky-400" />
-                <h3 className="font-bold text-sm">สารบัญและเลือกหน้า</h3>
+                <h3 className="font-bold text-sm">สารบัญและหน้าที่คั่นไว้</h3>
               </div>
               <button 
                 onClick={() => setIsTOCDrawerOpen(false)}
-                className="p-1 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white"
+                className="p-1 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white cursor-pointer"
               >
                 <X size={16} />
               </button>
             </div>
 
+            {/* Tab switch between All Pages & Bookmarks */}
+            <div className="flex border-b border-zinc-800 px-4 pt-2 gap-2 text-xs">
+              <button
+                onClick={() => setTocDrawerTab('pages')}
+                className={`pb-2 px-2 font-bold transition-all border-b-2 cursor-pointer ${
+                  tocDrawerTab === 'pages'
+                    ? 'border-sky-500 text-sky-400'
+                    : 'border-transparent text-zinc-400 hover:text-white'
+                }`}
+              >
+                ทุกหน้า ({effectiveTotalPages})
+              </button>
+              <button
+                onClick={() => setTocDrawerTab('bookmarks')}
+                className={`pb-2 px-2 font-bold transition-all border-b-2 cursor-pointer flex items-center gap-1.5 ${
+                  tocDrawerTab === 'bookmarks'
+                    ? 'border-amber-500 text-amber-400'
+                    : 'border-transparent text-zinc-400 hover:text-white'
+                }`}
+              >
+                <Bookmark size={13} className={bookmarks.length > 0 ? 'fill-amber-400 text-amber-400' : ''} />
+                <span>หน้าที่คั่นไว้ ({bookmarks.length})</span>
+              </button>
+            </div>
+
             <div className="flex-1 overflow-y-auto p-4 space-y-1">
-              {Array.from({ length: effectiveTotalPages }, (_, i) => i + 1).map((pNum) => (
-                <button
-                  key={pNum}
-                  onClick={() => {
-                    turnToPage(pNum);
-                    setIsTOCDrawerOpen(false);
-                  }}
-                  className={`w-full p-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
-                    pNum === currentPage 
-                      ? 'bg-sky-600 text-white font-bold' 
-                      : 'hover:bg-zinc-800 text-zinc-300'
-                  }`}
-                >
-                  <span>หน้า {pNum}</span>
-                  {pNum === currentPage && <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded">กำลังอ่าน</span>}
-                </button>
-              ))}
+              {tocDrawerTab === 'pages' ? (
+                Array.from({ length: effectiveTotalPages }, (_, i) => i + 1).map((pNum) => (
+                  <button
+                    key={pNum}
+                    onClick={() => {
+                      turnToPage(pNum);
+                      setIsTOCDrawerOpen(false);
+                    }}
+                    className={`w-full p-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                      pNum === currentPage 
+                        ? 'bg-sky-600 text-white font-bold' 
+                        : 'hover:bg-zinc-800 text-zinc-300'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>หน้า {pNum}</span>
+                      {bookmarks.includes(pNum) && <Bookmark size={12} className="fill-amber-400 text-amber-400" />}
+                    </span>
+                    {pNum === currentPage && <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded">กำลังอ่าน</span>}
+                  </button>
+                ))
+              ) : bookmarks.length === 0 ? (
+                <div className="p-8 text-center text-zinc-500 text-xs">
+                  <Bookmark size={32} className="mx-auto mb-2 opacity-30 text-amber-400" />
+                  ยังไม่มีหน้าที่คั่นไว้<br />
+                  <span className="text-[11px] text-zinc-400 mt-1 block">กดปุ่ม &quot;คั่นหน้า&quot; ที่แถบด้านบนเพื่อบันทึกหน้าที่ชื่นชอบ</span>
+                </div>
+              ) : (
+                bookmarks.map((pNum) => (
+                  <button
+                    key={pNum}
+                    onClick={() => {
+                      turnToPage(pNum);
+                      setIsTOCDrawerOpen(false);
+                    }}
+                    className={`w-full p-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                      pNum === currentPage 
+                        ? 'bg-amber-600 text-white font-bold' 
+                        : 'hover:bg-zinc-800 text-zinc-300'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <Bookmark size={13} className="fill-amber-400 text-amber-400" />
+                      <span>หน้าที่คั่น: หน้า {pNum}</span>
+                    </span>
+                    <span className="text-[10px] text-zinc-400">เปิดอ่าน &rarr;</span>
+                  </button>
+                ))
+              )}
             </div>
           </div>
         </div>
