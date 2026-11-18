@@ -13,7 +13,6 @@ interface WebtoonRankingShelfProps {
 }
 
 export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRankingShelfProps) {
-  const [activeTab, setActiveTab] = useState<'all' | 'mind' | 'family' | 'work'>('all');
   const [dbReadStats, setDbReadStats] = useState<Record<string, number>>({});
   const { isMediaBorrowed } = useLoan();
 
@@ -47,27 +46,8 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
 
   // Dynamic ranking based strictly on REAL reading count from database/stats
   const rankedBooks = useMemo(() => {
-    // 1. Filter by active category if not 'all'
-    let filtered = uniqueBooks;
-    if (activeTab === 'mind') {
-      filtered = uniqueBooks.filter(b => {
-        const text = `${b.title} ${b.category_id || ''} ${(b.tags || []).join(' ')}`.toLowerCase();
-        return text.includes('จิต') || text.includes('สมาธิ') || text.includes('ปัญญา') || text.includes('ใจ') || text.includes('ทุกข์') || text.includes('สุข');
-      });
-    } else if (activeTab === 'family') {
-      filtered = uniqueBooks.filter(b => {
-        const text = `${b.title} ${b.category_id || ''} ${(b.tags || []).join(' ')}`.toLowerCase();
-        return text.includes('รัก') || text.includes('ครอบครัว') || text.includes('ลูก') || text.includes('คู่') || text.includes('เพื่อน') || text.includes('สังคม');
-      });
-    } else if (activeTab === 'work') {
-      filtered = uniqueBooks.filter(b => {
-        const text = `${b.title} ${b.category_id || ''} ${(b.tags || []).join(' ')}`.toLowerCase();
-        return text.includes('งาน') || text.includes('สำเร็จ') || text.includes('มงคล') || text.includes('สมดุล') || text.includes('ดิจิทัล') || text.includes('โลก');
-      });
-    }
-
-    // 2. Sort descending strictly by real read_count (or view_count if read_count is equal/zero)
-    const sorted = [...filtered].sort((a, b) => {
+    // Sort descending strictly by real read_count (or view_count if read_count is equal/zero)
+    const sorted = [...uniqueBooks].sort((a, b) => {
       const readsA = (a.read_count ?? a.view_count) || 0;
       const readsB = (b.read_count ?? b.view_count) || 0;
       if (readsB !== readsA) {
@@ -79,7 +59,7 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
       return pagesB - pagesA;
     });
 
-    // 3. Guarantee strictly 5 books always! (If filtered category has fewer than 5, backfill from remaining unique books without duplicates)
+    // Guarantee strictly 5 books always
     const result: Book[] = [];
     const chosenIds = new Set<string>();
 
@@ -93,12 +73,7 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
 
     // Backfill from general pool if needed to reach 5
     if (result.length < 5) {
-      const fallbackSorted = [...uniqueBooks].sort((a, b) => {
-        const readsA = (a.read_count ?? a.view_count) || 0;
-        const readsB = (b.read_count ?? b.view_count) || 0;
-        return readsB - readsA;
-      });
-      for (const b of fallbackSorted) {
+      for (const b of sorted) {
         if (result.length >= 5) break;
         if (!chosenIds.has(b.id)) {
           chosenIds.add(b.id);
@@ -108,7 +83,7 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
     }
 
     return result.slice(0, 5);
-  }, [uniqueBooks, activeTab]);
+  }, [uniqueBooks]);
 
   // Distinct Colorful Rank Badges
   const rankStyles = [
@@ -122,7 +97,7 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
   return (
     <section className="w-full bg-white rounded-3xl p-4 sm:p-6 lg:p-7 border border-slate-200/80 shadow-xs hover:shadow-sm transition-all duration-300">
       
-      {/* Header & Category Filter Tabs */}
+      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/70 text-amber-800 text-xs font-bold mb-1.5">
@@ -137,27 +112,13 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
           </p>
         </div>
 
-        {/* Tab Filters */}
-        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-          {[
-            { id: 'all', label: 'ยอดนิยมทั้งหมด' },
-            { id: 'mind', label: 'จิตวิทยา & สมาธิ' },
-            { id: 'family', label: 'ครอบครัว & สังคม' },
-            { id: 'work', label: 'การงาน & ความสำเร็จ' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap active:scale-95 ${
-                activeTab === tab.id
-                  ? 'bg-[#073B65] text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        <Link
+          href="/books"
+          className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-[#079FE8] hover:text-[#0588c7] transition-colors self-start sm:self-auto"
+        >
+          <span>ดูหนังสือทั้งหมด</span>
+          <span>&rarr;</span>
+        </Link>
       </div>
 
       {/* 5-Card Ranking Grid (Directly Clickable Cards) */}
