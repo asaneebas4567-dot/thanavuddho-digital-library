@@ -114,8 +114,8 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/audios" className="hover:text-[#079FE8] transition-colors block">
-                    พอดแคสต์ & หนังสือเสียง
+                  <Link href="/articles" className="hover:text-[#079FE8] transition-colors block">
+                    บทความ & ข้อคิดธรรมะ
                   </Link>
                 </li>
                 <li>

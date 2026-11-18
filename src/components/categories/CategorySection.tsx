@@ -8,7 +8,7 @@ import {
   Briefcase, 
   Globe, 
   BookOpen, 
-  Headphones, 
+  Video, 
   ArrowRight,
   LayoutGrid
 } from 'lucide-react';
@@ -82,15 +82,15 @@ const CATEGORIES: CategoryItem[] = [
     hoverBorder: 'hover:border-purple-300 hover:shadow-purple-500/10'
   },
   {
-    id: 'audio',
-    name: 'เสียง & พอดแคสต์',
-    subtitle: 'ฟังข้อคิดยามเช้า-ค่ำ',
-    href: '/audios',
-    count: 'พอดแคสต์',
-    icon: Headphones,
-    iconBg: 'bg-indigo-50 text-indigo-600',
-    iconColor: 'text-indigo-600',
-    hoverBorder: 'hover:border-indigo-300 hover:shadow-indigo-500/10'
+    id: 'video',
+    name: 'วิดีโอ & คลิปสั้น',
+    subtitle: 'รับชมคลิปธรรมเทศนา',
+    href: '/videos',
+    count: 'วิดีโอธรรมะ',
+    icon: Video,
+    iconBg: 'bg-rose-50 text-rose-600',
+    iconColor: 'text-rose-600',
+    hoverBorder: 'hover:border-rose-300 hover:shadow-rose-500/10'
   }
 ];
 

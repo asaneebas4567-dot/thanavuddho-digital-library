@@ -128,20 +128,6 @@ export const HERO_SLIDES: MebBannerSlide[] = [
     themeGradient: 'from-[#2E1045] via-[#451866] to-[#5C2087]',
     glowColor: 'bg-purple-500/15',
     tagColor: 'bg-purple-200 text-purple-950',
-  },
-  // 8. พอดแคสต์ธรรมะเสียงใส
-  {
-    id: 'slide-podcast-tamjai',
-    type: 'podcast',
-    title: 'พอดแคสต์ธรรมะ 5 ตอนจบ',
-    subtitle: 'ฟังสบาย เติมพลังบวกให้ชีวิต',
-    quote: 'เสียงบรรยายธรรมะแง่คิดพัฒนาตนเอง พร้อมเปิดฟังทุกที่ทุกเวลา',
-    coverImage: '/images/books/tam-jai-hai-prom-buak.jpg',
-    badge: '🎧 พอดแคสต์เสียงธรรม',
-    targetUrl: '/audios?podcast=pod-tam-jai-hai-prom-buak',
-    themeGradient: 'from-[#1E1B4B] via-[#2E2875] to-[#3E349E]',
-    glowColor: 'bg-indigo-500/15',
-    tagColor: 'bg-indigo-200 text-indigo-950',
   }
 ];
 

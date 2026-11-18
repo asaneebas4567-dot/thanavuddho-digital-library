@@ -4,19 +4,17 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-  Headphones, 
   Video as VideoIcon, 
   Play, 
   Clock, 
   ChevronRight, 
   Sparkles, 
-  CheckCircle2, 
-  AlertCircle,
   Film,
-  Smartphone
+  Smartphone,
+  CheckCircle2,
+  AlertCircle
 } from 'lucide-react';
 import { libraryVideos } from '@/data/videoData';
-import { podcasts } from '@/data/multimediaAndGamificationData';
 import { Video } from '@/types';
 
 export default function HomeMediaShowcase() {
@@ -72,127 +70,9 @@ export default function HomeMediaShowcase() {
     return true;
   }).slice(0, 6);
 
-  // Podcasts list
-  const podcastList = podcasts.slice(0, 3);
-
   return (
     <div className="space-y-8 pt-2">
-      
-      {/* 1. Podcast Showcase Section (Poster-Style) */}
-      <section className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-slate-200/90 shadow-xs">
-        
-        {/* Header */}
-        <div className="flex items-center justify-between gap-3 mb-5">
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 text-[#079FE8] flex items-center justify-center font-bold border border-sky-100">
-              <Headphones size={20} />
-            </div>
-            <div>
-              <h2 className="text-base sm:text-lg md:text-xl font-bold text-[#073B65] tracking-tight flex items-center gap-2">
-                <span>เสียงธรรมบรรยาย & พอดแคสต์</span>
-                <span className="text-[10px] font-semibold text-[#073B65] bg-sky-50 border border-sky-200/80 px-2 py-0.5 rounded-full hidden sm:inline-block">
-                  Dhamma Audio
-                </span>
-              </h2>
-              <p className="text-[11px] sm:text-xs text-slate-600 line-clamp-1 mt-0.5">
-                ฟังข้อคิดธรรมะยามเช้า และสาระธรรมเพื่อจิตใจสงบ สามารถเปิดฟังขณะทำงานหรือเดินทาง
-              </p>
-            </div>
-          </div>
-
-          <Link 
-            href="/audios" 
-            className="text-xs sm:text-sm font-semibold text-[#073B65] hover:text-[#079FE8] flex items-center gap-1 shrink-0 px-3 py-1.5 rounded-full bg-slate-50 hover:bg-slate-100 border border-slate-200/80 transition-colors"
-          >
-            <span>ดูทั้งหมด</span>
-            <ChevronRight size={15} />
-          </Link>
-        </div>
-
-        {/* Podcast Cards Grid (Poster Style) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-          {podcastList.map((pod) => {
-            const latestEp = pod.episodes && pod.episodes[0];
-            const isPlayable = Boolean(latestEp?.audio_url);
-
-            return (
-              <div 
-                key={pod.id}
-                className="group bg-white rounded-2xl p-4 border border-indigo-100 hover:border-indigo-300 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
-              >
-                <div>
-                  {/* Poster Thumbnail */}
-                  <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-slate-900 shadow-sm border border-slate-200/60 mb-3">
-                    <Image
-                      src={pod.cover}
-                      alt={pod.title}
-                      fill
-                      className="object-cover group-hover:scale-103 transition-transform duration-300"
-                      unoptimized
-                    />
-                    
-                    {/* Status Badge */}
-                    <div className="absolute top-2 left-2 z-10">
-                      {isPlayable ? (
-                        <span className="text-[10px] font-extrabold text-emerald-800 bg-emerald-50/95 border border-emerald-300/80 px-2 py-0.5 rounded-full shadow-2xs flex items-center gap-1">
-                          <CheckCircle2 size={11} className="text-emerald-600" />
-                          <span>พร้อมรับฟัง</span>
-                        </span>
-                      ) : (
-                        <span className="text-[10px] font-bold text-amber-800 bg-amber-50/95 border border-amber-300/80 px-2 py-0.5 rounded-full shadow-2xs flex items-center gap-1">
-                          <AlertCircle size={11} className="text-amber-600" />
-                          <span>เตรียมเปิดให้บริการ</span>
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Total Episodes Pill */}
-                    <div className="absolute bottom-2 right-2 bg-slate-950/80 text-white text-[10px] font-semibold px-2 py-0.5 rounded-md flex items-center gap-1">
-                      <Clock size={11} />
-                      <span>{pod.total_episodes} ตอน</span>
-                    </div>
-                  </div>
-
-                  {/* Title & Host */}
-                  <h3 className="font-bold text-sm sm:text-base text-slate-900 line-clamp-1 group-hover:text-indigo-700 transition-colors">
-                    {pod.title}
-                  </h3>
-                  <p className="text-[11px] text-slate-500 font-medium mt-0.5 truncate">
-                    ผู้บรรยาย: {pod.host}
-                  </p>
-                  <p className="text-[11px] text-slate-600 line-clamp-2 mt-1 leading-relaxed">
-                    {latestEp ? `${latestEp.title} - ${latestEp.description}` : pod.description}
-                  </p>
-                </div>
-
-                {/* Bottom Action Button */}
-                <div className="mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-[10px] text-slate-400">
-                    {latestEp?.duration || '15 นาที'}
-                  </span>
-                  
-                  {isPlayable ? (
-                    <Link
-                      href={`/audios?podcast=${pod.id}`}
-                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold transition shadow-2xs"
-                    >
-                      <Play size={11} fill="currentColor" />
-                      <span>เปิดฟัง</span>
-                    </Link>
-                  ) : (
-                    <span className="text-[11px] font-medium text-slate-400 italic">
-                      เตรียมเปิดให้บริการ
-                    </span>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-      </section>
-
-      {/* 2. Video Showcase Section with 16:9 & 9:16 Orientation Filter */}
+      {/* Video Showcase Section with 16:9 & 9:16 Orientation Filter */}
       <section className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-slate-200/90 shadow-xs">
         
         {/* Header & Filter Bar */}

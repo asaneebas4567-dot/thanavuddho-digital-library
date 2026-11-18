@@ -39,12 +39,12 @@ export default function BottomNav() {
       count: activeLoanCount > 0 ? activeLoanCount : undefined,
     },
     {
-      label: 'พอดแคสต์',
-      href: '/audios',
-      icon: Headphones,
+      label: 'วิดีโอ',
+      href: '/videos',
+      icon: Video,
       color: 'text-[#073B65]',
-      activeColor: 'text-purple-600',
-      pillColor: 'bg-purple-600',
+      activeColor: 'text-rose-600',
+      pillColor: 'bg-rose-600',
     },
     {
       label: 'ร้านรางวัล',

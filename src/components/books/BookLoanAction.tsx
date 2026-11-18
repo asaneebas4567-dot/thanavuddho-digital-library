@@ -163,16 +163,7 @@ export default function BookLoanAction({
           </>
         )}
 
-        {/* Podcast Button (if available) */}
-        {hasAudio && (
-          <Link
-            href="/audios?podcast=pod-tam-jai-hai-prom-buak"
-            className="flex items-center justify-center gap-2 bg-[#F0F8FD] hover:bg-sky-100 text-[#073B65] border border-[#DCEAF3] px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-xs w-full sm:w-auto"
-          >
-            <Headphones size={18} className="text-[#079FE8]" />
-            <span>ฟังพอดแคสต์ (5 ตอน) 🎧</span>
-          </Link>
-        )}
+
 
         <Link
           href="/dashboard"

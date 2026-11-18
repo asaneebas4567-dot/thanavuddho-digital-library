@@ -102,6 +102,35 @@ function PodcastLibraryContent() {
     <div className="min-h-screen bg-[#F8FAFC] pb-28 sm:pb-24 pt-4 sm:pt-6">
       <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         
+        {/* Notice Banner: Podcast update in progress */}
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-amber-900 shadow-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0 text-amber-700 font-bold text-lg">
+              📢
+            </div>
+            <div>
+              <h3 className="font-bold text-sm">ระบบพอดแคสต์กำลังอยู่ระหว่างเตรียมความพร้อม</h3>
+              <p className="text-xs text-amber-800/90 mt-0.5">
+                กำลังรวบรวมและจัดเตรียมชุดไฟล์เสียงธรรมะฉบับสมบูรณ์ รอพบกับการเปิดตัวอย่างเป็นทางการในเร็ว ๆ นี้
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <Link
+              href="/videos"
+              className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs"
+            >
+              รับชมวิดีโอแทน &rarr;
+            </Link>
+            <Link
+              href="/books"
+              className="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs"
+            >
+              อ่านหนังสือ &rarr;
+            </Link>
+          </div>
+        </div>
+
         {/* ========================================================= */}
         {/* 1. HERO BANNER                                            */}
         {/* ========================================================= */}
