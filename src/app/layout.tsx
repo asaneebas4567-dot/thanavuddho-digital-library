@@ -50,7 +50,6 @@ export default function RootLayout({
           <main className="flex-grow pb-20 lg:pb-0 w-full overflow-x-hidden">
             {children}
           </main>
-          <BottomNav />
           <Footer />
         </AppProviders>
       </body>

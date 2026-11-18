@@ -513,7 +513,12 @@ export default function BookQuestManager({
       ? Math.ceil(currentQuestions.length * 0.6) 
       : 1;
     const isCorrect = correctCount >= passingScore;
-    const pointsEarned = isCorrect ? activeQuest.loot.points : 0;
+    
+    // Standard: Multi-question chapter quizzes (5-10 questions) award 500 points per correct answer!
+    // Single chapter sub-quests award standard 200 points.
+    const pointsEarned = isCorrect 
+      ? (currentQuestions.length > 1 ? correctCount * 500 : (activeQuest.loot?.points || 200))
+      : 0;
 
     // Permanently record attempt in attempts state & LocalStorage
     const newAttempt: QuestAttemptRecord = {
@@ -566,7 +571,11 @@ export default function BookQuestManager({
           recordEarn({
             type: 'quiz_chapter',
             sourceId: activeQuest.id,
-            chapterTitle: activeQuest.title
+            chapterTitle: activeQuest.title,
+            customPoints: pointsEarned,
+            customDetail: currentQuestions.length > 1
+              ? `ผ่านเควสต์ท้ายบท ตอบถูก ${correctCount}/${currentQuestions.length} ข้อ (+${pointsEarned} P)`
+              : `ผ่านเควสต์ย่อยประจำบท (+${pointsEarned} P)`
           });
         }
       }

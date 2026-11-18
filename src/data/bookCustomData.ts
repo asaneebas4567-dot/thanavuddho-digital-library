@@ -78,7 +78,7 @@ export function getCustomBookQuizzes(): Quiz[] {
         target_id: bookId,
         target_title: title,
         time_limit_minutes: Math.max(5, entry.questions.length * 2),
-        xp_reward: entry.questions.length * 25,
+        xp_reward: entry.questions.length * 500,
         passing_score: 70,
         badge_id: 'badge-book-master',
         questions: entry.questions.map((q, idx) => ({

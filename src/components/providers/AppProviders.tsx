@@ -8,6 +8,7 @@ import SurveyMascotWidget from '@/components/survey/SurveyMascotWidget';
 import GlobalPodcastPlayer from '@/components/podcast/GlobalPodcastPlayer';
 import BottomNav from '@/components/layout/BottomNav';
 import FlyingCoinAnimation from '@/components/common/FlyingCoinAnimation';
+import GlobalDailyLoginModal from '@/components/gamification/GlobalDailyLoginModal';
 
 export default function AppProviders({ children }: { children: React.ReactNode }) {
   return (
@@ -19,6 +20,7 @@ export default function AppProviders({ children }: { children: React.ReactNode }
           <GlobalPodcastPlayer />
           <BottomNav />
           <FlyingCoinAnimation />
+          <GlobalDailyLoginModal />
         </PodcastPlayerProvider>
       </LoanProvider>
     </AuthProvider>

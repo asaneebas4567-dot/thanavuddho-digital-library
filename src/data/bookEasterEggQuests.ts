@@ -76,7 +76,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'การคิดบวกที่แท้จริงเริ่มต้นจากสติ ไม่ตีโพยตีพาย มองหาโอกาสในการฝึกฝนขันติและปัญญาจากปัญหาที่เข้ามา',
       loot: {
-        points: 50,
+        points: 200,
         badgeName: 'ผู้มองโลกด้วยสติ',
         badgeIcon: '☀️'
       }
@@ -101,7 +101,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'อภัยทานคือทานที่ทำได้ยากที่สุด เพราะต้องเอาชนะอัตตาและความโกรธในใจตนเอง เป็นการให้อิสรภาพแก่ใจตนเองอย่างแท้จริง',
       loot: {
-        points: 60,
+        points: 200,
         badgeName: 'ผู้มีใจดั่งมหาสมุทร',
         badgeIcon: '🌊'
       }
@@ -126,7 +126,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'ใจที่หยุดนิ่งในสมาธิจะเกิดความสงบ บริสุทธิ์ และเกิดพลังงานทางบวก เป็นบ่อเกิดแห่งปัญญาและความคิดสร้างสรรค์ที่แท้จริง',
       loot: {
-        points: 80,
+        points: 200,
         badgeName: 'ผู้ชาร์จพลังใจเต็มร้อย',
         badgeIcon: '⚡'
       }
@@ -1459,7 +1459,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'แอนโทรโปซีนสะท้อนว่าการกระทำของมนุษย์ได้เปลี่ยนแปลงโครงสร้างธรณีวิทยาและธรรมชาติไปอย่างถาวร เตือนสติให้เราตระหนักถึงมลภาวะและผลกระทบระยะยาว',
       loot: {
-        points: 70,
+        points: 200,
         badgeName: 'ผู้ตระหนักรู้รอยเท้าธรณี',
         badgeIcon: '🌍'
       }
@@ -1485,7 +1485,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'การขยายตัว 4,000 เท่าตัวสะท้อนถึงการดึงพลังงานธรรมชาติมาใช้อย่างมหาศาล และเรียกร้องให้มนุษย์รีบหันมาใช้พลังงานสะอาดและอนุรักษ์ธรรมชาติก่อนสายเกินแก้',
       loot: {
-        points: 150,
+        points: 200,
         badgeName: 'ดวงตราคาร์บอนเครดิตแห่งการฟื้นฟู',
         badgeIcon: '⚡'
       }
@@ -1511,7 +1511,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'AI คิดจากฐานข้อมูลเก่าที่มนุษย์ป้อนให้ แต่สมาธิหยุดนิ่งทำให้จิตบริสุทธิ์เข้าถึงแหล่งกำเนิดปัญญาภายใน เกิดความคิดสร้างสรรค์ระดับอัจฉริยะที่หุ่นยนต์ไม่มีวันลอกเลียนได้',
       loot: {
-        points: 90,
+        points: 200,
         badgeName: 'ผู้ก้าวล้ำเหนือปัญญาประดิษฐ์',
         badgeIcon: '🧘'
       }
@@ -1537,7 +1537,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'เทคโนโลยีสื่อสารเปลี่ยนผ่านอย่างรวดเร็ว เตือนสติให้เรารู้เท่าทันเครื่องมือ อย่าปล่อยให้สมาร์ตโฟนครอบงำจิตใจจนกลายเป็นสิ่งเสพติดนอกศาสนา',
       loot: {
-        points: 70,
+        points: 200,
         badgeName: 'ผู้รู้เท่าทันกระแสเทคโนโลยี',
         badgeIcon: '📟'
       }
@@ -1563,7 +1563,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'ธรรมชาติในผืนแผ่นดินไทยอุดมด้วยโอสถสารและจุลินทรีย์มหัศจรรย์ การรักษาความสมบูรณ์ของระบบนิเวศคือการปกป้องคลังยารักษาโรคของมวลมนุษยชาติ',
       loot: {
-        points: 80,
+        points: 200,
         badgeName: 'ผู้ค้นพบโอสถทิพย์ธรรมชาติ',
         badgeIcon: '🌿'
       }
@@ -1589,7 +1589,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'การติดแผ่น CD ที่หางช้างสะท้อนถึงการเบียดเบียนถิ่นที่อยู่ตามธรรมชาติของสัตว์ป่า เตือนใจให้มนุษย์ตระหนักถึงการอนุรักษ์ผืนป่าและอยู่ร่วมกับธรรมชาติอย่างเกื้อกูล',
       loot: {
-        points: 150,
+        points: 200,
         badgeName: 'แผ่นดิสก์วิบวับแห่งการคุ้มครอง',
         badgeIcon: '💿'
       }
@@ -1615,7 +1615,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'คลื่นเสียงและคลื่นจิตที่เป็นระเบียบช่วยจัดเรียงโมเลกุลน้ำและเซลล์สิ่งมีชีวิต ทั้งในร่างกายคนและพืชพรรณให้เกิดความสมดุลและความผ่องใสตามธรรมชาติ',
       loot: {
-        points: 80,
+        points: 200,
         badgeName: 'ผู้เชื่อมโยงคลื่นเสียงแห่งสุข',
         badgeIcon: '🎵'
       }
@@ -1641,7 +1641,7 @@ export const bookEasterEggQuests: Record<string, BookEasterEggQuest[]> = {
       correctIndex: 0,
       explanation: 'ธาราบำบัดช่วยฟื้นฟูร่างกายด้วยการปลดเปลื้องแรงโน้มถ่วง (Anti-Gravity) เปรียบเหมือนการฝึกจิตที่ต้องปล่อยวางภาระหนัก แต่ต้องคงไว้ซึ่งสติและความพอดี ไม่ประมาทจนเกินขอบเขต',
       loot: {
-        points: 100,
+        points: 200,
         badgeName: 'ปรมาจารย์แห่งสภาวะไร้แรงถ่วง',
         badgeIcon: '🌊'
       }

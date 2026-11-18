@@ -164,6 +164,20 @@ export default function Navbar() {
               <Search size={16} />
             </button>
 
+            {/* Daily Login Streak Quick Trigger */}
+            <button
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.dispatchEvent(new CustomEvent('open_daily_login_modal'));
+                }
+              }}
+              className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-full text-xs font-bold text-amber-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 hover:brightness-105 shadow-xs transition-all cursor-pointer border border-amber-200 active:scale-95 shrink-0"
+              title="เช็คอินรับแต้มธรรมะรายวัน (รีเซ็ตทุกเที่ยงคืน)"
+            >
+              <span className="text-xs sm:text-sm">🔥</span>
+              <span className="hidden sm:inline text-[11px] font-black">เช็คอิน</span>
+            </button>
+
             {/* Live Rewards Points Quick Pill */}
             <Link 
               href="/rewards" 

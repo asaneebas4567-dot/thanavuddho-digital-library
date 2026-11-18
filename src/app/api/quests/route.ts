@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
       correctIndex: Number(body.correctIndex) >= 0 && Number(body.correctIndex) <= 3 ? Number(body.correctIndex) : 0,
       explanation: body.explanation?.trim() || '',
       loot: {
-        points: Number(body.loot?.points) || 50,
+        points: Number(body.loot?.points) || 200,
         badgeName: body.loot?.badgeName?.trim() || 'นักสำรวจธรรมะ',
         badgeIcon: body.loot?.badgeIcon?.trim() || '✨',
       },

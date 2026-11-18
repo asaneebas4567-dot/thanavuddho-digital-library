@@ -449,13 +449,14 @@ export function processEarnPoints(params: EarnEventParams): EarnEventResult {
         message: 'ท่านเคยได้รับคะแนนจากแบบทดสอบนี้แล้ว'
       };
     }
-    // Mongkol quests award 60 points as requested; other chapter quizzes award customPoints or 25 points
+    // Standard: Chapter multi-question quizzes award 500 points per question (e.g. 5 questions = 2,500 P)
+    // Chapter sub-quests award standard 200 points
     const isMongkol = quizKey.includes('mongkol');
-    pointsToAward = isMongkol ? 60 : (params.customPoints || 25);
-    transactionTitle = `ผ่านแบบทดสอบ: ${params.chapterTitle || 'เควสต์ธรรมะ'}`;
-    transactionDetail = isMongkol 
-      ? `ผ่านเควสต์มงคลชีวิต 38 ประการ (+60 P)` 
-      : `ตอบคำถามผ่านเกณฑ์ (+${pointsToAward} P)`;
+    pointsToAward = params.customPoints || (isMongkol ? 2500 : 200);
+    transactionTitle = `ผ่านเควสต์/แบบทดสอบ: ${params.chapterTitle || 'เควสต์ธรรมะ'}`;
+    transactionDetail = params.customDetail || (isMongkol 
+      ? `ผ่านเควสต์มงคลชีวิต 38 ประการ (+${pointsToAward} P)` 
+      : `สำเร็จเควสต์ตามบทเรียน (+${pointsToAward} P)`);
 
     if (!daily.quizzesCompleted.includes(quizKey)) {
       daily.quizzesCompleted.push(quizKey);
