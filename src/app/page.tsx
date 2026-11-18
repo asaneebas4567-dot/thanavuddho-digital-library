@@ -103,6 +103,9 @@ export default function Home() {
 
   const normalizedLibBooks: Book[] = (libBooks as Book[]).map(b => ({
     ...b,
+    is_copyright: true,
+    copyright_status: 'approved',
+    copyright_notice: 'หนังสือลิขสิทธิ์',
     view_count: liveReadStats[b.id] ?? b.view_count ?? 0,
     read_count: liveReadStats[b.id] ?? b.read_count ?? 0,
   }));
@@ -157,9 +160,18 @@ export default function Home() {
 
   const addPoolBook = (b: Book) => {
     if (!b || !b.id || IGNORED_BOOK_IDS.has(b.id)) return;
+    
+    // Ensure every book is marked as digital copyright
+    b.is_copyright = true;
+    b.copyright_status = 'approved';
+    b.copyright_notice = 'หนังสือลิขสิทธิ์';
+
     const norm = normalizeTitleKey(b.title);
     if (norm && seenTitles.has(norm)) {
       const existing = seenTitles.get(norm)!;
+      existing.is_copyright = true;
+      existing.copyright_status = 'approved';
+      existing.copyright_notice = 'หนังสือลิขสิทธิ์';
       if ((!existing.cover || existing.cover.includes('book-placeholder.jpg')) && b.cover && !b.cover.includes('book-placeholder.jpg')) {
         existing.cover = b.cover;
         existing.cover_image = b.cover;

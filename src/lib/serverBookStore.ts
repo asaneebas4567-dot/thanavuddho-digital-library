@@ -81,7 +81,12 @@ export function getAllCombinedBooks(): Book[] {
     const norm = normalizeText(b.title);
     seenIds.add(b.id);
     if (norm) seenTitles.add(norm);
-    result.push(b);
+    result.push({
+      ...b,
+      is_copyright: true,
+      copyright_status: 'approved',
+      copyright_notice: 'หนังสือลิขสิทธิ์',
+    });
   }
 
   // Add base books that aren't duplicates
@@ -93,7 +98,12 @@ export function getAllCombinedBooks(): Book[] {
 
     seenIds.add(b.id);
     if (norm) seenTitles.add(norm);
-    result.push(b);
+    result.push({
+      ...b,
+      is_copyright: true,
+      copyright_status: 'approved',
+      copyright_notice: 'หนังสือลิขสิทธิ์',
+    });
   }
 
   return result;

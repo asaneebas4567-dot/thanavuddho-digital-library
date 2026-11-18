@@ -41,7 +41,14 @@ export default function PdfBooksPage() {
     }));
 
     const existingIds = new Set(customPdfBooks.map(b => b.id));
-    const libPdfBooks = books.filter((b) => Boolean(b.pdf_url) && !existingIds.has(b.id));
+    const libPdfBooks = books
+      .filter((b) => Boolean(b.pdf_url) && !existingIds.has(b.id))
+      .map(b => ({
+        ...b,
+        is_copyright: true,
+        copyright_status: 'approved',
+        copyright_notice: 'หนังสือลิขสิทธิ์',
+      }));
 
     return [...customPdfBooks, ...libPdfBooks];
   }, []);

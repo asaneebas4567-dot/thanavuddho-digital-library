@@ -176,17 +176,16 @@ function BookCoverItem({
           </div>
         )}
 
-        {/* Badges on Cover */}
+        {/* Badges on Cover - ทุกเล่มขึ้นลิขสิทธิ์ */}
         <div className="absolute top-1.5 left-1.5 flex flex-col gap-1 z-20 select-none">
-          {isBorrowed ? (
+          {isBorrowed && (
             <div className="bg-emerald-600/95 text-white font-bold text-[7.5px] leading-none px-1.5 py-0.5 rounded shadow-xs flex items-center gap-0.5">
               <Check size={8} /> ยืมแล้ว
             </div>
-          ) : (book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) ? (
-            <div className="bg-rose-700/90 text-white font-semibold text-[8px] leading-none px-1.5 py-0.5 rounded shadow-xs">
-              <span>ลิขสิทธิ์</span>
-            </div>
-          ) : null}
+          )}
+          <div className="bg-rose-700/90 text-white font-semibold text-[8px] leading-none px-1.5 py-0.5 rounded shadow-xs">
+            <span>ลิขสิทธิ์</span>
+          </div>
         </div>
 
         {/* Subtle Hover Action Indicator */}

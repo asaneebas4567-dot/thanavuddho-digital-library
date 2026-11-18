@@ -218,17 +218,16 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
                   )}
                 </div>
 
-                {/* Status Badges: Borrowed or Copyright */}
-                <div className="absolute top-2 right-2 z-20">
-                  {isBorrowed ? (
+                {/* Status Badges: Borrowed & Copyright - ทุกเล่มขึ้นลิขสิทธิ์ */}
+                <div className="absolute top-2 right-2 z-20 flex flex-col items-end gap-1 select-none">
+                  {isBorrowed && (
                     <span className="bg-emerald-600/95 text-white font-bold text-[8px] px-2 py-0.5 rounded-full shadow-xs flex items-center gap-0.5">
                       <Check size={8} /> ยืมแล้ว
                     </span>
-                  ) : (book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) ? (
-                    <span className="bg-rose-700/90 text-white font-semibold text-[8px] px-2 py-0.5 rounded-full shadow-xs">
-                      ลิขสิทธิ์
-                    </span>
-                  ) : null}
+                  )}
+                  <span className="bg-rose-700/90 text-white font-semibold text-[8px] px-2 py-0.5 rounded-full shadow-xs">
+                    ลิขสิทธิ์
+                  </span>
                 </div>
 
                 {/* Subtle Hover Action Pill Overlay */}

@@ -104,6 +104,9 @@ function BooksContent() {
 
     const normalizedLibBooks: Book[] = (libBooks as Book[]).map(b => ({
       ...b,
+      is_copyright: true,
+      copyright_status: 'approved',
+      copyright_notice: 'หนังสือลิขสิทธิ์',
       view_count: liveReadStats[b.id] ?? b.view_count ?? 0,
       read_count: liveReadStats[b.id] ?? b.read_count ?? 0,
     }));
@@ -162,10 +165,18 @@ function BooksContent() {
       if (!book || !book.id || IGNORED_BOOK_IDS.has(book.id)) return;
       if (seenIds.has(book.id)) return;
 
+      // Ensure every book is marked with digital copyright
+      book.is_copyright = true;
+      book.copyright_status = 'approved';
+      book.copyright_notice = 'หนังสือลิขสิทธิ์';
+
       const normTitle = normalizeTitleKey(book.title);
       if (normTitle && seenTitles.has(normTitle)) {
         // Merge with existing book entry
         const existing = seenTitles.get(normTitle)!;
+        existing.is_copyright = true;
+        existing.copyright_status = 'approved';
+        existing.copyright_notice = 'หนังสือลิขสิทธิ์';
         if ((!existing.cover || existing.cover.includes('book-placeholder.jpg')) && book.cover && !book.cover.includes('book-placeholder.jpg')) {
           existing.cover = book.cover;
           existing.cover_image = book.cover;

@@ -55,17 +55,16 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
         {/* 3D Book Frame */}
         <div className="book-cover-3d relative w-32 sm:w-36 aspect-[1/1.42] rounded-md overflow-hidden bg-slate-900 ring-1 ring-black/10 group-hover:scale-102 transition-transform duration-200 shadow-sm">
           
-          {/* Copyright & Borrowed Badges */}
-          <div className="absolute top-1.5 right-1.5 flex flex-col items-end gap-1 z-20">
-            {isBorrowed ? (
-              <div className="bg-emerald-600/95 text-white font-bold text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider flex items-center gap-0.5 select-none">
+          {/* Copyright & Borrowed Badges - ทุกเล่มขึ้นลิขสิทธิ์ */}
+          <div className="absolute top-1.5 right-1.5 flex flex-col items-end gap-1 z-20 select-none">
+            {isBorrowed && (
+              <div className="bg-emerald-600/95 text-white font-bold text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider flex items-center gap-0.5">
                 <Check size={9} /> ยืมแล้ว
               </div>
-            ) : (book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) ? (
-              <div className="bg-rose-700/95 text-white font-medium text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider select-none">
-                ลิขสิทธิ์
-              </div>
-            ) : null}
+            )}
+            <div className="bg-rose-700/95 text-white font-medium text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider">
+              ลิขสิทธิ์
+            </div>
           </div>
 
           {hasCover ? (
@@ -139,14 +138,10 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
               <BookOpen className="w-3 h-3 text-slate-500" /> 
               {pageCount ? `${pageCount} หน้า` : 'ฉบับเต็ม'}
             </span>
-            {(book.is_copyright || book.copyright_status === 'approved' || (book as any).copyright_notice) && (
-              <>
-                <span className="text-gray-300">•</span>
-                <span className="bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded text-[10px] font-medium">
-                  ลิขสิทธิ์
-                </span>
-              </>
-            )}
+            <span className="text-gray-300">•</span>
+            <span className="bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded text-[10px] font-semibold">
+              ลิขสิทธิ์
+            </span>
           </div>
 
           {/* Title */}
