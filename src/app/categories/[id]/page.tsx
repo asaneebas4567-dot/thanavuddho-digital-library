@@ -1,4 +1,5 @@
 import { categories, books, videos, dhamma as articles } from '@/data/mockData';
+import persistentBooks from '@/data/persistentBooks.json';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Tag, BookOpen, PlayCircle, BookText } from 'lucide-react';
@@ -14,9 +15,43 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
     notFound();
   }
 
-  const categoryBooks = books.filter(b => b.category_ids?.includes(id));
-  const categoryVideos = videos.filter(v => v.category_ids?.includes(id));
-  const categoryArticles = articles.filter(a => a.category_ids?.includes(id));
+  const aliasMap: Record<string, string[]> = {
+    'cat_meditation': ['cat_meditation', 'cat_003', 'c1'],
+    'cat_family': ['cat_family', 'cat_005', 'c5'],
+    'cat_self_dev': ['cat_self_dev', 'cat_002', 'cat_004', 'c2'],
+    'cat_lifestyle': ['cat_lifestyle', 'cat_001', 'c4'],
+    'cat_world_civ': ['cat_world_civ'],
+    'cat_dharma': ['cat_dharma', 'cat_006', 'c6'],
+    'cat_001': ['cat_001', 'cat_lifestyle', 'c4'],
+    'cat_002': ['cat_002', 'cat_self_dev', 'c2'],
+    'cat_003': ['cat_003', 'cat_meditation', 'c1'],
+    'cat_004': ['cat_004', 'cat_self_dev'],
+    'cat_005': ['cat_005', 'cat_family', 'c5'],
+    'cat_006': ['cat_006', 'cat_dharma', 'c6'],
+  };
+
+  const allowedIds = aliasMap[id] || [id];
+
+  const allMergedBooks = [
+    ...(persistentBooks as any[]),
+    ...books
+  ];
+
+  // Deduplicate books by id
+  const seenBookIds = new Set<string>();
+  const categoryBooks = allMergedBooks.filter(b => {
+    if (seenBookIds.has(b.id)) return false;
+    const matches = allowedIds.includes(b.category_id) || b.category_ids?.some((cid: string) => allowedIds.includes(cid));
+    if (matches) seenBookIds.add(b.id);
+    return matches;
+  });
+
+  const categoryVideos = videos.filter(v => 
+    v.category_ids?.some((cid: string) => allowedIds.includes(cid))
+  );
+  const categoryArticles = articles.filter(a => 
+    a.category_ids?.some((cid: string) => allowedIds.includes(cid))
+  );
 
   const totalContent = categoryBooks.length + categoryVideos.length + categoryArticles.length;
 

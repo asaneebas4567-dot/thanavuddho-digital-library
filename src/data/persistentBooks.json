@@ -8,14 +8,17 @@
     "cover": "/images/books/รักเเท้ไม่ได้มีเเค่ในนิยาย.jpg",
     "content_type": "book",
     "category_ids": [
-      "c4"
+      "cat_family",
+      "cat_lifestyle"
     ],
-    "category_id": "c4",
+    "category_id": "cat_family",
     "tags": [
       "รักเเท้ไม่ได้มีเเค่ในนิยาย",
+      "ความรัก",
+      "ครอบครัว",
+      "ชีวิตคู่",
       "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "หนังสือลิขสิทธิ์"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -49,14 +52,14 @@
     "cover": "/images/books/เปิดพรมเเดนโลกเเห่งธรรมok.jpg",
     "content_type": "book",
     "category_ids": [
-      "c4"
+      "cat_lifestyle"
     ],
-    "category_id": "c4",
+    "category_id": "cat_lifestyle",
     "tags": [
-      "เปิดพรมเเดนโลกเเห่งธรรมOK",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "เปิดพรมเเดนโลกเเห่งธรรม",
+      "การดำเนินชีวิต",
+      "เผยแผ่ธรรม",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -90,14 +93,16 @@
     "cover": "/images/books/hope-magazine-vol-18.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_self_dev"
     ],
-    "category_id": "c2",
+    "category_id": "cat_self_dev",
     "tags": [
-      "HOPE MAGAZINE  VOL 18",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "HOPE MAGAZINE",
+      "นิตยสารธรรมะ",
+      "พัฒนาตนเอง",
+      "การงาน",
+      "กำลังใจ",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 72,
@@ -131,14 +136,16 @@
     "cover": "/images/books/dhammaintrend4.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_self_dev"
     ],
-    "category_id": "c2",
+    "category_id": "cat_self_dev",
     "tags": [
       "DhammaIntrend4",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "ธรรมะอินเทรนด์",
+      "พัฒนาตนเอง",
+      "การงาน",
+      "คนรุ่นใหม่",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -172,14 +179,15 @@
     "cover": "/images/books/pubhtml5/pubhtml5_45477721.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_self_dev"
     ],
-    "category_id": "c2",
+    "category_id": "cat_self_dev",
     "tags": [
-      "อายุวัฒนมงคล ๖๓ปี ๔๐ พรรษา",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "อายุวัฒนมงคล",
+      "ประวัติและผลงาน",
+      "พัฒนาตนเอง",
+      "การงาน",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 160,
@@ -213,14 +221,16 @@
     "cover": "/images/books/อยู่บนโลกใหม่อย่างไม่เป็นโรค.jpg",
     "content_type": "book",
     "category_ids": [
-      "c4"
+      "cat_lifestyle",
+      "cat_self_dev"
     ],
-    "category_id": "c4",
+    "category_id": "cat_lifestyle",
     "tags": [
       "อยู่บนโลกใหม่อย่างไม่เป็นโรค",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "การดำเนินชีวิต",
+      "สุขภาพใจ",
+      "ทันโลก",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -254,14 +264,16 @@
     "cover": "/images/books/มงคลชีวิตฉบับทางก้าวหน้า-1.jpg",
     "content_type": "book",
     "category_ids": [
-      "c1"
+      "cat_dharma",
+      "cat_self_dev"
     ],
-    "category_id": "c1",
+    "category_id": "cat_dharma",
     "tags": [
-      "มงคลชีวิตฉบับทางก้าวหน้า  (1)",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "มงคลชีวิตฉบับทางก้าวหน้า",
+      "มงคลชีวิต 38 ประการ",
+      "คำสอน",
+      "พระพุทธศาสนา",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 220,
@@ -295,11 +307,16 @@
     "cover": "/images/books/อย่ามโน.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_meditation",
+      "cat_self_dev"
     ],
-    "category_id": "c2",
+    "category_id": "cat_meditation",
     "tags": [
       "อย่ามโน",
+      "สติ",
+      "สมาธิ",
+      "จิตสงบ",
+      "รู้เท่าทันความคิด",
       "หนังสือธรรมะ",
       "หนังสือลิขสิทธิ์"
     ],
@@ -333,11 +350,15 @@
     "cover": "/images/books/สมดุลเท่ากับดี.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_meditation",
+      "cat_lifestyle"
     ],
-    "category_id": "c2",
+    "category_id": "cat_meditation",
     "tags": [
       "สมดุลเท่ากับดี",
+      "สมาธิ",
+      "ความสมดุล",
+      "จิตสงบ",
       "หนังสือธรรมะ",
       "หนังสือลิขสิทธิ์"
     ],
@@ -371,13 +392,16 @@
     "cover": "/images/books/ตามหลวงพี่ไปโกอินเตอร์.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_self_dev"
     ],
-    "category_id": "c2",
+    "category_id": "cat_self_dev",
     "tags": [
       "ตามหลวงพี่ไปโกอินเตอร์",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์"
+      "พัฒนาตนเอง",
+      "การงาน",
+      "การเผยแผ่",
+      "แรงบันดาลใจ",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 61,
@@ -409,13 +433,15 @@
     "cover": "/images/books/ความสุข-360-องศา.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_self_dev"
     ],
-    "category_id": "c2",
+    "category_id": "cat_self_dev",
     "tags": [
       "ความสุข 360 องศา",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์"
+      "พัฒนาตนเอง",
+      "การงาน",
+      "สร้างความสุข",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 162,
@@ -447,11 +473,15 @@
     "cover": "/images/books/ความลับของความรัก.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_family",
+      "cat_lifestyle"
     ],
-    "category_id": "c2",
+    "category_id": "cat_family",
     "tags": [
       "ความลับของความรัก",
+      "ความรัก",
+      "ครอบครัว",
+      "ความสัมพันธ์",
       "หนังสือธรรมะ",
       "หนังสือลิขสิทธิ์"
     ],
@@ -485,11 +515,15 @@
     "cover": "/images/books/ความรักรสอูมามิ.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_family",
+      "cat_lifestyle"
     ],
-    "category_id": "c2",
+    "category_id": "cat_family",
     "tags": [
       "ความรักรสอูมามิ",
+      "ความรัก",
+      "ครอบครัว",
+      "ชีวิตคู่",
       "หนังสือธรรมะ",
       "หนังสือลิขสิทธิ์"
     ],
@@ -523,13 +557,15 @@
     "cover": "/images/books/กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_self_dev"
     ],
-    "category_id": "c2",
+    "category_id": "cat_self_dev",
     "tags": [
-      "กะเทาะเปลือกความทุกข์ สุขให้ถึงเเก่น",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์"
+      "กะเทาะเปลือกความทุกข์",
+      "สุขให้ถึงเเก่น",
+      "พัฒนาตนเอง",
+      "การงาน",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 129,
@@ -561,13 +597,15 @@
     "cover": "/images/books/เส้นทางพระบรมฯ.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_dharma"
     ],
-    "category_id": "c2",
+    "category_id": "cat_dharma",
     "tags": [
       "เส้นทางพระบรมฯ",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์"
+      "พุทธประวัติ",
+      "พระบรมสารีริกธาตุ",
+      "คำสอน",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 49,
@@ -599,11 +637,15 @@
     "cover": "/images/books/perfectionist-สไตล์พุทธะ.jpg",
     "content_type": "book",
     "category_ids": [
-      "c2"
+      "cat_meditation",
+      "cat_self_dev"
     ],
-    "category_id": "c2",
+    "category_id": "cat_meditation",
     "tags": [
       "perfectionist สไตล์พุทธะ",
+      "สมาธิ",
+      "ปล่อยวาง",
+      "จิตสงบ",
       "หนังสือธรรมะ",
       "หนังสือลิขสิทธิ์"
     ],
@@ -637,15 +679,17 @@
     "cover_image": "/images/books/lom-hai-jai-khao-ok.jpg",
     "cover": "/images/books/lom-hai-jai-khao-ok.jpg",
     "content_type": "book",
-    "category_id": "c3",
+    "category_id": "cat_dharma",
     "category_ids": [
-      "c3"
+      "cat_dharma",
+      "cat_meditation"
     ],
     "tags": [
       "ลมหายใจเข้าออกของพระพุทธศาสนา",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "พุทธศาสนา",
+      "มงคลชีวิต",
+      "คำสอน",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -678,15 +722,17 @@
     "cover_image": "/images/books/yoo-sook-nai-yook-digital.jpg",
     "cover": "/images/books/yoo-sook-nai-yook-digital.jpg",
     "content_type": "book",
-    "category_id": "c2",
+    "category_id": "cat_self_dev",
     "category_ids": [
-      "c2"
+      "cat_self_dev",
+      "cat_lifestyle"
     ],
     "tags": [
       "อยู่สุขในยุคดิจิทัล",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "การพัฒนาตนเอง",
+      "การงาน",
+      "ยุคดิจิทัล",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -718,15 +764,18 @@
     "cover_image": "/images/books/love-myself-rak-nai-tua-ton.jpg",
     "cover": "/images/books/love-myself-rak-nai-tua-ton.jpg",
     "content_type": "book",
-    "category_id": "c4",
+    "category_id": "cat_family",
     "category_ids": [
-      "c4"
+      "cat_family",
+      "cat_self_dev"
     ],
     "tags": [
       "Love myself รักในตัวตน",
+      "ความรัก",
+      "รักตนเอง",
+      "ครอบครัว",
       "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "หนังสือลิขสิทธิ์"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -759,15 +808,18 @@
     "cover_image": "/images/books/secret-of-love-rak-look-yang-rai.png",
     "cover": "/images/books/secret-of-love-rak-look-yang-rai.png",
     "content_type": "book",
-    "category_id": "c4",
+    "category_id": "cat_family",
     "category_ids": [
-      "c4"
+      "cat_family",
+      "cat_lifestyle"
     ],
     "tags": [
-      "secret of love รักลูกอย่างไรไม่ให้เสียน้ำตา",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "secret of love",
+      "รักลูกอย่างไรไม่ให้เสียน้ำตา",
+      "ครอบครัว",
+      "การเลี้ยงลูก",
+      "ความรัก",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -800,15 +852,18 @@
     "cover_image": "/images/books/the-lover-rak-pen-ja-hen-jai.png",
     "cover": "/images/books/the-lover-rak-pen-ja-hen-jai.png",
     "content_type": "book",
-    "category_id": "c4",
+    "category_id": "cat_family",
     "category_ids": [
-      "c4"
+      "cat_family",
+      "cat_lifestyle"
     ],
     "tags": [
       "The lover รักเป็นจะเห็นใจ",
+      "ความรัก",
+      "ครอบครัว",
+      "เห็นอกเห็นใจ",
       "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "หนังสือลิขสิทธิ์"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -841,15 +896,19 @@
     "cover_image": "/images/books/pubhtml5/pubhtml5_33738617.jpg",
     "cover": "/images/books/pubhtml5/pubhtml5_33738617.jpg",
     "content_type": "book",
-    "category_id": "c2",
+    "category_id": "cat_meditation",
     "category_ids": [
-      "c2"
+      "cat_meditation",
+      "cat_self_dev"
     ],
     "tags": [
       "ขัดเกลาความคิด",
+      "สมาธิ",
+      "จิตสงบ",
+      "สติ",
+      "วางใจ",
       "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "หนังสือลิขสิทธิ์"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -882,15 +941,16 @@
     "cover_image": "/images/books/kho-khit-rop-tua.jpg",
     "cover": "/images/books/kho-khit-rop-tua.jpg",
     "content_type": "book",
-    "category_id": "c2",
+    "category_id": "cat_self_dev",
     "category_ids": [
-      "c2"
+      "cat_self_dev"
     ],
     "tags": [
       "ข้อคิดรอบตัว",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "ข้อคิดชีวิต",
+      "พัฒนาตนเอง",
+      "การทำงาน",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -923,15 +983,16 @@
     "cover_image": "/images/books/pubhtml5/pubhtml5_86887339.jpg",
     "cover": "/images/books/pubhtml5/pubhtml5_86887339.jpg",
     "content_type": "book",
-    "category_id": "c4",
+    "category_id": "cat_lifestyle",
     "category_ids": [
-      "c4"
+      "cat_lifestyle"
     ],
     "tags": [
       "ทันโลก ทันธรรม 3",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "ทันโลกทันธรรม",
+      "การดำเนินชีวิต",
+      "วิถีชีวิต",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 140,
@@ -964,15 +1025,16 @@
     "cover_image": "/images/books/pubhtml5/pubhtml5_76550937.jpg",
     "cover": "/images/books/pubhtml5/pubhtml5_76550937.jpg",
     "content_type": "book",
-    "category_id": "c4",
+    "category_id": "cat_lifestyle",
     "category_ids": [
-      "c4"
+      "cat_lifestyle"
     ],
     "tags": [
       "ทันโลกทันธรรม1",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "ทันโลกทันธรรม",
+      "การดำเนินชีวิต",
+      "วิถีชีวิต",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 140,
@@ -1005,15 +1067,16 @@
     "cover_image": "/images/books/pubhtml5/pubhtml5_26910324.jpg",
     "cover": "/images/books/pubhtml5/pubhtml5_26910324.jpg",
     "content_type": "book",
-    "category_id": "c4",
+    "category_id": "cat_lifestyle",
     "category_ids": [
-      "c4"
+      "cat_lifestyle"
     ],
     "tags": [
       "ทันโลกทันธรรม2",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "ทันโลกทันธรรม",
+      "การดำเนินชีวิต",
+      "วิถีชีวิต",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 140,
@@ -1046,15 +1109,18 @@
     "cover_image": "/images/books/tam-jai-hai-prom-buak.jpg",
     "cover": "/images/books/tam-jai-hai-prom-buak.jpg",
     "content_type": "book",
-    "category_id": "c2",
+    "category_id": "cat_meditation",
     "category_ids": [
-      "c2"
+      "cat_meditation",
+      "cat_self_dev"
     ],
     "tags": [
       "ทำใจให้พร้อมบวก",
+      "สมาธิ",
+      "คิดบวก",
+      "จิตสงบ",
       "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "หนังสือลิขสิทธิ์"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -1087,15 +1153,16 @@
     "cover_image": "/images/books/pubhtml5/pubhtml5_89853151.jpg",
     "cover": "/images/books/pubhtml5/pubhtml5_89853151.jpg",
     "content_type": "book",
-    "category_id": "c3",
+    "category_id": "cat_dharma",
     "category_ids": [
-      "c3"
+      "cat_dharma"
     ],
     "tags": [
       "พระไตรปิฎก ฉบับธรรมชัย",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "พระไตรปิฎก",
+      "คำสอน",
+      "พระพุทธศาสนา",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 350,
@@ -1128,15 +1195,16 @@
     "cover_image": "/images/books/pubhtml5/pubhtml5_18438372.jpg",
     "cover": "/images/books/pubhtml5/pubhtml5_18438372.jpg",
     "content_type": "book",
-    "category_id": "c2",
+    "category_id": "cat_self_dev",
     "category_ids": [
-      "c2"
+      "cat_self_dev"
     ],
     "tags": [
       "มังกรสอนใจ",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "ข้อคิดผู้นำ",
+      "การทำงาน",
+      "พัฒนาตนเอง",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -1169,15 +1237,19 @@
     "cover_image": "/images/books/the-science-of-meditation.jpg",
     "cover": "/images/books/the-science-of-meditation.jpg",
     "content_type": "book",
-    "category_id": "c3",
+    "category_id": "cat_meditation",
     "category_ids": [
-      "c3"
+      "cat_meditation",
+      "cat_self_dev"
     ],
     "tags": [
       "ศาสตร์เเห่งสมาธิ",
+      "สมาธิ",
+      "จิตสงบ",
+      "การฝึกใจ",
+      "ภาวนา",
       "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "หนังสือลิขสิทธิ์"
     ],
     "publication_year": 2567,
     "page_count": 120,
@@ -1210,15 +1282,16 @@
     "cover_image": "/images/books/khao-kor-sook-rao-kor-sook.jpg",
     "cover": "/images/books/khao-kor-sook-rao-kor-sook.jpg",
     "content_type": "book",
-    "category_id": "c2",
+    "category_id": "cat_self_dev",
     "category_ids": [
-      "c2"
+      "cat_self_dev"
     ],
     "tags": [
       "เขาก็สุข เราก็สุข",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "พัฒนาตนเอง",
+      "การงาน",
+      "การทำงานร่วมกัน",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -1251,15 +1324,17 @@
     "cover_image": "/images/books/phro-mai-roo-roo-than-cheewit.jpg",
     "cover": "/images/books/phro-mai-roo-roo-than-cheewit.jpg",
     "content_type": "book",
-    "category_id": "c2",
+    "category_id": "cat_lifestyle",
     "category_ids": [
-      "c2"
+      "cat_lifestyle",
+      "cat_self_dev"
     ],
     "tags": [
-      "เพราะไม่รู้สินะ ตอน รู้ทันชีวิต",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "เพราะไม่รู้สินะ",
+      "รู้ทันชีวิต",
+      "การดำเนินชีวิต",
+      "เข้าใจชีวิต",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,
@@ -1292,15 +1367,18 @@
     "cover_image": "/images/books/pubhtml5/pubhtml5_10811287.jpg",
     "cover": "/images/books/pubhtml5/pubhtml5_10811287.jpg",
     "content_type": "book",
-    "category_id": "c2",
+    "category_id": "cat_dharma",
     "category_ids": [
-      "c2"
+      "cat_dharma",
+      "cat_self_dev"
     ],
     "tags": [
       "ไขปัญหาความเชื่อ",
-      "หนังสือธรรมะ",
-      "หนังสือลิขสิทธิ์",
-      "Google Drive"
+      "สัมมาทิฐิ",
+      "หลักธรรม",
+      "พระพุทธศาสนา",
+      "คำสอน",
+      "หนังสือธรรมะ"
     ],
     "publication_year": 2567,
     "page_count": 96,

@@ -10,7 +10,9 @@ import {
   BookOpen, 
   Video, 
   ArrowRight,
-  LayoutGrid
+  LayoutGrid,
+  Sun,
+  Radio
 } from 'lucide-react';
 
 interface CategoryItem {
@@ -30,8 +32,8 @@ const CATEGORIES: CategoryItem[] = [
     id: 'mind',
     name: 'สมาธิ & จิตสงบ',
     subtitle: 'ฝึกใจ วางใจให้ผ่องใส',
-    href: '/books?category=cat_003',
-    count: '12 เล่ม',
+    href: '/books?category=cat_meditation',
+    count: '7 เล่ม',
     icon: Sparkles,
     iconBg: 'bg-emerald-50 text-emerald-600',
     iconColor: 'text-emerald-600',
@@ -41,8 +43,8 @@ const CATEGORIES: CategoryItem[] = [
     id: 'family',
     name: 'ครอบครัว & ความรัก',
     subtitle: 'ชีวิตคู่ และการเลี้ยงลูก',
-    href: '/books?category=cat_001',
-    count: '8 เล่ม',
+    href: '/books?category=cat_family',
+    count: '6 เล่ม',
     icon: Heart,
     iconBg: 'bg-rose-50 text-rose-600',
     iconColor: 'text-rose-600',
@@ -52,7 +54,7 @@ const CATEGORIES: CategoryItem[] = [
     id: 'work',
     name: 'การงาน & พัฒนาตน',
     subtitle: 'อิทธิบาท 4 ภาวะผู้นำ',
-    href: '/books?category=cat_002',
+    href: '/books?category=cat_self_dev',
     count: '10 เล่ม',
     icon: Briefcase,
     iconBg: 'bg-amber-50 text-amber-700',
@@ -60,11 +62,22 @@ const CATEGORIES: CategoryItem[] = [
     hoverBorder: 'hover:border-amber-300 hover:shadow-amber-500/10'
   },
   {
+    id: 'lifestyle',
+    name: 'การดำเนินชีวิต & ทันโลก',
+    subtitle: 'ทันโลกทันธรรม ปรับใช้ในชีวิต',
+    href: '/books?category=cat_lifestyle',
+    count: '6 เล่ม',
+    icon: Sun,
+    iconBg: 'bg-orange-50 text-orange-600',
+    iconColor: 'text-orange-600',
+    hoverBorder: 'hover:border-orange-300 hover:shadow-orange-500/10'
+  },
+  {
     id: 'civ',
     name: 'อารยธรรมโลก',
     subtitle: 'ประวัติศาสตร์และอารยธรรม',
     href: '/books?category=cat_world_civ',
-    count: '20+ เล่ม',
+    count: '31 เล่ม',
     icon: Globe,
     iconBg: 'bg-sky-50 text-sky-600',
     iconColor: 'text-sky-600',
@@ -74,23 +87,12 @@ const CATEGORIES: CategoryItem[] = [
     id: 'blessing',
     name: 'มงคลชีวิต & คำสอน',
     subtitle: '38 มงคล สู่ความเจริญ',
-    href: '/books?category=cat_006',
-    count: '14 เล่ม',
+    href: '/books?category=cat_dharma',
+    count: '5 เล่ม',
     icon: BookOpen,
     iconBg: 'bg-purple-50 text-purple-600',
     iconColor: 'text-purple-600',
     hoverBorder: 'hover:border-purple-300 hover:shadow-purple-500/10'
-  },
-  {
-    id: 'video',
-    name: 'วิดีโอ & คลิปสั้น',
-    subtitle: 'รับชมคลิปธรรมเทศนา',
-    href: '/videos',
-    count: 'วิดีโอธรรมะ',
-    icon: Video,
-    iconBg: 'bg-rose-50 text-rose-600',
-    iconColor: 'text-rose-600',
-    hoverBorder: 'hover:border-rose-300 hover:shadow-rose-500/10'
   }
 ];
 
@@ -122,7 +124,7 @@ export default function CategorySection() {
         </Link>
       </div>
 
-      {/* 6 Category Cards Grid */}
+      {/* 6 Category Cards Grid (Aligned 100% to Real Book Categories) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5">
         {CATEGORIES.map((cat) => {
           const Icon = cat.icon;
@@ -133,7 +135,7 @@ export default function CategorySection() {
               className={`group flex flex-col justify-between p-4 rounded-2xl bg-white border border-slate-200/80 hover:shadow-md transition-all duration-200 cursor-pointer ${cat.hoverBorder}`}
             >
               <div>
-                {/* Icon Container & Count Badge */}
+                {/* Icon Container & Accurate Count Badge */}
                 <div className="flex items-center justify-between mb-3">
                   <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 shadow-xs ${cat.iconBg}`}>
                     <Icon size={18} />
@@ -160,6 +162,32 @@ export default function CategorySection() {
             </Link>
           );
         })}
+      </div>
+
+      {/* Dedicated Multimedia Quick Access Bar */}
+      <div className="mt-3.5 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2.5 text-xs">
+        <span className="text-gray-500 font-medium flex items-center gap-1.5">
+          <Sparkles size={14} className="text-amber-600" />
+          <span>สื่อธรรมะมัลติมีเดียยอดนิยม:</span>
+        </span>
+        <div className="flex flex-wrap items-center gap-2">
+          <Link
+            href="/videos"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold border border-rose-200/70 transition-all cursor-pointer group"
+          >
+            <Video size={14} className="text-rose-600 group-hover:scale-110 transition-transform" />
+            <span>คลังวิดีโอธรรมะจับใจ (100 คลิป)</span>
+            <ArrowRight size={12} className="text-rose-500 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+          <Link
+            href="/podcasts"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold border border-purple-200/70 transition-all cursor-pointer group"
+          >
+            <Radio size={14} className="text-purple-600 group-hover:scale-110 transition-transform" />
+            <span>พอดแคสต์เสียงธรรม (40 ตอน)</span>
+            <ArrowRight size={12} className="text-purple-500 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
       </div>
     </section>
   );

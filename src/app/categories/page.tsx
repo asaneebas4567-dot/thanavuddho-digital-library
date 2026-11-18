@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { Tag } from 'lucide-react';
 
 export default function CategoriesPage() {
+  const primaryCategoryIds = ['cat_meditation', 'cat_family', 'cat_self_dev', 'cat_lifestyle', 'cat_world_civ', 'cat_dharma'];
+  const displayCategories = categories.filter(c => primaryCategoryIds.includes(c.id));
+
   return (
     <div className="min-h-screen bg-background">
       <div className="bg-white border-b border-border/40 py-16 relative overflow-hidden">
@@ -19,8 +22,8 @@ export default function CategoriesPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {categories.map((cat) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayCategories.map((cat) => (
             <Link 
               key={cat.id} 
               href={`/categories/${cat.id}`} 

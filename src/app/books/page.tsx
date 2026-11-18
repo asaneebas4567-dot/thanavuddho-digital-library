@@ -216,14 +216,56 @@ function BooksContent() {
 
   const CANONICAL_CATEGORIES: CategoryGroup[] = useMemo(() => [
     {
-      id: 'cat_self_dev',
-      name: 'การพัฒนาตนเอง',
+      id: 'cat_meditation',
+      name: 'สมาธิ & จิตสงบ',
       matches: (b: Book) =>
+        b.category_id === 'cat_meditation' ||
+        b.category_ids?.includes('cat_meditation') ||
+        b.category_id === 'c1' ||
+        b.category_ids?.includes('cat_003') ||
+        b.title.includes('สมาธิ') ||
+        b.title.includes('จิตสงบ') ||
+        Boolean(b.tags?.some((t) => t.includes('สมาธิ') || t.includes('จิตสงบ') || t.includes('ปฏิบัติธรรม'))),
+    },
+    {
+      id: 'cat_family',
+      name: 'ครอบครัว & ความรัก',
+      matches: (b: Book) =>
+        b.category_id === 'cat_family' ||
+        b.category_ids?.includes('cat_family') ||
+        b.category_id === 'c5' ||
+        b.category_ids?.includes('cat_005') ||
+        b.title.includes('รัก') ||
+        b.title.includes('ครอบครัว') ||
+        Boolean(b.tags?.some((t) => t.includes('ครอบครัว') || t.includes('ความรัก') || t.includes('รักแท้') || t.includes('รักลูก'))),
+    },
+    {
+      id: 'cat_self_dev',
+      name: 'การงาน & พัฒนาตน',
+      matches: (b: Book) =>
+        b.category_id === 'cat_self_dev' ||
+        b.category_ids?.includes('cat_self_dev') ||
         b.category_id === 'c2' ||
         b.category_ids?.includes('cat_002') ||
-        b.title.includes('พัฒนาตนเอง') ||
+        b.category_ids?.includes('cat_004') ||
+        b.title.includes('พัฒนาตน') ||
         b.title.includes('กำลังใจ') ||
-        Boolean(b.tags?.some((t) => t.includes('พัฒนาตนเอง') || t.includes('กำลังใจ') || t.includes('ข้อคิด') || t.includes('ความสำเร็จ'))),
+        b.title.includes('การทำงาน') ||
+        b.title.includes('ความสุข') ||
+        Boolean(b.tags?.some((t) => t.includes('พัฒนาตน') || t.includes('การงาน') || t.includes('กำลังใจ') || t.includes('ความสำเร็จ'))),
+    },
+    {
+      id: 'cat_lifestyle',
+      name: 'การดำเนินชีวิต & ทันโลก',
+      matches: (b: Book) =>
+        b.category_id === 'cat_lifestyle' ||
+        b.category_ids?.includes('cat_lifestyle') ||
+        b.category_id === 'c4' ||
+        b.category_ids?.includes('cat_001') ||
+        b.title.includes('ทันโลก') ||
+        b.title.includes('การดำเนินชีวิต') ||
+        b.title.includes('ชีวิต') ||
+        Boolean(b.tags?.some((t) => t.includes('ทันโลก') || t.includes('การดำเนินชีวิต') || t.includes('วิถีชีวิต'))),
     },
     {
       id: 'cat_world_civ',
@@ -236,52 +278,18 @@ function BooksContent() {
         Boolean(b.tags?.some((t) => t.includes('อารยธรรม') || t.includes('ประวัติศาสตร์'))),
     },
     {
-      id: 'cat_lifestyle',
-      name: 'การดำเนินชีวิต',
-      matches: (b: Book) =>
-        b.category_id === 'c4' ||
-        b.category_ids?.includes('cat_001') ||
-        b.title.includes('การดำเนินชีวิต') ||
-        Boolean(b.tags?.some((t) => t.includes('การดำเนินชีวิต') || t.includes('วิถีชีวิต') || t.includes('การใช้ชีวิต'))),
-    },
-    {
-      id: 'cat_meditation',
-      name: 'สมาธิ & ปฏิบัติธรรม',
-      matches: (b: Book) =>
-        b.category_id === 'c1' ||
-        b.category_ids?.includes('cat_003') ||
-        b.category_ids?.includes('cat_005') ||
-        b.title.includes('สมาธิ') ||
-        Boolean(b.tags?.some((t) => t.includes('สมาธิ') || t.includes('ปฏิบัติธรรม') || t.includes('เจริญสติ'))),
-    },
-    {
-      id: 'cat_happiness',
-      name: 'ความสุข',
-      matches: (b: Book) =>
-        b.category_id === 'c3' ||
-        b.category_ids?.includes('cat_004') ||
-        b.title.includes('ความสุข') ||
-        Boolean(b.tags?.some((t) => t.includes('ความสุข') || t.includes('สร้างสุข'))),
-    },
-    {
-      id: 'cat_family',
-      name: 'ครอบครัว & ความรัก',
-      matches: (b: Book) =>
-        b.category_id === 'c5' ||
-        b.title.includes('รัก') ||
-        b.title.includes('ครอบครัว') ||
-        Boolean(b.tags?.some((t) => t.includes('ครอบครัว') || t.includes('ความรัก') || t.includes('รักแท้') || t.includes('รักลูก'))),
-    },
-    {
       id: 'cat_dharma',
-      name: 'หลักธรรม & มงคลชีวิต',
+      name: 'มงคลชีวิต & คำสอน',
       matches: (b: Book) =>
+        b.category_id === 'cat_dharma' ||
+        b.category_ids?.includes('cat_dharma') ||
         b.category_id === 'c6' ||
         b.category_ids?.includes('cat_006') ||
         b.title.includes('มงคลชีวิต') ||
         b.title.includes('พระพุทธศาสนา') ||
-        b.title.includes('ธรรมเทศนา') ||
-        Boolean(b.tags?.some((t) => t.includes('มงคลชีวิต') || t.includes('ธรรมเทศนา') || t.includes('หลักธรรม'))),
+        b.title.includes('พระไตรปิฎก') ||
+        b.title.includes('คำสอน') ||
+        Boolean(b.tags?.some((t) => t.includes('มงคลชีวิต') || t.includes('คำสอน') || t.includes('พระไตรปิฎก'))),
     },
   ], []);
 
@@ -292,6 +300,34 @@ function BooksContent() {
       count: allBooks.filter(cat.matches).length,
     })).filter((cat) => cat.count > 0);
   }, [allBooks, CANONICAL_CATEGORIES]);
+
+  const normalizeCategory = (cat: string) => {
+    if (!cat) return '';
+    const aliases: Record<string, string> = {
+      'cat_001': 'cat_lifestyle',
+      'cat_002': 'cat_self_dev',
+      'cat_003': 'cat_meditation',
+      'cat_004': 'cat_self_dev',
+      'cat_005': 'cat_family',
+      'cat_006': 'cat_dharma',
+      'c1': 'cat_meditation',
+      'c2': 'cat_self_dev',
+      'c4': 'cat_lifestyle',
+      'c5': 'cat_family',
+      'c6': 'cat_dharma',
+      'mind': 'cat_meditation',
+      'family': 'cat_family',
+      'work': 'cat_self_dev',
+      'lifestyle': 'cat_lifestyle',
+      'civ': 'cat_world_civ',
+      'blessing': 'cat_dharma'
+    };
+    return aliases[cat] || cat;
+  };
+
+  const resolvedSelectedCategory = useMemo(() => {
+    return normalizeCategory(selectedCategory);
+  }, [selectedCategory]);
 
   // Filter & Sort books
   const filteredBooks = useMemo(() => {
@@ -305,7 +341,7 @@ function BooksContent() {
       let matchCategory = true;
       if (selectedCategory) {
         const catGroup = CANONICAL_CATEGORIES.find(
-          (c) => c.id === selectedCategory || c.name === selectedCategory
+          (c) => c.id === resolvedSelectedCategory || c.id === selectedCategory || c.name === selectedCategory
         );
         if (catGroup) {
           matchCategory = catGroup.matches(book);
@@ -328,10 +364,10 @@ function BooksContent() {
     }
 
     return result;
-  }, [allBooks, searchQuery, selectedCategory, sortBy, CANONICAL_CATEGORIES]);
+  }, [allBooks, searchQuery, selectedCategory, resolvedSelectedCategory, sortBy, CANONICAL_CATEGORIES]);
 
   const currentCategoryName = CANONICAL_CATEGORIES.find(
-    (c) => c.id === selectedCategory || c.name === selectedCategory
+    (c) => c.id === resolvedSelectedCategory || c.id === selectedCategory || c.name === selectedCategory
   )?.name;
 
   const handleOpenModal = (book: Book) => {
@@ -382,7 +418,7 @@ function BooksContent() {
           </button>
 
           {activeCategories.map((cat) => {
-            const isSelected = selectedCategory === cat.id || selectedCategory === cat.name;
+            const isSelected = resolvedSelectedCategory === cat.id || selectedCategory === cat.id || selectedCategory === cat.name;
 
             return (
               <button
