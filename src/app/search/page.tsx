@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { books as dbBooks, dhamma as articles } from '@/data/mockData';
 import persistentBooksJson from '@/data/persistentBooks.json';
-import { audiobooks, podcasts, smartSearchIndex } from '@/data/multimediaAndGamificationData';
+import { smartSearchIndex } from '@/data/multimediaAndGamificationData';
 import { SmartSearchResult, MediaType } from '@/types';
 
 // Merge all books from both catalogs without duplicates
@@ -120,61 +120,7 @@ function SearchPageContent() {
       }
     });
 
-    // 3. Search in Audiobooks
-    audiobooks.forEach(ab => {
-      const matchTitle = ab.title.toLowerCase().includes(q);
-      const matchDesc = ab.description.toLowerCase().includes(q);
-      const matchedTrack = ab.tracks.find(t => t.title.toLowerCase().includes(q));
-
-      if (matchTitle || matchDesc || matchedTrack) {
-        if (!seenIds.has(ab.id)) {
-          seenIds.add(ab.id);
-          const rawSnippet = matchedTrack ? `ตอน: ${matchedTrack.title}` : ab.description;
-          results.push({
-            id: ab.id,
-            title: ab.title,
-            media_type: 'audiobook',
-            category_name: 'หนังสือเสียง (Audiobook)',
-            description: ab.description,
-            link: `/audios`,
-            cover_or_thumbnail: ab.cover,
-            matched_concepts: ab.tags,
-            highlight_snippet: extractRealSnippet(rawSnippet, q),
-            source_context: `พากย์โดย ${ab.narrator}`
-          });
-        }
-      }
-    });
-
-    // 4. Search in Podcasts
-    podcasts.forEach(pod => {
-      const matchTitle = pod.title.toLowerCase().includes(q);
-      const matchDesc = pod.description.toLowerCase().includes(q);
-      const matchedEp = pod.episodes.find(ep => 
-        ep.title.toLowerCase().includes(q) || ep.description.toLowerCase().includes(q)
-      );
-
-      if (matchTitle || matchDesc || matchedEp) {
-        if (!seenIds.has(pod.id)) {
-          seenIds.add(pod.id);
-          const rawSnippet = matchedEp ? `ตอน ${matchedEp.title}: ${matchedEp.description}` : pod.description;
-          results.push({
-            id: pod.id,
-            title: pod.title,
-            media_type: 'podcast',
-            category_name: 'พอดแคสต์ (Podcast)',
-            description: pod.description,
-            link: `/audios`,
-            cover_or_thumbnail: pod.cover,
-            matched_concepts: pod.tags,
-            highlight_snippet: extractRealSnippet(rawSnippet, q),
-            source_context: `ดำเนินรายการโดย ${pod.host}`
-          });
-        }
-      }
-    });
-
-    // 5. Search in Articles
+    // 3. Search in Articles
     articles.forEach(art => {
       const matchTitle = art.title.toLowerCase().includes(q);
       const matchContent = (art.content || '').toLowerCase().includes(q);
@@ -227,7 +173,7 @@ function SearchPageContent() {
             ค้นหาธรรมะเชิงลึก <span className="text-amber-400">จากทุกสื่อการเรียนรู้</span>
           </h1>
           <p className="text-amber-100/80 text-sm sm:text-base max-w-2xl mx-auto mb-8">
-            พิมพ์หัวข้อธรรมะเพื่อค้นหาแบบ Cross-Media ทั้งหนังสือฉบับเต็ม, เสียง, วิดีโอเทศนา, หนังสือเสียง, พอดแคสต์ พร้อมเชื่อมโยงตรงสู่ Timestamp วิดีโอและหน้าหนังสือ
+            พิมพ์หัวข้อธรรมะเพื่อค้นหาแบบ Cross-Media ทั้งหนังสือฉบับเต็ม, วิดีโอเทศนา, ข้อคิดธรรมะ พร้อมเชื่อมโยงตรงสู่ Timestamp วิดีโอและหน้าหนังสือ
           </p>
 
           {/* Search Input Bar */}
@@ -283,8 +229,6 @@ function SearchPageContent() {
               { id: 'all', label: 'ทั้งหมด', count: searchResults.length, icon: Layers },
               { id: 'book', label: 'หนังสือธรรมะ', count: countByType('book'), icon: BookOpen },
               { id: 'video', label: 'คลิปวิดีโอ', count: countByType('video'), icon: VideoIcon },
-              { id: 'audiobook', label: 'หนังสือเสียง', count: countByType('audiobook'), icon: Headphones },
-              { id: 'podcast', label: 'พอดแคสต์', count: countByType('podcast'), icon: Radio },
               { id: 'article', label: 'ข้อคิดธรรมะ', count: countByType('article'), icon: BookText },
             ].map(tab => {
               const Icon = tab.icon;

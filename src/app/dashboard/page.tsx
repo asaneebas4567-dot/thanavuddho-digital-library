@@ -298,10 +298,10 @@ export default function UserDashboard() {
                             </Link>
                           ) : (
                             <Link
-                              href="/audios"
-                              className="flex-1 py-2 px-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold text-center transition-colors shadow-xs flex items-center justify-center gap-1.5"
+                              href="/videos"
+                              className="flex-1 py-2 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold text-center transition-colors shadow-xs flex items-center justify-center gap-1.5"
                             >
-                              <Headphones size={14} /> ฟังตอนนี้
+                              <BookOpen size={14} /> ดูเนื้อหา
                             </Link>
                           )}
 

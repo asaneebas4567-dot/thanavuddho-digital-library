@@ -66,11 +66,11 @@ export default async function ArticleReaderPage({ params }: { params: Promise<{ 
             </Link>
 
             <Link
-              href="/audios"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-50 hover:bg-purple-100 text-purple-800 text-xs font-bold border border-purple-200 transition-colors shadow-2xs"
+              href="/videos"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-800 text-xs font-bold border border-rose-200 transition-colors shadow-2xs"
             >
-              <Headphones size={14} className="text-purple-600" />
-              <span>ฟังเสียงพอดแคสต์</span>
+              <Video size={14} className="text-rose-600" />
+              <span>ชมวิดีโอธรรมะ</span>
             </Link>
           </div>
         </div>

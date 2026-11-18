@@ -137,7 +137,7 @@ export default function Navbar() {
             <form onSubmit={handleSearchSubmit} className="relative w-full">
               <input
                 type="text"
-                placeholder="ค้นหาหนังสือ, ข้อคิดธรรมะ, พอดแคสต์, วิดีโอ..."
+                placeholder="ค้นหาหนังสือ, วิดีโอ, ข้อคิดธรรมะ..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 className="w-full bg-white text-[#243447] placeholder-slate-400 pl-4 pr-10 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-[#079FE8] transition-all border border-[#DCEAF3]"
@@ -238,7 +238,7 @@ export default function Navbar() {
             <form onSubmit={handleSearchSubmit} className="relative w-full">
               <input
                 type="text"
-                placeholder="ค้นหาหนังสือ, วิดีโอ, พอดแคสต์..."
+                placeholder="ค้นหาหนังสือ, วิดีโอ, ข้อคิดธรรมะ..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 autoFocus

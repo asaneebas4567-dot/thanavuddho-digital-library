@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation';
 
 export default function PodcastRedirectPage() {
-  redirect('/audios');
+  redirect('/videos');
 }
-

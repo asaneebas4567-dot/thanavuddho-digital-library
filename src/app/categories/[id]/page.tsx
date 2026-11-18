@@ -1,10 +1,9 @@
-import { categories, books, videos, audios, dhamma as articles } from '@/data/mockData';
+import { categories, books, videos, dhamma as articles } from '@/data/mockData';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Tag, BookOpen, PlayCircle, Headphones, BookText } from 'lucide-react';
+import { ArrowLeft, Tag, BookOpen, PlayCircle, BookText } from 'lucide-react';
 import BookCard from '@/components/books/BookCard';
 import VideoCard from '@/components/videos/VideoCard';
-import AudioCard from '@/components/audios/AudioCard';
 import ArticleCard from '@/components/articles/ArticleCard';
 
 export default async function CategoryDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -17,10 +16,9 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
 
   const categoryBooks = books.filter(b => b.category_ids?.includes(id));
   const categoryVideos = videos.filter(v => v.category_ids?.includes(id));
-  const categoryAudios = audios.filter(a => a.category_ids?.includes(id));
   const categoryArticles = articles.filter(a => a.category_ids?.includes(id));
 
-  const totalContent = categoryBooks.length + categoryVideos.length + categoryAudios.length + categoryArticles.length;
+  const totalContent = categoryBooks.length + categoryVideos.length + categoryArticles.length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -43,7 +41,6 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
             <span className="px-4 py-2 bg-surface rounded-lg font-medium text-foreground border border-border/40">เนื้อหาทั้งหมด <span className="text-primary font-bold ml-1">{totalContent}</span></span>
             {categoryBooks.length > 0 && <span className="px-4 py-2 bg-surface rounded-lg font-medium text-foreground border border-border/40 flex items-center"><BookOpen className="w-4 h-4 mr-2 text-primary"/>หนังสือ <span className="font-bold ml-2">{categoryBooks.length}</span></span>}
             {categoryVideos.length > 0 && <span className="px-4 py-2 bg-surface rounded-lg font-medium text-foreground border border-border/40 flex items-center"><PlayCircle className="w-4 h-4 mr-2 text-accent"/>วิดีโอ <span className="font-bold ml-2">{categoryVideos.length}</span></span>}
-            {categoryAudios.length > 0 && <span className="px-4 py-2 bg-surface rounded-lg font-medium text-foreground border border-border/40 flex items-center"><Headphones className="w-4 h-4 mr-2 text-primary"/>เสียง <span className="font-bold ml-2">{categoryAudios.length}</span></span>}
             {categoryArticles.length > 0 && <span className="px-4 py-2 bg-surface rounded-lg font-medium text-foreground border border-border/40 flex items-center"><BookText className="w-4 h-4 mr-2 text-accent"/>บทความ <span className="font-bold ml-2">{categoryArticles.length}</span></span>}
           </div>
         </div>
@@ -87,23 +84,6 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
           </section>
         )}
 
-        {/* Audios Section */}
-        {categoryAudios.length > 0 && (
-          <section>
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-border/40">
-              <h2 className="text-2xl font-extrabold text-foreground flex items-center">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
-                  <Headphones className="w-5 h-5 text-primary" />
-                </div>
-                เสียงธรรมะ
-              </h2>
-              <Link href="/audios" className="text-primary font-semibold text-sm hover:underline">ดูเสียงทั้งหมด</Link>
-            </div>
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-              {categoryAudios.map(audio => <AudioCard key={audio.id} audio={audio} />)}
-            </div>
-          </section>
-        )}
 
         {/* Articles Section */}
         {categoryArticles.length > 0 && (

@@ -123,7 +123,7 @@ export default function WelcomeIntroSection() {
             <strong className="text-white font-extrabold block text-sm sm:text-base mb-1">
               📖 วัตถุประสงค์ของห้องสมุดดิจิทัล
             </strong>
-            เพื่อเป็นศูนย์กลางการเผยแผ่พระพุทธศาสนาและพัฒนาปัญญาให้ประชาชน รวบรวมหนังสือธรรมะฉบับเต็ม วิดีโอธรรมบรรยาย พอดแคสต์ และข้อคิดเตือนใจ พร้อมระบบสะสมแต้มบุญและภารกิจ Game Quest เพื่อส่งเสริมการเรียนรู้ตลอดชีวิตอย่างมีความสุข
+            เพื่อเป็นศูนย์กลางการเผยแผ่พระพุทธศาสนาและพัฒนาปัญญาให้ประชาชน รวบรวมหนังสือธรรมะฉบับเต็ม วิดีโอธรรมบรรยาย คลิปสั้น และข้อคิดเตือนใจ พร้อมระบบสะสมแต้มบุญและภารกิจ Game Quest เพื่อส่งเสริมการเรียนรู้ตลอดชีวิตอย่างมีความสุข
           </div>
 
           <button
@@ -177,7 +177,7 @@ export default function WelcomeIntroSection() {
                     <td className="py-2 px-3 text-center bg-[#D9A441]/10 font-bold text-emerald-400">✓ ได้ทันที</td>
                   </tr>
                   <tr>
-                    <td className="py-2 pr-4">รับชมวิดีโอธรรมะ & ฟังพอดแคสต์</td>
+                    <td className="py-2 pr-4">รับชมวิดีโอธรรมะ & คลิปสั้น</td>
                     <td className="py-2 px-3 text-center bg-white/5 font-bold text-emerald-400">✓ ได้ทันที</td>
                     <td className="py-2 px-3 text-center bg-[#D9A441]/10 font-bold text-emerald-400">✓ ได้ทันที</td>
                   </tr>
@@ -259,7 +259,7 @@ export default function WelcomeIntroSection() {
 
           <div className="text-center mt-2">
             <span className="text-[11px] text-sky-200 font-medium">
-              💡 ไม่บังคับล็อกอิน • บุคคลทั่วไปเข้าอ่านหนังสือ ดูวิดีโอ และฟังพอดแคสต์ได้ฟรีทันที
+              💡 ไม่บังคับล็อกอิน • บุคคลทั่วไปเข้าอ่านหนังสือ และดูวิดีโอได้ฟรีทันที
             </span>
           </div>
         </div>
@@ -311,24 +311,24 @@ export default function WelcomeIntroSection() {
             </div>
           </Link>
 
-          {/* Card 3: Podcasts */}
+          {/* Card 3: Quiz & Exams */}
           <Link
-            href="/audios"
+            href="/quiz"
             className="group p-3.5 sm:p-4 rounded-2xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <div className="w-10 h-10 rounded-xl bg-purple-500/30 border border-purple-300/40 flex items-center justify-center text-purple-200 mb-2.5 group-hover:scale-110 transition-transform">
-                <Headphones size={20} />
+                <Award size={20} />
               </div>
               <h4 className="font-extrabold text-sm text-white group-hover:text-[#FEF08A] transition-colors">
-                พอดแคสต์ & หนังสือเสียง
+                แบบทดสอบ & เควสความรู้
               </h4>
               <p className="text-[11px] text-sky-100/90 mt-1 line-clamp-2">
-                ฟังธรรมะสบายใจทุกที่ทุกเวลา บันทึกประวัติและรับคะแนนทุก 10 นาที
+                ทดสอบความรู้ธรรมะ 8 บทเรียน สะสมแต้มบุญและเหรียญรางวัลเกียรติยศ
               </p>
             </div>
             <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-bold text-sky-300 group-hover:text-white">
-              <span>ฟังพอดแคสต์</span>
+              <span>ทำแบบทดสอบ</span>
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </div>
           </Link>

@@ -60,7 +60,7 @@ export default function WelcomePage() {
             </h1>
 
             <p className="text-xs sm:text-base text-sky-50 leading-relaxed font-medium pt-1">
-              โครงการห้องสมุดดิจิทัลและระบบส่งเสริมการศึกษาธรรมะตลอดชีวิต รวบรวมผลงานหนังสือธรรมะฉบับเต็ม วิดีโอธรรมบรรยาย พอดแคสต์ พร้อมระบบสะสมแต้มบุญและของรางวัลที่ระลึกมงคล
+              โครงการห้องสมุดดิจิทัลและระบบส่งเสริมการศึกษาธรรมะตลอดชีวิต รวบรวมผลงานหนังสือธรรมะฉบับเต็ม วิดีโอธรรมบรรยาย คลิปสั้น พร้อมระบบสะสมแต้มบุญและของรางวัลที่ระลึกมงคล
             </p>
 
             {/* The 3 Action Buttons */}
@@ -167,17 +167,17 @@ export default function WelcomePage() {
               </Link>
             </div>
 
-            {/* 3. Podcasts */}
+            {/* 3. Quiz & Exams */}
             <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs hover:border-purple-300 transition-colors space-y-2">
               <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold">
-                <Headphones size={20} />
+                <Award size={20} />
               </div>
-              <h4 className="font-extrabold text-sm text-slate-900">3. พอดแคสต์ & หนังสือเสียง</h4>
+              <h4 className="font-extrabold text-sm text-slate-900">3. แบบทดสอบ & เควสประเมินความรู้</h4>
               <p className="text-xs text-slate-600 leading-relaxed">
-                ฟังธรรมะยามเช้าหรือก่อนนอน พอดแคสต์ซีรีส์ "ทำใจให้พร้อมบวก" และเสียงธรรมบรรยาย สะสมคะแนน 5 แต้มเมื่อฟังครบทุก 10 นาที
+                ทดสอบความรู้ธรรมะ 8 บทเรียน สะสมคะแนนแต้มบุญและปลดล็อกเหรียญตราเกียรติยศ
               </p>
-              <Link href="/audios" className="inline-flex items-center gap-1 text-xs font-bold text-purple-700 hover:underline pt-1">
-                <span>ฟังพอดแคสต์</span>
+              <Link href="/quiz" className="inline-flex items-center gap-1 text-xs font-bold text-purple-700 hover:underline pt-1">
+                <span>ทำแบบทดสอบ</span>
                 <ArrowRight size={13} />
               </Link>
             </div>
@@ -232,7 +232,7 @@ export default function WelcomePage() {
                   <td className="py-2.5 px-3 text-center bg-amber-50/60 font-bold text-emerald-600">✓ ได้ทันที</td>
                 </tr>
                 <tr>
-                  <td className="py-2.5 pr-4">ชมวิดีโอธรรมบรรยายและฟังพอดแคสต์</td>
+                  <td className="py-2.5 pr-4">ชมวิดีโอธรรมบรรยายและคลิปสั้น</td>
                   <td className="py-2.5 px-3 text-center bg-slate-50 font-bold text-emerald-600">✓ ได้ทันที</td>
                   <td className="py-2.5 px-3 text-center bg-amber-50/60 font-bold text-emerald-600">✓ ได้ทันที</td>
                 </tr>
