@@ -207,18 +207,91 @@ function BooksContent() {
     return combinedList;
   }, [liveReadStats]);
 
-  // Merge categories list for filter pills
-  const allCategories = useMemo(() => {
-    const list: { id: string; name: string }[] = [...libCategories];
-    
-    dbCategories.forEach((dbCat) => {
-      if (!list.some((c) => c.id === dbCat.id)) {
-        list.push({ id: dbCat.id, name: dbCat.name });
-      }
-    });
+  // Canonical Category Definitions (Unified, deduplicated, and intelligent tag/ID mapping)
+  interface CategoryGroup {
+    id: string;
+    name: string;
+    matches: (b: Book) => boolean;
+  }
 
-    return list;
-  }, []);
+  const CANONICAL_CATEGORIES: CategoryGroup[] = useMemo(() => [
+    {
+      id: 'cat_self_dev',
+      name: 'การพัฒนาตนเอง',
+      matches: (b: Book) =>
+        b.category_id === 'c2' ||
+        b.category_ids?.includes('cat_002') ||
+        b.title.includes('พัฒนาตนเอง') ||
+        b.title.includes('กำลังใจ') ||
+        Boolean(b.tags?.some((t) => t.includes('พัฒนาตนเอง') || t.includes('กำลังใจ') || t.includes('ข้อคิด') || t.includes('ความสำเร็จ'))),
+    },
+    {
+      id: 'cat_world_civ',
+      name: 'ห้องเรียน อารยธรรมโลก',
+      matches: (b: Book) =>
+        b.category_id === 'cat_world_civ' ||
+        b.category_ids?.includes('cat_world_civ') ||
+        b.id.startsWith('pubhtml5_') ||
+        b.title.includes('อารยธรรม') ||
+        Boolean(b.tags?.some((t) => t.includes('อารยธรรม') || t.includes('ประวัติศาสตร์'))),
+    },
+    {
+      id: 'cat_lifestyle',
+      name: 'การดำเนินชีวิต',
+      matches: (b: Book) =>
+        b.category_id === 'c4' ||
+        b.category_ids?.includes('cat_001') ||
+        b.title.includes('การดำเนินชีวิต') ||
+        Boolean(b.tags?.some((t) => t.includes('การดำเนินชีวิต') || t.includes('วิถีชีวิต') || t.includes('การใช้ชีวิต'))),
+    },
+    {
+      id: 'cat_meditation',
+      name: 'สมาธิ & ปฏิบัติธรรม',
+      matches: (b: Book) =>
+        b.category_id === 'c1' ||
+        b.category_ids?.includes('cat_003') ||
+        b.category_ids?.includes('cat_005') ||
+        b.title.includes('สมาธิ') ||
+        Boolean(b.tags?.some((t) => t.includes('สมาธิ') || t.includes('ปฏิบัติธรรม') || t.includes('เจริญสติ'))),
+    },
+    {
+      id: 'cat_happiness',
+      name: 'ความสุข',
+      matches: (b: Book) =>
+        b.category_id === 'c3' ||
+        b.category_ids?.includes('cat_004') ||
+        b.title.includes('ความสุข') ||
+        Boolean(b.tags?.some((t) => t.includes('ความสุข') || t.includes('สร้างสุข'))),
+    },
+    {
+      id: 'cat_family',
+      name: 'ครอบครัว & ความรัก',
+      matches: (b: Book) =>
+        b.category_id === 'c5' ||
+        b.title.includes('รัก') ||
+        b.title.includes('ครอบครัว') ||
+        Boolean(b.tags?.some((t) => t.includes('ครอบครัว') || t.includes('ความรัก') || t.includes('รักแท้') || t.includes('รักลูก'))),
+    },
+    {
+      id: 'cat_dharma',
+      name: 'หลักธรรม & มงคลชีวิต',
+      matches: (b: Book) =>
+        b.category_id === 'c6' ||
+        b.category_ids?.includes('cat_006') ||
+        b.title.includes('มงคลชีวิต') ||
+        b.title.includes('พระพุทธศาสนา') ||
+        b.title.includes('ธรรมเทศนา') ||
+        Boolean(b.tags?.some((t) => t.includes('มงคลชีวิต') || t.includes('ธรรมเทศนา') || t.includes('หลักธรรม'))),
+    },
+  ], []);
+
+  // Compute active categories with actual count > 0 (strictly NO duplicates and NO zero counts)
+  const activeCategories = useMemo(() => {
+    return CANONICAL_CATEGORIES.map((cat) => ({
+      ...cat,
+      count: allBooks.filter(cat.matches).length,
+    })).filter((cat) => cat.count > 0);
+  }, [allBooks, CANONICAL_CATEGORIES]);
 
   // Filter & Sort books
   const filteredBooks = useMemo(() => {
@@ -229,10 +302,19 @@ function BooksContent() {
         book.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (book.tags && book.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase())));
 
-      const matchCategory =
-        selectedCategory === '' ||
-        book.category_id === selectedCategory ||
-        book.category_ids?.includes(selectedCategory);
+      let matchCategory = true;
+      if (selectedCategory) {
+        const catGroup = CANONICAL_CATEGORIES.find(
+          (c) => c.id === selectedCategory || c.name === selectedCategory
+        );
+        if (catGroup) {
+          matchCategory = catGroup.matches(book);
+        } else {
+          matchCategory =
+            book.category_id === selectedCategory ||
+            Boolean(book.category_ids?.includes(selectedCategory));
+        }
+      }
 
       return matchSearch && matchCategory;
     });
@@ -246,9 +328,11 @@ function BooksContent() {
     }
 
     return result;
-  }, [allBooks, searchQuery, selectedCategory, sortBy]);
+  }, [allBooks, searchQuery, selectedCategory, sortBy, CANONICAL_CATEGORIES]);
 
-  const currentCategoryName = allCategories.find((c) => c.id === selectedCategory)?.name;
+  const currentCategoryName = CANONICAL_CATEGORIES.find(
+    (c) => c.id === selectedCategory || c.name === selectedCategory
+  )?.name;
 
   const handleOpenModal = (book: Book) => {
     setSelectedBookForModal(book);
@@ -297,11 +381,8 @@ function BooksContent() {
             ทั้งหมด ({allBooks.length})
           </button>
 
-          {allCategories.map((cat) => {
-            const count = allBooks.filter(
-              (b) => b.category_id === cat.id || b.category_ids?.includes(cat.id)
-            ).length;
-            const isSelected = selectedCategory === cat.id;
+          {activeCategories.map((cat) => {
+            const isSelected = selectedCategory === cat.id || selectedCategory === cat.name;
 
             return (
               <button
@@ -313,7 +394,7 @@ function BooksContent() {
                     : 'bg-white text-[#243447] hover:bg-[#F0F8FD] border border-[#DCEAF3]'
                 }`}
               >
-                {cat.name} ({count})
+                {cat.name} ({cat.count})
               </button>
             );
           })}
