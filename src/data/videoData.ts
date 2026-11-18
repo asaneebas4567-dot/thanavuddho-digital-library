@@ -3415,6 +3415,1266 @@ export const libraryVideos: Video[] = [
     "is_available": true
   },
   {
+    "id": "vid-yt-short-01",
+    "title": "รักที่ผิด หยุดตอนนี้ยังทันไหม? | พระมหาสมชาย EP.2562 #Shorts",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/AgPvI8cuIm0",
+    "platform": "youtube",
+    "youtubeId": "AgPvI8cuIm0",
+    "thumbnail": "https://i.ytimg.com/vi/AgPvI8cuIm0/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/AgPvI8cuIm0",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 17992,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-02",
+    "title": "ขอเทวดาตัดต้นไม้หลังบ้านอย่างไรดี?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/sYfzgpGjj2M",
+    "platform": "youtube",
+    "youtubeId": "sYfzgpGjj2M",
+    "thumbnail": "https://i.ytimg.com/vi/sYfzgpGjj2M/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/sYfzgpGjj2M",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 35209,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-03",
+    "title": "แม่เป็นคนขี้เหนียวจนเป็นทุกข์เลยต้องใช้หนี้แทนแม่",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/1mF8Db1B6_Q",
+    "platform": "youtube",
+    "youtubeId": "1mF8Db1B6_Q",
+    "thumbnail": "https://i.ytimg.com/vi/1mF8Db1B6_Q/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/1mF8Db1B6_Q",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 38423,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-04",
+    "title": "ถ้าบริจาคอวัยวะชาติหน้าจะมีอวัยวะไม่ครบจริงหรือไม่ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/f5Fh132T0K4",
+    "platform": "youtube",
+    "youtubeId": "f5Fh132T0K4",
+    "thumbnail": "https://i.ytimg.com/vi/f5Fh132T0K4/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/f5Fh132T0K4",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 17747,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-05",
+    "title": "เกลียดขี้หน้ากันโดยไม่รู้สาเหดุเป็นเพราะอะไรคะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/f76dNcUC9NY",
+    "platform": "youtube",
+    "youtubeId": "f76dNcUC9NY",
+    "thumbnail": "https://i.ytimg.com/vi/f76dNcUC9NY/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/f76dNcUC9NY",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 30763,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-06",
+    "title": "ผู้หญิงสามารถทำความสะอาดขัดพระพุทธรูปได้หรือไม่คะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/AjgTbR0iFHE",
+    "platform": "youtube",
+    "youtubeId": "AjgTbR0iFHE",
+    "thumbnail": "https://i.ytimg.com/vi/AjgTbR0iFHE/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/AjgTbR0iFHE",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 36509,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-07",
+    "title": "ปฏิทินมีรูปพระไม่กล้าเอาไปทิ้ง ทำอย่างไรดีคะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/4ZIXrRZSoWQ",
+    "platform": "youtube",
+    "youtubeId": "4ZIXrRZSoWQ",
+    "thumbnail": "https://i.ytimg.com/vi/4ZIXrRZSoWQ/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/4ZIXrRZSoWQ",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 20404,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-08",
+    "title": "ทำอย่างไรไม่ให้โดนของคะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/gCKJHiMwIYg",
+    "platform": "youtube",
+    "youtubeId": "gCKJHiMwIYg",
+    "thumbnail": "https://i.ytimg.com/vi/gCKJHiMwIYg/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/gCKJHiMwIYg",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 25275,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-09",
+    "title": "คำอธิษฐานที่ไม่ดี ไม่ควรอธิษฐานมีอะไรบ้าง?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/Aah_iMqpPgs",
+    "platform": "youtube",
+    "youtubeId": "Aah_iMqpPgs",
+    "thumbnail": "https://i.ytimg.com/vi/Aah_iMqpPgs/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/Aah_iMqpPgs",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 21249,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-10",
+    "title": "ทำไมเวลาคนตาย จึงให้เอาดอกไม้ธูปเทียนใส่มือ เงินใส่กระเป๋าเอาไปใช้ได้จริงไหครับ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/qR3NOR5QE-s",
+    "platform": "youtube",
+    "youtubeId": "qR3NOR5QE-s",
+    "thumbnail": "https://i.ytimg.com/vi/qR3NOR5QE-s/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/qR3NOR5QE-s",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 20281,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-11",
+    "title": "448ไม่พอใจ ถูกบังคับให้ทำบุญ จะเป็นบาปไหมคะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/0UalVlLZpBQ",
+    "platform": "youtube",
+    "youtubeId": "0UalVlLZpBQ",
+    "thumbnail": "https://i.ytimg.com/vi/0UalVlLZpBQ/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/0UalVlLZpBQ",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 16494,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-12",
+    "title": "ทำไมเวลาพระสวดต้องมีตาลปัตรบังหน้าด้วยครับ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/XOKoS-wFd1o",
+    "platform": "youtube",
+    "youtubeId": "XOKoS-wFd1o",
+    "thumbnail": "https://i.ytimg.com/vi/XOKoS-wFd1o/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/XOKoS-wFd1o",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 37997,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-13",
+    "title": "เกิดมาเป็นภรรยาน้อย เพราะกรรมอะไรคะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/PCUx0TumWGk",
+    "platform": "youtube",
+    "youtubeId": "PCUx0TumWGk",
+    "thumbnail": "https://i.ytimg.com/vi/PCUx0TumWGk/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/PCUx0TumWGk",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 17956,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-14",
+    "title": "คิดดีแต่ทำดีไม่ได้ ทำอย่างไรดีครับ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/HpWqcgunQIc",
+    "platform": "youtube",
+    "youtubeId": "HpWqcgunQIc",
+    "thumbnail": "https://i.ytimg.com/vi/HpWqcgunQIc/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/HpWqcgunQIc",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 34175,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-15",
+    "title": "ทำไมสมัยนี้มีคนไม่ซื่อสัตย์ไม่มีศีลเพิ่มขึ้นมากมายคะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/TvuhpYrORMo",
+    "platform": "youtube",
+    "youtubeId": "TvuhpYrORMo",
+    "thumbnail": "https://i.ytimg.com/vi/TvuhpYrORMo/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/TvuhpYrORMo",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 27244,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-16",
+    "title": "ทำไมสมัยนี้มีคนไม่ซื่อสัตย์ไม่มีศีลเพิ่มขึ้นมากมายคะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/RADoW7V-zoo",
+    "platform": "youtube",
+    "youtubeId": "RADoW7V-zoo",
+    "thumbnail": "https://i.ytimg.com/vi/RADoW7V-zoo/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/RADoW7V-zoo",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 34135,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-17",
+    "title": "การที่เราทำเฉยกับทุกเรื่องที่เป็นทุกข์ถือว่าเราหนีความริงไหมาคะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/x6_MUpzCgV8",
+    "platform": "youtube",
+    "youtubeId": "x6_MUpzCgV8",
+    "thumbnail": "https://i.ytimg.com/vi/x6_MUpzCgV8/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/x6_MUpzCgV8",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 35361,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-18",
+    "title": "บุญหาสถานที่สร้างวัด จะได้อานิสงส์อย่างไรบ้างคะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/xRVYVMNkUiI",
+    "platform": "youtube",
+    "youtubeId": "xRVYVMNkUiI",
+    "thumbnail": "https://i.ytimg.com/vi/xRVYVMNkUiI/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/xRVYVMNkUiI",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 16579,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-19",
+    "title": "คนที่สักยันต์ตามตัว สงสัยว่าที่สักไว้ช่วยได้จริงไหมคะ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/0bD4-gXnvME",
+    "platform": "youtube",
+    "youtubeId": "0bD4-gXnvME",
+    "thumbnail": "https://i.ytimg.com/vi/0bD4-gXnvME/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/0bD4-gXnvME",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 26058,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-20",
+    "title": "การทำความดีติดต่อกันได้ไหมครับ ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/Act5mhsmVg4",
+    "platform": "youtube",
+    "youtubeId": "Act5mhsmVg4",
+    "thumbnail": "https://i.ytimg.com/vi/Act5mhsmVg4/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/Act5mhsmVg4",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 15015,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-21",
+    "title": "ทำบุญด้วยเงินกับทำบุญด้วยแรงแล้วอธิษฐาน ผลบุญจะต่างกันอย่างไร ผลบุญจะต่างกันอย่างไร ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/j5-U7ITZMuk",
+    "platform": "youtube",
+    "youtubeId": "j5-U7ITZMuk",
+    "thumbnail": "https://i.ytimg.com/vi/j5-U7ITZMuk/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/j5-U7ITZMuk",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 14372,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-22",
+    "title": "ฆ่าสัตว์ที่มาทำร้ายมนุษย์ก่อน บาปหรือไม่?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/lOV1SnKriRE",
+    "platform": "youtube",
+    "youtubeId": "lOV1SnKriRE",
+    "thumbnail": "https://i.ytimg.com/vi/lOV1SnKriRE/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/lOV1SnKriRE",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 35172,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-23",
+    "title": "ที่ดินรกร้างว่างเปล่า หรือตามสุสานมีเจ้าที่ไหมครับ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/srimgBPc2dA",
+    "platform": "youtube",
+    "youtubeId": "srimgBPc2dA",
+    "thumbnail": "https://i.ytimg.com/vi/srimgBPc2dA/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/srimgBPc2dA",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 20835,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-24",
+    "title": "เผลอนั่งทับแมว กลัวบาปทำอย่างไรดี?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/aZlmseU8n-w",
+    "platform": "youtube",
+    "youtubeId": "aZlmseU8n-w",
+    "thumbnail": "https://i.ytimg.com/vi/aZlmseU8n-w/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/aZlmseU8n-w",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 20606,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-25",
+    "title": "มีนิสัยคล้ายยักษ์ แต่อยากเกิดเป็นคนธรรพ์ อธิษฐานได้ไหม?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/eUa4fvldOpM",
+    "platform": "youtube",
+    "youtubeId": "eUa4fvldOpM",
+    "thumbnail": "https://i.ytimg.com/vi/eUa4fvldOpM/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/eUa4fvldOpM",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 25222,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-26",
+    "title": "เมื่อเราเสียชีวิตด้วยโรคด้วยที่เจ็บปวดทรมาน?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/81QPucwzBCk",
+    "platform": "youtube",
+    "youtubeId": "81QPucwzBCk",
+    "thumbnail": "https://i.ytimg.com/vi/81QPucwzBCk/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/81QPucwzBCk",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 19842,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-27",
+    "title": "ทำไมต้องสวดมนต์ด้วยครับ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/SBW1aZMyFZg",
+    "platform": "youtube",
+    "youtubeId": "SBW1aZMyFZg",
+    "thumbnail": "https://i.ytimg.com/vi/SBW1aZMyFZg/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/SBW1aZMyFZg",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 25924,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-28",
+    "title": "ถูกบังคับให้สาบานต้องทำอย่างไร?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/-5Go-LwHGZo",
+    "platform": "youtube",
+    "youtubeId": "-5Go-LwHGZo",
+    "thumbnail": "https://i.ytimg.com/vi/-5Go-LwHGZo/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/-5Go-LwHGZo",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 30972,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-29",
+    "title": "สังฆทานเวียนได้บุญเต็มร้อยไหม",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/XwOIVHFwViY",
+    "platform": "youtube",
+    "youtubeId": "XwOIVHFwViY",
+    "thumbnail": "https://i.ytimg.com/vi/XwOIVHFwViY/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/XwOIVHFwViY",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 36145,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-30",
+    "title": "วิบากกรรมของแก๊งมิจฉาชีพจะเป็นอย่างไร",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/Umb-IsDC7Do",
+    "platform": "youtube",
+    "youtubeId": "Umb-IsDC7Do",
+    "thumbnail": "https://i.ytimg.com/vi/Umb-IsDC7Do/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/Umb-IsDC7Do",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 28319,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-31",
+    "title": "สวดมนต์ นั่งสมาธิแต่ไม่ใช่พุทธได้ไหมครับ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/Kuvk_l-tJWg",
+    "platform": "youtube",
+    "youtubeId": "Kuvk_l-tJWg",
+    "thumbnail": "https://i.ytimg.com/vi/Kuvk_l-tJWg/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/Kuvk_l-tJWg",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 35993,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-32",
+    "title": "เปิดนรกวันสารทจีน มีจริงไหมครับ?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/vOLYfIT0ac8",
+    "platform": "youtube",
+    "youtubeId": "vOLYfIT0ac8",
+    "thumbnail": "https://i.ytimg.com/vi/vOLYfIT0ac8/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/vOLYfIT0ac8",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 31072,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-33",
+    "title": "หากเคยทำร้ายพ่อแม่ท่านไม่อยู่แล้วผลกรรมจะเป็นอย่างไร?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/w-ZmmfJRhxE",
+    "platform": "youtube",
+    "youtubeId": "w-ZmmfJRhxE",
+    "thumbnail": "https://i.ytimg.com/vi/w-ZmmfJRhxE/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/w-ZmmfJRhxE",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 19056,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-34",
+    "title": "สงสัยว่าวิญญาณเพิ่มมาจากไหน?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/NAGAbtUumpo",
+    "platform": "youtube",
+    "youtubeId": "NAGAbtUumpo",
+    "thumbnail": "https://i.ytimg.com/vi/NAGAbtUumpo/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/NAGAbtUumpo",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 23450,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
+    "id": "vid-yt-short-35",
+    "title": "โดนทักว่าจะมีอายุไม่ถึง 18 ปีหนูต้องทำอย่างไร?",
+    "description": "ข้อคิดธรรมะสั้น ตอบปัญหาชีวิตและข้อข้องใจเพื่อความสุขใจ โดย พระมหาสมชาย ฐานวุฑฺโฒ (ThanavuddhoStoryOfficial)",
+    "video_url": "https://www.youtube.com/shorts/SWCJ5YO3FuQ",
+    "platform": "youtube",
+    "youtubeId": "SWCJ5YO3FuQ",
+    "thumbnail": "https://i.ytimg.com/vi/SWCJ5YO3FuQ/hqdefault.jpg",
+    "duration": "01:00",
+    "video_type": "youtube_short",
+    "orientation": "vertical",
+    "aspect_ratio": "9:16",
+    "category_ids": [
+      "cat_001",
+      "cat_006"
+    ],
+    "tags": [
+      "YouTube Shorts",
+      "คลิปสั้น",
+      "ธรรมะเตือนใจ",
+      "พระมหาสมชาย ฐานวุฑโฒ",
+      "ThanavuddhoStory",
+      "ข้อคิดสั้น"
+    ],
+    "related_book_ids": [
+      "book_tam_jai_hai_prom_buak",
+      "book_mongkol_chiwit_124"
+    ],
+    "source_url": "https://www.youtube.com/shorts/SWCJ5YO3FuQ",
+    "copyright_status": "official",
+    "published_date": "2026-11-18",
+    "view_count": 24719,
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "channel_handle": "@ThanavuddhoStory",
+    "is_available": true
+  },
+  {
     id: 'vid-tiktok-7708248719312817429',
     title: 'ธรรมะรอบตัว EP.12 | TikTok @udornsharo',
     description: 'ข้อคิดธรรมะเตือนใจสั้นกระชับ ถ่ายทอดหลักคิดและคำสอนในการดำเนินชีวิต',
