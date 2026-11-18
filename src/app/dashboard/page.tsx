@@ -499,8 +499,8 @@ export default function UserDashboard() {
                               <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 mb-2">
                                 <span>อ่านถึงหน้า <strong className="text-sky-600">{item.current_page}</strong> จาก {item.total_pages} หน้า</span>
                                 {bookmarkCount > 0 && (
-                                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
-                                    <Bookmark size={11} className="fill-amber-500 text-amber-500" />
+                                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-md border border-sky-200">
+                                    <Bookmark size={11} className="fill-sky-500 text-sky-500" />
                                     คั่นไว้ {bookmarkCount} หน้า
                                   </span>
                                 )}

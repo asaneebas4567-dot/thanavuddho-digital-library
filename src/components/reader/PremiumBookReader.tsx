@@ -1067,12 +1067,12 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
             onClick={handleToggleBookmark}
             className={`p-2 rounded-xl border transition-all cursor-pointer shrink-0 flex items-center gap-1.5 text-xs font-bold ${
               isCurrentPageBookmarked
-                ? 'bg-amber-500/25 border-amber-400 text-amber-300 shadow-sm'
+                ? 'bg-sky-500/25 border-sky-400 text-sky-300 shadow-sm'
                 : 'bg-white/5 border-white/15 text-zinc-300 hover:text-white hover:bg-white/10'
             }`}
             title={isCurrentPageBookmarked ? 'นำที่คั่นหน้านี้ออก' : 'คั่นหน้านี้ไว้'}
           >
-            <Bookmark size={15} className={isCurrentPageBookmarked ? 'fill-amber-400 text-amber-400' : ''} />
+            <Bookmark size={15} className={isCurrentPageBookmarked ? 'fill-sky-400 text-sky-400' : ''} />
             <span className="hidden sm:inline">{isCurrentPageBookmarked ? 'คั่นแล้ว' : 'คั่นหน้า'}</span>
           </button>
 
@@ -1530,11 +1530,11 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
                 onClick={() => setTocDrawerTab('bookmarks')}
                 className={`pb-2 px-2 font-bold transition-all border-b-2 cursor-pointer flex items-center gap-1.5 ${
                   tocDrawerTab === 'bookmarks'
-                    ? 'border-amber-500 text-amber-400'
+                    ? 'border-sky-500 text-sky-400'
                     : 'border-transparent text-zinc-400 hover:text-white'
                 }`}
               >
-                <Bookmark size={13} className={bookmarks.length > 0 ? 'fill-amber-400 text-amber-400' : ''} />
+                <Bookmark size={13} className={bookmarks.length > 0 ? 'fill-sky-400 text-sky-400' : ''} />
                 <span>หน้าที่คั่นไว้ ({bookmarks.length})</span>
               </button>
             </div>
@@ -1556,14 +1556,14 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
                   >
                     <span className="flex items-center gap-2">
                       <span>หน้า {pNum}</span>
-                      {bookmarks.includes(pNum) && <Bookmark size={12} className="fill-amber-400 text-amber-400" />}
+                      {bookmarks.includes(pNum) && <Bookmark size={12} className="fill-sky-400 text-sky-400" />}
                     </span>
                     {pNum === currentPage && <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded">กำลังอ่าน</span>}
                   </button>
                 ))
               ) : bookmarks.length === 0 ? (
                 <div className="p-8 text-center text-zinc-500 text-xs">
-                  <Bookmark size={32} className="mx-auto mb-2 opacity-30 text-amber-400" />
+                  <Bookmark size={32} className="mx-auto mb-2 opacity-30 text-sky-400" />
                   ยังไม่มีหน้าที่คั่นไว้<br />
                   <span className="text-[11px] text-zinc-400 mt-1 block">กดปุ่ม &quot;คั่นหน้า&quot; ที่แถบด้านบนเพื่อบันทึกหน้าที่ชื่นชอบ</span>
                 </div>
@@ -1577,12 +1577,12 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
                     }}
                     className={`w-full p-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
                       pNum === currentPage 
-                        ? 'bg-amber-600 text-white font-bold' 
+                        ? 'bg-sky-600 text-white font-bold' 
                         : 'hover:bg-zinc-800 text-zinc-300'
                     }`}
                   >
                     <span className="flex items-center gap-2">
-                      <Bookmark size={13} className="fill-amber-400 text-amber-400" />
+                      <Bookmark size={13} className="fill-sky-400 text-sky-400" />
                       <span>หน้าที่คั่น: หน้า {pNum}</span>
                     </span>
                     <span className="text-[10px] text-zinc-400">เปิดอ่าน &rarr;</span>
