@@ -36,7 +36,7 @@ export default function VideoTabs({
     },
     {
       id: 'vertical' as VideoFilterTab,
-      label: '🔥 YouTube Shorts',
+      label: '📱 YouTube Shorts (คลิปสั้น)',
       count: counts.vertical,
       icon: Smartphone
     },
@@ -65,13 +65,13 @@ export default function VideoTabs({
                 onClick={() => onChangeTab(tab.id)}
                 className={`relative group inline-flex items-center gap-2 py-3 sm:py-4 px-3 sm:px-1 text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer rounded-xl sm:rounded-none ${
                   isActive
-                    ? 'text-amber-600 sm:text-foreground bg-amber-50 sm:bg-transparent'
+                    ? 'text-[#079FE8] sm:text-[#073B65] bg-sky-50/80 sm:bg-transparent'
                     : 'text-foreground/60 hover:text-foreground hover:bg-zinc-50 sm:hover:bg-transparent'
                 }`}
               >
                 <Icon 
                   className={`w-4 h-4 transition-colors ${
-                    isActive ? 'text-amber-600' : 'text-foreground/40 group-hover:text-foreground/70'
+                    isActive ? 'text-[#079FE8]' : 'text-foreground/40 group-hover:text-foreground/70'
                   }`} 
                 />
                 
@@ -81,7 +81,7 @@ export default function VideoTabs({
                 <span
                   className={`ml-1 px-2 py-0.5 rounded-full text-[11px] font-bold transition-colors ${
                     isActive
-                      ? 'bg-amber-600 text-white shadow-xs'
+                      ? 'bg-[#079FE8] text-white shadow-xs'
                       : 'bg-zinc-100 text-foreground/60 group-hover:bg-zinc-200'
                   }`}
                 >
@@ -90,7 +90,7 @@ export default function VideoTabs({
 
                 {/* Active Underline Highlight on Desktop */}
                 {isActive && (
-                  <span className="hidden sm:block absolute inset-x-0 bottom-0 h-0.5 bg-amber-600 rounded-full shadow-sm" />
+                  <span className="hidden sm:block absolute inset-x-0 bottom-0 h-0.5 bg-[#079FE8] rounded-full shadow-sm" />
                 )}
               </button>
             );

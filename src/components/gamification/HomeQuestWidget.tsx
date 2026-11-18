@@ -469,7 +469,7 @@ export default function HomeQuestWidget() {
                         className={`p-4 rounded-2xl border transition-all ${
                           isCompleted
                             ? 'bg-emerald-50/40 border-emerald-200'
-                            : 'bg-white border-amber-200/80 shadow-xs'
+                            : 'bg-white border-sky-200/80 shadow-xs'
                         }`}
                       >
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -479,7 +479,7 @@ export default function HomeQuestWidget() {
                                 className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                                   isCompleted
                                     ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
-                                    : 'bg-amber-100 text-amber-900 border border-amber-200'
+                                    : 'bg-sky-100 text-[#073B65] border border-sky-200'
                                 }`}
                               >
                                 หน้า {quest.triggerPageEnd && quest.triggerPageEnd > quest.triggerPage ? `${quest.triggerPage}–${quest.triggerPageEnd}` : quest.triggerPage}
@@ -487,7 +487,7 @@ export default function HomeQuestWidget() {
                               <span className="text-[10px] text-gray-500 font-medium">
                                 {quest.bookTitle}
                               </span>
-                              <span className="text-[10px] text-amber-800 font-semibold bg-amber-50 px-1.5 py-0.2 rounded">
+                              <span className="text-[10px] text-[#073B65] font-semibold bg-sky-50 px-1.5 py-0.2 rounded border border-sky-100">
                                 {quest.categoryTag}
                               </span>
                             </div>
@@ -763,7 +763,7 @@ export default function HomeQuestWidget() {
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setReviewingQuest(null)}
-                className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-white font-bold text-xs rounded-xl transition-all cursor-pointer"
+                className="px-4 py-2 bg-[#079FE8] hover:bg-[#068fd1] text-white font-bold text-xs rounded-xl transition-all cursor-pointer shadow-xs"
               >
                 เข้าใจแล้ว
               </button>

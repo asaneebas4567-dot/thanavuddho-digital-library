@@ -125,8 +125,8 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/70 text-amber-800 text-xs font-bold mb-1.5">
-            <TrendingUp size={13} className="text-amber-600" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/70 text-[#073B65] text-xs font-bold mb-1.5">
+            <TrendingUp size={13} className="text-[#079FE8]" />
             <span>สถิติการอ่านจริงประจำสัปดาห์</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-[#073B65] tracking-tight">

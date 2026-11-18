@@ -51,7 +51,7 @@ export default function ChannelHeader({
   return (
     <div className="relative w-full bg-white border-b border-border/40 overflow-hidden">
       {/* Ambient Creator Banner */}
-      <div className="relative w-full h-36 sm:h-48 md:h-56 bg-gradient-to-r from-amber-900 via-amber-800 to-amber-950 overflow-hidden">
+      <div className="relative w-full h-36 sm:h-48 md:h-56 bg-gradient-to-r from-[#073B65] via-[#0A4D82] to-[#079FE8] overflow-hidden">
         {channel.banner && (
           <Image
             src={channel.banner}
@@ -66,8 +66,8 @@ export default function ChannelHeader({
         
         {/* Subtle decorative badges inside banner */}
         <div className="absolute top-4 right-4 z-10 hidden sm:flex items-center gap-2">
-          <span className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md text-amber-300 text-xs font-semibold border border-amber-400/30 flex items-center gap-1.5 shadow-lg">
-            <Sparkles className="w-3.5 h-3.5" />
+          <span className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md text-sky-200 text-xs font-semibold border border-sky-400/30 flex items-center gap-1.5 shadow-lg">
+            <Sparkles className="w-3.5 h-3.5 text-sky-300" />
             <span>ช่องทางการสื่อธรรมะ</span>
           </span>
         </div>
@@ -79,8 +79,8 @@ export default function ChannelHeader({
           
           {/* Left: Avatar & Identity */}
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-6">
-            {/* Avatar with Golden Frame */}
-            <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-3xl p-1 bg-gradient-to-tr from-amber-500 via-amber-300 to-amber-600 shadow-xl shrink-0">
+            {/* Avatar with Royal Blue Frame */}
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-3xl p-1 bg-gradient-to-tr from-[#079FE8] via-sky-300 to-[#073B65] shadow-xl shrink-0">
               <div className="relative w-full h-full rounded-[22px] overflow-hidden bg-zinc-900 border-2 border-white">
                 <Image
                   src={channel.avatar}
@@ -110,7 +110,7 @@ export default function ChannelHeader({
               </div>
               
               <div className="flex items-center gap-2 text-foreground/60 text-xs sm:text-sm font-medium mt-1">
-                <span className="font-semibold text-amber-600">{channel.handle}</span>
+                <span className="font-semibold text-sky-600">{channel.handle}</span>
                 <span>•</span>
                 <span className="flex items-center gap-1">
                   <Users className="w-3.5 h-3.5 text-foreground/40" />
@@ -154,7 +154,7 @@ export default function ChannelHeader({
           </p>
           <button
             onClick={() => setIsDescExpanded(!isDescExpanded)}
-            className="text-xs font-bold text-amber-600 hover:text-amber-700 mt-1 inline-flex items-center gap-1 cursor-pointer"
+            className="text-xs font-bold text-sky-600 hover:text-sky-700 mt-1 inline-flex items-center gap-1 cursor-pointer"
           >
             {isDescExpanded ? (
               <>ย่อคำอธิบาย <ChevronUp className="w-3.5 h-3.5" /></>
@@ -166,8 +166,8 @@ export default function ChannelHeader({
 
         {/* Video Type Quick Stat Badges */}
         <div className="mt-4 pt-4 border-t border-border/40 flex flex-wrap items-center gap-2 sm:gap-3 text-xs">
-          <div className="px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200/60 text-amber-800 font-semibold flex items-center gap-1.5 shadow-2xs">
-            <VideoIcon className="w-3.5 h-3.5 text-amber-600" />
+          <div className="px-3 py-1.5 rounded-xl bg-sky-50 border border-sky-200/60 text-[#073B65] font-semibold flex items-center gap-1.5 shadow-2xs">
+            <VideoIcon className="w-3.5 h-3.5 text-[#079FE8]" />
             <span>วิดีโอทั้งหมด: <strong>{totalCount}</strong> คลิป</span>
           </div>
 

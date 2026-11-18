@@ -57,9 +57,9 @@ const CATEGORIES: CategoryItem[] = [
     href: '/books?category=cat_self_dev',
     count: '10 เล่ม',
     icon: Briefcase,
-    iconBg: 'bg-amber-50 text-amber-700',
-    iconColor: 'text-amber-700',
-    hoverBorder: 'hover:border-amber-300 hover:shadow-amber-500/10'
+    iconBg: 'bg-sky-50 text-[#079FE8]',
+    iconColor: 'text-[#079FE8]',
+    hoverBorder: 'hover:border-sky-300 hover:shadow-sky-500/10'
   },
   {
     id: 'lifestyle',
@@ -68,9 +68,9 @@ const CATEGORIES: CategoryItem[] = [
     href: '/books?category=cat_lifestyle',
     count: '6 เล่ม',
     icon: Sun,
-    iconBg: 'bg-orange-50 text-orange-600',
-    iconColor: 'text-orange-600',
-    hoverBorder: 'hover:border-orange-300 hover:shadow-orange-500/10'
+    iconBg: 'bg-blue-50 text-blue-600',
+    iconColor: 'text-blue-600',
+    hoverBorder: 'hover:border-blue-300 hover:shadow-blue-500/10'
   },
   {
     id: 'civ',
@@ -79,9 +79,9 @@ const CATEGORIES: CategoryItem[] = [
     href: '/books?category=cat_world_civ',
     count: '31 เล่ม',
     icon: Globe,
-    iconBg: 'bg-sky-50 text-sky-600',
-    iconColor: 'text-sky-600',
-    hoverBorder: 'hover:border-sky-300 hover:shadow-sky-500/10'
+    iconBg: 'bg-cyan-50 text-[#073B65]',
+    iconColor: 'text-[#073B65]',
+    hoverBorder: 'hover:border-cyan-300 hover:shadow-cyan-500/10'
   },
   {
     id: 'blessing',
@@ -102,8 +102,8 @@ export default function CategorySection() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-amber-100/80 text-amber-800 flex items-center justify-center font-bold">
-            <LayoutGrid size={17} />
+          <div className="w-8 h-8 rounded-xl bg-sky-100/90 text-[#073B65] border border-sky-200/70 flex items-center justify-center font-bold shadow-2xs">
+            <LayoutGrid size={17} className="text-[#079FE8]" />
           </div>
           <div>
             <h3 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
@@ -117,7 +117,7 @@ export default function CategorySection() {
 
         <Link
           href="/categories"
-          className="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 group py-1 px-2.5 rounded-lg hover:bg-amber-50 transition-colors"
+          className="text-xs font-bold text-[#079FE8] hover:text-[#073B65] flex items-center gap-1 group py-1 px-2.5 rounded-lg hover:bg-sky-50 transition-colors"
         >
           <span>ดูหมวดหมู่ทั้งหมด</span>
           <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
@@ -146,7 +146,7 @@ export default function CategorySection() {
                 </div>
 
                 {/* Name & Subtitle */}
-                <h4 className="font-bold text-xs sm:text-sm text-gray-900 group-hover:text-amber-700 transition-colors line-clamp-1">
+                <h4 className="font-bold text-xs sm:text-sm text-gray-900 group-hover:text-[#079FE8] transition-colors line-clamp-1">
                   {cat.name}
                 </h4>
                 <p className="text-[11px] text-gray-600 line-clamp-1 mt-0.5 leading-relaxed">
@@ -155,7 +155,7 @@ export default function CategorySection() {
               </div>
 
               {/* Bottom Arrow Indicator */}
-              <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-gray-600 group-hover:text-amber-700 transition-colors">
+              <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-gray-600 group-hover:text-[#079FE8] transition-colors">
                 <span>เข้าสู่หมวด</span>
                 <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
               </div>
@@ -167,25 +167,25 @@ export default function CategorySection() {
       {/* Dedicated Multimedia Quick Access Bar */}
       <div className="mt-3.5 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2.5 text-xs">
         <span className="text-gray-500 font-medium flex items-center gap-1.5">
-          <Sparkles size={14} className="text-amber-600" />
+          <Sparkles size={14} className="text-[#079FE8]" />
           <span>สื่อธรรมะมัลติมีเดียยอดนิยม:</span>
         </span>
         <div className="flex flex-wrap items-center gap-2">
           <Link
             href="/videos"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold border border-rose-200/70 transition-all cursor-pointer group"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-[#073B65] font-bold border border-sky-200/70 transition-all cursor-pointer group"
           >
-            <Video size={14} className="text-rose-600 group-hover:scale-110 transition-transform" />
+            <Video size={14} className="text-[#079FE8] group-hover:scale-110 transition-transform" />
             <span>คลังวิดีโอธรรมะจับใจ (100 คลิป)</span>
-            <ArrowRight size={12} className="text-rose-500 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight size={12} className="text-[#079FE8] group-hover:translate-x-0.5 transition-transform" />
           </Link>
           <Link
             href="/podcasts"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold border border-purple-200/70 transition-all cursor-pointer group"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-bold border border-indigo-200/70 transition-all cursor-pointer group"
           >
-            <Radio size={14} className="text-purple-600 group-hover:scale-110 transition-transform" />
+            <Radio size={14} className="text-indigo-600 group-hover:scale-110 transition-transform" />
             <span>พอดแคสต์เสียงธรรม (40 ตอน)</span>
-            <ArrowRight size={12} className="text-purple-500 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight size={12} className="text-indigo-500 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
       </div>

@@ -229,7 +229,7 @@ function VideosMainContent() {
               placeholder="ค้นหาชื่อวิดีโอหรือหัวข้อธรรมะ..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-border/70 text-xs sm:text-sm text-foreground placeholder-zinc-400 focus:outline-none focus:border-amber-500 shadow-2xs"
+              className="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-border/70 text-xs sm:text-sm text-foreground placeholder-zinc-400 focus:outline-none focus:border-[#079FE8] focus:ring-1 focus:ring-[#079FE8] shadow-2xs"
             />
           </div>
         </div>
@@ -254,7 +254,7 @@ function VideosMainContent() {
         ) : (
           /* Empty Search Result */
           <div className="py-20 text-center rounded-3xl bg-white border border-dashed border-zinc-200 p-8">
-            <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-4 text-amber-600">
+            <div className="w-16 h-16 rounded-full bg-sky-50 flex items-center justify-center mx-auto mb-4 text-[#079FE8]">
               <Filter className="w-8 h-8" />
             </div>
             <h3 className="text-base font-bold text-foreground mb-1">ไม่พบวิดีโอที่ตรงกับคำค้นหา</h3>
@@ -266,7 +266,7 @@ function VideosMainContent() {
                 setSearchQuery('');
                 setActiveTab('all');
               }}
-              className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[#079FE8] hover:bg-[#068fd1] text-white font-bold text-xs transition-colors cursor-pointer shadow-xs"
             >
               แสดงวิดีโอทั้งหมด
             </button>
@@ -278,10 +278,10 @@ function VideosMainContent() {
           <div className="mt-10 mb-6 flex flex-col items-center justify-center gap-2">
             <button
               onClick={() => setVisibleCount(prev => prev + 16)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white hover:bg-zinc-50 border border-zinc-300 hover:border-amber-500 text-foreground text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer group"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white hover:bg-sky-50/50 border border-zinc-300 hover:border-[#079FE8] text-foreground text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer group"
             >
               <span>โหลดวิดีโอเพิ่มเติม</span>
-              <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform text-amber-600" />
+              <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform text-[#079FE8]" />
             </button>
             <span className="text-[11px] text-foreground/50">
               แสดงแล้ว {displayedVideos.length} จากทั้งหมด {filteredVideos.length} รายการ
@@ -300,7 +300,7 @@ export default function VideosPage() {
     <Suspense fallback={
       <div className="min-h-screen bg-[#fafaf9] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <div className="w-12 h-12 border-4 border-[#079FE8] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
           <p className="text-sm font-semibold text-zinc-600">กำลังเปิดคลังวิดีโอ Thanavuddho Library...</p>
         </div>
       </div>

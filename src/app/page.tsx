@@ -337,7 +337,7 @@ export default function Home() {
             viewAllHref="/books?category=cat_001"
             books={familyHealthBooks.length > 0 ? familyHealthBooks : allBooksPool.slice(0, 6)}
             categoryTheme="peach"
-            icon={<HeartPulse size={18} className="text-amber-800" />}
+            icon={<HeartPulse size={18} className="text-sky-800" />}
             onQuickView={handleOpenBookModal}
           />
         </section>

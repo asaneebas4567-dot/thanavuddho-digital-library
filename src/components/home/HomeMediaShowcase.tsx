@@ -169,8 +169,8 @@ export default function HomeMediaShowcase() {
                           <span>พร้อมรับชม</span>
                         </span>
                       ) : (
-                        <span className="text-[9.5px] font-bold text-amber-800 bg-amber-50/95 border border-amber-300/80 px-2 py-0.5 rounded-full shadow-2xs flex items-center gap-1">
-                          <AlertCircle size={10} className="text-amber-600" />
+                        <span className="text-[9.5px] font-bold text-slate-700 bg-slate-50/95 border border-slate-300/80 px-2 py-0.5 rounded-full shadow-2xs flex items-center gap-1">
+                          <AlertCircle size={10} className="text-slate-500" />
                           <span>เตรียมเปิดให้บริการ</span>
                         </span>
                       )}
