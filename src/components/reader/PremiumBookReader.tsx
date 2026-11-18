@@ -74,15 +74,118 @@ export function resolveBookPdfUrl(book: {
   source_url?: string;
   reader_url?: string;
 }): string {
-  const id = (book.id || '').toLowerCase();
+  // 1. Direct local PDF candidate from book object
+  const candidate = ((book.pdf_url || book.reader_url || book.source_url || '') as string).trim();
+  if (candidate.startsWith('/books/pdf/') || candidate.startsWith('/pdfs/')) {
+    return candidate;
+  }
+
+  const rawId = (book.id || '').trim();
+  const id = rawId.toLowerCase();
   const title = (book.title || '').toLowerCase();
 
-  // 1. Precise mappings for authentic local PDF files
+  // 2. Strict ID Mapping Table for All Library Books
+  const EXACT_ID_MAP: Record<string, string> = {
+    'book_รักเเท้ไม่ได้มีเเค่ในนิยาย': '/books/pdf/รักเเท้ไม่ได้มีเเค่ในนิยาย.pdf',
+    'book_เปิดพรมเเดนโลกเเห่งธรรมok': '/books/pdf/เปิดพรมเเดนโลกเเห่งธรรมok.pdf',
+    'book_hope-magazine-vol-18': '/books/pdf/hope-magazine-vol-18.pdf',
+    'book_dhammaintrend4': '/books/pdf/dhammaintrend4.pdf',
+    'book_อายุวัฒนมงคล-๖๓ปี-๔๐-พรรษา': '/books/pdf/อายุวัฒนมงคล-๖๓ปี-๔๐-พรรษา.pdf',
+    'book_อยู่บนโลกใหม่อย่างไม่เป็นโรค': '/books/pdf/อยู่บนโลกใหม่อย่างไม่เป็นโรค.pdf',
+    'book_มงคลชีวิตฉบับทางก้าวหน้า-1': '/books/pdf/มงคลชีวิตฉบับทางก้าวหน้า-1.pdf',
+    'book_อย่ามโน': '/books/pdf/อย่ามโน.pdf',
+    'book_สมดุลเท่ากับดี': '/books/pdf/สมดุลเท่ากับดี.pdf',
+    'book_ตามหลวงพี่ไปโกอินเตอร์': '/books/pdf/ตามหลวงพี่ไปโกอินเตอร์.pdf',
+    'book_ความสุข-360-องศา': '/books/pdf/ความสุข-360-องศา.pdf',
+    'book_ความลับของความรัก': '/books/pdf/ความลับของความรัก.pdf',
+    'book_ความรักรสอูมามิ': '/books/pdf/ความรักรสอูมามิ.pdf',
+    'book_กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น': '/books/pdf/กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น.pdf',
+    'book_เส้นทางพระบรมฯ': '/books/pdf/เส้นทางพระบรมฯ.pdf',
+    'book_perfectionist-สไตล์พุทธะ': '/books/pdf/perfectionist-สไตล์พุทธะ.pdf',
+    'book_ลมหายใจเข้าออกของพระพุทธศาสนา': '/books/pdf/lom-hai-jai-khao-ok.pdf',
+    'book_อยู่สุขในยุคดิจิทัล': '/books/pdf/yoo-sook-nai-yook-digital.pdf',
+    'book_love-myself-รักในตัวตน': '/books/pdf/love-myself-rak-nai-tua-ton.pdf',
+    'book_secret-of-love-รักลูกอย่างไรไม่ให้เสียน้ำตา': '/books/pdf/secret-of-love-rak-look.pdf',
+    'book_the-lover-รักเป็นจะเห็นใจ': '/books/pdf/the-lover-rak-pen-ja-hen-jai.pdf',
+    'book_ขัดเกลาความคิด': '/books/pdf/khad-klao-khwam-kid.pdf',
+    'book_ข้อคิดรอบตัว': '/books/pdf/kho-khit-rob-tua.pdf',
+    'book_ทันโลก-ทันธรรม-3': '/books/pdf/than-lok-than-dhamma-3.pdf',
+    'book_ทันโลกทันธรรม1': '/books/pdf/than-lok-than-dhamma-1.pdf',
+    'book_ทันโลกทันธรรม2': '/books/pdf/than-lok-than-dhamma-2.pdf',
+    'book_ทำใจให้พร้อมบวก': '/books/pdf/tam-jai-hai-prom-buak.pdf',
+    'book_พระไตรปิฎก-ฉบับธรรมชัย': '/books/pdf/phra-traipidok-dhammachai.pdf',
+    'book_มังกรสอนใจ': '/books/pdf/mang-korn-sorn-jai.pdf',
+    'book_ศาสตร์เเห่งสมาธิ': '/books/pdf/the-science-of-meditation.pdf',
+    'book_เขาก็สุข-เราก็สุข': '/books/pdf/khao-kor-sook-rao-kor-sook.pdf',
+    'book_เพราะไม่รู้สินะ-ตอน-รู้ทันชีวิต': '/books/pdf/phro-mai-roo-roo-than-cheewit.pdf',
+    'book_ไขปัญหาความเชื่อ': '/books/pdf/khai-panha-khwam-chuea.pdf',
+    'book_tam_jai_hai_prom_buak': '/books/pdf/tam-jai-hai-prom-buak.pdf',
+    'book_khao_kor_sook_rao_kor_sook': '/books/pdf/khao-kor-sook-rao-kor-sook.pdf',
+    'book_lom_hai_jai_khao_ok': '/books/pdf/lom-hai-jai-khao-ok.pdf',
+    'book_phoo_soon_sia_tee_mai_sin_soon': '/books/pdf/phoo-soon-sia-tee-mai-sin-soon.pdf',
+    'book_secret_of_love_rak_look_yang_rai': '/books/pdf/secret-of-love-rak-look.pdf',
+    'book_the_lover_rak_pen_ja_hen_jai': '/books/pdf/the-lover-rak-pen-ja-hen-jai.pdf',
+    'book_yoo_nai_lok_mai_yang_mai_pen_rok': '/books/pdf/yoo-nai-lok-mai.pdf',
+    'book_tham_jai_hai_phrom_buak': '/books/pdf/tam-jai-hai-prom-buak.pdf',
+    'book_lom_hai_jai_khao_ok_123': '/books/pdf/lom-hai-jai-khao-ok-123.pdf',
+    'book_mongkol_chiwit_124': '/books/pdf/mongkol-chiwit-124.pdf',
+    'book_perd_promdan_dhamma': '/books/pdf/perd-promdan-dhamma.pdf',
+    'book_phro_mai_roo_roo_than_cheewit': '/books/pdf/phro-mai-roo-roo-than-cheewit.pdf',
+    'book_rak_thae_mai_dai_mee_khae_nai_niyai': '/books/pdf/rak-thae-mai-dai-mee-khae-nai-niyai.pdf',
+    'book_love_myself_rak_nai_tua_ton': '/books/pdf/love-myself-rak-nai-tua-ton.pdf',
+    'book_hope_for_life_vol_04': '/books/pdf/hope-for-life-vol-04.pdf',
+    'book_yoo_sook_nai_yook_digital': '/books/pdf/yoo-sook-nai-yook-digital.pdf',
+    'pubhtml5_64695646': '/books/pdf/สมดุลเท่ากับดี.pdf',
+    'pubhtml5_81852783': '/books/pdf/the-science-of-meditation.pdf',
+    'pubhtml5_18438372': '/books/pdf/mang-korn-sorn-jai.pdf',
+    'pubhtml5_23054983': '/books/pdf/kho-khit-rob-tua.pdf',
+    'pubhtml5_68005005': '/books/pdf/อย่ามโน.pdf',
+    'pubhtml5_89853151': '/books/pdf/phra-traipidok-dhammachai.pdf',
+    'pubhtml5_33738617': '/books/pdf/khad-klao-khwam-kid.pdf',
+    'pubhtml5_16604262': '/books/pdf/เส้นทางพระบรมฯ.pdf',
+    'pubhtml5_10811287': '/books/pdf/khai-panha-khwam-chuea.pdf',
+    'pubhtml5_86887339': '/books/pdf/than-lok-than-dhamma-3.pdf',
+    'pubhtml5_26910324': '/books/pdf/than-lok-than-dhamma-2.pdf',
+    'pubhtml5_76550937': '/books/pdf/than-lok-than-dhamma-1.pdf',
+    'pubhtml5_45477721': '/books/pdf/อายุวัฒนมงคล-๖๓ปี-๔๐-พรรษา.pdf'
+  };
+
+  if (EXACT_ID_MAP[rawId]) return EXACT_ID_MAP[rawId];
+  if (EXACT_ID_MAP[`book_${rawId}`]) return EXACT_ID_MAP[`book_${rawId}`];
+
+  // 3. Precise Semantic / Title Mappings for Authentic Library Books
+  if (title.includes('ขัดเกลาความคิด') || id.includes('khad_klao')) {
+    return '/books/pdf/khad-klao-khwam-kid.pdf';
+  }
+  if (title.includes('ทันโลกทันธรรม 3') || title.includes('ทันโลก ทันธรรม 3') || id.includes('than_lok_3')) {
+    return '/books/pdf/than-lok-than-dhamma-3.pdf';
+  }
+  if (title.includes('ทันโลกทันธรรม 2') || title.includes('ทันโลก ทันธรรม 2') || id.includes('than_lok_2')) {
+    return '/books/pdf/than-lok-than-dhamma-2.pdf';
+  }
+  if (title.includes('ทันโลกทันธรรม 1') || title.includes('ทันโลกทันธรรม1') || id.includes('than_lok_1')) {
+    return '/books/pdf/than-lok-than-dhamma-1.pdf';
+  }
+  if (title.includes('พระไตรปิฎก') || id.includes('dhammachai') || id.includes('traipidok')) {
+    return '/books/pdf/phra-traipidok-dhammachai.pdf';
+  }
+  if (title.includes('มังกรสอนใจ') || id.includes('mang_korn')) {
+    return '/books/pdf/mang-korn-sorn-jai.pdf';
+  }
+  if (title.includes('ไขปัญหาความเชื่อ') || id.includes('khai_panha')) {
+    return '/books/pdf/khai-panha-khwam-chuea.pdf';
+  }
+  if (title.includes('dhammaintrend') || id.includes('dhammaintrend')) {
+    return '/books/pdf/dhammaintrend4.pdf';
+  }
+  if (title.includes('hope magazine') || id.includes('hope-magazine')) {
+    return '/books/pdf/hope-magazine-vol-18.pdf';
+  }
   if (id.includes('tam_jai') || id.includes('tham_jai') || title.includes('ทำใจให้พร้อมบวก')) {
     return '/books/pdf/tam-jai-hai-prom-buak.pdf';
   }
   if (id.includes('mongkol') || id.includes('124') || title.includes('มงคลชีวิต')) {
-    return '/books/pdf/mongkol-chiwit-124.pdf';
+    return '/books/pdf/มงคลชีวิตฉบับทางก้าวหน้า-1.pdf';
   }
   if (id.includes('phoo_soon_sia') || title.includes('ผู้สูญเสีย')) {
     return '/books/pdf/phoo-soon-sia-tee-mai-sin-soon.pdf';
@@ -93,8 +196,8 @@ export function resolveBookPdfUrl(book: {
   if (id.includes('the_lover') || title.includes('รักเป็นจะเห็นใจ')) {
     return '/books/pdf/the-lover-rak-pen-ja-hen-jai.pdf';
   }
-  if (id.includes('yoo_nai_lok_mai') || title.includes('อยู่ในโลกใหม่')) {
-    return '/books/pdf/yoo-nai-lok-mai.pdf';
+  if (id.includes('yoo_nai_lok_mai') || title.includes('อยู่ในโลกใหม่') || title.includes('อยู่บนโลกใหม่')) {
+    return '/books/pdf/อยู่บนโลกใหม่อย่างไม่เป็นโรค.pdf';
   }
   if (id.includes('123') || (title.includes('ลมหายใจ') && title.includes('123'))) {
     return '/books/pdf/lom-hai-jai-khao-ok-123.pdf';
@@ -102,25 +205,25 @@ export function resolveBookPdfUrl(book: {
   if (id.includes('lom_hai_jai') || title.includes('ลมหายใจ')) {
     return '/books/pdf/lom-hai-jai-khao-ok.pdf';
   }
-  if (id.includes('perd_promdan') || title.includes('เปิดพรมแดน')) {
-    return '/books/pdf/perd-promdan-dhamma.pdf';
+  if (id.includes('perd_promdan') || title.includes('เปิดพรมแดน') || title.includes('เปิดพรมเเดน')) {
+    return '/books/pdf/เปิดพรมเเดนโลกเเห่งธรรมok.pdf';
   }
   if (id.includes('phro_mai_roo') || title.includes('เพราะไม่รู้')) {
     return '/books/pdf/phro-mai-roo-roo-than-cheewit.pdf';
   }
-  if (id.includes('rak_thae') || title.includes('รักแท้')) {
-    return '/books/pdf/rak-thae-mai-dai-mee-khae-nai-niyai.pdf';
+  if (id.includes('rak_thae') || title.includes('รักแท้') || title.includes('รักเเท้')) {
+    return '/books/pdf/รักเเท้ไม่ได้มีเเค่ในนิยาย.pdf';
   }
   if (id.includes('love_myself') || title.includes('รักในตัวตน')) {
     return '/books/pdf/love-myself-rak-nai-tua-ton.pdf';
   }
-  if (id.includes('hope_for_life') || title.includes('hope')) {
+  if (id.includes('hope_for_life') || title.includes('hope for life')) {
     return '/books/pdf/hope-for-life-vol-04.pdf';
   }
   if (id.includes('yoo_sook') || title.includes('อยู่สุข')) {
     return '/books/pdf/yoo-sook-nai-yook-digital.pdf';
   }
-  if (id.includes('meditation') || title.includes('ศาสตร์แห่งสมาธิ') || id === 'b_htht') {
+  if (id.includes('meditation') || title.includes('ศาสตร์แห่งสมาธิ') || title.includes('ศาสตร์เเห่งสมาธิ') || id === 'b_htht') {
     return '/books/pdf/the-science-of-meditation.pdf';
   }
   if (id.includes('kho_khit') || title.includes('ข้อคิดรอบตัว') || id === 'b_xith') {
@@ -156,14 +259,19 @@ export function resolveBookPdfUrl(book: {
   if (id.includes('perfectionist') || title.includes('perfectionist') || title.includes('สไตล์พุทธะ')) {
     return '/books/pdf/perfectionist-สไตล์พุทธะ.pdf';
   }
-
-  // 2. Direct local PDF candidate
-  const candidate = (book.pdf_url || '') as string;
-  if (candidate.startsWith('/books/pdf/') || candidate.startsWith('/pdfs/')) {
-    return candidate;
+  if (title.includes('อายุวัฒนมงคล') || id.includes('อายุวัฒน')) {
+    return '/books/pdf/อายุวัฒนมงคล-๖๓ปี-๔๐-พรรษา.pdf';
   }
 
-  // 3. Fallback to authentic default library book so it NEVER breaks or throws 404
+  // 4. Remote Google Drive or HTTPS PDF via CORS Proxy
+  if (candidate.includes('drive.google.com') || candidate.includes('docs.google.com')) {
+    return `/api/pdf-proxy?url=${encodeURIComponent(candidate)}`;
+  }
+  if (candidate.startsWith('http://') || candidate.startsWith('https://')) {
+    return `/api/pdf-proxy?url=${encodeURIComponent(candidate)}`;
+  }
+
+  // 5. Ultimate Fallback to Authentic Library Book
   return '/books/pdf/tam-jai-hai-prom-buak.pdf';
 }
 

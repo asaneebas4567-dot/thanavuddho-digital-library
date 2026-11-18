@@ -21,8 +21,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1AgWpiPrWjsvXK8Uq_wUAuPUCQM97ou5L/preview",
-    "reader_url": "https://drive.google.com/file/d/1AgWpiPrWjsvXK8Uq_wUAuPUCQM97ou5L/preview",
+    "pdf_url": "/books/pdf/รักเเท้ไม่ได้มีเเค่ในนิยาย.pdf",
+    "reader_url": "/books/pdf/รักเเท้ไม่ได้มีเเค่ในนิยาย.pdf",
     "source_url": "https://drive.google.com/file/d/1AgWpiPrWjsvXK8Uq_wUAuPUCQM97ou5L/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -36,7 +36,9 @@
     "is_finished": true,
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "status": "published",
-    "drive_file_id": "1AgWpiPrWjsvXK8Uq_wUAuPUCQM97ou5L"
+    "drive_file_id": "1AgWpiPrWjsvXK8Uq_wUAuPUCQM97ou5L",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_เปิดพรมเเดนโลกเเห่งธรรมok",
@@ -60,8 +62,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1XfYQuvNBU7GN4M7hsJ4O7kjKZUFpqI-h/preview",
-    "reader_url": "https://drive.google.com/file/d/1XfYQuvNBU7GN4M7hsJ4O7kjKZUFpqI-h/preview",
+    "pdf_url": "/books/pdf/เปิดพรมเเดนโลกเเห่งธรรมok.pdf",
+    "reader_url": "/books/pdf/เปิดพรมเเดนโลกเเห่งธรรมok.pdf",
     "source_url": "https://drive.google.com/file/d/1XfYQuvNBU7GN4M7hsJ4O7kjKZUFpqI-h/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -75,7 +77,9 @@
     "is_finished": true,
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "status": "published",
-    "drive_file_id": "1XfYQuvNBU7GN4M7hsJ4O7kjKZUFpqI-h"
+    "drive_file_id": "1XfYQuvNBU7GN4M7hsJ4O7kjKZUFpqI-h",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_hope-magazine-vol-18",
@@ -99,8 +103,8 @@
     "page_count": 72,
     "pages": 72,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1ucAyavx20MyfBfSons8i8pwrcaIDiEH-/preview",
-    "reader_url": "https://drive.google.com/file/d/1ucAyavx20MyfBfSons8i8pwrcaIDiEH-/preview",
+    "pdf_url": "/books/pdf/hope-magazine-vol-18.pdf",
+    "reader_url": "/books/pdf/hope-magazine-vol-18.pdf",
     "source_url": "https://drive.google.com/file/d/1ucAyavx20MyfBfSons8i8pwrcaIDiEH-/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -114,7 +118,9 @@
     "is_finished": true,
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "status": "published",
-    "drive_file_id": "1ucAyavx20MyfBfSons8i8pwrcaIDiEH-"
+    "drive_file_id": "1ucAyavx20MyfBfSons8i8pwrcaIDiEH-",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_dhammaintrend4",
@@ -138,8 +144,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/101hUc1Lb57LXfKxsQJ7r00sRNiJAzSPE/preview",
-    "reader_url": "https://drive.google.com/file/d/101hUc1Lb57LXfKxsQJ7r00sRNiJAzSPE/preview",
+    "pdf_url": "/books/pdf/dhammaintrend4.pdf",
+    "reader_url": "/books/pdf/dhammaintrend4.pdf",
     "source_url": "https://drive.google.com/file/d/101hUc1Lb57LXfKxsQJ7r00sRNiJAzSPE/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -153,7 +159,9 @@
     "is_finished": true,
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "status": "published",
-    "drive_file_id": "101hUc1Lb57LXfKxsQJ7r00sRNiJAzSPE"
+    "drive_file_id": "101hUc1Lb57LXfKxsQJ7r00sRNiJAzSPE",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_อายุวัฒนมงคล-๖๓ปี-๔๐-พรรษา",
@@ -177,8 +185,8 @@
     "page_count": 160,
     "pages": 160,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/183jGD-_M7kHCrLY1AzTo0rEa4IBrT89c/preview",
-    "reader_url": "https://drive.google.com/file/d/183jGD-_M7kHCrLY1AzTo0rEa4IBrT89c/preview",
+    "pdf_url": "/books/pdf/อายุวัฒนมงคล-๖๓ปี-๔๐-พรรษา.pdf",
+    "reader_url": "/books/pdf/อายุวัฒนมงคล-๖๓ปี-๔๐-พรรษา.pdf",
     "source_url": "https://drive.google.com/file/d/183jGD-_M7kHCrLY1AzTo0rEa4IBrT89c/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -192,7 +200,9 @@
     "is_finished": true,
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "status": "published",
-    "drive_file_id": "183jGD-_M7kHCrLY1AzTo0rEa4IBrT89c"
+    "drive_file_id": "183jGD-_M7kHCrLY1AzTo0rEa4IBrT89c",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_อยู่บนโลกใหม่อย่างไม่เป็นโรค",
@@ -216,8 +226,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1-ODFFY1OLoegO149gtBQ5L5ESTlr2mhX/preview",
-    "reader_url": "https://drive.google.com/file/d/1-ODFFY1OLoegO149gtBQ5L5ESTlr2mhX/preview",
+    "pdf_url": "/books/pdf/อยู่บนโลกใหม่อย่างไม่เป็นโรค.pdf",
+    "reader_url": "/books/pdf/อยู่บนโลกใหม่อย่างไม่เป็นโรค.pdf",
     "source_url": "https://drive.google.com/file/d/1-ODFFY1OLoegO149gtBQ5L5ESTlr2mhX/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -231,7 +241,9 @@
     "is_finished": true,
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "status": "published",
-    "drive_file_id": "1-ODFFY1OLoegO149gtBQ5L5ESTlr2mhX"
+    "drive_file_id": "1-ODFFY1OLoegO149gtBQ5L5ESTlr2mhX",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_มงคลชีวิตฉบับทางก้าวหน้า-1",
@@ -255,8 +267,8 @@
     "page_count": 220,
     "pages": 220,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/14-lngyqUQ8rR-yGmTxtgxLjjMgojzo5X/preview",
-    "reader_url": "https://drive.google.com/file/d/14-lngyqUQ8rR-yGmTxtgxLjjMgojzo5X/preview",
+    "pdf_url": "/books/pdf/มงคลชีวิตฉบับทางก้าวหน้า-1.pdf",
+    "reader_url": "/books/pdf/มงคลชีวิตฉบับทางก้าวหน้า-1.pdf",
     "source_url": "https://drive.google.com/file/d/14-lngyqUQ8rR-yGmTxtgxLjjMgojzo5X/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -270,7 +282,9 @@
     "is_finished": true,
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "status": "published",
-    "drive_file_id": "14-lngyqUQ8rR-yGmTxtgxLjjMgojzo5X"
+    "drive_file_id": "14-lngyqUQ8rR-yGmTxtgxLjjMgojzo5X",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_อย่ามโน",
@@ -293,8 +307,8 @@
     "page_count": 80,
     "pages": 80,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/10qPuIeb6qDu_yBvy5hfW2NVz90CTL4Bw/preview",
-    "reader_url": "https://drive.google.com/file/d/10qPuIeb6qDu_yBvy5hfW2NVz90CTL4Bw/preview",
+    "pdf_url": "/books/pdf/อย่ามโน.pdf",
+    "reader_url": "/books/pdf/อย่ามโน.pdf",
     "source_url": "https://drive.google.com/file/d/10qPuIeb6qDu_yBvy5hfW2NVz90CTL4Bw/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -306,7 +320,9 @@
     "read_count": 0,
     "like_count": 0,
     "is_finished": true,
-    "drive_file_id": "10qPuIeb6qDu_yBvy5hfW2NVz90CTL4Bw"
+    "drive_file_id": "10qPuIeb6qDu_yBvy5hfW2NVz90CTL4Bw",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_สมดุลเท่ากับดี",
@@ -329,8 +345,8 @@
     "page_count": 132,
     "pages": 132,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1nrKJA-8NwHpJ2URJ-ey0b-QV8Fgt7EvN/preview",
-    "reader_url": "https://drive.google.com/file/d/1nrKJA-8NwHpJ2URJ-ey0b-QV8Fgt7EvN/preview",
+    "pdf_url": "/books/pdf/สมดุลเท่ากับดี.pdf",
+    "reader_url": "/books/pdf/สมดุลเท่ากับดี.pdf",
     "source_url": "https://drive.google.com/file/d/1nrKJA-8NwHpJ2URJ-ey0b-QV8Fgt7EvN/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -342,7 +358,9 @@
     "read_count": 0,
     "like_count": 0,
     "is_finished": true,
-    "drive_file_id": "1nrKJA-8NwHpJ2URJ-ey0b-QV8Fgt7EvN"
+    "drive_file_id": "1nrKJA-8NwHpJ2URJ-ey0b-QV8Fgt7EvN",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ตามหลวงพี่ไปโกอินเตอร์",
@@ -365,8 +383,8 @@
     "page_count": 61,
     "pages": 61,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1PE-59asHvaOuxrdxNy2qNzKmgZRdeIoE/preview",
-    "reader_url": "https://drive.google.com/file/d/1PE-59asHvaOuxrdxNy2qNzKmgZRdeIoE/preview",
+    "pdf_url": "/books/pdf/ตามหลวงพี่ไปโกอินเตอร์.pdf",
+    "reader_url": "/books/pdf/ตามหลวงพี่ไปโกอินเตอร์.pdf",
     "source_url": "https://drive.google.com/file/d/1PE-59asHvaOuxrdxNy2qNzKmgZRdeIoE/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -378,7 +396,9 @@
     "read_count": 0,
     "like_count": 0,
     "is_finished": true,
-    "drive_file_id": "1PE-59asHvaOuxrdxNy2qNzKmgZRdeIoE"
+    "drive_file_id": "1PE-59asHvaOuxrdxNy2qNzKmgZRdeIoE",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ความสุข-360-องศา",
@@ -401,8 +421,8 @@
     "page_count": 162,
     "pages": 162,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1EnXA_4QiQyo5fe_HGPS3QkYVmHN-NMfy/preview",
-    "reader_url": "https://drive.google.com/file/d/1EnXA_4QiQyo5fe_HGPS3QkYVmHN-NMfy/preview",
+    "pdf_url": "/books/pdf/ความสุข-360-องศา.pdf",
+    "reader_url": "/books/pdf/ความสุข-360-องศา.pdf",
     "source_url": "https://drive.google.com/file/d/1EnXA_4QiQyo5fe_HGPS3QkYVmHN-NMfy/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -414,7 +434,9 @@
     "read_count": 0,
     "like_count": 0,
     "is_finished": true,
-    "drive_file_id": "1EnXA_4QiQyo5fe_HGPS3QkYVmHN-NMfy"
+    "drive_file_id": "1EnXA_4QiQyo5fe_HGPS3QkYVmHN-NMfy",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ความลับของความรัก",
@@ -437,8 +459,8 @@
     "page_count": 152,
     "pages": 152,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1wdudOJmkdvD6UrSa7yG2MXT2NuPi88-8/preview",
-    "reader_url": "https://drive.google.com/file/d/1wdudOJmkdvD6UrSa7yG2MXT2NuPi88-8/preview",
+    "pdf_url": "/books/pdf/ความลับของความรัก.pdf",
+    "reader_url": "/books/pdf/ความลับของความรัก.pdf",
     "source_url": "https://drive.google.com/file/d/1wdudOJmkdvD6UrSa7yG2MXT2NuPi88-8/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -450,7 +472,9 @@
     "read_count": 0,
     "like_count": 0,
     "is_finished": true,
-    "drive_file_id": "1wdudOJmkdvD6UrSa7yG2MXT2NuPi88-8"
+    "drive_file_id": "1wdudOJmkdvD6UrSa7yG2MXT2NuPi88-8",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ความรักรสอูมามิ",
@@ -473,8 +497,8 @@
     "page_count": 138,
     "pages": 138,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1mK9xE_YHWOVuEQPbfibLyFcxIxgW8tvo/preview",
-    "reader_url": "https://drive.google.com/file/d/1mK9xE_YHWOVuEQPbfibLyFcxIxgW8tvo/preview",
+    "pdf_url": "/books/pdf/ความรักรสอูมามิ.pdf",
+    "reader_url": "/books/pdf/ความรักรสอูมามิ.pdf",
     "source_url": "https://drive.google.com/file/d/1mK9xE_YHWOVuEQPbfibLyFcxIxgW8tvo/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -486,7 +510,9 @@
     "read_count": 0,
     "like_count": 0,
     "is_finished": true,
-    "drive_file_id": "1mK9xE_YHWOVuEQPbfibLyFcxIxgW8tvo"
+    "drive_file_id": "1mK9xE_YHWOVuEQPbfibLyFcxIxgW8tvo",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น",
@@ -509,8 +535,8 @@
     "page_count": 129,
     "pages": 129,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/18oqPlAuFwbX8VqZ53eM41_eoGkqiPG98/preview",
-    "reader_url": "https://drive.google.com/file/d/18oqPlAuFwbX8VqZ53eM41_eoGkqiPG98/preview",
+    "pdf_url": "/books/pdf/กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น.pdf",
+    "reader_url": "/books/pdf/กะเทาะเปลือกความทุกข์-สุขให้ถึงเเก่น.pdf",
     "source_url": "https://drive.google.com/file/d/18oqPlAuFwbX8VqZ53eM41_eoGkqiPG98/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -522,7 +548,9 @@
     "read_count": 0,
     "like_count": 0,
     "is_finished": true,
-    "drive_file_id": "18oqPlAuFwbX8VqZ53eM41_eoGkqiPG98"
+    "drive_file_id": "18oqPlAuFwbX8VqZ53eM41_eoGkqiPG98",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_เส้นทางพระบรมฯ",
@@ -545,8 +573,8 @@
     "page_count": 49,
     "pages": 49,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1A14g4N5H_t_Zw0Lgaekuu0ZO25-Tq-7l/preview",
-    "reader_url": "https://drive.google.com/file/d/1A14g4N5H_t_Zw0Lgaekuu0ZO25-Tq-7l/preview",
+    "pdf_url": "/books/pdf/เส้นทางพระบรมฯ.pdf",
+    "reader_url": "/books/pdf/เส้นทางพระบรมฯ.pdf",
     "source_url": "https://drive.google.com/file/d/1A14g4N5H_t_Zw0Lgaekuu0ZO25-Tq-7l/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -558,7 +586,9 @@
     "read_count": 0,
     "like_count": 0,
     "is_finished": true,
-    "drive_file_id": "1A14g4N5H_t_Zw0Lgaekuu0ZO25-Tq-7l"
+    "drive_file_id": "1A14g4N5H_t_Zw0Lgaekuu0ZO25-Tq-7l",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_perfectionist-สไตล์พุทธะ",
@@ -581,8 +611,8 @@
     "page_count": 123,
     "pages": 123,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1N62w6veTDOagYcL64dZyGpdYupQ7uKos/preview",
-    "reader_url": "https://drive.google.com/file/d/1N62w6veTDOagYcL64dZyGpdYupQ7uKos/preview",
+    "pdf_url": "/books/pdf/perfectionist-สไตล์พุทธะ.pdf",
+    "reader_url": "/books/pdf/perfectionist-สไตล์พุทธะ.pdf",
     "source_url": "https://drive.google.com/file/d/1N62w6veTDOagYcL64dZyGpdYupQ7uKos/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -594,7 +624,9 @@
     "read_count": 0,
     "like_count": 0,
     "is_finished": true,
-    "drive_file_id": "1N62w6veTDOagYcL64dZyGpdYupQ7uKos"
+    "drive_file_id": "1N62w6veTDOagYcL64dZyGpdYupQ7uKos",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ลมหายใจเข้าออกของพระพุทธศาสนา",
@@ -619,8 +651,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/15027mfTYBa4tvTcgwPkvwpzaINi-mRmn/preview",
-    "reader_url": "https://drive.google.com/file/d/15027mfTYBa4tvTcgwPkvwpzaINi-mRmn/preview",
+    "pdf_url": "/books/pdf/lom-hai-jai-khao-ok.pdf",
+    "reader_url": "/books/pdf/lom-hai-jai-khao-ok.pdf",
     "source_url": "https://drive.google.com/file/d/15027mfTYBa4tvTcgwPkvwpzaINi-mRmn/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -633,7 +665,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "15027mfTYBa4tvTcgwPkvwpzaINi-mRmn"
+    "drive_file_id": "15027mfTYBa4tvTcgwPkvwpzaINi-mRmn",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_อยู่สุขในยุคดิจิทัล",
@@ -671,7 +705,9 @@
     "is_finished": true,
     "view_count": 0,
     "read_count": 0,
-    "like_count": 0
+    "like_count": 0,
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_love-myself-รักในตัวตน",
@@ -696,8 +732,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1z7k4gJX--j24YI8-t0BjWd3Q6PyMghRO/preview",
-    "reader_url": "https://drive.google.com/file/d/1z7k4gJX--j24YI8-t0BjWd3Q6PyMghRO/preview",
+    "pdf_url": "/books/pdf/love-myself-rak-nai-tua-ton.pdf",
+    "reader_url": "/books/pdf/love-myself-rak-nai-tua-ton.pdf",
     "source_url": "https://drive.google.com/file/d/1z7k4gJX--j24YI8-t0BjWd3Q6PyMghRO/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -710,7 +746,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1z7k4gJX--j24YI8-t0BjWd3Q6PyMghRO"
+    "drive_file_id": "1z7k4gJX--j24YI8-t0BjWd3Q6PyMghRO",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_secret-of-love-รักลูกอย่างไรไม่ให้เสียน้ำตา",
@@ -735,8 +773,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1XR72V9gqIEI24hn8PUrgBUbQAHKA7E5W/preview",
-    "reader_url": "https://drive.google.com/file/d/1XR72V9gqIEI24hn8PUrgBUbQAHKA7E5W/preview",
+    "pdf_url": "/books/pdf/secret-of-love-rak-look.pdf",
+    "reader_url": "/books/pdf/secret-of-love-rak-look.pdf",
     "source_url": "https://drive.google.com/file/d/1XR72V9gqIEI24hn8PUrgBUbQAHKA7E5W/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -749,7 +787,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1XR72V9gqIEI24hn8PUrgBUbQAHKA7E5W"
+    "drive_file_id": "1XR72V9gqIEI24hn8PUrgBUbQAHKA7E5W",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_the-lover-รักเป็นจะเห็นใจ",
@@ -774,8 +814,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1xNorlpcHvz7h1pUfdmomHqllOd8ziTwN/preview",
-    "reader_url": "https://drive.google.com/file/d/1xNorlpcHvz7h1pUfdmomHqllOd8ziTwN/preview",
+    "pdf_url": "/books/pdf/the-lover-rak-pen-ja-hen-jai.pdf",
+    "reader_url": "/books/pdf/the-lover-rak-pen-ja-hen-jai.pdf",
     "source_url": "https://drive.google.com/file/d/1xNorlpcHvz7h1pUfdmomHqllOd8ziTwN/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -788,7 +828,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1xNorlpcHvz7h1pUfdmomHqllOd8ziTwN"
+    "drive_file_id": "1xNorlpcHvz7h1pUfdmomHqllOd8ziTwN",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ขัดเกลาความคิด",
@@ -813,8 +855,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1i_lROJUFHQkTqGI6nU_Y59xkHjr_YJLE/preview",
-    "reader_url": "https://drive.google.com/file/d/1i_lROJUFHQkTqGI6nU_Y59xkHjr_YJLE/preview",
+    "pdf_url": "/books/pdf/khad-klao-khwam-kid.pdf",
+    "reader_url": "/books/pdf/khad-klao-khwam-kid.pdf",
     "source_url": "https://drive.google.com/file/d/1i_lROJUFHQkTqGI6nU_Y59xkHjr_YJLE/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -827,7 +869,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1i_lROJUFHQkTqGI6nU_Y59xkHjr_YJLE"
+    "drive_file_id": "1i_lROJUFHQkTqGI6nU_Y59xkHjr_YJLE",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ข้อคิดรอบตัว",
@@ -852,8 +896,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/117Q4npBCsTVMGxRt30TGI1RnBCDDdTWQ/preview",
-    "reader_url": "https://drive.google.com/file/d/117Q4npBCsTVMGxRt30TGI1RnBCDDdTWQ/preview",
+    "pdf_url": "/books/pdf/kho-khit-rob-tua.pdf",
+    "reader_url": "/books/pdf/kho-khit-rob-tua.pdf",
     "source_url": "https://drive.google.com/file/d/117Q4npBCsTVMGxRt30TGI1RnBCDDdTWQ/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -866,7 +910,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "117Q4npBCsTVMGxRt30TGI1RnBCDDdTWQ"
+    "drive_file_id": "117Q4npBCsTVMGxRt30TGI1RnBCDDdTWQ",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ทันโลก-ทันธรรม-3",
@@ -891,8 +937,8 @@
     "page_count": 140,
     "pages": 140,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/123Hi9ITJn3vKNncVTuJMkCw_fi8YL3P2/preview",
-    "reader_url": "https://drive.google.com/file/d/123Hi9ITJn3vKNncVTuJMkCw_fi8YL3P2/preview",
+    "pdf_url": "/books/pdf/than-lok-than-dhamma-3.pdf",
+    "reader_url": "/books/pdf/than-lok-than-dhamma-3.pdf",
     "source_url": "https://drive.google.com/file/d/123Hi9ITJn3vKNncVTuJMkCw_fi8YL3P2/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -905,7 +951,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "123Hi9ITJn3vKNncVTuJMkCw_fi8YL3P2"
+    "drive_file_id": "123Hi9ITJn3vKNncVTuJMkCw_fi8YL3P2",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ทันโลกทันธรรม1",
@@ -930,8 +978,8 @@
     "page_count": 140,
     "pages": 140,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1SRz5ymp-JERKZ1gAdXZrPexn7SBsjZGF/preview",
-    "reader_url": "https://drive.google.com/file/d/1SRz5ymp-JERKZ1gAdXZrPexn7SBsjZGF/preview",
+    "pdf_url": "/books/pdf/than-lok-than-dhamma-1.pdf",
+    "reader_url": "/books/pdf/than-lok-than-dhamma-1.pdf",
     "source_url": "https://drive.google.com/file/d/1SRz5ymp-JERKZ1gAdXZrPexn7SBsjZGF/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -944,7 +992,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1SRz5ymp-JERKZ1gAdXZrPexn7SBsjZGF"
+    "drive_file_id": "1SRz5ymp-JERKZ1gAdXZrPexn7SBsjZGF",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ทันโลกทันธรรม2",
@@ -969,8 +1019,8 @@
     "page_count": 140,
     "pages": 140,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/196lVD54DoTt7t75O-NdNTC_QxiJVbktx/preview",
-    "reader_url": "https://drive.google.com/file/d/196lVD54DoTt7t75O-NdNTC_QxiJVbktx/preview",
+    "pdf_url": "/books/pdf/than-lok-than-dhamma-2.pdf",
+    "reader_url": "/books/pdf/than-lok-than-dhamma-2.pdf",
     "source_url": "https://drive.google.com/file/d/196lVD54DoTt7t75O-NdNTC_QxiJVbktx/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -983,7 +1033,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "196lVD54DoTt7t75O-NdNTC_QxiJVbktx"
+    "drive_file_id": "196lVD54DoTt7t75O-NdNTC_QxiJVbktx",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ทำใจให้พร้อมบวก",
@@ -1008,8 +1060,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1ja1JlULVFOiernaH9vzkVlRSLA2MUmpS/preview",
-    "reader_url": "https://drive.google.com/file/d/1ja1JlULVFOiernaH9vzkVlRSLA2MUmpS/preview",
+    "pdf_url": "/books/pdf/tam-jai-hai-prom-buak.pdf",
+    "reader_url": "/books/pdf/tam-jai-hai-prom-buak.pdf",
     "source_url": "https://drive.google.com/file/d/1ja1JlULVFOiernaH9vzkVlRSLA2MUmpS/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -1022,7 +1074,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1ja1JlULVFOiernaH9vzkVlRSLA2MUmpS"
+    "drive_file_id": "1ja1JlULVFOiernaH9vzkVlRSLA2MUmpS",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_พระไตรปิฎก-ฉบับธรรมชัย",
@@ -1047,8 +1101,8 @@
     "page_count": 350,
     "pages": 350,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1QEioFQhAdUbaf2Izy4MGUBS-XKY3LrUp/preview",
-    "reader_url": "https://drive.google.com/file/d/1QEioFQhAdUbaf2Izy4MGUBS-XKY3LrUp/preview",
+    "pdf_url": "/books/pdf/phra-traipidok-dhammachai.pdf",
+    "reader_url": "/books/pdf/phra-traipidok-dhammachai.pdf",
     "source_url": "https://drive.google.com/file/d/1QEioFQhAdUbaf2Izy4MGUBS-XKY3LrUp/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -1061,7 +1115,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1QEioFQhAdUbaf2Izy4MGUBS-XKY3LrUp"
+    "drive_file_id": "1QEioFQhAdUbaf2Izy4MGUBS-XKY3LrUp",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_มังกรสอนใจ",
@@ -1086,8 +1142,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1Lt058orFaz1M1fGkIDc1KstQdNO24CaI/preview",
-    "reader_url": "https://drive.google.com/file/d/1Lt058orFaz1M1fGkIDc1KstQdNO24CaI/preview",
+    "pdf_url": "/books/pdf/mang-korn-sorn-jai.pdf",
+    "reader_url": "/books/pdf/mang-korn-sorn-jai.pdf",
     "source_url": "https://drive.google.com/file/d/1Lt058orFaz1M1fGkIDc1KstQdNO24CaI/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -1100,7 +1156,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1Lt058orFaz1M1fGkIDc1KstQdNO24CaI"
+    "drive_file_id": "1Lt058orFaz1M1fGkIDc1KstQdNO24CaI",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ศาสตร์เเห่งสมาธิ",
@@ -1125,8 +1183,8 @@
     "page_count": 120,
     "pages": 120,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1ceambiyI8bjEqvGmXrkpKHpksCl6KIN_/preview",
-    "reader_url": "https://drive.google.com/file/d/1ceambiyI8bjEqvGmXrkpKHpksCl6KIN_/preview",
+    "pdf_url": "/books/pdf/the-science-of-meditation.pdf",
+    "reader_url": "/books/pdf/the-science-of-meditation.pdf",
     "source_url": "https://drive.google.com/file/d/1ceambiyI8bjEqvGmXrkpKHpksCl6KIN_/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -1139,7 +1197,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1ceambiyI8bjEqvGmXrkpKHpksCl6KIN_"
+    "drive_file_id": "1ceambiyI8bjEqvGmXrkpKHpksCl6KIN_",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_เขาก็สุข-เราก็สุข",
@@ -1164,8 +1224,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1JNmEozB38Vd013Gns8-5H0JREqNsJiDY/preview",
-    "reader_url": "https://drive.google.com/file/d/1JNmEozB38Vd013Gns8-5H0JREqNsJiDY/preview",
+    "pdf_url": "/books/pdf/khao-kor-sook-rao-kor-sook.pdf",
+    "reader_url": "/books/pdf/khao-kor-sook-rao-kor-sook.pdf",
     "source_url": "https://drive.google.com/file/d/1JNmEozB38Vd013Gns8-5H0JREqNsJiDY/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -1178,7 +1238,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1JNmEozB38Vd013Gns8-5H0JREqNsJiDY"
+    "drive_file_id": "1JNmEozB38Vd013Gns8-5H0JREqNsJiDY",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_เพราะไม่รู้สินะ-ตอน-รู้ทันชีวิต",
@@ -1203,8 +1265,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1OSwySM_byJ0ay-UIkW60fXtmRdQxaIQ6/preview",
-    "reader_url": "https://drive.google.com/file/d/1OSwySM_byJ0ay-UIkW60fXtmRdQxaIQ6/preview",
+    "pdf_url": "/books/pdf/phro-mai-roo-roo-than-cheewit.pdf",
+    "reader_url": "/books/pdf/phro-mai-roo-roo-than-cheewit.pdf",
     "source_url": "https://drive.google.com/file/d/1OSwySM_byJ0ay-UIkW60fXtmRdQxaIQ6/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -1217,7 +1279,9 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1OSwySM_byJ0ay-UIkW60fXtmRdQxaIQ6"
+    "drive_file_id": "1OSwySM_byJ0ay-UIkW60fXtmRdQxaIQ6",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   },
   {
     "id": "book_ไขปัญหาความเชื่อ",
@@ -1242,8 +1306,8 @@
     "page_count": 96,
     "pages": 96,
     "language": "th",
-    "pdf_url": "https://drive.google.com/file/d/1L7Ld6hb265P4zoz6Lw32uRqdvk2FcF31/preview",
-    "reader_url": "https://drive.google.com/file/d/1L7Ld6hb265P4zoz6Lw32uRqdvk2FcF31/preview",
+    "pdf_url": "/books/pdf/khai-panha-khwam-chuea.pdf",
+    "reader_url": "/books/pdf/khai-panha-khwam-chuea.pdf",
     "source_url": "https://drive.google.com/file/d/1L7Ld6hb265P4zoz6Lw32uRqdvk2FcF31/view",
     "copyright_status": "approved",
     "is_copyright": true,
@@ -1256,6 +1320,8 @@
     "view_count": 0,
     "read_count": 0,
     "like_count": 0,
-    "drive_file_id": "1L7Ld6hb265P4zoz6Lw32uRqdvk2FcF31"
+    "drive_file_id": "1L7Ld6hb265P4zoz6Lw32uRqdvk2FcF31",
+    "has_flipbook": true,
+    "reader_type": "flipbook"
   }
 ]

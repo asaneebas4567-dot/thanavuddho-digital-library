@@ -233,94 +233,23 @@ function BookReaderContent({ bookId }: { bookId: string }) {
     );
   }
 
-  // Determine if book has authentic local PDF in public/books/pdf
-  const rawId = (book.id || '').toLowerCase();
-  const rawTitle = (book.title || '').toLowerCase();
-  const hasLocalPdf = Boolean(
-    rawId.includes('tam_jai') ||
-    rawId.includes('tham_jai') ||
-    rawTitle.includes('ทำใจให้พร้อมบวก') ||
-    rawId.includes('mongkol') ||
-    rawTitle.includes('มงคลชีวิต') ||
-    rawId.includes('lom_hai_jai') ||
-    rawTitle.includes('ลมหายใจ') ||
-    rawId.includes('khao_kor_sook') ||
-    rawTitle.includes('เขาก็สุข') ||
-    rawId.includes('rak_thae') ||
-    rawTitle.includes('รักแท้') ||
-    rawId.includes('hope_for_life') ||
-    rawId.includes('kho_khit') ||
-    rawTitle.includes('ข้อคิดรอบตัว') ||
-    rawId.includes('the_science_of_meditation') ||
-    rawTitle.includes('ศาสตร์แห่งสมาธิ') ||
-    rawId.includes('phoo_soon_sia') ||
-    rawTitle.includes('ผู้สูญเสีย') ||
-    rawId.includes('phro_mai_roo') ||
-    rawTitle.includes('เพราะไม่รู้') ||
-    rawId.includes('secret_of_love') ||
-    rawTitle.includes('รักลูก') ||
-    rawId.includes('love_myself') ||
-    rawTitle.includes('รักในตัวตน') ||
-    rawId.includes('perd_promdan') ||
-    rawTitle.includes('เปิดพรมแดน') ||
-    rawId.includes('the_lover') ||
-    rawTitle.includes('รักเป็นจะเห็นใจ') ||
-    rawId.includes('yoo_nai_lok_mai') ||
-    rawTitle.includes('อยู่ในโลกใหม่') ||
-    rawId.includes('yoo_sook') ||
-    rawTitle.includes('อยู่สุข') ||
-    rawTitle.includes('อย่ามโน') ||
-    rawTitle.includes('สมดุลเท่ากับดี') ||
-    rawTitle.includes('ตามหลวงพี่ไปโกอินเตอร์') ||
-    rawTitle.includes('ความสุข 360') ||
-    rawTitle.includes('ความลับของความรัก') ||
-    rawTitle.includes('ความรักรสอูมามิ') ||
-    rawTitle.includes('กะเทาะเปลือก') ||
-    rawTitle.includes('เส้นทางพระบรม') ||
-    rawTitle.includes('perfectionist') ||
-    rawTitle.includes('สไตล์พุทธะ') ||
-    rawTitle.includes('อายุวัฒนมงคล') ||
-    (book.pdf_url && (book.pdf_url.startsWith('/books/pdf/') || book.pdf_url.endsWith('.pdf')) && !book.pdf_url.includes('drive.google.com'))
-  );
-
-  // Check if book is PubHTML5, Google Drive, or World Civilization series
-  const isEmbedBook = Boolean(
-    book.id?.startsWith('pubhtml5_') ||
-    book.reader_url?.includes('pubhtml5.com') ||
-    book.source_url?.includes('pubhtml5.com') ||
-    book.reader_url?.includes('drive.google.com') ||
-    book.source_url?.includes('drive.google.com') ||
-    book.pdf_url?.includes('drive.google.com') ||
-    book.reader_url?.includes('docs.google.com') ||
-    book.category_id === 'cat_world_civ' ||
-    (book.category_ids && book.category_ids.includes('cat_world_civ')) ||
-    (book as any).drive_file_id
+  // Check if book is strictly an external PubHTML5 flipbook with no local PDF (World Civilization series 1-14)
+  const isExternalPubHtml5Only = Boolean(
+    (book.category_id === 'cat_world_civ' || (book.category_ids && book.category_ids.includes('cat_world_civ'))) &&
+    !book.pdf_url?.startsWith('/books/pdf/')
   );
 
   // 1. Explicit query param requested
   if (modeParam === 'embed' && (book.reader_url || book.source_url || book.pdf_url || (book as any).drive_file_id)) {
-    return <PubHtml5Reader book={book} hasLocalPdf={hasLocalPdf} />;
-  }
-  if (modeParam === 'flip' && hasLocalPdf) {
-    return <PremiumBookReader book={book} initialPage={initialPage} />;
+    return <PubHtml5Reader book={book} hasLocalPdf={true} />;
   }
 
-  // 2. World Civilization & PubHTML5 books or books without local PDF MUST use PubHtml5Reader
-  if (isEmbedBook && !hasLocalPdf) {
+  // 2. World Civilization external webtoon / PubHTML5 series without local PDF
+  if (isExternalPubHtml5Only && modeParam !== 'flip') {
     return <PubHtml5Reader book={book} hasLocalPdf={false} />;
   }
 
-  // 3. If book has authentic local PDF -> Open in 3D Flipbook Reader
-  if (hasLocalPdf) {
-    return <PremiumBookReader book={book} initialPage={initialPage} />;
-  }
-
-  // 4. Default fallback: If any embed link exists, use PubHtml5Reader
-  if (book.reader_url || book.source_url || book.pdf_url || (book as any).drive_file_id) {
-    return <PubHtml5Reader book={book} hasLocalPdf={false} />;
-  }
-
-  // 5. Ultimate fallback
+  // 3. For ALL Library books: Launch the complete 3D Flipbook Reader system (ระบบของที่ทำมา)
   return <PremiumBookReader book={book} initialPage={initialPage} />;
 }
 

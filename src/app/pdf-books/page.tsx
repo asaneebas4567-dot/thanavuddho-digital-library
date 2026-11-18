@@ -185,7 +185,7 @@ export default function PdfBooksPage() {
                     href={`/reader/${book.id}?from=/pdf-books`}
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 group-hover:text-sky-700 group-hover:translate-x-1 transition-all"
                   >
-                    <span>เปิดอ่าน PDF</span>
+                    <span>เปิดอ่าน Flipbook 3D</span>
                     <ArrowRight size={14} />
                   </Link>
 
