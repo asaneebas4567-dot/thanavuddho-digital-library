@@ -44,25 +44,25 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
   const theme = cardFallbackThemes[hash % cardFallbackThemes.length];
 
   return (
-    <div className="group relative bg-white border border-slate-200/90 rounded-xl shadow-xs hover:shadow-md hover:border-[#079FE8]/60 transition-all duration-200 flex flex-col h-full overflow-hidden">
+    <div className="group relative bg-white border border-slate-200/90 rounded-2xl shadow-2xs hover:shadow-md hover:border-[#079FE8]/60 transition-all duration-200 flex flex-col h-full overflow-hidden">
       
       {/* Cover Artwork Container */}
-      <div className="relative aspect-[3/4] w-full bg-slate-50/70 overflow-hidden flex items-center justify-center p-4 sm:p-5 border-b border-slate-100">
+      <div className="relative aspect-[3/4] w-full bg-slate-50/70 overflow-hidden flex items-center justify-center p-2.5 min-[370px]:p-3.5 sm:p-5 border-b border-slate-100">
         
         {/* Subtle shadow on hover */}
         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
 
         {/* 3D Book Frame */}
-        <div className="book-cover-3d relative w-32 sm:w-36 aspect-[1/1.42] rounded-md overflow-hidden bg-slate-900 ring-1 ring-black/10 group-hover:scale-102 transition-transform duration-200 shadow-sm">
+        <div className="book-cover-3d relative w-24 min-[370px]:w-28 sm:w-36 aspect-[1/1.42] rounded-md overflow-hidden bg-slate-900 ring-1 ring-black/10 group-hover:scale-102 transition-transform duration-200 shadow-sm">
           
           {/* Copyright & Borrowed Badges - ทุกเล่มขึ้นลิขสิทธิ์ */}
           <div className="absolute top-1.5 right-1.5 flex flex-col items-end gap-1 z-20 select-none">
             {isBorrowed && (
-              <div className="bg-emerald-600/95 text-white font-bold text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider flex items-center gap-0.5">
+              <div className="bg-emerald-600/95 text-white font-bold text-[7.5px] min-[370px]:text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider flex items-center gap-0.5">
                 <Check size={9} /> ยืมแล้ว
               </div>
             )}
-            <div className="bg-rose-700/95 text-white font-medium text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider">
+            <div className="bg-rose-700/95 text-white font-medium text-[7.5px] min-[370px]:text-[8px] sm:text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs tracking-wider">
               ลิขสิทธิ์
             </div>
           </div>
@@ -126,54 +126,54 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
       </div>
 
       {/* Book Metadata */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+      <div className="p-2.5 min-[370px]:p-3.5 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
           {/* Tags / Meta Pill */}
-          <div className="flex items-center text-xs text-gray-500 mb-2 gap-2 flex-wrap">
-            <span className="bg-[#F0F8FD] text-[#073B65] border border-[#DCEAF3] px-2 py-0.5 rounded-md font-semibold text-[11px]">
+          <div className="flex items-center text-xs text-gray-500 mb-1.5 sm:mb-2 gap-1 sm:gap-2 flex-wrap">
+            <span className="bg-[#F0F8FD] text-[#073B65] border border-[#DCEAF3] px-1.5 min-[370px]:px-2 py-0.5 rounded-md font-semibold text-[9.5px] min-[370px]:text-[10.5px]">
               {year ? `ปี ${year}` : 'ธรรมบรรณาการ'}
             </span>
             <span className="text-gray-300">•</span>
-            <span className="flex items-center gap-1 text-[11px] font-medium text-slate-600">
-              <BookOpen className="w-3 h-3 text-slate-500" /> 
-              {pageCount ? `${pageCount} หน้า` : 'ฉบับเต็ม'}
+            <span className="flex items-center gap-1 text-[9.5px] min-[370px]:text-[10.5px] font-medium text-slate-600">
+              <BookOpen className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-slate-500" /> 
+              {pageCount ? `${pageCount} น.` : 'ฉบับเต็ม'}
             </span>
-            <span className="text-gray-300">•</span>
-            <span className="bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded text-[10px] font-semibold">
+            <span className="text-gray-300 hidden min-[380px]:inline">•</span>
+            <span className="bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded text-[9px] min-[370px]:text-[10px] font-semibold hidden min-[380px]:inline-block">
               ลิขสิทธิ์
             </span>
           </div>
 
           {/* Title */}
-          <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-1.5 line-clamp-2 leading-snug group-hover:text-sky-700 transition-colors">
+          <h3 className="text-xs min-[370px]:text-sm sm:text-base font-bold text-gray-900 mb-1 line-clamp-2 leading-snug group-hover:text-sky-700 transition-colors">
             <Link href={`/books/${book.id}`}>
               {book.title}
             </Link>
           </h3>
 
-          <p className="text-xs text-gray-500 font-normal mb-3">
+          <p className="text-[10.5px] min-[370px]:text-xs text-gray-500 font-normal mb-1.5 sm:mb-2 truncate">
             {author}
           </p>
 
-          {/* Description */}
-          <p className="text-gray-500 text-xs line-clamp-2 leading-relaxed mb-4 font-normal">
+          {/* Description: Shown on tablet/desktop, cleanly hidden on mobile 2-col to keep card heights tidy */}
+          <p className="hidden md:-webkit-box text-gray-500 text-xs line-clamp-2 leading-relaxed mb-3 font-normal">
             {book.description || 'รวบรวมหลักธรรมคำสอนและแนวทางการดำเนินชีวิตอย่างมีความสุขและสงบใจ'}
           </p>
         </div>
 
         {/* Card Footer */}
-        <div className="pt-3 border-t border-gray-100 flex items-center justify-between mt-auto">
+        <div className="pt-2 sm:pt-3 border-t border-gray-100 flex items-center justify-between mt-auto">
           <Link 
             href={`/books/${book.id}`}
-            className="text-xs font-semibold text-slate-700 hover:text-sky-700 flex items-center gap-1 group/btn"
+            className="text-[11px] sm:text-xs font-bold text-slate-700 hover:text-sky-700 flex items-center gap-0.5 sm:gap-1 group/btn"
           >
             <span>รายละเอียด</span>
-            <ArrowRight size={13} className="transition-transform group-hover/btn:translate-x-0.5" />
+            <ArrowRight size={12} className="transition-transform group-hover/btn:translate-x-0.5" />
           </Link>
 
-          <span className="text-[11px] text-gray-500 font-medium flex items-center gap-1 bg-gray-50 px-2.5 py-0.5 rounded-full border border-gray-100" title="ยอดผู้เปิดอ่านจริง">
-            <Eye size={12} className="text-gray-400" />
-            <span>{readCount > 0 ? `${readCount.toLocaleString()} อ่าน` : '0 อ่าน'}</span>
+          <span className="text-[9.5px] min-[370px]:text-[10.5px] text-gray-500 font-medium flex items-center gap-1 bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100" title="ยอดผู้เปิดอ่านจริง">
+            <Eye size={11} className="text-gray-400" />
+            <span>{readCount > 0 ? `${readCount.toLocaleString()} อ่าน` : '0'}</span>
           </span>
         </div>
 

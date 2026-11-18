@@ -146,7 +146,7 @@ function BookCoverItem({
   return (
     <Link 
       href={isBorrowed ? `/reader/${book.id}` : `/books/${book.id}`}
-      className="shrink-0 w-[145px] sm:w-[160px] md:w-[172px] group/card cursor-pointer select-none block"
+      className="shrink-0 w-[128px] min-[370px]:w-[145px] sm:w-[160px] md:w-[172px] group/card cursor-pointer select-none block"
       title={`${book.title} (คลิกเพื่อเข้าสู่หน้าหนังสือ)`}
     >
       {/* 1. Book Poster with 3D Spine and Polite Lift */}

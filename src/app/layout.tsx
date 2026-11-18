@@ -3,6 +3,7 @@ import { Sarabun } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import BottomNav from "@/components/layout/BottomNav";
 import AppProviders from "@/components/providers/AppProviders";
 
 const sarabun = Sarabun({
@@ -46,9 +47,10 @@ export default function RootLayout({
       >
         <AppProviders>
           <Navbar />
-          <main className="flex-grow pb-24 lg:pb-0 w-full overflow-x-hidden">
+          <main className="flex-grow pb-20 lg:pb-0 w-full overflow-x-hidden">
             {children}
           </main>
+          <BottomNav />
           <Footer />
         </AppProviders>
       </body>

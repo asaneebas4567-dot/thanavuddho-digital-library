@@ -114,19 +114,19 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 bg-gradient-to-r from-[#079FE8] via-[#068fd1] to-[#073B65] shadow-md transition-colors select-none text-white">
       
       {/* 1. Top Bar: Logo, Centered Search, and User Controls */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2.5 pb-2.5 sm:pt-3 sm:pb-3">
-        <div className="flex items-center justify-between gap-2 sm:gap-5">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-2 pb-2 sm:pt-3 sm:pb-3">
+        <div className="flex items-center justify-between gap-1.5 sm:gap-5">
           
           {/* Left: Brand Identity (Logo + Thanavuddho Library) */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-2.5 shrink-0 group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white text-[#079FE8] rounded-xl flex items-center justify-center font-bold text-base sm:text-xl shadow-sm group-hover:scale-105 transition-transform border border-white/80 shrink-0">
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2.5 shrink-0 group">
+            <div className="w-7.5 h-7.5 min-[360px]:w-8 min-[360px]:h-8 sm:w-10 sm:h-10 bg-white text-[#079FE8] rounded-xl flex items-center justify-center font-bold text-sm min-[360px]:text-base sm:text-xl shadow-sm group-hover:scale-105 transition-transform border border-white/80 shrink-0">
               ถ
             </div>
             <div className="block min-w-0">
               <span className="font-bold text-xs sm:text-base md:text-lg text-white tracking-tight block leading-tight truncate">
                 Thanavuddho <span className="text-sky-200 font-bold">Library</span>
               </span>
-              <span className="text-[9px] sm:text-[11px] text-white/90 font-medium hidden xs:block truncate">
+              <span className="text-[9px] sm:text-[11px] text-white/90 font-medium hidden sm:block truncate">
                 พระครูปลัดสุวัฒนโพธิคุณ
               </span>
             </div>
@@ -168,14 +168,14 @@ export default function Navbar() {
             <Link 
               href="/rewards" 
               id="navbar-points-pill"
-              className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold text-[#073B65] bg-white hover:bg-sky-50 shadow-xs transition-all cursor-pointer border border-[#DCEAF3] active:scale-95 shrink-0"
+              className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold text-[#073B65] bg-white hover:bg-sky-50 shadow-xs transition-all cursor-pointer border border-[#DCEAF3] active:scale-95 shrink-0"
               title="ร้านแลกของรางวัลธรรมะ"
             >
               <span className="text-xs sm:text-sm">🪙</span>
               <span className="font-mono text-[#D9A441] font-bold text-[11px] sm:text-xs" suppressHydrationWarning>
                 {mounted ? availablePoints.toLocaleString() : '0'}
               </span>
-              <span className="text-[9px] sm:text-[10px] text-[#64748B]">แต้ม</span>
+              <span className="text-[9px] sm:text-[10px] text-[#64748B] hidden min-[380px]:inline">แต้ม</span>
             </Link>
 
             {/* User Profile or Login CTA */}

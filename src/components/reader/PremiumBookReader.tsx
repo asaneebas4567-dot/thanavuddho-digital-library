@@ -294,6 +294,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
   const [isTOCDrawerOpen, setIsTOCDrawerOpen] = useState<boolean>(false);
   const [isQuestDrawerOpen, setIsQuestDrawerOpen] = useState<boolean>(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [isMobileOptionsOpen, setIsMobileOptionsOpen] = useState<boolean>(false);
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchResults, setSearchResults] = useState<SearchMatch[]>([]);
@@ -965,9 +966,12 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
 
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
-              <h1 className="font-extrabold line-clamp-1 text-xs sm:text-sm tracking-tight text-white">
+              <h1 className="font-extrabold line-clamp-1 text-xs sm:text-sm tracking-tight text-white max-w-[125px] min-[360px]:max-w-[165px] sm:max-w-xs md:max-w-md">
                 {book.title}
               </h1>
+              <span className="text-[9.5px] text-zinc-300 font-mono font-bold bg-white/10 px-1.5 py-0.5 rounded md:hidden shrink-0">
+                {currentPage}/{effectiveTotalPages}
+              </span>
               {detectedDimension && (
                 <span 
                   className="hidden lg:inline-flex items-center gap-1 px-1.5 py-0.2 rounded-md text-[9px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30"
@@ -988,7 +992,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
 
           {/* Reading Timer per page */}
           <div 
-            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/5 border border-white/10 text-[11px] font-mono text-zinc-300"
+            className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/5 border border-white/10 text-[11px] font-mono text-zinc-300"
             title="ตัวจับเวลาการอ่านหน้านี้ (วินาที)"
           >
             <Timer size={13} className="text-sky-400 animate-pulse" />
@@ -1001,18 +1005,18 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
           {/* Lazada / Shopee Surprise Reward Streak Button */}
           <button
             onClick={() => triggerReadingReward('กดรับแต้มอ่านหนังสือ (Lazada Reward Style)')}
-            className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-sky-500/20 via-blue-500/20 to-sky-500/20 hover:from-sky-500/30 hover:to-blue-500/30 border border-sky-400/40 text-sky-300 text-xs font-bold transition-all shadow-xs cursor-pointer"
+            className="hidden md:flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-sky-500/20 via-blue-500/20 to-sky-500/20 hover:from-sky-500/30 hover:to-blue-500/30 border border-sky-400/40 text-sky-300 text-xs font-bold transition-all shadow-xs cursor-pointer"
             title="เซอร์ไพรส์รับแต้มสะสมปัญญาบารมี (Lazada / Shopee Gamified Streak)"
           >
             <Coins size={14} className="text-sky-300 animate-bounce" />
-            <span className="hidden md:inline">รับแต้ม</span>
+            <span>รับแต้ม</span>
           </button>
           
           {/* Return Book Button (For active loan) */}
           {isBorrowed && (
             <button
               onClick={handleReturnBook}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white/10 hover:bg-rose-500/20 hover:text-rose-200 border border-white/15 text-zinc-300 text-xs font-semibold transition-all shadow-xs cursor-pointer"
+              className="hidden lg:flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white/10 hover:bg-rose-500/20 hover:text-rose-200 border border-white/15 text-zinc-300 text-xs font-semibold transition-all shadow-xs cursor-pointer"
               title="คืนหนังสือเล่มนี้เพื่อเพิ่มโควตายืม"
             >
               <RotateCcw size={12} />
@@ -1021,7 +1025,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
           )}
 
           {/* Mode Switcher: 📖 หน้าต่อหน้า (Flip) vs 📜 เลื่อนอ่าน (Scroll) */}
-          <div className="flex items-center rounded-xl p-0.5 border border-white/15 bg-white/5 shrink-0">
+          <div className="hidden md:flex items-center rounded-xl p-0.5 border border-white/15 bg-white/5 shrink-0">
             <button
               onClick={() => {
                 setMode('flip');
@@ -1054,7 +1058,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
           {/* Search Button */}
           <button
             onClick={() => setIsSearchOpen(s => !s)}
-            className={`p-2 rounded-xl border transition-all cursor-pointer ${
+            className={`hidden md:inline-flex p-2 rounded-xl border transition-all cursor-pointer ${
               isSearchOpen ? 'bg-sky-600 border-sky-500 text-white' : 'bg-white/5 border-white/15 text-zinc-300 hover:text-white hover:bg-white/10'
             }`}
             title="ค้นหาข้อความในเอกสาร PDF"
@@ -1065,7 +1069,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
           {/* Table of Contents & Quick Jump */}
           <button
             onClick={() => setIsTOCDrawerOpen(true)}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/5 border border-white/15 text-xs font-bold text-zinc-300 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
+            className="hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/5 border border-white/15 text-xs font-bold text-zinc-300 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
             title="สารบัญและเลือกหน้า"
           >
             <List size={15} />
@@ -1075,15 +1079,25 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
           {/* Quest Journal & Easter Eggs Trigger */}
           <button
             onClick={() => setIsQuestDrawerOpen(true)}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 hover:border-sky-400 text-xs font-bold text-sky-300 hover:text-sky-200 transition-all cursor-pointer shadow-sm"
+            className="hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 hover:border-sky-400 text-xs font-bold text-sky-300 hover:text-sky-200 transition-all cursor-pointer shadow-sm"
             title="เปิดสมุดภารกิจ Quest Journal & Easter Eggs"
           >
             <Compass size={15} className="text-sky-400" />
             <span className="hidden md:inline">ภารกิจ</span>
           </button>
 
-          {/* Theme & Settings Trigger */}
-          <div className="relative">
+          {/* Mobile All-in-One Options Button */}
+          <button
+            onClick={() => setIsMobileOptionsOpen(true)}
+            className="md:hidden flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs cursor-pointer border border-white/20 active:scale-95 shadow-xs"
+            title="เปิดเครื่องมือและตัวเลือกการอ่าน"
+          >
+            <Settings size={14} />
+            <span>ตัวเลือก</span>
+          </button>
+
+          {/* Theme & Settings Trigger (Desktop) */}
+          <div className="relative hidden md:block">
             <button
               onClick={() => setIsSettingsOpen(s => !s)}
               className="p-2 rounded-xl bg-white/5 border border-white/15 text-zinc-300 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
@@ -1170,10 +1184,10 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
             )}
           </div>
 
-          {/* Bookmark Button */}
+          {/* Bookmark Button (Desktop) */}
           <button
             onClick={handleToggleBookmark}
-            className={`p-2 rounded-xl border transition-all cursor-pointer shrink-0 flex items-center gap-1.5 text-xs font-bold ${
+            className={`hidden md:inline-flex p-2 rounded-xl border transition-all cursor-pointer shrink-0 items-center gap-1.5 text-xs font-bold ${
               isCurrentPageBookmarked
                 ? 'bg-sky-500/25 border-sky-400 text-sky-300 shadow-sm'
                 : 'bg-white/5 border-white/15 text-zinc-300 hover:text-white hover:bg-white/10'
@@ -1194,6 +1208,185 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
           </button>
         </div>
       </header>
+
+      {/* =========================================================================
+          MOBILE ALL-IN-ONE OPTIONS BOTTOM DRAWER
+         ========================================================================= */}
+      {isMobileOptionsOpen && (
+        <div 
+          className="md:hidden fixed inset-0 z-50 flex items-end justify-center bg-black/70 backdrop-blur-xs animate-in fade-in duration-200"
+          onClick={() => setIsMobileOptionsOpen(false)}
+        >
+          <div 
+            className="bg-zinc-900 border-t border-zinc-700 w-full rounded-t-3xl p-5 text-white max-h-[85vh] overflow-y-auto shadow-2xl animate-in slide-in-from-bottom-5 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Drawer Header */}
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-800">
+              <div className="flex items-center gap-2">
+                <Settings size={18} className="text-sky-400" />
+                <h3 className="font-extrabold text-sm text-white">ตัวเลือกและการตั้งค่าการอ่าน</h3>
+              </div>
+              <button
+                onClick={() => setIsMobileOptionsOpen(false)}
+                className="p-1.5 rounded-full bg-zinc-800 text-zinc-400 hover:text-white"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Section 1: Reading Mode Switcher */}
+            <div className="mb-4">
+              <span className="text-xs font-bold text-zinc-400 block mb-2">โหมดการอ่าน</span>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => {
+                    setMode('flip');
+                    localStorage.setItem('thanavuddho_reader_mode', 'flip');
+                  }}
+                  className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold border transition-all ${
+                    mode === 'flip'
+                      ? 'bg-sky-600 border-sky-500 text-white shadow-md'
+                      : 'bg-zinc-800 border-zinc-700 text-zinc-300'
+                  }`}
+                >
+                  <BookOpen size={16} />
+                  <span>หน้าต่อหน้า (Flip)</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setMode('scroll');
+                    localStorage.setItem('thanavuddho_reader_mode', 'scroll');
+                  }}
+                  className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold border transition-all ${
+                    mode === 'scroll'
+                      ? 'bg-sky-600 border-sky-500 text-white shadow-md'
+                      : 'bg-zinc-800 border-zinc-700 text-zinc-300'
+                  }`}
+                >
+                  <Scroll size={16} />
+                  <span>เลื่อนอ่านต่อเนื่อง</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Section 2: Reading Theme */}
+            <div className="mb-4">
+              <span className="text-xs font-bold text-zinc-400 block mb-2">ธีมและโทนสีถนอมสายตา</span>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  onClick={() => setTheme('white')}
+                  className={`py-2 rounded-xl flex flex-col items-center gap-1 text-xs font-bold border transition-all ${
+                    theme === 'white' ? 'border-sky-500 bg-zinc-800 text-sky-300 ring-2 ring-sky-500/30' : 'bg-zinc-800/60 border-zinc-700 text-zinc-300'
+                  }`}
+                >
+                  <Sun size={16} />
+                  <span className="text-[10px]">คลาสสิก</span>
+                </button>
+                <button
+                  onClick={() => setTheme('sepia')}
+                  className={`py-2 rounded-xl flex flex-col items-center gap-1 text-xs font-bold border transition-all ${
+                    theme === 'sepia' ? 'border-amber-400 bg-[#382b1d] text-amber-200 ring-2 ring-amber-400/30' : 'bg-zinc-800/60 border-zinc-700 text-zinc-300'
+                  }`}
+                >
+                  <Coffee size={16} />
+                  <span className="text-[10px]">ถนอมตา</span>
+                </button>
+                <button
+                  onClick={() => setTheme('night')}
+                  className={`py-2 rounded-xl flex flex-col items-center gap-1 text-xs font-bold border transition-all ${
+                    theme === 'night' ? 'border-sky-400 bg-black text-sky-400 ring-2 ring-sky-400/30' : 'bg-zinc-800/60 border-zinc-700 text-zinc-300'
+                  }`}
+                >
+                  <Moon size={16} />
+                  <span className="text-[10px]">โหมดมืด</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Section 3: Essential Tools */}
+            <div className="mb-4">
+              <span className="text-xs font-bold text-zinc-400 block mb-2">เครื่องมือช่วยเหลือ</span>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => {
+                    setIsMobileOptionsOpen(false);
+                    setIsSearchOpen(true);
+                  }}
+                  className="flex items-center gap-2 p-3 rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-200 hover:text-white text-xs font-bold"
+                >
+                  <Search size={16} className="text-sky-400" />
+                  <span>ค้นหาในเล่ม</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setIsMobileOptionsOpen(false);
+                    setIsTOCDrawerOpen(true);
+                  }}
+                  className="flex items-center gap-2 p-3 rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-200 hover:text-white text-xs font-bold"
+                >
+                  <List size={16} className="text-sky-400" />
+                  <span>สารบัญและหน้า</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setIsMobileOptionsOpen(false);
+                    setIsQuestDrawerOpen(true);
+                  }}
+                  className="flex items-center gap-2 p-3 rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-200 hover:text-white text-xs font-bold"
+                >
+                  <Compass size={16} className="text-amber-400" />
+                  <span>สมุดภารกิจ</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    handleToggleBookmark();
+                  }}
+                  className={`flex items-center gap-2 p-3 rounded-xl border text-xs font-bold transition-all ${
+                    isCurrentPageBookmarked
+                      ? 'bg-sky-500/20 border-sky-400 text-sky-300'
+                      : 'bg-zinc-800 border-zinc-700 text-zinc-200 hover:text-white'
+                  }`}
+                >
+                  <Bookmark size={16} className={isCurrentPageBookmarked ? 'fill-sky-400 text-sky-400' : 'text-zinc-400'} />
+                  <span>{isCurrentPageBookmarked ? 'คั่นหน้านี้แล้ว' : 'คั่นหน้านี้ไว้'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Section 4: Gamification & Return */}
+            <div className="pt-2 border-t border-zinc-800 flex flex-col gap-2">
+              <button
+                onClick={() => {
+                  setIsMobileOptionsOpen(false);
+                  triggerReadingReward('กดรับแต้มอ่านหนังสือ (Lazada Reward Style)');
+                }}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 via-blue-600 to-sky-600 text-white font-bold text-xs shadow-md"
+              >
+                <Coins size={16} className="text-amber-300 animate-bounce" />
+                <span>เซอร์ไพรส์รับแต้มสะสมบารมี 🪙</span>
+              </button>
+
+              {isBorrowed && (
+                <button
+                  onClick={() => {
+                    setIsMobileOptionsOpen(false);
+                    handleReturnBook();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 py-2 rounded-xl bg-white/10 hover:bg-rose-500/20 text-zinc-300 hover:text-rose-200 font-bold text-xs transition-colors"
+                >
+                  <RotateCcw size={14} />
+                  <span>คืนหนังสือเพื่อเพิ่มโควตา</span>
+                </button>
+              )}
+            </div>
+
+          </div>
+        </div>
+      )}
 
       {/* =========================================================================
           SEARCH IN PDF POP-DOWN DRAWER
@@ -1499,8 +1692,8 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
         {/* Center: Jump to Page Input & Range Scrubber */}
         <div className="flex items-center gap-2 sm:gap-4 flex-1 max-w-md justify-center mx-2">
           
-          {/* Zoom Buttons */}
-          <div className="flex items-center border border-white/15 bg-white/5 rounded-xl p-0.5 shrink-0">
+          {/* Zoom Buttons (Desktop/Tablet) */}
+          <div className="hidden sm:flex items-center border border-white/15 bg-white/5 rounded-xl p-0.5 shrink-0">
             <button
               onClick={() => setZoomScale(z => Math.max(0.6, Number((z - 0.15).toFixed(2))))}
               className="p-1 hover:bg-white/10 rounded text-zinc-300 hover:text-white cursor-pointer"

@@ -19,6 +19,11 @@ export default function BottomNav() {
   const pathname = usePathname();
   const { activeLoanCount } = useLoan();
 
+  // Hide BottomNav on fullscreen reader pages
+  if (pathname.startsWith('/reader')) {
+    return null;
+  }
+
   const navItems = [
     {
       label: 'หน้าแรก',

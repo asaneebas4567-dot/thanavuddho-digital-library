@@ -31,7 +31,7 @@ function RewardCardVisual({ item }: { item: RewardItem }) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,164,65,0.35)_0%,transparent_70%)] pointer-events-none" />
         
         {/* Overlapping 3-Book Stack ("ทำ 3 เล่มมาทับๆกัน ขอให้เห็นภาพ") */}
-        <div className="relative w-52 h-36 flex items-center justify-center">
+        <div className="relative max-w-full w-44 min-[360px]:w-52 h-32 min-[360px]:h-36 flex items-center justify-center">
           {/* Left Book: ทำใจให้พร้อมบวก (-14deg) */}
           <div className="absolute left-2.5 bottom-2 w-20 aspect-[3/4.2] rounded-md shadow-2xl -rotate-14 border border-white/50 overflow-hidden transform group-hover:-translate-x-2 transition-transform duration-300">
             <Image
