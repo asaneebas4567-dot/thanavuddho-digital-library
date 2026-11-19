@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { getUserByEmail, updateUserLoansAndPoints, getAllUsers, saveAllUsers } from './serverUserStore';
 import { UserSession } from '@/types/auth';
+import { getSupabase } from './supabaseClient';
 
 const DATA_DIR = path.join(process.cwd(), 'src', 'data');
 const REWARDS_CATALOG_FILE = path.join(DATA_DIR, 'rewardsCatalog.json');
@@ -62,6 +63,7 @@ export interface PointTransaction {
     | 'quiz_chapter' 
     | 'quiz_book_finish' 
     | 'daily_login'
+    | 'welcome_bonus'
     | 'reading_time_milestone'
     | 'redeem_reward' 
     | 'website_survey'
@@ -71,6 +73,8 @@ export interface PointTransaction {
   detail?: string;
   sourceId?: string;
   timestamp: string;
+  activity?: string;
+  metadata?: Record<string, any>;
 }
 
 export interface UserDailyActivity {
@@ -792,4 +796,158 @@ export function updateCatalogRewardItem(item: RewardItem): RewardItem {
   }
   saveRewardsCatalog(catalog);
   return item;
+}
+
+// ---------------------------------------------------------
+// Welcome Bonus 500 Points (Atomic, Idempotent, Supabase Synced)
+// ---------------------------------------------------------
+export interface WelcomeBonusResult {
+  success: boolean;
+  pointsEarned: number;
+  currentBalance: number;
+  alreadyEarned: boolean;
+  message: string;
+}
+
+export async function grantWelcomeBonusServer(
+  userEmail: string,
+  userId?: string
+): Promise<WelcomeBonusResult> {
+  const emailLower = userEmail.trim().toLowerCase();
+  if (!emailLower) {
+    return { success: false, pointsEarned: 0, currentBalance: 0, alreadyEarned: false, message: 'อีเมลไม่ถูกต้อง' };
+  }
+
+  const allHistory = getAllPointsHistory();
+  const alreadyAwarded = allHistory.some(
+    h => h.userEmail.toLowerCase() === emailLower && 
+    (h.type === 'welcome_bonus' || (h.title && h.title.includes('คะแนนต้อนรับสมาชิกใหม่')))
+  );
+
+  const users = getAllUsers();
+  const user = users[emailLower];
+
+  if (alreadyAwarded) {
+    return {
+      success: false,
+      pointsEarned: 0,
+      currentBalance: user?.points || 0,
+      alreadyEarned: true,
+      message: 'บัญชีนี้ได้รับคะแนนต้อนรับสมาชิกใหม่ 500 แต้มแล้ว'
+    };
+  }
+
+  const WELCOME_POINTS = 500;
+  const now = new Date().toISOString();
+  const txId = `tx_welcome_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+
+  // 1. Update user points in memory and persistent json
+  let newBalance = WELCOME_POINTS;
+  if (user) {
+    user.points = (user.points || 0) + WELCOME_POINTS;
+    newBalance = user.points;
+    users[emailLower] = user;
+    saveAllUsers(users);
+  }
+
+  // 2. Add transaction to point history
+  const transaction: PointTransaction = {
+    id: txId,
+    userId: userId || user?.id || `usr_${Date.now()}`,
+    userEmail: emailLower,
+    type: 'welcome_bonus',
+    points: WELCOME_POINTS,
+    title: 'คะแนนต้อนรับสมาชิกใหม่',
+    detail: 'ยินดีต้อนรับสมาชิกใหม่สู่ Thanavuddho Digital Library รับ 500 แต้ม',
+    sourceId: 'welcome_bonus',
+    timestamp: now,
+    activity: 'Welcome Bonus',
+    metadata: {
+      activity: 'Welcome Bonus',
+      description: 'คะแนนต้อนรับสมาชิกใหม่',
+      amount: WELCOME_POINTS,
+      type: 'Earn',
+      createdAt: now
+    }
+  };
+
+  allHistory.unshift(transaction);
+  saveAllPointsHistory(allHistory);
+
+  // 3. Sync to Supabase if configured
+  try {
+    const supabase = getSupabase();
+    if (supabase) {
+      // 3.1 Check if transaction already exists in Supabase
+      const { data: existingSupabaseTx } = await supabase
+        .from('point_transactions')
+        .select('id')
+        .eq('user_email', emailLower)
+        .eq('activity_type', 'welcome_bonus')
+        .limit(1);
+
+      if (!existingSupabaseTx || existingSupabaseTx.length === 0) {
+        // Insert into point_transactions
+        await supabase.from('point_transactions').insert({
+          id: txId,
+          user_email: emailLower,
+          activity_type: 'welcome_bonus',
+          points: WELCOME_POINTS,
+          title: 'คะแนนต้อนรับสมาชิกใหม่',
+          metadata: {
+            activity: 'Welcome Bonus',
+            description: 'คะแนนต้อนรับสมาชิกใหม่',
+            amount: WELCOME_POINTS,
+            type: 'Earn',
+            createdAt: now
+          },
+          created_at: now
+        });
+
+        // Update or insert user_points
+        const { data: up } = await supabase
+          .from('user_points')
+          .select('available_points, total_earned')
+          .eq('user_email', emailLower)
+          .single();
+
+        if (up) {
+          await supabase
+            .from('user_points')
+            .update({
+              available_points: (up.available_points || 0) + WELCOME_POINTS,
+              total_earned: (up.total_earned || 0) + WELCOME_POINTS,
+              updated_at: now
+            })
+            .eq('user_email', emailLower);
+        } else {
+          await supabase.from('user_points').insert({
+            user_email: emailLower,
+            available_points: newBalance,
+            total_earned: WELCOME_POINTS,
+            daily_learning_points: 0,
+            daily_cap: 100,
+            last_activity_date: now.split('T')[0],
+            updated_at: now
+          });
+        }
+
+        // Update profiles if profile exists
+        await supabase
+          .from('profiles')
+          .update({ points: newBalance })
+          .eq('email', emailLower);
+      }
+    }
+  } catch (supabaseErr) {
+    console.warn('Supabase sync warning (safe fallback used):', supabaseErr);
+  }
+
+  return {
+    success: true,
+    pointsEarned: WELCOME_POINTS,
+    currentBalance: newBalance,
+    alreadyEarned: false,
+    message: 'ได้รับคะแนนต้อนรับ 500 แต้มเรียบร้อยแล้ว!'
+  };
 }

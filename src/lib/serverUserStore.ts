@@ -176,7 +176,7 @@ export function registerMemberAccount(params: RegisterParams): { success: boolea
     ageRange: params.ageRange || '18-25 ปี',
     picture: `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(cleanEmail)}`,
     email_verified: true,
-    points: 50, // Welcome gift 50 points
+    points: 0, // Points will be credited atomically via grantWelcomeBonusServer (+500)
     role: userRole,
     loans: [],
     boundType: cleanPhone ? 'email_and_phone' : 'email',
@@ -248,7 +248,7 @@ export function upsertGoogleUser(payload: GoogleJwtPayload): UserSession {
     return updated;
   }
 
-  // Create new user record with welcome bonus (+50 XP points)
+  // Create new user record
   const memberCardId = getNextMemberCardId(users);
   const userRole = isUserAdmin(payload.email) ? 'admin' : 'member';
   const newUser: UserSession = {
@@ -258,7 +258,7 @@ export function upsertGoogleUser(payload: GoogleJwtPayload): UserSession {
     name: payload.name || payload.email.split('@')[0],
     picture: payload.picture || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(payload.email)}`,
     email_verified: Boolean(payload.email_verified),
-    points: 50, // Welcome points
+    points: 0, // Credited via grantWelcomeBonusServer (+500)
     role: userRole,
     loans: [],
     boundType: 'google',

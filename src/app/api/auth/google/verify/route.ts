@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { upsertGoogleUser } from '@/lib/serverUserStore';
+import { upsertGoogleUser, getUserByEmail, getAllUsers } from '@/lib/serverUserStore';
+import { grantWelcomeBonusServer } from '@/lib/learningPointsServer';
 import { GoogleJwtPayload } from '@/types/auth';
 
 function parseJwt(token: string): GoogleJwtPayload | null {
@@ -51,13 +52,29 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const emailKey = payload.email.toLowerCase();
+    const existingUsers = getAllUsers();
+    const isFirstTimeUser = !existingUsers[emailKey];
+
     // Upsert into persistent server store
-    const userSession = upsertGoogleUser(payload);
+    let userSession = upsertGoogleUser(payload);
+    let welcomeBonusInfo: any = null;
+
+    if (isFirstTimeUser) {
+      const bonusRes = await grantWelcomeBonusServer(userSession.email, userSession.id);
+      userSession = getUserByEmail(userSession.email) || userSession;
+      welcomeBonusInfo = {
+        points: bonusRes.pointsEarned,
+        isNewMemberWelcome: true,
+        message: 'ยินดีต้อนรับสมาชิกใหม่! คุณได้รับคะแนนต้อนรับ 500 แต้ม'
+      };
+    }
 
     return NextResponse.json({
       success: true,
       message: 'เข้าสู่ระบบด้วย Google สำเร็จเรียบร้อย',
       user: userSession,
+      welcomeBonus: welcomeBonusInfo,
     });
   } catch (error: any) {
     console.error('Google Auth Verify Error:', error);

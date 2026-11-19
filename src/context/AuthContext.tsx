@@ -75,6 +75,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (data.success && data.user) {
         setUser(data.user);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data.user));
+
+        if (data.welcomeBonus?.isNewMemberWelcome && typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('thanavuddho_new_member_welcome', {
+            detail: {
+              points: data.welcomeBonus.points || 500,
+              userName: data.user.name
+            }
+          }));
+          window.dispatchEvent(new Event('dhamma_points_updated'));
+        }
+
         return { success: true, message: data.message || 'เข้าสู่ระบบสำเร็จ' };
       } else {
         return { success: false, message: data.message || 'อีเมลหรือรหัสผ่านไม่ถูกต้อง' };
@@ -100,6 +111,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (resData.success && resData.user) {
         setUser(resData.user);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(resData.user));
+
+        if (resData.welcomeBonus?.isNewMemberWelcome && typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('thanavuddho_new_member_welcome', {
+            detail: {
+              points: resData.welcomeBonus.points || 500,
+              userName: resData.user.name
+            }
+          }));
+          window.dispatchEvent(new Event('dhamma_points_updated'));
+        }
+
         return { success: true, message: resData.message || 'ลงทะเบียนสมาชิกสำเร็จ' };
       } else {
         return { success: false, message: resData.message || 'การลงทะเบียนล้มเหลว' };
@@ -126,6 +148,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (data.success && data.user) {
         setUser(data.user);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data.user));
+
+        if (data.welcomeBonus?.isNewMemberWelcome && typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('thanavuddho_new_member_welcome', {
+            detail: {
+              points: data.welcomeBonus.points || 500,
+              userName: data.user.name
+            }
+          }));
+          window.dispatchEvent(new Event('dhamma_points_updated'));
+        }
+
         return { success: true, message: data.message || 'เข้าสู่ระบบสำเร็จ' };
       } else {
         return { success: false, message: data.message || 'การตรวจสอบบัญชีล้มเหลว' };

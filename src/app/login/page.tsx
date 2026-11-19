@@ -32,6 +32,7 @@ function LoginPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect') || '/dashboard';
+  const tabParam = searchParams.get('tab');
 
   const { 
     user, 
@@ -43,7 +44,15 @@ function LoginPageContent() {
   } = useAuth();
 
   // Tab State: 'login' | 'register'
-  const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
+  const [activeTab, setActiveTab] = useState<'login' | 'register'>(
+    tabParam === 'register' ? 'register' : 'login'
+  );
+
+  useEffect(() => {
+    if (tabParam === 'register') {
+      setActiveTab('register');
+    }
+  }, [tabParam]);
 
   // Login Form State
   const [loginIdentifier, setLoginIdentifier] = useState('');

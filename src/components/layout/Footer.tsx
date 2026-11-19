@@ -50,10 +50,10 @@ export default function Footer() {
       {/* ========================================================= */}
       <div className="bg-white border-t border-slate-200/80 py-10 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 min-[360px]:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 lg:gap-12">
             
             {/* Col 1: เกี่ยวกับห้องสมุด */}
-            <div className="col-span-2 md:col-span-1 space-y-3">
+            <div className="col-span-1 min-[360px]:col-span-2 md:col-span-1 space-y-3">
               <Link href="/" className="inline-flex items-center gap-2 group">
                 <div className="w-8 h-8 bg-[#079FE8] text-white rounded-xl flex items-center justify-center font-black text-base shadow-sm group-hover:scale-105 transition-transform border border-white/80">
                   ถ

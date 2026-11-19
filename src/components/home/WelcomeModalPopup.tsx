@@ -3,174 +3,133 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  X, 
-  BookOpen, 
-  Video, 
-  Headphones, 
-  Award, 
-  ArrowRight, 
-  Sparkles, 
-  LogIn, 
-  Compass,
-  Check
-} from 'lucide-react';
-import { useAuth } from '@/context/AuthContext';
+import { X, BookOpen, ArrowRight, UserPlus, LogIn } from 'lucide-react';
 
 export default function WelcomeModalPopup() {
-  const { isAuthenticated } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const [dontShowAgain, setDontShowAgain] = useState(false);
 
   useEffect(() => {
-    // Check if dismissed previously in localStorage or sessionStorage
-    const isDismissed = localStorage.getItem('thanavuddho_welcome_modal_dismissed');
-    if (!isDismissed) {
-      // Small delay for smooth entry
+    // Only display once for first-time visitors across the entire domain
+    const hasSeen = localStorage.getItem('thanavuddho_first_visit_seen');
+    if (!hasSeen) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 500);
+      }, 700);
       return () => clearTimeout(timer);
     }
   }, []);
 
-  const handleClose = () => {
-    if (dontShowAgain) {
-      localStorage.setItem('thanavuddho_welcome_modal_dismissed', 'true');
-    } else {
-      sessionStorage.setItem('thanavuddho_welcome_modal_dismissed', 'true');
-    }
+  const handleDismiss = () => {
+    localStorage.setItem('thanavuddho_first_visit_seen', 'true');
     setIsOpen(false);
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-950/60 backdrop-blur-xs animate-in fade-in duration-200"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="library-welcome-title"
+    >
       <div 
-        className="relative bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto p-4 sm:p-7 shadow-2xl border border-slate-100 text-center animate-in zoom-in-95 duration-200"
+        className="relative bg-[#FAFAF8] rounded-2xl sm:rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-stone-200 text-center animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Soft Background Warm Glow (Very Subtle) */}
-        <div className="absolute top-0 right-0 w-48 h-48 bg-amber-100/50 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-50/70 rounded-full blur-3xl pointer-events-none -ml-16 -mb-16" />
+        {/* Subtle Editorial Top Visual: Real Library Image */}
+        <div className="relative w-full h-36 sm:h-44 bg-[#073B65] overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
+          <Image
+            src="/hero-image-modern.jpg"
+            alt="Thanavuddho Digital Library"
+            fill
+            priority
+            className="object-cover opacity-35 mix-blend-luminosity scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF8] via-transparent to-black/30" />
 
-        {/* Close Button (X) */}
-        <button
-          onClick={handleClose}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
-          aria-label="ปิดหน้าต่าง"
-        >
-          <X size={18} className="sm:w-5 sm:h-5" />
-        </button>
-
-        {/* Header Icon / Avatar Badge */}
-        <div className="relative w-14 h-14 sm:w-18 sm:h-18 mx-auto mb-3 rounded-2xl overflow-hidden shadow-md border-2 border-amber-300 bg-gradient-to-br from-[#073B65] via-[#0A4D82] to-[#079FE8] flex items-center justify-center text-white">
-          <div className="flex flex-col items-center justify-center text-center p-1.5">
-            <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 text-[#FDE68A] drop-shadow-sm mb-0.5" />
-            <span className="text-[8px] sm:text-[9px] font-black tracking-wider uppercase text-sky-100">ห้องสมุดดิจิทัล</span>
-          </div>
-        </div>
-
-        {/* Brand Tag */}
-        <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-blue-50 text-blue-700 text-[10px] sm:text-[11px] font-black uppercase tracking-wider border border-blue-200 mb-2">
-          <Sparkles size={11} className="text-amber-500" />
-          <span>คลังธรรมะดิจิทัล & ระบบสะสมคะแนน</span>
-        </div>
-
-        {/* Title & Description */}
-        <h2 className="text-base sm:text-xl font-black text-slate-900 tracking-tight mb-1.5 leading-snug">
-          ยินดีต้อนรับสู่ Thanavuddho Digital Library
-        </h2>
-        <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed max-w-md mx-auto mb-4 sm:mb-5">
-          คลังสารสนเทศเพื่อการเรียนรู้ธรรมะ รวบรวมหนังสือฉบับเต็ม วิดีโอธรรมบรรยาย พอดแคสต์ และเควสต์สะสมแต้มบุญปัญญา โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)
-        </p>
-
-        {/* 4 Feature Pills (Clean, Light Pastels) */}
-        <div className="grid grid-cols-2 gap-2 sm:gap-2.5 mb-4 sm:mb-5 text-left">
-          <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
-              <BookOpen size={14} className="sm:w-4 sm:h-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[11px] sm:text-xs font-black text-slate-900 truncate">คลังหนังสือจริง</div>
-              <div className="text-[9px] sm:text-[10px] text-slate-500 truncate">อ่านฟรี Flipbook</div>
-            </div>
-          </div>
-
-          <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
-              <Video size={14} className="sm:w-4 sm:h-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[11px] sm:text-xs font-black text-slate-900 truncate">วิดีโอธรรมะ</div>
-              <div className="text-[9px] sm:text-[10px] text-slate-500 truncate">บรรยาย & AI</div>
-            </div>
-          </div>
-
-          <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center shrink-0">
-              <Headphones size={14} className="sm:w-4 sm:h-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[11px] sm:text-xs font-black text-slate-900 truncate">พอดแคสต์</div>
-              <div className="text-[9px] sm:text-[10px] text-slate-500 truncate">เสียงบันทึกธรรม</div>
-            </div>
-          </div>
-
-          <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-2">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
-              <Award size={14} className="sm:w-4 sm:h-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[11px] sm:text-xs font-black text-slate-900 truncate">เควสต์ & แต้มบุญ</div>
-              <div className="text-[9px] sm:text-[10px] text-slate-500 truncate">แลกของรางวัล</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="space-y-2">
-          {/* Main Action: Enter Live Website Immediately */}
+          {/* Close Button (X) */}
           <button
-            onClick={handleClose}
-            className="w-full py-2.5 sm:py-3.5 px-4 sm:px-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-black text-xs sm:text-sm shadow-md transition-all active:scale-98 cursor-pointer flex items-center justify-center gap-1.5"
+            onClick={handleDismiss}
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-full bg-black/40 hover:bg-black/60 text-white/90 hover:text-white transition-all cursor-pointer backdrop-blur-xs"
+            aria-label="ปิดหน้าต่างต้อนรับ"
           >
-            <span>เข้าสู่หน้าเว็บจริง (เข้าชมทันที)</span>
-            <ArrowRight size={15} />
+            <X size={18} />
           </button>
 
-          {/* Secondary Action: Login / Register if not authenticated */}
-          {!isAuthenticated && (
-            <Link
-              href="/login"
-              onClick={handleClose}
-              className="w-full py-2 sm:py-2.5 px-3 rounded-lg sm:rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] sm:text-xs transition-colors flex items-center justify-center gap-1.5 truncate"
-            >
-              <LogIn size={13} className="shrink-0" />
-              <span className="truncate">เข้าสู่ระบบสมาชิก (สะสมแต้มและแลกของรางวัล)</span>
-            </Link>
-          )}
+          {/* Central Logo Crest */}
+          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white border-2 border-amber-200/80 shadow-md flex items-center justify-center text-[#073B65]">
+              <BookOpen size={26} className="text-[#073B65]" />
+            </div>
+          </div>
         </div>
 
-        {/* Don't show again checkbox */}
-        <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-center gap-1.5">
-          <input
-            type="checkbox"
-            id="dont_show_again"
-            checked={dontShowAgain}
-            onChange={(e) => setDontShowAgain(e.target.checked)}
-            className="w-3.5 h-3.5 rounded text-blue-600 cursor-pointer"
-          />
-          <label 
-            htmlFor="dont_show_again" 
-            className="text-[10px] sm:text-[11px] text-slate-400 hover:text-slate-600 cursor-pointer"
-          >
-            ไม่ต้องแสดงหน้าต่างนี้อีก
-          </label>
+        {/* Content Body (Modern Editorial Styling) */}
+        <div className="pt-9 pb-6 sm:pb-8 px-5 sm:px-8">
+          
+          {/* Subtitle Monogram */}
+          <div className="text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-slate-500 mb-1.5 font-sans">
+            THANAVUDDHO DIGITAL LIBRARY
+          </div>
+
+          {/* Main Title */}
+          <h2 id="library-welcome-title" className="text-xl sm:text-2xl font-black text-[#073B65] tracking-tight mb-3">
+            ยินดีต้อนรับสู่ห้องสมุดธรรมะ
+          </h2>
+
+          {/* Body Description */}
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md mx-auto mb-4 font-normal">
+            แหล่งรวบรวมหนังสือ บทความ เสียงธรรม และวิดีโอธรรมะ เพื่อการศึกษา ค้นคว้า และพัฒนาจิตใจ
+          </p>
+
+          {/* Core Motto */}
+          <div className="inline-flex items-center gap-2 py-1.5 px-3.5 rounded-full bg-stone-100/80 border border-stone-200 text-xs sm:text-sm font-semibold text-[#073B65] mb-6">
+            <span>อ่าน</span>
+            <span className="text-amber-500 font-bold">•</span>
+            <span>ฟัง</span>
+            <span className="text-amber-500 font-bold">•</span>
+            <span>เรียนรู้</span>
+            <span className="text-amber-500 font-bold">•</span>
+            <span>เข้าถึงธรรมะ</span>
+          </div>
+
+          {/* 3 Dedicated Action Buttons */}
+          <div className="flex flex-col gap-2.5 max-w-sm mx-auto">
+            {/* 1. เข้าสู่ห้องสมุด */}
+            <button
+              onClick={handleDismiss}
+              className="w-full py-3 px-5 rounded-xl bg-[#073B65] hover:bg-[#0A4D82] text-white font-bold text-xs sm:text-sm transition-all active:scale-98 shadow-sm cursor-pointer flex items-center justify-center gap-2"
+            >
+              <span>เข้าสู่ห้องสมุด</span>
+              <ArrowRight size={15} />
+            </button>
+
+            {/* 2 & 3: เข้าสู่ระบบ และ สมัครสมาชิก */}
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                href="/login"
+                onClick={handleDismiss}
+                className="py-2.5 px-3 rounded-xl bg-white hover:bg-stone-50 text-[#073B65] font-bold text-xs border border-stone-300 transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+              >
+                <LogIn size={14} className="text-[#079FE8]" />
+                <span>เข้าสู่ระบบ</span>
+              </Link>
+
+              <Link
+                href="/login?tab=register"
+                onClick={handleDismiss}
+                className="py-2.5 px-3 rounded-xl bg-[#079FE8] hover:bg-[#0588c7] text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+              >
+                <UserPlus size={14} />
+                <span>สมัครสมาชิก</span>
+              </Link>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </div>
   );
 }
-

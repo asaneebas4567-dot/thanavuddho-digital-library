@@ -9,6 +9,8 @@ import GlobalPodcastPlayer from '@/components/podcast/GlobalPodcastPlayer';
 import BottomNav from '@/components/layout/BottomNav';
 import FlyingCoinAnimation from '@/components/common/FlyingCoinAnimation';
 import GlobalDailyLoginModal from '@/components/gamification/GlobalDailyLoginModal';
+import WelcomeModalPopup from '@/components/home/WelcomeModalPopup';
+import NewMemberWelcomeModal from '@/components/auth/NewMemberWelcomeModal';
 
 export default function AppProviders({ children }: { children: React.ReactNode }) {
   return (
@@ -21,6 +23,8 @@ export default function AppProviders({ children }: { children: React.ReactNode }
           <BottomNav />
           <FlyingCoinAnimation />
           <GlobalDailyLoginModal />
+          <WelcomeModalPopup />
+          <NewMemberWelcomeModal />
         </PodcastPlayerProvider>
       </LoanProvider>
     </AuthProvider>

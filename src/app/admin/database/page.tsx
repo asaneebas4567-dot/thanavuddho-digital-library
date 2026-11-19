@@ -643,8 +643,8 @@ export default function AdminDatabasePage() {
   if (!isUnlocked) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-        <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border-2 border-amber-400 text-center animate-in zoom-in-95 duration-200">
-          <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-4 shadow-inner">
+        <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border-2 border-sky-400 text-center animate-in zoom-in-95 duration-200">
+          <div className="w-16 h-16 rounded-2xl bg-sky-100 text-[#073B65] flex items-center justify-center mx-auto mb-4 shadow-inner">
             <Lock size={32} />
           </div>
           <span className="text-[10px] font-black uppercase tracking-wider bg-rose-100 text-rose-700 px-3 py-1 rounded-full border border-rose-200 mb-2 inline-block">
@@ -669,7 +669,7 @@ export default function AdminDatabasePage() {
                   placeholder="ป้อนรหัสแอดมิน เช่น admin69"
                   value={passcodeInput}
                   onChange={(e) => setPasscodeInput(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm font-mono font-bold"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-mono font-bold"
                   autoFocus
                 />
               </div>
@@ -684,14 +684,14 @@ export default function AdminDatabasePage() {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black text-sm shadow-md transition-all active:scale-95 cursor-pointer"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-sky-600 to-[#073B65] hover:from-sky-500 hover:to-[#073B65] text-white font-black text-sm shadow-md transition-all active:scale-95 cursor-pointer"
             >
               ปลดล็อกเข้าสู่ศูนย์จัดการฐานข้อมูล
             </button>
           </form>
 
           <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-xs">
-            <Link href="/login?redirect=/admin/database" className="text-amber-700 font-bold hover:underline">
+            <Link href="/login?redirect=/admin/database" className="text-sky-700 font-bold hover:underline">
               เข้าสู่ระบบด้วย Google
             </Link>
             <Link href="/" className="text-slate-500 hover:text-slate-800">
@@ -788,7 +788,7 @@ export default function AdminDatabasePage() {
               <Link
                 href="/books"
                 target="_blank"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md transition-all active:scale-95"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md transition-all active:scale-95"
               >
                 <span>ดูหน้าเว็บที่ดึงข้อมูลไปใช้</span>
                 <ExternalLink size={14} />
@@ -800,9 +800,9 @@ export default function AdminDatabasePage() {
           <div className="flex items-center gap-2 mt-6 pt-6 border-t border-slate-100 overflow-x-auto">
             <button
               onClick={() => setViewMode('tables')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 viewMode === 'tables' 
-                  ? 'bg-amber-600 text-white shadow-sm' 
+                  ? 'bg-sky-600 text-white shadow-sm' 
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
@@ -811,9 +811,9 @@ export default function AdminDatabasePage() {
             </button>
             <button
               onClick={() => setViewMode('diagram')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 viewMode === 'diagram' 
-                  ? 'bg-amber-600 text-white shadow-sm' 
+                  ? 'bg-sky-600 text-white shadow-sm' 
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
@@ -822,9 +822,9 @@ export default function AdminDatabasePage() {
             </button>
             <button
               onClick={() => setViewMode('defense_guide')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 viewMode === 'defense_guide' 
-                  ? 'bg-amber-600 text-white shadow-sm' 
+                  ? 'bg-sky-600 text-white shadow-sm' 
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
@@ -854,13 +854,13 @@ export default function AdminDatabasePage() {
                     onClick={() => setActiveTable(key)}
                     className={`w-full text-left p-3.5 rounded-2xl border transition-all cursor-pointer flex flex-col gap-1.5 ${
                       isSelected
-                        ? 'bg-amber-500 text-white border-amber-600 shadow-md font-bold'
+                        ? 'bg-sky-600 text-white border-sky-700 shadow-md font-bold'
                         : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 shadow-xs'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Icon size={16} className={isSelected ? 'text-white' : 'text-amber-600'} />
+                        <Icon size={16} className={isSelected ? 'text-white' : 'text-sky-600'} />
                         <span className="text-sm font-bold tracking-tight">{t.nameTh}</span>
                       </div>
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
@@ -983,7 +983,7 @@ export default function AdminDatabasePage() {
                         placeholder="กรองข้อมูลในตารางนี้..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 text-xs w-48 focus:outline-none focus:ring-1 focus:ring-amber-500 font-medium"
+                        className="pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 text-xs w-48 focus:outline-none focus:ring-1 focus:ring-sky-500 font-medium"
                       />
                     </div>
                   </div>
