@@ -138,6 +138,30 @@ export const COMMERCIAL_STORE_BOOKS: Book[] = [
     is_copyright: true,
     copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
     status: 'published'
+  },
+  {
+    id: 'book_mang_korn_sorn_jai_meb',
+    title: 'มังกรสอนใจ',
+    author_id: 'author_001',
+    author: 'พระมหาสมชาย ฐานวุฑฺโฒ M.D., Ph.D.',
+    description: 'ผลึกเพชรแห่งภูมิปัญญาจีน ซึ่งรักษาความยิ่งใหญ่มากว่า ๔,๐๐๐ ปี รวบรวมนิทานพื้นบ้านและสุภาษิตจีนชื่อดัง สอดแทรกคติธรรมและข้อคิดเตือนใจในการดำเนินชีวิต ความรู้และคุณธรรมแฝงอยู่ในทุกตัวอักษร เพียงรู้จักรับแง่คิดและพลิกมุมมอง โดย พระมหาสมชาย ฐานวุฑโฒ',
+    cover_image: '/images/books/mang-korn-sorn-jai-meb.jpg',
+    cover: '/images/books/mang-korn-sorn-jai-meb.jpg',
+    category_ids: ['cat_world_civ', 'cat_lifestyle', 'cat_dharma'],
+    category_id: 'cat_world_civ',
+    tags: ['มังกรสอนใจ', 'ภูมิปัญญาจีน', 'นิทานสุภาษิตจีน', 'อารยธรรม', 'ข้อคิดเตือนใจ', 'E-Book', 'MEB Market'],
+    publication_year: 2556,
+    page_count: 180,
+    pages: 180,
+    language: 'th',
+    publisher: 'insidebooks',
+    buy_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=10175',
+    store_name: 'MEB Market',
+    price: '99 บาท',
+    is_external_store: true,
+    is_copyright: true,
+    copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
+    status: 'published'
   }
 ];
 

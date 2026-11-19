@@ -139,6 +139,32 @@ export const authors: Author[] = [
 
 export const books: Book[] = [
   {
+    id: 'book_mang_korn_sorn_jai_meb',
+    title: 'มังกรสอนใจ',
+    author_id: 'a1',
+    description: 'ผลึกเพชรแห่งภูมิปัญญาจีน ซึ่งรักษาความยิ่งใหญ่มากว่า ๔,๐๐๐ ปี รวบรวมนิทานพื้นบ้านและสุภาษิตจีนชื่อดัง สอดแทรกคติธรรมและข้อคิดเตือนใจในการดำเนินชีวิต ความรู้และคุณธรรมแฝงอยู่ในทุกตัวอักษร เพียงรู้จักรับแง่คิดและพลิกมุมมอง โดย พระมหาสมชาย ฐานวุฑโฒ',
+    category_id: 'cat_world_civ',
+    cover: '/images/books/mang-korn-sorn-jai-meb.jpg',
+    publication_year: 2556,
+    pages: 180,
+    language: 'Thai',
+    tags: ['มังกรสอนใจ', 'ภูมิปัญญาจีน', 'นิทานสุภาษิตจีน', 'อารยธรรม', 'ข้อคิดเตือนใจ', 'E-Book', 'MEB Market'],
+    pdf_url: '',
+    reader_url: '',
+    source_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=10175',
+    buy_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=10175',
+    store_name: 'MEB Market',
+    price: '99 บาท',
+    is_external_store: true,
+    status: 'published',
+    is_copyright: true,
+    copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
+    publisher: 'insidebooks',
+    view_count: 0,
+    read_count: 0,
+    like_count: 0
+  },
+  {
     id: 'book_phro_mai_roo_si_na_meb',
     title: 'เพราะไม่รู้สินะ',
     author_id: 'a1',
