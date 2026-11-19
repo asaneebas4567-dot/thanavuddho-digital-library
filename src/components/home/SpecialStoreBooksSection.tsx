@@ -1,17 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { 
   ShoppingCart, 
-  ExternalLink, 
-  Sparkles, 
-  BookMarked, 
+  ChevronLeft, 
+  ChevronRight, 
   Store, 
-  Info,
-  CheckCircle2,
-  ArrowUpRight,
+  ExternalLink,
   ShieldCheck,
   Tag
 } from 'lucide-react';
@@ -170,6 +167,10 @@ interface SpecialStoreBooksSectionProps {
 }
 
 export default function SpecialStoreBooksSection({ customBooks = [] }: SpecialStoreBooksSectionProps) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
   // Merge preset books with any external store books found in persistentBooks or props
   const allCommercialBooks = React.useMemo(() => {
     const map = new Map<string, Book>();
@@ -180,195 +181,227 @@ export default function SpecialStoreBooksSection({ customBooks = [] }: SpecialSt
     return Array.from(map.values());
   }, [customBooks]);
 
+  const checkScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+  };
+
+  useEffect(() => {
+    checkScroll();
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', checkScroll);
+      window.addEventListener('resize', checkScroll);
+      return () => {
+        container.removeEventListener('scroll', checkScroll);
+        window.removeEventListener('resize', checkScroll);
+      };
+    }
+  }, [allCommercialBooks]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (!scrollContainerRef.current) return;
+    const { clientWidth } = scrollContainerRef.current;
+    const scrollAmount = direction === 'left' ? -clientWidth * 0.75 : clientWidth * 0.75;
+    scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  };
+
+  if (!allCommercialBooks || allCommercialBooks.length === 0) return null;
+
   return (
     <section 
       id="special-commercial-books" 
       aria-label="หนังสือหมวดพิเศษฉบับวางจำหน่าย"
-      className="relative w-full rounded-3xl p-5 sm:p-8 md:p-10 my-8 overflow-hidden bg-gradient-to-b from-[#FFFDF7] via-[#FFF9ED] to-[#F3F9FD] border-2 border-amber-300/80 shadow-[0_15px_45px_-10px_rgba(217,164,65,0.22)]"
+      className="py-3 sm:py-4 relative group/row"
     >
-      {/* Decorative Gold & Amber Ambient Lighting */}
-      <div 
-        aria-hidden="true" 
-        className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-gradient-to-br from-amber-300/25 to-yellow-500/10 blur-3xl pointer-events-none" 
-      />
-      <div 
-        aria-hidden="true" 
-        className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-gradient-to-tr from-sky-400/20 to-blue-500/10 blur-3xl pointer-events-none" 
-      />
-
-      <div className="relative z-10">
+      {/* Container matching standard shelf styling with subtle soft tint */}
+      <div className="bg-slate-50/70 border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-2xs">
         
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-amber-200/80">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs font-extrabold shadow-sm mb-3">
-              <Sparkles size={14} className="animate-pulse" />
-              <span>หมวดพิเศษ • ผลงานวางจำหน่าย (E-Book & ร้านค้า)</span>
-            </div>
-
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#073B65] tracking-tight">
-              หนังสือฉบับวางจำหน่ายภายนอก & ช่องทางสั่งซื้อ
-            </h2>
-
-            <p className="text-xs sm:text-sm text-slate-600 mt-1.5 max-w-2xl leading-relaxed">
-              รวบรวมผลงานหนังสือของพระครูปลัดสุวัฒนโพธิคุณ ที่วางจำหน่ายผ่านร้านค้า E-Book ชั้นนำ เพื่อความครบถ้วนสมบูรณ์ของคลังผลงานธรรมะ 
-              <span className="font-semibold text-amber-900 block sm:inline sm:ml-1">
-                (หมวดนี้เป็นหนังสือฉบับจำหน่าย ไม่เปิดให้อ่านฟรีในระบบ — ท่านสามารถเลือกซื้อได้จากร้านค้าโดยตรง)
+        {/* Shelf Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-3.5 pb-2.5 border-b border-slate-200/80">
+          
+          {/* Left: Title & Subtitle */}
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-7 h-7 rounded-lg bg-sky-100 text-[#073B65] border border-sky-200/80 flex items-center justify-center shrink-0">
+                <Store size={15} />
               </span>
+              <h2 className="text-base sm:text-lg font-bold text-[#073B65] tracking-tight flex items-center gap-2 truncate">
+                <span>หนังสือฉบับวางจำหน่าย & ช่องทางสั่งซื้อ</span>
+                <span className="text-[11px] font-medium text-slate-400">
+                  ({allCommercialBooks.length} เล่ม)
+                </span>
+              </h2>
+            </div>
+            
+            <p className="text-xs text-slate-500 line-clamp-1 ml-9">
+              รวมผลงานหนังสือของพระอาจารย์ที่วางจำหน่ายภายนอก (MEB Market & Google Play) สำหรับสั่งซื้อเก็บสะสม
             </p>
           </div>
 
-          {/* External Store Direct Links Pill */}
-          <div className="flex items-center gap-2 shrink-0 flex-wrap">
+          {/* Right: Quick Store Links */}
+          <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
             <a
               href="https://www.mebmarket.com/index.php?action=SearchBook&type=author&search=%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%A2%20%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B8%E0%B8%91%E0%B9%82%E0%B8%92"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-amber-50 border border-amber-200 text-xs font-bold text-amber-900 shadow-2xs transition-all hover:scale-105 active:scale-95"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white hover:bg-sky-50 border border-slate-200 text-xs font-semibold text-slate-700 hover:text-[#073B65] shadow-2xs transition-colors"
               title="ค้นหาหนังสือทั้งหมดบน MEB Market"
             >
-              <Store size={13} className="text-amber-600" />
               <span>ร้าน MEB Market</span>
-              <ArrowUpRight size={13} className="text-amber-500" />
+              <ExternalLink size={11} className="text-slate-400" />
             </a>
 
             <a
               href="https://play.google.com/store/search?q=%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%A2%20%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B8%E0%B8%91%E0%B9%82%E0%B8%92&c=books"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-sky-50 border border-sky-200 text-xs font-bold text-[#073B65] shadow-2xs transition-all hover:scale-105 active:scale-95"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white hover:bg-sky-50 border border-slate-200 text-xs font-semibold text-slate-700 hover:text-[#073B65] shadow-2xs transition-colors"
               title="ค้นหาหนังสือบน Google Play Books"
             >
-              <ShoppingCart size={13} className="text-[#079FE8]" />
-              <span>Google Play Store</span>
-              <ArrowUpRight size={13} className="text-[#079FE8]" />
+              <span>Google Play</span>
+              <ExternalLink size={11} className="text-slate-400" />
             </a>
           </div>
         </div>
 
-        {/* Commercial Book Grid Showcase */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allCommercialBooks.map((book) => {
-            const rawCover = book.cover_image || book.cover || '/images/books/book-placeholder.jpg';
-            const storeUrl = book.buy_url || book.source_url || 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=115432';
-            const storeName = book.store_name || 'MEB Market';
-            const price = book.price || '99 บาท';
+        {/* Scrollable Track with Floating Left/Right Arrows */}
+        <div className="relative">
+          
+          {/* Left Scroll Button */}
+          {canScrollLeft && (
+            <button
+              onClick={() => scroll('left')}
+              className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white text-slate-700 shadow-lg border border-slate-200 items-center justify-center hover:bg-sky-500 hover:text-white hover:border-sky-500 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              title="เลื่อนไปทางซ้าย"
+              aria-label="ก่อนหน้า"
+            >
+              <ChevronLeft size={18} />
+            </button>
+          )}
 
-            return (
-              <div 
-                key={book.id}
-                className="group relative bg-white/95 backdrop-blur-xs rounded-2xl p-4 sm:p-5 border-2 border-amber-200/90 hover:border-amber-400 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
-              >
-                {/* Ribbon Tag Top Right */}
-                <div className="absolute -top-3 -right-2 z-20 flex items-center gap-1 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-[10.5px] font-extrabold px-3 py-1 rounded-full shadow-md">
-                  <Tag size={11} />
-                  <span>{storeName} • {price}</span>
-                </div>
+          {/* Book Row Poster Track (Compact, same size as regular shelves) */}
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-3 sm:gap-4 md:gap-5 overflow-x-auto pb-2 pt-1 px-0.5 scrollbar-hide scroll-smooth no-scrollbar touch-pan-x"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {allCommercialBooks.map((book) => {
+              const rawCover = book.cover_image || book.cover || '/images/books/book-placeholder.jpg';
+              const storeUrl = book.buy_url || book.source_url || 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=115432';
+              const storeName = book.store_name || 'MEB Market';
+              const price = book.price || '99 บาท';
+              const authorName = book.author || 'พระมหาสมชาย ฐานวุฑฺโฒ';
 
-                {/* Upper Content: Cover & Synopsis */}
-                <div>
-                  {/* Book Cover with 3D Spine and Direct Store Link */}
-                  <a
-                    href={storeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block relative aspect-[3/4] w-full max-w-[200px] mx-auto rounded-xl overflow-hidden shadow-[0_12px_28px_-6px_rgba(0,0,0,0.25)] border border-amber-200/60 transition-transform duration-300 group-hover:scale-105 cursor-pointer bg-amber-50"
-                    title={`คลิกเพื่อไปที่ร้านค้า ${storeName}: ${book.title}`}
-                  >
-                    <Image
-                      src={rawCover}
-                      alt={book.title}
-                      fill
-                      sizes="(max-width: 640px) 180px, 200px"
-                      className="object-cover"
-                      priority
-                    />
-                    
-                    {/* Spine Shadow */}
-                    <div className="absolute top-0 bottom-0 left-0 w-3 bg-gradient-to-r from-black/25 via-black/10 to-transparent pointer-events-none" />
-                    
-                    {/* Hover Overlay with Store Prompt */}
-                    <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-3 text-white text-center">
-                      <ShoppingCart size={28} className="text-amber-300 mb-1.5 animate-bounce" />
-                      <span className="text-xs font-bold leading-tight">คลิกเพื่อสั่งซื้อบน</span>
-                      <span className="text-xs font-extrabold text-amber-300">{storeName}</span>
-                    </div>
-                  </a>
+              return (
+                <div 
+                  key={book.id}
+                  className="shrink-0 w-[128px] min-[370px]:w-[145px] sm:w-[160px] md:w-[172px] group/card select-none flex flex-col justify-between"
+                >
+                  <div>
+                    {/* 1. Book Poster with 3D Spine and Hover Lift */}
+                    <a
+                      href={storeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative aspect-[1/1.42] w-full rounded-xl overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.10)] border border-slate-200/90 group-hover/card:border-sky-400 group-hover/card:shadow-[3px_8px_18px_rgba(7,159,232,0.22)] group-hover/card:-translate-y-1.5 transition-all duration-300 block cursor-pointer"
+                      title={`${book.title} (คลิกเพื่อสั่งซื้อบน ${storeName})`}
+                    >
+                      {/* Book Spine 3D Highlight Line on Left */}
+                      <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-r from-black/25 via-white/20 to-transparent pointer-events-none z-10" />
+                      
+                      {/* Right Edge Page-stack Simulation */}
+                      <div className="absolute right-0 inset-y-0 w-0.5 bg-slate-300/70 pointer-events-none z-10" />
 
-                  {/* Title & Metadata */}
-                  <div className="mt-4 text-center sm:text-left">
-                    <div className="flex items-center justify-center sm:justify-start gap-1.5 flex-wrap mb-1">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-200">
-                        🔒 ฉบับจำหน่าย (ไม่เปิดให้อ่านฟรี)
-                      </span>
-                      {book.publisher && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">
-                          สำนักพิมพ์ {book.publisher}
+                      {/* Cover Image */}
+                      <Image 
+                        src={rawCover} 
+                        alt={`ปกหนังสือ ${book.title}`}
+                        fill
+                        className="object-cover group-hover/card:scale-104 transition-transform duration-300"
+                        unoptimized
+                      />
+
+                      {/* Discreet Top Badge */}
+                      <div className="absolute top-1.5 left-1.5 z-20 select-none">
+                        <span className="bg-[#073B65]/90 text-white font-bold text-[8px] leading-none px-1.5 py-0.5 rounded shadow-xs flex items-center gap-0.5">
+                          <Tag size={8} /> {price}
                         </span>
-                      )}
-                    </div>
+                      </div>
 
-                    <h3 className="font-extrabold text-base sm:text-lg text-[#073B65] line-clamp-2 mt-1">
-                      <a 
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#073B65]/80 via-black/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity flex items-end justify-center p-2 z-20">
+                        <span className="w-full py-1.5 rounded-lg bg-white text-[#073B65] font-bold text-[10.5px] shadow-md flex items-center justify-center gap-1">
+                          <ShoppingCart size={11} className="text-[#079FE8]" />
+                          <span>สั่งซื้อ {storeName} ↗</span>
+                        </span>
+                      </div>
+                    </a>
+
+                    {/* 2. Book Metadata */}
+                    <div className="mt-2 px-0.5">
+                      <div className="flex items-center justify-between text-[10.5px] text-slate-500 font-medium mb-0.5">
+                        <span className="font-semibold text-slate-600 truncate">{storeName}</span>
+                        <span className="text-[#079FE8] font-bold text-[10px]">{price}</span>
+                      </div>
+
+                      {/* Book Title */}
+                      <a
                         href={storeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-amber-600 transition-colors"
+                        className="block font-semibold text-xs sm:text-[13px] text-slate-800 line-clamp-2 leading-snug min-h-[2.2rem] group-hover/card:text-[#079FE8] transition-colors"
                         title={book.title}
                       >
                         {book.title}
                       </a>
-                    </h3>
-
-                    <p className="text-xs font-semibold text-slate-500 mt-0.5">
-                      {book.author || 'พระมหาสมชาย ฐานวุฑฺโฒ'}
-                    </p>
-
-                    <p className="text-xs text-slate-600 mt-2 line-clamp-3 leading-relaxed">
-                      {book.description}
-                    </p>
+                      
+                      {/* Author */}
+                      <p className="text-[11px] text-slate-500 truncate mt-0.5">
+                        {authorName}
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                {/* Bottom Action Buttons */}
-                <div className="mt-5 pt-3 border-t border-amber-100 space-y-2">
-                  {/* Primary Direct Store Purchase Button */}
+                  {/* 3. Compact Order Button */}
                   <a
                     href={storeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95 group/btn"
+                    className="mt-2.5 w-full py-1.5 px-2 rounded-lg bg-[#073B65] hover:bg-[#079FE8] text-white text-[11px] font-bold shadow-2xs flex items-center justify-center gap-1 transition-colors cursor-pointer"
                   >
-                    <ShoppingCart size={15} />
-                    <span>เลือกซื้อบน {storeName}</span>
-                    <ExternalLink size={14} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                    <ShoppingCart size={11} />
+                    <span>สั่งซื้อ {storeName} ↗</span>
                   </a>
-
-                  {/* Secondary Book Detail Button */}
-                  <Link
-                    href={`/books/${book.id}`}
-                    className="w-full py-1.5 px-3 rounded-lg bg-amber-50/80 hover:bg-amber-100 text-amber-900 border border-amber-200/60 font-semibold text-xs flex items-center justify-center gap-1 transition-colors text-center"
-                  >
-                    <Info size={12} className="text-amber-700" />
-                    <span>ดูข้อมูลหนังสือฉบับนี้ในระบบ</span>
-                  </Link>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Footer Note on Extensibility */}
-        <div className="mt-8 pt-4 border-t border-amber-200/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-3">
-          <div className="flex items-center gap-2">
-            <ShieldCheck size={16} className="text-amber-600 shrink-0" />
-            <span>
-              หนังสือทุกเล่มในหมวดนี้เป็นผลงานลิขสิทธิ์ถูกต้อง วางจำหน่ายผ่านตัวแทนจำหน่ายอย่างเป็นทางการ
-            </span>
+              );
+            })}
           </div>
 
-          <span className="text-[11px] font-medium text-amber-900 bg-amber-100/70 border border-amber-200/80 px-2.5 py-1 rounded-lg text-center">
-            ✨ หนังสือเล่มใหม่จะถูกอัปเดตเพิ่มเติมเข้ามาในหมวดนี้อย่างต่อเนื่อง
+          {/* Right Scroll Button */}
+          {canScrollRight && (
+            <button
+              onClick={() => scroll('right')}
+              className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white text-slate-700 shadow-lg border border-slate-200 items-center justify-center hover:bg-sky-500 hover:text-white hover:border-sky-500 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              title="เลื่อนไปทางขวา"
+              aria-label="ถัดไป"
+            >
+              <ChevronRight size={18} />
+            </button>
+          )}
+
+        </div>
+
+        {/* Subtle Footer Note */}
+        <div className="mt-3.5 pt-2.5 border-t border-slate-200/70 flex items-center justify-between text-[11px] text-slate-500 flex-wrap gap-2">
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck size={13} className="text-sky-600 shrink-0" />
+            <span>หนังสือฉบับลิขสิทธิ์ถูกต้อง วางจำหน่ายผ่านตัวแทนอย่างเป็นทางการ (MEB Market & Google Play)</span>
+          </div>
+          <span className="text-[10px] text-slate-400">
+            * คลิกเพื่อไปยังหน้าร้านค้าและอ่านตัวอย่างในแอป MEB
           </span>
         </div>
 
