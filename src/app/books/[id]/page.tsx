@@ -252,6 +252,10 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
                 bookCover={book.cover}
                 totalPages={totalPages}
                 audioId={book.audio_id}
+                buyUrl={book.buy_url}
+                storeName={book.store_name}
+                price={book.price}
+                isExternalStore={book.is_external_store}
               />
             </div>
 

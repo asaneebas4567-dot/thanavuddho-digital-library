@@ -64,6 +64,10 @@ export interface Book {
   like_count?: number;
   is_finished?: boolean;
   status?: 'published' | 'draft' | 'archived' | string;
+  buy_url?: string;
+  store_name?: string;
+  price?: string;
+  is_external_store?: boolean;
 }
 
 export interface Article {

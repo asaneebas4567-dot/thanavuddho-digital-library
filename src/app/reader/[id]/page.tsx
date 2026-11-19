@@ -112,6 +112,65 @@ function BookReaderContent({ bookId }: { bookId: string }) {
   const initialPage = !isNaN(pageParam) && pageParam >= 1 ? pageParam : 1;
   const modeParam = searchParams.get('mode'); // 'flip' | 'embed'
 
+  // Commercial External Store Gate: If book is commercial, redirect/prompt to store
+  if (foundBook?.is_external_store || (foundBook as any)?.buy_url) {
+    const storeUrl = (foundBook as any)?.buy_url || foundBook?.source_url || 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=115432';
+    const storeName = (foundBook as any)?.store_name || 'MEB Market';
+    const price = (foundBook as any)?.price || '99 บาท';
+
+    return (
+      <div className="min-h-screen bg-[#F0F8FD]/60 flex flex-col justify-between font-sans">
+        <header className="bg-white border-b border-[#DCEAF3] px-4 sm:px-6 py-3 flex items-center justify-between shadow-xs">
+          <Link
+            href={book.id ? `/books/${book.id}` : '/'}
+            className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#073B65] hover:text-[#079FE8] transition-colors"
+          >
+            <ArrowLeft size={16} />
+            <span>กลับสู่หน้าหลัก / หน้ารายละเอียด</span>
+          </Link>
+        </header>
+
+        <main className="flex-1 flex items-center justify-center p-4 sm:p-6">
+          <div className="max-w-md w-full bg-white rounded-3xl p-6 sm:p-8 shadow-xl border-2 border-amber-300 text-center space-y-4">
+            <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto shadow-inner">
+              <Lock size={32} />
+            </div>
+
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-bold">
+              <span>🛒 หนังสือฉบับวางจำหน่ายภายนอก</span>
+            </div>
+
+            <h2 className="text-lg sm:text-xl font-extrabold text-[#073B65]">
+              {book.title}
+            </h2>
+
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              หนังสือเล่มนี้เป็นผลงานฉบับจำหน่าย ไม่เปิดให้อ่านฟรีในระบบหอสมุดออนไลน์ ท่านสามารถสั่งซื้ออีบุ๊กฉบับเต็มได้จาก {storeName} ({price})
+            </p>
+
+            <div className="pt-2 flex flex-col gap-2.5">
+              <a
+                href={storeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2"
+              >
+                <span>สั่งซื้อบน {storeName} ↗</span>
+              </a>
+
+              <Link
+                href="/"
+                className="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors"
+              >
+                กลับไปหน้าหลัก
+              </Link>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   // DRM & Copyright Enforcement: Must be borrowed to open reader
   const isBorrowed = isMediaBorrowed(book.id || bookId);
 

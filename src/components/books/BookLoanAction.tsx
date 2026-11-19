@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLoan } from '@/context/LoanContext';
-import { BookOpen, BookMarked, Check, RotateCcw, AlertCircle, Headphones, Lock, ShieldCheck } from 'lucide-react';
+import { BookOpen, BookMarked, Check, RotateCcw, AlertCircle, Headphones, Lock, ShieldCheck, ShoppingCart, ExternalLink } from 'lucide-react';
 
 interface BookLoanActionProps {
   bookId: string;
@@ -12,6 +12,10 @@ interface BookLoanActionProps {
   bookCover: string;
   totalPages: number;
   audioId?: string | null;
+  buyUrl?: string;
+  storeName?: string;
+  price?: string;
+  isExternalStore?: boolean;
 }
 
 export default function BookLoanAction({
@@ -19,7 +23,11 @@ export default function BookLoanAction({
   bookTitle,
   bookCover,
   totalPages,
-  audioId
+  audioId,
+  buyUrl,
+  storeName,
+  price,
+  isExternalStore
 }: BookLoanActionProps) {
   const router = useRouter();
   const { isMediaBorrowed, borrowMedia, returnMediaByBookId, activeLoanCount, maxLoans, loans } = useLoan();
@@ -68,6 +76,45 @@ export default function BookLoanAction({
   };
 
   const hasAudio = audioId || bookId === 'book_tam_jai_hai_prom_buak' || bookTitle.includes('ทำใจให้พร้อมบวก');
+
+  // Commercial / External Store Book Handling
+  if (isExternalStore || buyUrl) {
+    const effectiveStoreUrl = buyUrl || 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=115432';
+    const effectiveStoreName = storeName || 'MEB Market';
+
+    return (
+      <div className="w-full space-y-4 pt-4 border-t border-slate-100">
+        <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-amber-500/5 to-transparent border-2 border-amber-300 text-xs sm:text-sm shadow-xs">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
+            <span className="font-extrabold px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs shadow-xs">
+              🛒 หนังสือฉบับวางจำหน่ายภายนอก
+            </span>
+            {price && (
+              <span className="text-xs font-bold text-amber-900 bg-amber-100 px-2.5 py-0.5 rounded-md border border-amber-200">
+                ราคาประมาณ {price}
+              </span>
+            )}
+          </div>
+          <p className="text-xs sm:text-sm text-amber-950 leading-relaxed font-medium">
+            หนังสือเล่มนี้เป็นผลงานฉบับลิขสิทธิ์วางจำหน่าย ไม่ได้เปิดให้อ่านฟรีออนไลน์ในระบบหอสมุด แต่ได้รวบรวมข้อมูลไว้เพื่อให้คลังผลงานธรรมะของพระอาจารย์ครบถ้วนที่สุด ท่านสามารถเลือกซื้อและสนับสนุนผลงานฉบับสมบูรณ์ได้โดยตรงจาก {effectiveStoreName}
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          <a
+            href={effectiveStoreUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white font-extrabold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer active:scale-95 group"
+          >
+            <ShoppingCart size={18} />
+            <span>สั่งซื้อฉบับเต็มบน {effectiveStoreName}</span>
+            <ExternalLink size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full space-y-4 pt-4 border-t border-slate-100">

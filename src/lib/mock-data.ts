@@ -35,6 +35,10 @@ export interface Book {
   read_count: number;
   like_count: number;
   is_finished?: boolean;
+  buy_url?: string;
+  store_name?: string;
+  price?: string;
+  is_external_store?: boolean;
 }
 
 export interface Article {
@@ -134,6 +138,32 @@ export const authors: Author[] = [
 ];
 
 export const books: Book[] = [
+  {
+    id: 'book_dee_chua_meb',
+    title: '"ดีชั่ว" เกิดด้วยกรรมหรือบังเอิญ',
+    author_id: 'a1',
+    description: 'ไขข้อข้องใจเกี่ยวกับความเป็นไปในชีวิตมนุษย์ ว่าสิ่งต่าง ๆ ที่เกิดขึ้น ไม่ว่าจะเป็นความสุข ความทุกข์ ความดี หรือความชั่ว แท้จริงแล้วเป็นเรื่องของความบังเอิญ โชคชะตา หรือถูกกำหนดด้วยกฎแห่งกรรม พร้อมชี้แนะเหตุและผลเบื้องหลังการกระทำ วิบากกรรมที่ส่งผลข้ามภพข้ามชาติ และวิธีสร้างบุญอธิษฐานจิตอย่างถูกต้อง',
+    category_id: 'cat_dharma',
+    cover: '/images/books/dee-chua.jpg',
+    publication_year: 2562,
+    pages: 180,
+    language: 'Thai',
+    tags: ['ดีชั่ว', 'กฎแห่งกรรม', 'เกิดด้วยกรรมหรือบังเอิญ', 'ความดีความชั่ว', 'สร้างบุญ', 'หนังสือวางจำหน่าย', 'E-Book', 'MEB Market'],
+    pdf_url: '',
+    reader_url: '',
+    source_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=115432',
+    buy_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=115432',
+    store_name: 'MEB Market',
+    price: '99 บาท',
+    is_external_store: true,
+    status: 'published',
+    is_copyright: true,
+    copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
+    publisher: 'insidebooks',
+    view_count: 0,
+    read_count: 0,
+    like_count: 0
+  },
   {
     id: 'book_liang_look_style_sook',
     title: 'เลี้ยงลูกสไตล์สุข',

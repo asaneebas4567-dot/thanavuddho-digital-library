@@ -16,7 +16,10 @@ import {
   Award,
   Layers,
   Calendar,
-  BookMarked
+  BookMarked,
+  ShoppingCart,
+  ExternalLink,
+  Store
 } from 'lucide-react';
 import { Book } from '@/types';
 import BorrowButton from '@/components/common/BorrowButton';
@@ -200,8 +203,54 @@ export default function BookPreviewModal({ book, isOpen, onClose }: BookPreviewM
                 </p>
               </div>
 
-              {/* Call to Actions (DRM Gate Protected: Cannot read without borrowing) */}
+              {/* Call to Actions */}
               {(() => {
+                const isExternalStore = book.is_external_store || Boolean((book as any).buy_url);
+                const storeUrl = (book as any).buy_url || book.source_url || 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=115432';
+                const storeName = (book as any).store_name || 'MEB Market';
+                const price = (book as any).price || '99 บาท';
+
+                if (isExternalStore) {
+                  return (
+                    <div className="space-y-3">
+                      <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-300/80">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-500 text-white shadow-xs">
+                            🛒 ฉบับวางจำหน่ายภายนอก
+                          </span>
+                          <span className="text-xs font-bold text-amber-900 bg-amber-100/90 px-2.5 py-0.5 rounded-md border border-amber-200">
+                            {storeName} • {price}
+                          </span>
+                        </div>
+                        <p className="text-xs text-amber-900 leading-relaxed font-medium">
+                          หนังสือเล่มนี้เป็นผลงานลิขสิทธิ์ฉบับจำหน่าย ไม่เปิดให้อ่านฟรีในระบบหอสมุด ท่านสามารถสั่งซื้อและสนับสนุนผลงานฉบับสมบูรณ์ได้จากร้านค้าโดยตรง
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-3">
+                        <a
+                          href={storeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white font-extrabold text-xs sm:text-sm shadow-md transition-all cursor-pointer active:scale-95 group"
+                        >
+                          <ShoppingCart size={16} />
+                          <span>เลือกซื้อบน {storeName}</span>
+                          <ExternalLink size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                        </a>
+
+                        <Link
+                          href={`/books/${book.id}`}
+                          className="inline-flex items-center gap-1.5 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition-colors"
+                        >
+                          <span>หน้ารายละเอียด</span>
+                          <ArrowRight size={14} />
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                }
+
                 const isBorrowed = isMediaBorrowed(book.id);
                 return (
                   <div className="space-y-3">

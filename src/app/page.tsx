@@ -34,6 +34,7 @@ import WebtoonRankingShelf from '@/components/books/WebtoonRankingShelf';
 import BookPreviewModal from '@/components/books/BookPreviewModal';
 import HomeQuestWidget from '@/components/gamification/HomeQuestWidget';
 import CategorySection from '@/components/categories/CategorySection';
+import SpecialStoreBooksSection from '@/components/home/SpecialStoreBooksSection';
 import { Book } from '@/types';
 
 export default function Home() {
@@ -380,6 +381,11 @@ export default function Home() {
         <section id="categories" className="pt-2">
           <CategorySection />
         </section>
+
+        {/* Section 7: หมวดพิเศษ - หนังสือฉบับวางจำหน่ายภายนอก (MEB Market & ร้านค้า) */}
+        <div id="special-commercial-shelf" className="pt-2">
+          <SpecialStoreBooksSection customBooks={customBooks} />
+        </div>
 
       </div>
 
