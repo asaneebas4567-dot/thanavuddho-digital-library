@@ -56,8 +56,8 @@ function VideosMainContent() {
               tags: item.tags || [],
               published_date: item.publishedDate || '2026-11-15',
               view_count: item.recommendCount ? item.recommendCount * 120 : 15200,
-              author: item.channelName || (isTikTok ? 'ธรรมะรอบตัว (TikTok @udornsharo)' : 'พระครูปลัดสุวัฒนโพธิคุณ'),
-              channel_handle: item.channelHandle || (isTikTok ? '@udornsharo' : '@ThanavuddhoStory'),
+              author: item.channelName || (isTikTok ? 'Thanavuddho Story (TikTok @thanavuddhostory)' : 'พระครูปลัดสุวัฒนโพธิคุณ'),
+              channel_handle: item.channelHandle || (isTikTok ? '@thanavuddhostory' : '@ThanavuddhoStory'),
               is_available: true
             };
           });

@@ -380,15 +380,15 @@ export default function VideoWatchView({
                         TikTok ธรรมะรอบตัว
                       </span>
                       <h4 className="text-white font-bold text-base mb-2 max-w-xs">{video.title}</h4>
-                      <p className="text-xs text-zinc-400 mb-6">คลิปสั้นสอนใจจากช่อง {video.channel_handle || '@udornsharo'}</p>
+                      <p className="text-xs text-zinc-400 mb-6">คลิปสั้นสอนใจจากช่อง {video.channel_handle || '@thanavuddhostory'}</p>
                       <a
-                        href={video.video_url || 'https://www.tiktok.com/@udornsharo'}
+                        href={video.video_url || 'https://www.tiktok.com/@thanavuddhostory'}
                         target="_blank"
                         rel="noreferrer"
                         className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-400 hover:to-rose-500 text-white font-black text-xs shadow-lg transition-all flex items-center gap-2 active:scale-95"
                       >
                         <ExternalLink className="w-4 h-4" />
-                        <span>เปิดชมคลิปนี้บนแอป TikTok ({video.channel_handle || '@udornsharo'})</span>
+                        <span>เปิดชมคลิปนี้บนแอป TikTok ({video.channel_handle || '@thanavuddhostory'})</span>
                       </a>
                     </div>
                   ) : (

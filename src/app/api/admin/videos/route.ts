@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
               autoThumbnail = oembedData.thumbnail_url;
             }
             if (!autoAuthor && oembedData.author_name) {
-              autoAuthor = `${oembedData.author_name} (@${oembedData.embed_product_id || 'udornsharo'})`;
+              autoAuthor = `${oembedData.author_name} (@${oembedData.embed_product_id || 'thanavuddhostory'})`;
             }
             if (!autoHandle && oembedData.author_url) {
               const handleMatch = oembedData.author_url.match(/@([a-zA-Z0-9._]+)/);
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
 
       if (!autoTitle) {
         if (isTikTok) {
-          autoTitle = 'คลิปธรรมะสั้นสอนใจ | ธรรมะรอบตัว TikTok @udornsharo';
+          autoTitle = 'คลิปธรรมะสั้นสอนใจ | TikTok @thanavuddhostory';
         } else {
           autoTitle = 'คลิปธรรมบรรยาย พระครูปลัดสุวัฒนโพธิคุณ';
         }
@@ -106,7 +106,7 @@ export async function POST(req: NextRequest) {
       }
 
       const id = video.id || `vid-${Date.now()}`;
-      const url = rawUrl || (isTikTok ? (tiktokId ? `https://www.tiktok.com/@udornsharo/video/${tiktokId}` : 'https://www.tiktok.com/@udornsharo') : (youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : ''));
+      const url = rawUrl || (isTikTok ? (tiktokId ? `https://www.tiktok.com/@thanavuddhostory/video/${tiktokId}` : 'https://www.tiktok.com/@thanavuddhostory') : (youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : ''));
       
       const thumbnail = autoThumbnail || (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : (isTikTok ? 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=600' : '/images/books/book-placeholder.jpg'));
 
@@ -114,19 +114,19 @@ export async function POST(req: NextRequest) {
         id,
         platform,
         youtubeId: youtubeId || (isTikTok ? 'tiktok' : 'custom'),
-        tiktokId: tiktokId || (isTikTok ? 'udornsharo' : undefined),
+        tiktokId: tiktokId || (isTikTok ? 'thanavuddhostory' : undefined),
         title: autoTitle,
         url,
         thumbnail,
-        channelName: autoAuthor || (isTikTok ? 'ธรรมะรอบตัว (TikTok @udornsharo)' : 'Thanavuddho Story (พระครูปลัดสุวัฒนโพธิคุณ)'),
-        channelHandle: autoHandle || (isTikTok ? '@udornsharo' : '@ThanavuddhoStory'),
-        description: video.description || (isTikTok ? 'คลิปสั้นธรรมะข้อคิดเตือนใจจากช่อง TikTok @udornsharo (ธรรมะรอบตัว)' : ''),
+        channelName: autoAuthor || (isTikTok ? 'Thanavuddho Story (TikTok @thanavuddhostory)' : 'Thanavuddho Story (พระครูปลัดสุวัฒนโพธิคุณ)'),
+        channelHandle: autoHandle || (isTikTok ? '@thanavuddhostory' : '@ThanavuddhoStory'),
+        description: video.description || (isTikTok ? 'คลิปสั้นธรรมะข้อคิดเตือนใจจากช่อง TikTok @thanavuddhostory' : ''),
         transcript: video.transcript || undefined,
         transcriptSegments: Array.isArray(video.transcriptSegments) ? video.transcriptSegments : undefined,
         hasVerifiedTranscript: !!video.hasVerifiedTranscript,
         startSeconds: video.startSeconds ? Number(video.startSeconds) : undefined,
         startFormatted: video.startFormatted || undefined,
-        tags: Array.isArray(video.tags) ? video.tags : (video.tags ? String(video.tags).split(',').map((t: string) => t.trim()) : (isTikTok ? ['TikTok', 'คลิปติ๊กต๊อก', 'udornsharo', 'ธรรมะรอบตัว'] : [])),
+        tags: Array.isArray(video.tags) ? video.tags : (video.tags ? String(video.tags).split(',').map((t: string) => t.trim()) : (isTikTok ? ['TikTok', 'คลิปติ๊กต๊อก', 'thanavuddhostory', 'ธรรมะรอบตัว'] : [])),
         keywords: Array.isArray(video.keywords) ? video.keywords : (video.keywords ? String(video.keywords).split(',').map((k: string) => k.trim()) : []),
         publishedDate: video.publishedDate || new Date().toISOString().split('T')[0],
         status: video.status || 'published',

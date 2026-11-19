@@ -1222,7 +1222,7 @@ export default function AdminDashboardPage() {
 
                       <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                         <a
-                          href={vid.url || (isTikTok ? 'https://www.tiktok.com/@udornsharo' : `https://www.youtube.com/watch?v=${vid.youtubeId}`)}
+                          href={vid.url || (isTikTok ? 'https://www.tiktok.com/@thanavuddhostory' : `https://www.youtube.com/watch?v=${vid.youtubeId}`)}
                           target="_blank"
                           rel="noreferrer"
                           className="text-xs font-bold text-rose-600 hover:underline flex items-center gap-1"
@@ -1662,12 +1662,12 @@ export default function AdminDashboardPage() {
                     type="text"
                     name="url"
                     defaultValue={editingVideo?.url || ''}
-                    placeholder="เช่น https://www.tiktok.com/@udornsharo หรือ https://www.tiktok.com/@udornsharo/video/..."
+                    placeholder="เช่น https://www.tiktok.com/@thanavuddhostory หรือ https://www.tiktok.com/@thanavuddhostory/video/..."
                     required
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-mono text-xs focus:ring-2 focus:ring-rose-500"
                   />
                   <p className="text-[10px] text-slate-400 mt-1">
-                    💡 เพียงแค่วางลิงก์คลิปหรือช่อง TikTok (เช่น @udornsharo) ระบบจะดึงชื่อคลิปและขึ้นแสดงผลที่หน้าแรกและคลังวิดีโอทันที
+                    💡 เพียงแค่วางลิงก์คลิปหรือช่อง TikTok (เช่น @thanavuddhostory) ระบบจะดึงชื่อคลิปและขึ้นแสดงผลที่หน้าแรกและคลังวิดีโอทันที
                   </p>
                 </div>
 

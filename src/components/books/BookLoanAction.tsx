@@ -163,7 +163,17 @@ export default function BookLoanAction({
           </>
         )}
 
-
+        {/* 3. Buy on Google Play Store Button */}
+        <a
+          href="https://play.google.com/store/search?q=%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%A2%20%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B8%E0%B8%91%E0%B9%82%E0%B8%92&c=books"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs sm:text-sm border border-slate-300/80 shadow-2xs transition-all active:scale-98 w-full sm:w-auto cursor-pointer"
+          title="เลือกซื้อหนังสือฉบับเต็มบน Google Play Books"
+        >
+          <span className="text-base">📱</span>
+          <span>ซื้อหนังสือบน Google Play</span>
+        </a>
 
         <Link
           href="/dashboard"

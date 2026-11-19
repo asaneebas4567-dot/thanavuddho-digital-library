@@ -76,7 +76,7 @@ export default function Footer() {
                   <FacebookIcon size={16} />
                 </a>
                 <a 
-                  href="https://www.tiktok.com/@udornsharo" 
+                  href="https://www.tiktok.com/@thanavuddhostory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-black hover:text-white transition-all shadow-xs" 
@@ -222,7 +222,7 @@ export default function Footer() {
                   <FacebookIcon size={16} />
                 </a>
                 <a 
-                  href="https://www.tiktok.com/@udornsharo" 
+                  href="https://www.tiktok.com/@thanavuddhostory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="w-8 h-8 rounded-full bg-emerald-800/80 hover:bg-emerald-700 flex items-center justify-center transition-all"
@@ -231,43 +231,41 @@ export default function Footer() {
                   <TiktokIcon size={16} />
                 </a>
                 <a 
-                  href="/" 
+                  href="https://www.youtube.com/@ThanavuddhoStory" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
                   className="w-8 h-8 rounded-full bg-emerald-800/80 hover:bg-emerald-700 flex items-center justify-center transition-all"
-                  title="Website"
+                  title="YouTube"
                 >
-                  <Globe size={16} />
+                  <YoutubeIcon size={16} />
                 </a>
               </div>
             </div>
 
-            {/* Center: BKK e-library style App & Web Platform */}
+            {/* Center: Google Play Store Books Channel */}
             <div className="flex flex-col items-start md:items-center justify-center text-left md:text-center space-y-2.5">
               <h4 className="font-bold text-base sm:text-lg text-white tracking-tight">
-                Thanavuddho e-Library
+                เลือกซื้อหนังสือธรรมะฉบับเต็ม
               </h4>
-              <p className="text-xs text-emerald-100 font-medium">
-                เข้าอ่านออนไลน์ได้ทันที ทุกอุปกรณ์โดยไม่ต้องติดตั้ง
+              <p className="text-xs text-emerald-100 font-medium max-w-sm">
+                ค้นหาและเลือกซื้อหนังสือของพระอาจารย์บน Google Play Store
               </p>
 
-              {/* App badges (เหมือน BKK e-library) */}
+              {/* Google Play Store Badge (Active link to official store) */}
               <div className="flex items-center gap-2.5 pt-1">
-                {/* Web App iOS Badge */}
-                <div className="flex items-center gap-2 bg-black/60 hover:bg-black text-white px-3 py-1.5 rounded-lg border border-white/20 transition-all cursor-default shadow-xs">
-                  <div className="text-lg"></div>
+                <a
+                  href="https://play.google.com/store/search?q=%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%A2%20%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B8%E0%B8%91%E0%B9%82%E0%B8%92&c=books"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2.5 bg-black/70 hover:bg-black text-white px-4 py-2 rounded-xl border border-white/25 hover:border-emerald-300 transition-all shadow-md active:scale-95 group cursor-pointer"
+                  title="เลือกซื้อหนังสือพระมหาสมชาย ฐานวุฑโฒ บน Google Play Store"
+                >
+                  <Smartphone size={18} className="text-emerald-400 group-hover:scale-110 transition-transform" />
                   <div className="text-left leading-tight">
-                    <p className="text-[9px] text-white/70 uppercase">เปิดอ่านบน</p>
-                    <p className="text-xs font-bold">App Store / iOS</p>
+                    <p className="text-[9px] text-white/75 uppercase tracking-wider">เลือกซื้อหนังสือได้ที่</p>
+                    <p className="text-xs sm:text-sm font-bold text-white">Google Play Store</p>
                   </div>
-                </div>
-
-                {/* Web App Android Badge */}
-                <div className="flex items-center gap-2 bg-black/60 hover:bg-black text-white px-3 py-1.5 rounded-lg border border-white/20 transition-all cursor-default shadow-xs">
-                  <Smartphone size={16} className="text-emerald-400" />
-                  <div className="text-left leading-tight">
-                    <p className="text-[9px] text-white/70 uppercase">เปิดอ่านบน</p>
-                    <p className="text-xs font-bold">Google Play / Web</p>
-                  </div>
-                </div>
+                </a>
               </div>
             </div>
 
@@ -277,8 +275,8 @@ export default function Footer() {
                 Contact Us / ติดต่อสอบถาม
               </h4>
               <p className="text-xs sm:text-sm text-emerald-50/90 leading-relaxed">
-                เปิดบริการออนไลน์ฟรีตลอด 24 ชั่วโมง<br />
-                สำหรับนักเรียน นักศึกษา และประชาชนทั่วไป
+                ศูนย์เผยแผ่ธรรมะเพื่อประชาชน<br />
+                ห้องสมุดดิจิทัลและสื่อธรรมะออนไลน์
               </p>
               <p className="text-xs text-emerald-200 font-mono pt-1">
                 Customer Service : thanavuddho.library@gmail.com

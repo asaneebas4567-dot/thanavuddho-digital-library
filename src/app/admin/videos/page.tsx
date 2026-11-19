@@ -738,11 +738,11 @@ export default function AdminVideosPage() {
                     required
                     value={formUrl}
                     onChange={(e) => setFormUrl(e.target.value)}
-                    placeholder="เช่น https://www.tiktok.com/@udornsharo หรือ https://www.tiktok.com/@udornsharo/video/..."
+                    placeholder="เช่น https://www.tiktok.com/@thanavuddhostory หรือ https://www.tiktok.com/@thanavuddhostory/video/..."
                     className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-rose-400 font-mono text-xs"
                   />
                   <p className="text-[10px] text-slate-400 mt-1">
-                    💡 เพียงแค่วางลิงก์ TikTok (เช่น @udornsharo) ระบบจะดึงชื่อคลิปและขึ้นแสดงผลที่หน้าแรกและคลังวิดีโอทันที
+                    💡 เพียงแค่วางลิงก์ TikTok (เช่น @thanavuddhostory) ระบบจะดึงชื่อคลิปและขึ้นแสดงผลที่หน้าแรกและคลังวิดีโอทันที
                   </p>
                 </div>
 
