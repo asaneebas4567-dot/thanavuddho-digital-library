@@ -42,6 +42,30 @@ export const COMMERCIAL_STORE_BOOKS: Book[] = [
     is_copyright: true,
     copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
     status: 'published'
+  },
+  {
+    id: 'book_tua_rao_mai_thammada_meb',
+    title: 'ตัวเราไม่ธรรมดา',
+    author_id: 'author_001',
+    author: 'พระมหาสมชาย ฐานวุฑฺโฒ M.D., Ph.D.',
+    description: 'พลิกมุมมองความคิดเพื่อดึงศักยภาพที่ซ่อนอยู่ภายในตัวเราออกมาพัฒนาให้เกิดความสำเร็จ ผ่าน 8 ไอเดียเรียกความสำเร็จ: จุดเริ่มต้นชีวิต, การอ่านเติมพลังปัญญา, จินตนาการสร้างสรรค์, การลงมือทำอย่างมีเป้าหมาย, การเปลี่ยนอุปสรรคเป็นโอกาส, การพัฒนาความเป็นเลิศ, การบริหารจิตใจ และวิชาชีวิตสู่ความสำเร็จ โดย พระมหาสมชาย ฐานวุฑโฒ (insidebooks)',
+    cover_image: '/images/books/tua-rao-mai-thammada.jpg',
+    cover: '/images/books/tua-rao-mai-thammada.jpg',
+    category_ids: ['cat_self_dev', 'cat_lifestyle', 'cat_002'],
+    category_id: 'cat_self_dev',
+    tags: ['ตัวเราไม่ธรรมดา', '8 ไอเดีย', 'เรียกความสำเร็จ', 'พัฒนาตนเอง', 'กำลังใจ', 'E-Book', 'MEB Market'],
+    publication_year: 2558,
+    page_count: 174,
+    pages: 174,
+    language: 'th',
+    publisher: 'insidebooks',
+    buy_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=22289',
+    store_name: 'MEB Market',
+    price: '99 บาท',
+    is_external_store: true,
+    is_copyright: true,
+    copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
+    status: 'published'
   }
 ];
 

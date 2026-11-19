@@ -139,6 +139,32 @@ export const authors: Author[] = [
 
 export const books: Book[] = [
   {
+    id: 'book_tua_rao_mai_thammada_meb',
+    title: 'ตัวเราไม่ธรรมดา',
+    author_id: 'a1',
+    description: 'พลิกมุมมองความคิดเพื่อดึงศักยภาพที่ซ่อนอยู่ภายในตัวเราออกมาพัฒนาให้เกิดความสำเร็จ ผ่าน 8 ไอเดียเรียกความสำเร็จ: จุดเริ่มต้นชีวิต, การอ่านเติมพลังปัญญา, จินตนาการสร้างสรรค์, การลงมือทำอย่างมีเป้าหมาย, การเปลี่ยนอุปสรรคเป็นโอกาส, การพัฒนาความเป็นเลิศ, การบริหารจิตใจ และวิชาชีวิตสู่ความสำเร็จ โดย พระมหาสมชาย ฐานวุฑโฒ (insidebooks)',
+    category_id: 'cat_self_dev',
+    cover: '/images/books/tua-rao-mai-thammada.jpg',
+    publication_year: 2558,
+    pages: 174,
+    language: 'Thai',
+    tags: ['ตัวเราไม่ธรรมดา', '8 ไอเดีย', 'เรียกความสำเร็จ', 'พัฒนาตนเอง', 'กำลังใจ', 'E-Book', 'MEB Market'],
+    pdf_url: '',
+    reader_url: '',
+    source_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=22289',
+    buy_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=22289',
+    store_name: 'MEB Market',
+    price: '99 บาท',
+    is_external_store: true,
+    status: 'published',
+    is_copyright: true,
+    copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
+    publisher: 'insidebooks',
+    view_count: 0,
+    read_count: 0,
+    like_count: 0
+  },
+  {
     id: 'book_dee_chua_meb',
     title: '"ดีชั่ว" เกิดด้วยกรรมหรือบังเอิญ',
     author_id: 'a1',
