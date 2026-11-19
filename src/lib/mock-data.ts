@@ -139,6 +139,32 @@ export const authors: Author[] = [
 
 export const books: Book[] = [
   {
+    id: 'book_phro_mai_roo_si_na_meb',
+    title: 'เพราะไม่รู้สินะ',
+    author_id: 'a1',
+    description: 'เผยแง่คิดและมุมมองรู้ทันชีวิต "ถ้ารู้ ป่านนี้คงจะสุขไปนานละ" ชี้ทางสว่างให้ใจคลายทุกข์ ด้วยการทำความเข้าใจความจริงของชีวิต กฎแห่งกรรม และวิธีปลดล็อกความคิด เพื่อก้าวข้ามความไม่รู้สู่ความสุขสงบที่แท้จริง โดย พระมหาสมชาย ฐานวุฑโฒ (insidebooks)',
+    category_id: 'cat_self_dev',
+    cover: '/images/books/phro-mai-roo-si-na.jpg',
+    publication_year: 2557,
+    pages: 160,
+    language: 'Thai',
+    tags: ['เพราะไม่รู้สินะ', 'รู้ทันชีวิต', 'ถ้ารู้ป่านนี้คงจะสุขไปนานละ', 'พัฒนาตนเอง', 'คลายทุกข์', 'E-Book', 'MEB Market'],
+    pdf_url: '',
+    reader_url: '',
+    source_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=14727',
+    buy_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=14727',
+    store_name: 'MEB Market',
+    price: '99 บาท',
+    is_external_store: true,
+    status: 'published',
+    is_copyright: true,
+    copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
+    publisher: 'insidebooks',
+    view_count: 0,
+    read_count: 0,
+    like_count: 0
+  },
+  {
     id: 'book_24_chom_tee_chan_hai_jai_meb',
     title: '24 ชม. ที่ฉันหายใจ',
     author_id: 'a1',
