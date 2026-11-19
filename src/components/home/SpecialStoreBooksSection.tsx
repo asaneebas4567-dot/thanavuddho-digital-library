@@ -66,6 +66,30 @@ export const COMMERCIAL_STORE_BOOKS: Book[] = [
     is_copyright: true,
     copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
     status: 'published'
+  },
+  {
+    id: 'book_khad_klao_khwam_kid_meb',
+    title: 'ขัดเกลาความคิด',
+    author_id: 'author_001',
+    author: 'พระมหาสมชาย ฐานวุฑฺโฒ M.D., Ph.D.',
+    description: 'ถอดรหัสวิธีคิดของมนุษย์ เนรมิตชีวิตดี ๆ ทั้งในชาตินี้และชาติหน้า (คู่มือนักสร้างบารมี Dhamma for Positive Thinking เล่ม 2) รวบรวมหลักคิดในการปรับทัศนคติ การบริหารสมองและความคิดทั้งทางโลกและทางธรรม เพื่อขัดเกลาจิตใจให้ผ่องใสและเปลี่ยนมุมมองสู่ความสำเร็จที่แท้จริง โดย พระมหาสมชาย ฐานวุฑโฒ',
+    cover_image: '/images/books/khad-klao-khwam-kid-meb.jpg',
+    cover: '/images/books/khad-klao-khwam-kid-meb.jpg',
+    category_ids: ['cat_self_dev', 'cat_lifestyle', 'cat_002'],
+    category_id: 'cat_self_dev',
+    tags: ['ขัดเกลาความคิด', 'วิธีคิดของมนุษย์', 'เนรมิตชีวิตดีๆ', 'พัฒนาตนเอง', 'ความคิดและจิตใจ', 'E-Book', 'MEB Market'],
+    publication_year: 2561,
+    page_count: 144,
+    pages: 144,
+    language: 'th',
+    publisher: 'insidebooks',
+    buy_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=79825',
+    store_name: 'MEB Market',
+    price: '99 บาท',
+    is_external_store: true,
+    is_copyright: true,
+    copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
+    status: 'published'
   }
 ];
 
