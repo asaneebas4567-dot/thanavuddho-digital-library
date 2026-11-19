@@ -852,22 +852,60 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextPage, prevPage]);
 
-  // Touch Swipe Handlers for mobile (flip mode only)
+  // Touch Pinch-to-Zoom & Swipe Handlers for mobile & tablet
+  const pinchStartDist = useRef<number | null>(null);
+  const pinchStartScale = useRef<number>(1.0);
+  const lastTapTime = useRef<number>(0);
+
+  const getTouchDistance = (t1: React.Touch, t2: React.Touch) => {
+    const dx = t1.clientX - t2.clientX;
+    const dy = t1.clientY - t2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
+
   const handleTouchStart = (e: React.TouchEvent) => {
     if (mode !== 'flip') return;
-    if (e.touches.length === 1) {
+    if (e.touches.length === 2) {
+      pinchStartDist.current = getTouchDistance(e.touches[0], e.touches[1]);
+      pinchStartScale.current = zoomScale;
+      touchStartCoords.current = null;
+    } else if (e.touches.length === 1) {
+      pinchStartDist.current = null;
+      const now = Date.now();
+      if (now - lastTapTime.current < 300) {
+        // Double-tap: quick toggle between normal 100% and 180% zoom for fine reading
+        setZoomScale(prev => (prev > 1.2 ? 1.0 : 1.8));
+        lastTapTime.current = 0;
+        touchStartCoords.current = null;
+        return;
+      }
+      lastTapTime.current = now;
       touchStartCoords.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
     }
   };
 
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (mode !== 'flip') return;
+    if (e.touches.length === 2 && pinchStartDist.current) {
+      const currentDist = getTouchDistance(e.touches[0], e.touches[1]);
+      const ratio = currentDist / pinchStartDist.current;
+      const newScale = Math.min(3.5, Math.max(0.6, Number((pinchStartScale.current * ratio).toFixed(2))));
+      setZoomScale(newScale);
+    }
+  };
+
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (mode !== 'flip' || !touchStartCoords.current || e.changedTouches.length === 0) return;
+    if (mode !== 'flip') return;
+    if (e.touches.length < 2) {
+      pinchStartDist.current = null;
+    }
+    if (!touchStartCoords.current || e.changedTouches.length === 0) return;
     const diffX = e.changedTouches[0].clientX - touchStartCoords.current.x;
     const diffY = e.changedTouches[0].clientY - touchStartCoords.current.y;
     touchStartCoords.current = null;
 
-    // Responsive swipe sensitivity on mobile (30px threshold)
-    if (Math.abs(diffX) > 30 && Math.abs(diffX) > Math.abs(diffY) * 1.2) {
+    // Only swipe to turn page if user is not zoomed in, allowing seamless pan navigation
+    if (zoomScale <= 1.15 && Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY) * 1.3) {
       if (diffX < 0) {
         nextPage();
       } else {
@@ -1480,6 +1518,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
       <main 
         ref={stageRef}
         onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         onClick={(e) => {
           if (e.target === e.currentTarget) {
@@ -1672,6 +1711,21 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
         )}
       </main>
 
+      {/* Floating Zoom Indicator & Quick Reset on Mobile / Zoomed View */}
+      {zoomScale > 1.05 && (
+        <div className="fixed bottom-16 sm:bottom-20 right-3 sm:right-6 z-40 flex items-center gap-2 bg-black/85 backdrop-blur-md text-white border border-white/20 px-3 py-1.5 rounded-full shadow-2xl animate-fade-in text-xs font-bold select-none">
+          <span className="text-sky-300">🔍 {Math.round(zoomScale * 100)}%</span>
+          <button 
+            onClick={() => setZoomScale(1.0)} 
+            className="p-1 rounded-full hover:bg-white/20 text-zinc-300 hover:text-white transition-all cursor-pointer flex items-center gap-1"
+            title="รีเซ็ตกลับขนาดปกติ (100%)"
+          >
+            <RotateCcw size={12} />
+            <span className="text-[10px] hidden min-[360px]:inline">รีเซ็ต</span>
+          </button>
+        </div>
+      )}
+
       {/* =========================================================================
           4. BOTTOM TOOLBAR: PREV, DIRECT PAGE JUMP INPUT, SLIDER, NEXT
          ========================================================================= */}
@@ -1692,26 +1746,28 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
         {/* Center: Jump to Page Input & Range Scrubber */}
         <div className="flex items-center gap-2 sm:gap-4 flex-1 max-w-md justify-center mx-2">
           
-          {/* Zoom Buttons (Desktop/Tablet) */}
-          <div className="hidden sm:flex items-center border border-white/15 bg-white/5 rounded-xl p-0.5 shrink-0">
+          {/* Zoom Buttons (Visible on Mobile, Tablet & Desktop) */}
+          <div className="flex items-center border border-white/20 bg-white/10 backdrop-blur-md rounded-xl p-0.5 shrink-0">
             <button
-              onClick={() => setZoomScale(z => Math.max(0.6, Number((z - 0.15).toFixed(2))))}
-              className="p-1 hover:bg-white/10 rounded text-zinc-300 hover:text-white cursor-pointer"
-              title="ย่อขนาด"
+              onClick={() => setZoomScale(z => Math.max(0.5, Number((z - 0.2).toFixed(2))))}
+              className="p-1 sm:p-1.5 hover:bg-white/20 rounded-lg text-zinc-300 hover:text-white transition-all cursor-pointer active:scale-95"
+              title="ย่อขนาด (-)"
+              aria-label="ย่อขนาด"
             >
               <ZoomOut size={13} />
             </button>
             <button
               onClick={() => setZoomScale(1.0)}
-              className="px-1.5 py-0.5 text-[10px] font-bold text-zinc-300 hover:text-white cursor-pointer"
-              title="100%"
+              className="px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-xs font-bold text-zinc-200 hover:text-white transition-all cursor-pointer min-w-[38px] text-center"
+              title="รีเซ็ตเป็น 100%"
             >
               {Math.round(zoomScale * 100)}%
             </button>
             <button
-              onClick={() => setZoomScale(z => Math.min(2.5, Number((z + 0.15).toFixed(2))))}
-              className="p-1 hover:bg-white/10 rounded text-zinc-300 hover:text-white cursor-pointer"
-              title="ขยายขนาด"
+              onClick={() => setZoomScale(z => Math.min(3.5, Number((z + 0.2).toFixed(2))))}
+              className="p-1 sm:p-1.5 hover:bg-white/20 rounded-lg text-zinc-300 hover:text-white transition-all cursor-pointer active:scale-95"
+              title="ขยายขนาด (+)"
+              aria-label="ขยายขนาด"
             >
               <ZoomIn size={13} />
             </button>

@@ -136,17 +136,13 @@ export async function renderPdfPageToCanvas(
   scale = Math.max(0.15, Math.min(scale, 4.0));
 
   // High-DPI device pixel ratio:
-  // Mobile (<768px): clamp DPR to 1.5 - 1.75 to prevent GPU out-of-memory crashes and scrolling stutter
-  // Desktop/Tablet: clamp to 2.0 for high resolution
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  // Use high-fidelity Retina/OLED rendering (up to 3x DPR) so fine Thai typography is razor-sharp
   const rawDpr = typeof window !== 'undefined' ? (window.devicePixelRatio || 1) : 1;
-  const dpr = isMobile 
-    ? Math.min(Math.max(rawDpr, 1.25), 1.75) 
-    : Math.min(Math.max(rawDpr, 1.5), 2.25);
+  const dpr = Math.min(Math.max(rawDpr, 1.75), 3.0);
   const viewport = page.getViewport({ scale: scale * dpr });
 
-  canvas.width = viewport.width;
-  canvas.height = viewport.height;
+  canvas.width = Math.round(viewport.width);
+  canvas.height = Math.round(viewport.height);
   canvas.style.width = '100%';
   canvas.style.height = '100%';
   canvas.style.objectFit = 'contain';
@@ -155,6 +151,10 @@ export async function renderPdfPageToCanvas(
   if (!context) {
     throw new Error('Canvas 2D context not available');
   }
+
+  // Ensure maximum sharpness and smooth text rendering
+  context.imageSmoothingEnabled = true;
+  context.imageSmoothingQuality = 'high';
 
   // Fill with white background before rendering
   context.fillStyle = '#ffffff';

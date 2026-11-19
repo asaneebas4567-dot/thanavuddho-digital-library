@@ -7,7 +7,8 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const rawUrl = searchParams.get('url') || searchParams.get('src') || '';
+    const idParam = searchParams.get('id');
+    const rawUrl = searchParams.get('url') || searchParams.get('src') || (idParam ? `https://drive.google.com/file/d/${idParam}/view` : '') || '';
 
     if (!rawUrl) {
       return NextResponse.json(

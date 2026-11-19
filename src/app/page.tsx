@@ -222,6 +222,7 @@ export default function Home() {
 
   // 2. ครอบครัว ความรัก & สุขภาพกายใจ (นำเล่มลิขสิทธิ์ขึ้นแสดงแถวหน้า)
   const familyHealthBookIds = [
+    'book_liang_look_style_sook',
     'book_ความลับของความรัก',
     'book_ความรักรสอูมามิ',
     'book_khao_kor_sook_rao_kor_sook',

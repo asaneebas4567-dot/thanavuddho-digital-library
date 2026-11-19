@@ -39,6 +39,31 @@ export const tags: T.Tag[] = [
 
 export const books: T.Book[] = [
   {
+    id: 'book_liang_look_style_sook',
+    title: 'เลี้ยงลูกสไตล์สุข',
+    author_id: 'author_001',
+    description: 'วิธีบ่มเพาะลูกวัยใสให้เป็นลูกแก้วสารพัดนึก "สไตล์สุข" ให้โตขึ้นเป็นทั้งเด็กเก่งและดี ตามหลักพุทธวิธี เผยเทคนิคการเลี้ยงดู อบรมสั่งสอน และปลูกฝังคุณธรรมให้ลูกเติบโตอย่างมีความสุขและมีภูมิคุ้มกันชีวิต โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
+    cover_image: '/images/books/liang-look-style-sook.jpg',
+    content_type: 'book',
+    category_ids: ['cat_family', 'cat_001', 'cat_002', 'cat_004'],
+    tags: ['เลี้ยงลูกสไตล์สุข', 'เลี้ยงลูก', 'ครอบครัว', 'ความรัก', 'เด็กเก่งและดี', 'พุทธวิธี', 'พัฒนาตนเอง', 'การดำเนินชีวิต', 'ความสุข'],
+    publication_year: 2566,
+    page_count: 126,
+    language: 'th',
+    pdf_url: '/books/pdf/liang-look-style-sook.pdf',
+    reader_url: '/books/pdf/liang-look-style-sook.pdf',
+    source_url: 'https://drive.google.com/file/d/1CiNmh8Mor01ItXI5wVwo7ZyFRiv0qxjZ/view',
+    video_ids: [],
+    copyright_status: 'approved',
+    is_copyright: true,
+    copyright_notice: 'หนังสือลิขสิทธิ์',
+    publisher: 'มูลนิธิธรรมะคุ้มครองโลก',
+    verified: true,
+    featured: true,
+    view_count: 0,
+    read_count: 0
+  },
+  {
     id: 'book_tam_jai_hai_prom_buak',
     title: 'ทำใจให้พร้อมบวก',
     author_id: 'author_001',
