@@ -139,6 +139,32 @@ export const authors: Author[] = [
 
 export const books: Book[] = [
   {
+    id: 'book_24_chom_tee_chan_hai_jai_meb',
+    title: '24 ชม. ที่ฉันหายใจ',
+    author_id: 'a1',
+    description: 'พุทธวิธีไขความลับการบริหารเวลา "สร้างความสุขทางธรรม...นำความสำเร็จทางโลกมาสู่คุณ" เรียนรู้ศาสตร์แห่งการจัดสรรเวลาอย่างมีคุณค่า เพิ่มประสิทธิภาพในการทำงานและการใช้ชีวิตในทุก 24 ชั่วโมงที่เรายังคงหายใจ โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
+    category_id: 'cat_self_dev',
+    cover: '/images/books/24-chom-tee-chan-hai-jai.jpg',
+    publication_year: 2560,
+    pages: 160,
+    language: 'Thai',
+    tags: ['24 ชม. ที่ฉันหายใจ', 'การบริหารเวลา', 'สร้างความสุข', 'ความสำเร็จ', 'พัฒนาตนเอง', 'E-Book', 'MEB Market'],
+    pdf_url: '',
+    reader_url: '',
+    source_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=72700',
+    buy_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=72700',
+    store_name: 'MEB Market',
+    price: '99 บาท',
+    is_external_store: true,
+    status: 'published',
+    is_copyright: true,
+    copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
+    publisher: 'insidebooks',
+    view_count: 0,
+    read_count: 0,
+    like_count: 0
+  },
+  {
     id: 'book_khad_klao_khwam_kid_meb',
     title: 'ขัดเกลาความคิด',
     author_id: 'a1',

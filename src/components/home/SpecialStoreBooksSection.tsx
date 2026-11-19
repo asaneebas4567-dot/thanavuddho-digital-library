@@ -90,6 +90,30 @@ export const COMMERCIAL_STORE_BOOKS: Book[] = [
     is_copyright: true,
     copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
     status: 'published'
+  },
+  {
+    id: 'book_24_chom_tee_chan_hai_jai_meb',
+    title: '24 ชม. ที่ฉันหายใจ',
+    author_id: 'author_001',
+    author: 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
+    description: 'พุทธวิธีไขความลับการบริหารเวลา "สร้างความสุขทางธรรม...นำความสำเร็จทางโลกมาสู่คุณ" เรียนรู้ศาสตร์แห่งการจัดสรรเวลาอย่างมีคุณค่า เพิ่มประสิทธิภาพในการทำงานและการใช้ชีวิตในทุก 24 ชั่วโมงที่เรายังคงหายใจ โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
+    cover_image: '/images/books/24-chom-tee-chan-hai-jai.jpg',
+    cover: '/images/books/24-chom-tee-chan-hai-jai.jpg',
+    category_ids: ['cat_self_dev', 'cat_lifestyle', 'cat_002'],
+    category_id: 'cat_self_dev',
+    tags: ['24 ชม. ที่ฉันหายใจ', 'การบริหารเวลา', 'สร้างความสุข', 'ความสำเร็จ', 'พัฒนาตนเอง', 'E-Book', 'MEB Market'],
+    publication_year: 2560,
+    page_count: 160,
+    pages: 160,
+    language: 'th',
+    publisher: 'insidebooks',
+    buy_url: 'https://www.mebmarket.com/index.php?action=BookDetails&book_id=72700',
+    store_name: 'MEB Market',
+    price: '99 บาท',
+    is_external_store: true,
+    is_copyright: true,
+    copyright_notice: 'หนังสือฉบับลิขสิทธิ์วางจำหน่าย (E-Book)',
+    status: 'published'
   }
 ];
 
