@@ -31,11 +31,16 @@ import {
   Lock,
   KeyRound,
   ArrowRight,
+  ArrowUp,
+  ArrowDown,
+  EyeOff,
+  Image as ImageIcon,
   FileSpreadsheet,
   BarChart3,
   UploadCloud
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { FlexibleShowcaseItem, ShowcaseItemType } from '@/types';
 
 export default function AdminDashboardPage() {
   const { user, isAuthenticated } = useAuth();
@@ -80,6 +85,11 @@ export default function AdminDashboardPage() {
   const [isUploadingMp3, setIsUploadingMp3] = useState(false);
   const [uploadedMp3Url, setUploadedMp3Url] = useState('');
   const [uploadedMp3Path, setUploadedMp3Path] = useState('');
+
+  // Flexible Showcase State
+  const [showcaseModalOpen, setShowcaseModalOpen] = useState(false);
+  const [editingShowcaseItem, setEditingShowcaseItem] = useState<FlexibleShowcaseItem | null>(null);
+  const [selectedShowcaseType, setSelectedShowcaseType] = useState<ShowcaseItemType>('BOOK_SHOWCASE');
 
   // Status message
   const [statusMessage, setStatusMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
@@ -455,6 +465,113 @@ export default function AdminDashboardPage() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // ----------------------------------------------------
+  // FLEXIBLE SHOWCASE SYSTEM HANDLERS
+  // ----------------------------------------------------
+  const handleSaveShowcaseItems = async (updatedItems: FlexibleShowcaseItem[]) => {
+    setIsSubmitting(true);
+    const payload = {
+      ...homeSettings,
+      showcaseItems: updatedItems
+    };
+
+    try {
+      const res = await fetch('/api/admin/home-settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.success) {
+        showStatus('บันทึกรายการไฮไลต์หน้าแรกเรียบร้อยแล้ว!');
+        setHomeSettings(data.settings);
+      }
+    } catch (err: any) {
+      showStatus(err.message, 'error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleOpenAddShowcase = () => {
+    setEditingShowcaseItem(null);
+    setSelectedShowcaseType('BOOK_SHOWCASE');
+    setShowcaseModalOpen(true);
+  };
+
+  const handleOpenEditShowcase = (item: FlexibleShowcaseItem) => {
+    setEditingShowcaseItem(item);
+    setSelectedShowcaseType(item.type);
+    setShowcaseModalOpen(true);
+  };
+
+  const handleToggleActiveShowcase = async (id: string) => {
+    const currentItems: FlexibleShowcaseItem[] = homeSettings.showcaseItems || [];
+    const updated = currentItems.map(item => 
+      item.id === id ? { ...item, is_active: !item.is_active } : item
+    );
+    await handleSaveShowcaseItems(updated);
+  };
+
+  const handleDeleteShowcase = async (id: string) => {
+    if (!confirm('คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้ออกจากหน้าแรก?')) return;
+    const currentItems: FlexibleShowcaseItem[] = homeSettings.showcaseItems || [];
+    const updated = currentItems.filter(item => item.id !== id);
+    await handleSaveShowcaseItems(updated);
+  };
+
+  const handleMoveShowcase = async (index: number, direction: 'up' | 'down') => {
+    const currentItems: FlexibleShowcaseItem[] = [...(homeSettings.showcaseItems || [])];
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= currentItems.length) return;
+
+    const temp = currentItems[index];
+    currentItems[index] = currentItems[targetIndex];
+    currentItems[targetIndex] = temp;
+
+    const updated = currentItems.map((item, idx) => ({ ...item, order: idx + 1 }));
+    await handleSaveShowcaseItems(updated);
+  };
+
+  const handleSaveShowcaseForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const type = selectedShowcaseType;
+
+    const currentItems: FlexibleShowcaseItem[] = [...(homeSettings.showcaseItems || [])];
+
+    const newItem: FlexibleShowcaseItem = {
+      id: editingShowcaseItem ? editingShowcaseItem.id : `showcase-${Date.now()}`,
+      type,
+      title: (formData.get('title') as string) || '',
+      author: (formData.get('author') as string) || '',
+      description: (formData.get('description') as string) || '',
+      image_url: (formData.get('image_url') as string) || '',
+      image_url_mobile: (formData.get('image_url_mobile') as string) || '',
+      book_id: (formData.get('book_id') as string) || '',
+      target_url: (formData.get('target_url') as string) || '',
+      is_clickable: formData.get('is_clickable') === 'true',
+      order: Number(formData.get('order')) || (currentItems.length + 1),
+      is_active: formData.get('is_active') === 'true',
+      fit_mode: (formData.get('fit_mode') as 'contain' | 'cover') || 'contain',
+      badge: (formData.get('badge') as string) || '',
+      action_label: (formData.get('action_label') as string) || 'เปิดอ่านหนังสือ (Flipbook)'
+    };
+
+    let updated: FlexibleShowcaseItem[];
+    if (editingShowcaseItem) {
+      updated = currentItems.map(item => item.id === editingShowcaseItem.id ? newItem : item);
+    } else {
+      updated = [...currentItems, newItem];
+    }
+
+    updated.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+    await handleSaveShowcaseItems(updated);
+    setShowcaseModalOpen(false);
+    setIsSubmitting(false);
   };
 
   // Calculate Metrics
@@ -1356,97 +1473,203 @@ export default function AdminDashboardPage() {
         )}
 
         {/* =========================================================================
-            TAB 5: HOME SHOWCASE & ANNOUNCEMENT SETTINGS
+            TAB 5: FLEXIBLE SHOWCASE & ANNOUNCEMENT SETTINGS
            ========================================================================= */}
         {activeTab === 'home_showcase' && (
           <div className="space-y-6">
+            
+            {/* 1. Header & Actions Hub */}
             <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
-
-              <div className="mb-6">
-                <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
-                  <Sparkles size={20} className="text-amber-600" />
-                  <span>ปรับแต่งหน้าตาแนะนำหลัก & ป้ายประกาศ (Home Showcase)</span>
-                </h2>
-                <p className="text-xs text-slate-500 mt-1">
-                  แก้ไขข้อความพาดหัว ป้ายประกาศ และแบนเนอร์หน้าแรกของเว็บไซต์ได้ทันที โดยไม่ต้องแก้ไขโค้ด
-                </p>
-              </div>
-
-              <form onSubmit={handleSaveHomeSettings} className="space-y-6 max-w-2xl">
-
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    ข้อความพาดหัวประกาศหลัก (Hero Announcement Title)
-                  </label>
-                  <input
-                    type="text"
-                    name="announcementTitle"
-                    defaultValue={homeSettings.announcementTitle}
-                    required
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-500 font-bold"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    คำบรรยายประกาศ (Announcement Subtitle)
-                  </label>
-                  <textarea
-                    name="announcementSubtitle"
-                    defaultValue={homeSettings.announcementSubtitle}
-                    rows={3}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-500"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      ข้อความบนปุ่มกด (Button Text)
-                    </label>
-                    <input
-                      type="text"
-                      name="bannerButtonText"
-                      defaultValue={homeSettings.bannerButtonText}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm"
-                    />
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-xs font-bold mb-2">
+                    <Sparkles size={13} className="text-amber-600" />
+                    <span>Flexible Showcase System</span>
                   </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      ลิงก์ปลายทางเมื่อกดปุ่ม (Button Link)
-                    </label>
-                    <input
-                      type="text"
-                      name="bannerLink"
-                      defaultValue={homeSettings.bannerLink}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-mono"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    ลิงก์รูปภาพแบนเนอร์หลัก (Banner Image URL)
-                  </label>
-                  <input
-                    type="text"
-                    name="bannerImageUrl"
-                    defaultValue={homeSettings.bannerImageUrl}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-mono"
-                  />
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                    จัดการไฮไลต์หน้าแรก (Highlight & Showcase Manager)
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
+                    เลือกรูปแบบการแสดงผลได้อย่างอิสระทั้ง 3 รูปแบบ: รูปภาพล้วน (Image Only), ตู้หนังสือจริง (Book Showcase) หรือแบนเนอร์ประชาสัมพันธ์ (Promotional Banner) โดยไม่ถูกบังคับให้อยู่ในรูปแบบการ์ดเดียวกัน
+                  </p>
                 </div>
 
                 <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black text-sm shadow-md transition-all active:scale-95 cursor-pointer flex items-center gap-2"
+                  type="button"
+                  onClick={handleOpenAddShowcase}
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2 shrink-0"
                 >
-                  <Save size={16} />
-                  <span>{isSubmitting ? 'กำลังบันทึก...' : 'บันทึกการตั้งค่าหน้าแรก'}</span>
+                  <Plus size={16} />
+                  <span>+ เพิ่มรายการไฮไลต์ใหม่</span>
                 </button>
+              </div>
 
-              </form>
+              {/* Showcase Items List */}
+              <div className="mt-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-sm font-bold text-slate-800">
+                    รายการที่กำลังแสดงผล ({homeSettings.showcaseItems?.length || 0} รายการ)
+                  </h3>
+                  <span className="text-xs text-slate-400">
+                    * จัดลำดับ เลื่อนขึ้น/ลง หรือเปิด/ปิดการแสดงผลได้ทันที
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  {(homeSettings.showcaseItems || []).map((item: FlexibleShowcaseItem, idx: number) => {
+                    const isFirst = idx === 0;
+                    const isLast = idx === (homeSettings.showcaseItems?.length || 0) - 1;
+
+                    return (
+                      <div 
+                        key={item.id}
+                        className={`p-4 rounded-2xl border transition-all duration-200 flex flex-col md:flex-row md:items-center justify-between gap-4 ${
+                          item.is_active 
+                            ? 'bg-white border-slate-200 hover:border-slate-300 shadow-2xs' 
+                            : 'bg-slate-50 border-slate-200 opacity-60'
+                        }`}
+                      >
+                        {/* Left: Thumbnail & Info */}
+                        <div className="flex items-center gap-3.5 min-w-0">
+                          {/* Order Number */}
+                          <span className="w-7 h-7 rounded-lg bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0">
+                            #{item.order || idx + 1}
+                          </span>
+
+                          {/* Image Thumbnail */}
+                          <div className="relative w-14 sm:w-16 h-14 sm:h-16 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shrink-0">
+                            {item.image_url ? (
+                              <Image 
+                                src={encodeURI(item.image_url)} 
+                                alt={item.title || 'Showcase'} 
+                                fill 
+                                className={item.fit_mode === 'cover' ? 'object-cover' : 'object-contain p-0.5'}
+                                unoptimized
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-slate-400">
+                                <ImageIcon size={20} />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Details & Type Badge */}
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-1.5 flex-wrap mb-1">
+                              {/* Type Badge */}
+                              {item.type === 'IMAGE_ONLY' && (
+                                <span className="px-2 py-0.5 rounded-md bg-purple-100 text-purple-800 border border-purple-200 text-[10px] font-bold">
+                                  🖼️ Image Only (ภาพล้วน)
+                                </span>
+                              )}
+                              {item.type === 'BOOK_SHOWCASE' && (
+                                <span className="px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold">
+                                  📚 Book Showcase (หนังสือจริง)
+                                </span>
+                              )}
+                              {item.type === 'PROMOTIONAL_BANNER' && (
+                                <span className="px-2 py-0.5 rounded-md bg-sky-100 text-sky-800 border border-sky-200 text-[10px] font-bold">
+                                  📢 Promotional Banner (แบนเนอร์)
+                                </span>
+                              )}
+
+                              {/* Fit Mode */}
+                              <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-[9px] font-mono">
+                                fit: {item.fit_mode || 'contain'}
+                              </span>
+
+                              {/* Active Status */}
+                              {item.is_active ? (
+                                <span className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[9px] font-bold">
+                                  ● เปิดแสดง
+                                </span>
+                              ) : (
+                                <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-600 text-[9px] font-bold">
+                                  ○ ปิดแสดง
+                                </span>
+                              )}
+                            </div>
+
+                            <h4 className="text-sm font-bold text-slate-800 truncate">
+                              {item.title || '(ไม่มีชื่อเรื่อง — แสดงเฉพาะรูปภาพ)'}
+                            </h4>
+
+                            <div className="flex items-center gap-3 text-xs text-slate-500 mt-0.5 truncate">
+                              {item.target_url && (
+                                <span className="flex items-center gap-1 font-mono text-[11px] text-sky-700">
+                                  <ExternalLink size={11} /> {item.target_url}
+                                </span>
+                              )}
+                              {item.author && (
+                                <span>โดย: {item.author}</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Right: Actions */}
+                        <div className="flex items-center gap-1.5 shrink-0 self-end md:self-auto">
+                          {/* Reorder Up */}
+                          <button
+                            type="button"
+                            disabled={isFirst}
+                            onClick={() => handleMoveShowcase(idx, 'up')}
+                            className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                            title="เลื่อนขึ้น"
+                          >
+                            <ArrowUp size={14} />
+                          </button>
+
+                          {/* Reorder Down */}
+                          <button
+                            type="button"
+                            disabled={isLast}
+                            onClick={() => handleMoveShowcase(idx, 'down')}
+                            className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                            title="เลื่อนลง"
+                          >
+                            <ArrowDown size={14} />
+                          </button>
+
+                          {/* Toggle Active */}
+                          <button
+                            type="button"
+                            onClick={() => handleToggleActiveShowcase(item.id)}
+                            className={`p-2 rounded-lg transition-colors ${
+                              item.is_active 
+                                ? 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700' 
+                                : 'bg-slate-200 hover:bg-slate-300 text-slate-600'
+                            }`}
+                            title={item.is_active ? 'ปิดการแสดงผล' : 'เปิดการแสดงผล'}
+                          >
+                            <Eye size={14} />
+                          </button>
+
+                          {/* Edit */}
+                          <button
+                            type="button"
+                            onClick={() => handleOpenEditShowcase(item)}
+                            className="p-2 rounded-lg bg-sky-50 hover:bg-sky-100 text-[#073B65] transition-colors"
+                            title="แก้ไขข้อมูล"
+                          >
+                            <Edit size={14} />
+                          </button>
+
+                          {/* Delete */}
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteShowcase(item.id)}
+                            className="p-2 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 transition-colors"
+                            title="ลบรายการ"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
 
             </div>
           </div>
@@ -1957,6 +2180,378 @@ export default function AdminDashboardPage() {
                     className="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-black shadow-md cursor-pointer active:scale-95"
                   >
                     {isSubmitting ? 'กำลังบันทึก...' : 'บันทึก Podcast'}
+                  </button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================================
+            MODAL 4: ADD / EDIT FLEXIBLE SHOWCASE ITEM MODAL
+           ========================================================================= */}
+        {showcaseModalOpen && (
+          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative animate-in zoom-in-95 duration-200">
+              
+              {/* Modal Header */}
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+                <div>
+                  <h3 className="text-xl font-black text-slate-900">
+                    {editingShowcaseItem ? 'แก้ไขรายการไฮไลต์หน้าแรก' : 'เพิ่มรายการไฮไลต์หน้าแรกใหม่'}
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    กำหนดรูปแบบการแสดงผล: รูปภาพล้วน, หนังสือจริง, หรือแบนเนอร์ประชาสัมพันธ์
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowcaseModalOpen(false)}
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <form onSubmit={handleSaveShowcaseForm} className="space-y-5 text-xs">
+                
+                {/* 1. DISPLAY TYPE SELECTOR */}
+                <div>
+                  <label className="block font-bold text-slate-800 mb-2">
+                    เลือกประเภทการแสดงผล (Display Type) <span className="text-rose-500">*</span>
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    
+                    {/* A. IMAGE ONLY */}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedShowcaseType('IMAGE_ONLY')}
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
+                        selectedShowcaseType === 'IMAGE_ONLY'
+                          ? 'bg-purple-50 border-purple-500 ring-2 ring-purple-200 text-purple-900'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                      }`}
+                    >
+                      <div className="font-bold flex items-center gap-1.5 text-xs">
+                        <span>🖼️ Image Only</span>
+                      </div>
+                      <p className="text-[10.5px] text-slate-500 mt-1 leading-snug">
+                        แสดงเฉพาะรูปภาพล้วน ไม่ซ้อนทับข้อความหรือปุ่ม
+                      </p>
+                    </button>
+
+                    {/* B. BOOK SHOWCASE */}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedShowcaseType('BOOK_SHOWCASE')}
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
+                        selectedShowcaseType === 'BOOK_SHOWCASE'
+                          ? 'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-200 text-emerald-900'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                      }`}
+                    >
+                      <div className="font-bold flex items-center gap-1.5 text-xs">
+                        <span>📚 Book Showcase</span>
+                      </div>
+                      <p className="text-[10.5px] text-slate-500 mt-1 leading-snug">
+                        ปก 2D แท้จากฐานข้อมูล พร้อมชื่อผู้แต่งและปุ่มเปิดอ่าน
+                      </p>
+                    </button>
+
+                    {/* C. PROMOTIONAL BANNER */}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedShowcaseType('PROMOTIONAL_BANNER')}
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
+                        selectedShowcaseType === 'PROMOTIONAL_BANNER'
+                          ? 'bg-sky-50 border-sky-500 ring-2 ring-sky-200 text-sky-900'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                      }`}
+                    >
+                      <div className="font-bold flex items-center gap-1.5 text-xs">
+                        <span>📢 Banner</span>
+                      </div>
+                      <p className="text-[10.5px] text-slate-500 mt-1 leading-snug">
+                        ภาพแบนเนอร์ประชาสัมพันธ์เต็มพื้นที่
+                      </p>
+                    </button>
+
+                  </div>
+                </div>
+
+                {/* QUICK SELECT FROM BOOK (Only for BOOK_SHOWCASE) */}
+                {selectedShowcaseType === 'BOOK_SHOWCASE' && (
+                  <div className="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-200/80">
+                    <label className="block font-bold text-emerald-900 mb-1.5">
+                      📖 ดึงข้อมูลอัตโนมัติจากหนังสือในระบบ (Quick Select from Books)
+                    </label>
+                    <select
+                      onChange={(e) => {
+                        const b = books.find((x: any) => x.id === e.target.value);
+                        if (b) {
+                          const form = e.target.form;
+                          if (form) {
+                            (form.elements.namedItem('title') as HTMLInputElement).value = b.title || '';
+                            (form.elements.namedItem('author') as HTMLInputElement).value = b.author || 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)';
+                            (form.elements.namedItem('description') as HTMLTextAreaElement).value = b.description || '';
+                            (form.elements.namedItem('image_url') as HTMLInputElement).value = b.cover_image || b.cover || '';
+                            (form.elements.namedItem('target_url') as HTMLInputElement).value = `/reader/${b.id}`;
+                            (form.elements.namedItem('book_id') as HTMLInputElement).value = b.id;
+                          }
+                        }
+                      }}
+                      className="w-full px-3 py-2 rounded-xl border border-emerald-300 bg-white font-medium text-xs focus:ring-2 focus:ring-emerald-500"
+                    >
+                      <option value="">-- เลือกหนังสือจากคลังเพื่อกรอกข้อมูลอัตโนมัติ --</option>
+                      {books.map((b: any) => (
+                        <option key={b.id} value={b.id}>
+                          {b.title} {b.author ? `(${b.author})` : ''}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                {/* QUICK PRESETS FOR IMAGES */}
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span className="text-[11px] font-bold text-slate-600 block mb-1.5">
+                    ⚡ ทางลัดเลือกภาพด่วน (Quick Presets):
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-muthita-65-years.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/welcome';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'มุทิตาสักการะ วาระอายุวัฒนมงคล ๖๕ ปี พระครูปลัดสุวัฒนโพธิคุณ';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-50 border border-slate-200 text-[10.5px] font-semibold text-amber-900 shadow-2xs"
+                    >
+                      + ภาพพระอาจารย์ (มุทิตาสักการะ ๖๕ ปี)
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-yoo-sook-digital.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_yoo_sook_nai_yook_digital';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'อยู่สุขในยุคดิจิทัล';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-sky-50 border border-slate-200 text-[10.5px] font-semibold text-[#073B65] shadow-2xs"
+                    >
+                      + แบนเนอร์อยู่สุขในยุคดิจิทัล
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/books/tam-jai-hai-prom-buak.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_tam_jai_hai_prom_buak';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'ทำใจให้พร้อมบวก';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-emerald-50 border border-slate-200 text-[10.5px] font-semibold text-emerald-900 shadow-2xs"
+                    >
+                      + ปกทำใจให้พร้อมบวก
+                    </button>
+                  </div>
+                </div>
+
+                {/* 2. IMAGE URLS */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      ลิงก์รูปภาพ Desktop (Image URL) <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="image_url"
+                      defaultValue={editingShowcaseItem?.image_url || ''}
+                      required
+                      placeholder="/images/banners/... หรือ https://..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 font-mono text-xs focus:ring-2 focus:ring-amber-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      ลิงก์รูปภาพ Mobile (Image URL Mobile) <span className="text-slate-400 font-normal">(ถ้ามี)</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="image_url_mobile"
+                      defaultValue={editingShowcaseItem?.image_url_mobile || ''}
+                      placeholder="กรณีต้องการภาพแยกสำหรับหน้าจอมือถือ"
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 font-mono text-xs"
+                    />
+                  </div>
+                </div>
+
+                {/* 3. TARGET URL & CLICKABLE */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                  <div className="sm:col-span-2">
+                    <label className="block font-bold text-slate-700 mb-1">
+                      ลิงก์ปลายทางเมื่อคลิก (Target URL)
+                    </label>
+                    <input
+                      type="text"
+                      name="target_url"
+                      defaultValue={editingShowcaseItem?.target_url || ''}
+                      placeholder="เช่น /welcome, /reader/book_id, หรือ https://..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 font-mono text-xs focus:ring-2 focus:ring-amber-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      การคลิก (Clickable)
+                    </label>
+                    <select
+                      name="is_clickable"
+                      defaultValue={editingShowcaseItem ? String(editingShowcaseItem.is_clickable !== false) : 'true'}
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold"
+                    >
+                      <option value="true">เปิดให้คลิกได้ (Clickable)</option>
+                      <option value="false">ปิดการคลิก (Display Only)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* 4. TITLE & AUTHOR (Shown only if not purely empty) */}
+                {selectedShowcaseType !== 'IMAGE_ONLY' && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">
+                        ชื่อเรื่อง / ชื่อหนังสือ (Title)
+                      </label>
+                      <input
+                        type="text"
+                        name="title"
+                        defaultValue={editingShowcaseItem?.title || ''}
+                        placeholder="ชื่อหนังสือ หรือชื่อแบนเนอร์"
+                        className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-bold"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">
+                        ชื่อผู้แต่ง (Author) <span className="text-slate-400 font-normal">(เฉพาะตู้หนังสือ)</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="author"
+                        defaultValue={editingShowcaseItem?.author || 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)'}
+                        className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Hidden Title for IMAGE_ONLY */}
+                {selectedShowcaseType === 'IMAGE_ONLY' && (
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      คำอธิบายกำกับรูปภาพ (Title / Alt Text) <span className="text-slate-400 font-normal">(ไม่แสดงบนการ์ด)</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="title"
+                      defaultValue={editingShowcaseItem?.title || 'ภาพประชาสัมพันธ์'}
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs"
+                    />
+                  </div>
+                )}
+
+                {/* 5. DESCRIPTION (Only for BOOK_SHOWCASE or PROMOTIONAL_BANNER) */}
+                {selectedShowcaseType === 'BOOK_SHOWCASE' && (
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      คำอธิบายเนื้อหาโดยย่อ (Description)
+                    </label>
+                    <textarea
+                      name="description"
+                      rows={2}
+                      defaultValue={editingShowcaseItem?.description || ''}
+                      placeholder="คำโปรยหรือคำสอนย่อ..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs"
+                    />
+                  </div>
+                )}
+
+                {/* 6. SETTINGS ROW: FIT MODE, ORDER, ACTIVE */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1">
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      สัดส่วนการแสดงผล (Fit Mode)
+                    </label>
+                    <select
+                      name="fit_mode"
+                      defaultValue={editingShowcaseItem?.fit_mode || (selectedShowcaseType === 'PROMOTIONAL_BANNER' ? 'cover' : 'contain')}
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold"
+                    >
+                      <option value="contain">contain (รักษาสัดส่วน ไม่ตัดภาพ)</option>
+                      <option value="cover">cover (เต็มพื้นที่ ปรับขยาย)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      ลำดับการแสดงผล (Sort Order)
+                    </label>
+                    <input
+                      type="number"
+                      name="order"
+                      defaultValue={editingShowcaseItem?.order || 1}
+                      min={1}
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-bold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      สถานะการแสดงผล (Active)
+                    </label>
+                    <select
+                      name="is_active"
+                      defaultValue={editingShowcaseItem ? String(editingShowcaseItem.is_active !== false) : 'true'}
+                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-bold text-emerald-800"
+                    >
+                      <option value="true">✓ เปิดใช้งาน (Active)</option>
+                      <option value="false">✕ ปิดชั่วคราว (Disabled)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Hidden book_id, badge, action_label */}
+                <input type="hidden" name="book_id" defaultValue={editingShowcaseItem?.book_id || ''} />
+                <input type="hidden" name="badge" defaultValue={editingShowcaseItem?.badge || '📖 หนังสือแนะนำ'} />
+                <input type="hidden" name="action_label" defaultValue={editingShowcaseItem?.action_label || 'เปิดอ่านหนังสือ (Flipbook)'} />
+
+                {/* Modal Footer Buttons */}
+                <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setShowcaseModalOpen(false)}
+                    className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold"
+                  >
+                    ยกเลิก
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black shadow-md cursor-pointer active:scale-95"
+                  >
+                    {isSubmitting ? 'กำลังบันทึก...' : 'บันทึกรายการไฮไลต์'}
                   </button>
                 </div>
 

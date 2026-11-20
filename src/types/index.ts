@@ -448,3 +448,25 @@ export interface ChatMessage {
 }
 
 export * from './survey';
+
+export type ShowcaseItemType = 'IMAGE_ONLY' | 'BOOK_SHOWCASE' | 'PROMOTIONAL_BANNER';
+
+export interface FlexibleShowcaseItem {
+  id: string;
+  type: ShowcaseItemType;
+  title?: string;
+  author?: string;
+  description?: string;
+  image_url: string;              // Desktop image URL
+  image_url_mobile?: string;       // Mobile image URL (optional)
+  book_id?: string;               // For BOOK_SHOWCASE (links to book in database)
+  target_url?: string;            // Destination URL on click
+  is_clickable: boolean;          // Whether clicking is enabled
+  order: number;                  // Sort order (1, 2, 3...)
+  is_active: boolean;             // Active toggle
+  fit_mode?: 'contain' | 'cover';  // Image aspect fit mode (contain for books/portraits, cover for banners)
+  badge?: string;                 // Optional badge label (e.g. "📖 หนังสือแนะนำ", "🎉 วาระพิเศษ")
+  action_label?: string;          // Optional button label (e.g. "เปิดอ่านหนังสือ (Flipbook)")
+  created_at?: string;
+  updated_at?: string;
+}

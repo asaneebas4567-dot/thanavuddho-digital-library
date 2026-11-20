@@ -27,6 +27,7 @@ import {
 import { books as libBooks, videos, articles } from '@/lib/mock-data';
 import { books as dbBooks } from '@/data/mockData';
 import persistentBooks from '@/data/persistentBooks.json';
+import homeSettings from '@/data/homeShowcaseSettings.json';
 import HomeMediaShowcase from '@/components/home/HomeMediaShowcase';
 import TopBannerCarousel from '@/components/common/TopBannerCarousel';
 import ScrollableBookRow from '@/components/books/ScrollableBookRow';
@@ -286,8 +287,11 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50/50">
       
-      {/* 1. ไฮไลต์ชุดหนังสือดิจิทัล */}
-      <TopBannerCarousel autoPlayIntervalMs={8000} />
+      {/* 1. ไฮไลต์ชุดหนังสือและสื่อเด่น (Flexible Showcase System) */}
+      <TopBannerCarousel 
+        showcaseItems={(homeSettings as any)?.showcaseItems} 
+        autoPlayIntervalMs={8000} 
+      />
 
       {/* 2. Main Content Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full space-y-8 sm:space-y-10 pt-4 sm:pt-6 pb-24 lg:pb-16">
