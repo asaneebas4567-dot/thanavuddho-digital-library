@@ -36,16 +36,15 @@
     },
     {
       "id": "showcase-banner-yoo-sook",
-      "type": "PROMOTIONAL_BANNER",
+      "type": "IMAGE_ONLY",
       "title": "อยู่สุขในยุคดิจิทัล",
-      "description": "ศิลปะในการเรียนรู้ และรับมือผู้คนบนโลกออนไลน์อย่างมีความสุข",
       "image_url": "/images/banners/banner-yoo-sook-digital.jpg",
       "image_url_mobile": "/images/banners/banner-yoo-sook-digital.jpg",
       "target_url": "/reader/book_yoo_sook_nai_yook_digital",
       "is_clickable": true,
       "order": 3,
       "is_active": true,
-      "fit_mode": "cover"
+      "fit_mode": "contain"
     },
     {
       "id": "showcase-book-samdun",
