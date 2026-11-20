@@ -2385,6 +2385,21 @@ export default function AdminDashboardPage() {
                       onClick={(e) => {
                         const form = (e.target as HTMLElement).closest('form');
                         if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-rak-thae-mai-dai-mee-khae-nai-niyai.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_rak_thae_mai_dai_mee_khae_nai_niyai';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'รักแท้ไม่ได้มีแค่ในนิยาย~';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-rose-50 border border-slate-200 text-[10.5px] font-semibold text-rose-800 shadow-2xs"
+                    >
+                      + แบนเนอร์รักแท้ไม่ได้มีแค่ในนิยาย (สีชมพูพีช)
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
                           (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/books/tam-jai-hai-prom-buak.jpg';
                           (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_tam_jai_hai_prom_buak';
                           (form.elements.namedItem('title') as HTMLInputElement).value = 'ทำใจให้พร้อมบวก';
