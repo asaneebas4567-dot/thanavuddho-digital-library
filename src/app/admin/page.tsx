@@ -2460,6 +2460,21 @@ export default function AdminDashboardPage() {
                       onClick={(e) => {
                         const form = (e.target as HTMLElement).closest('form');
                         if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-world-civilization.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_world_civilization';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'อารยธรรมโลก: เรียนรู้ประวัติศาสตร์และความเป็นไปของมนุษยชาติ';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-50 border border-slate-200 text-[10.5px] font-semibold text-amber-900 shadow-2xs"
+                    >
+                      + แบนเนอร์อารยธรรมโลก (World Civilization)
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
                           (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/books/tam-jai-hai-prom-buak.jpg';
                           (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_tam_jai_hai_prom_buak';
                           (form.elements.namedItem('title') as HTMLInputElement).value = 'ทำใจให้พร้อมบวก';

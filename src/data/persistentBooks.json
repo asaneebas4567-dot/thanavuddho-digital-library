@@ -1,5 +1,38 @@
 [
   {
+    "id": "book_world_civilization",
+    "title": "อารยธรรมโลก (World Civilization)",
+    "subtitle": "เรียนรู้ประวัติศาสตร์และความเป็นไปของมนุษยชาติ",
+    "author_id": "author_001",
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "description": "หนังสือชุดอารยธรรมโลก เรียนรู้ประวัติศาสตร์ ความเป็นไปของมนุษยชาติ รากฐานความเจริญ และบทเรียนสำคัญจากอดีตสู่อนาคต รวบรวมทุกบทเรียนแบบครบชุดจาก PubHTML5 Bookcase",
+    "cover_image": "/images/banners/banner-world-civilization.jpg",
+    "cover": "/images/banners/banner-world-civilization.jpg",
+    "content_type": "book",
+    "category_ids": [
+      "cat_world_civ"
+    ],
+    "category_id": "cat_world_civ",
+    "tags": [
+      "อารยธรรมโลก",
+      "World Civilization",
+      "ประวัติศาสตร์",
+      "อารยธรรมโบราณ",
+      "PubHTML5",
+      "ตู้หนังสือ"
+    ],
+    "publication_year": 2565,
+    "page_count": 500,
+    "pages": 500,
+    "language": "th",
+    "pdf_url": "https://pubhtml5.com/bookcase/gxekw/",
+    "reader_url": "https://pubhtml5.com/bookcase/gxekw/",
+    "source_url": "https://pubhtml5.com/bookcase/gxekw/",
+    "status": "published",
+    "is_copyright": true,
+    "copyright_notice": "หนังสือลิขสิทธิ์"
+  },
+  {
     "id": "book_liang_look_style_sook",
     "title": "เลี้ยงลูกสไตล์สุข",
     "subtitle": "วิธีบ่มเพาะลูกวัยใสให้เป็นลูกแก้วสารพัดนึก \"สไตล์สุข\" ให้โตขึ้นเป็นทั้งเด็กเก่งและดี ตามหลักพุทธวิธี",

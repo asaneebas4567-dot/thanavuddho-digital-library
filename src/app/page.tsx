@@ -257,11 +257,18 @@ export default function Home() {
     .filter(Boolean) as Book[];
 
   // 4. ห้องเรียน อารยธรรมโลก (Deep Blue / Navy)
-  const worldCivBooks = allBooksPool.filter((b: any) => 
-    b.category_ids?.includes('cat_world_civ') ||
-    b.id.startsWith('pubhtml5_') ||
-    b.title.includes('อารยธรรม')
-  ).slice(0, 10);
+  const worldCivLeadBook = poolMap.get('book_world_civilization');
+  const otherWorldCivBooks = allBooksPool.filter((b: any) => 
+    b.id !== 'book_world_civilization' && (
+      b.category_ids?.includes('cat_world_civ') ||
+      b.id.startsWith('pubhtml5_') ||
+      b.title.includes('อารยธรรม')
+    )
+  );
+  const worldCivBooks = [
+    ...(worldCivLeadBook ? [worldCivLeadBook] : []),
+    ...otherWorldCivBooks
+  ].slice(0, 12);
 
   // 5. ไฮไลต์ชุดหนังสือดิจิทัล (Curated BKK Book Featured Highlight Pool)
   const featuredHighlightIds = [
