@@ -2340,7 +2340,7 @@ export default function AdminDashboardPage() {
                       onClick={(e) => {
                         const form = (e.target as HTMLElement).closest('form');
                         if (form) {
-                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-yoo-sook-digital.jpg';
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-yoo-sook-digital-official.jpg';
                           (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_yoo_sook_nai_yook_digital';
                           (form.elements.namedItem('title') as HTMLInputElement).value = 'อยู่สุขในยุคดิจิทัล';
                         }
