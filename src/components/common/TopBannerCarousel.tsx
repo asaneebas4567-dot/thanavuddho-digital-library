@@ -37,10 +37,17 @@ export default function TopBannerCarousel({
     return defaultList.filter((item: FlexibleShowcaseItem) => item.is_active);
   });
 
+  // Re-sync items when showcaseItems prop updates
+  useEffect(() => {
+    if (showcaseItems && showcaseItems.length > 0) {
+      setItems(showcaseItems.filter(item => item.is_active));
+    }
+  }, [showcaseItems]);
+
   // Fetch updated settings from backend API on mount
   useEffect(() => {
     let isMounted = true;
-    fetch('/api/admin/home-settings')
+    fetch('/api/admin/home-settings', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         if (isMounted && data.success && data.settings?.showcaseItems) {
