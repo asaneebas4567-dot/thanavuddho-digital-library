@@ -42,6 +42,18 @@
       "fit_mode": "contain"
     },
     {
+      "id": "showcase-banner-world-civ",
+      "type": "IMAGE_ONLY",
+      "title": "อารยธรรมโลก: เรียนรู้ประวัติศาสตร์และความเป็นไปของมนุษยชาติ",
+      "image_url": "/images/banners/banner-world-civilization.jpg",
+      "image_url_mobile": "/images/banners/banner-world-civilization.jpg",
+      "target_url": "/reader/book_world_civilization",
+      "is_clickable": true,
+      "order": 4,
+      "is_active": true,
+      "fit_mode": "contain"
+    },
+    {
       "id": "showcase-banner-phro-mai-roo",
       "type": "IMAGE_ONLY",
       "title": "เพราะไม่รู้สินะ ตอน รู้ทันชีวิต",
@@ -49,7 +61,7 @@
       "image_url_mobile": "/images/banners/banner-phro-mai-roo-si-na-roo-than-cheewit.jpg",
       "target_url": "/reader/book_เพราะไม่รู้สินะ-ตอน-รู้ทันชีวิต",
       "is_clickable": true,
-      "order": 4,
+      "order": 5,
       "is_active": true,
       "fit_mode": "contain"
     },
@@ -61,7 +73,7 @@
       "image_url_mobile": "/images/banners/banner-rak-thae-mai-dai-mee-khae-nai-niyai.jpg",
       "target_url": "/reader/book_rak_thae_mai_dai_mee_khae_nai_niyai",
       "is_clickable": true,
-      "order": 5,
+      "order": 6,
       "is_active": true,
       "fit_mode": "contain"
     },
@@ -73,7 +85,7 @@
       "image_url_mobile": "/images/banners/banner-mongkol-chiwit-thang-kaona.jpg",
       "target_url": "/reader/book_มงคลชีวิตฉบับทางก้าวหน้า-1",
       "is_clickable": true,
-      "order": 6,
+      "order": 7,
       "is_active": true,
       "fit_mode": "contain"
     },
@@ -85,7 +97,7 @@
       "image_url_mobile": "/images/banners/banner-samdun-tao-kap-dee.jpg",
       "target_url": "/reader/book_สมดุลเท่ากับดี",
       "is_clickable": true,
-      "order": 7,
+      "order": 8,
       "is_active": true,
       "fit_mode": "contain"
     },
@@ -97,7 +109,7 @@
       "image_url_mobile": "/images/banners/banner-khwam-sook-360.jpg",
       "target_url": "/reader/book_ความสุข-360-องศา",
       "is_clickable": true,
-      "order": 8,
+      "order": 9,
       "is_active": true,
       "fit_mode": "contain"
     },
@@ -108,18 +120,6 @@
       "image_url": "/images/banners/banner-tam-luang-pee-pai-go-inter.jpg",
       "image_url_mobile": "/images/banners/banner-tam-luang-pee-pai-go-inter.jpg",
       "target_url": "/reader/book_ตามหลวงพี่ไปโกอินเตอร์",
-      "is_clickable": true,
-      "order": 9,
-      "is_active": true,
-      "fit_mode": "contain"
-    },
-    {
-      "id": "showcase-banner-world-civ",
-      "type": "IMAGE_ONLY",
-      "title": "อารยธรรมโลก: เรียนรู้ประวัติศาสตร์และความเป็นไปของมนุษยชาติ",
-      "image_url": "/images/banners/banner-world-civilization.jpg",
-      "image_url_mobile": "/images/banners/banner-world-civilization.jpg",
-      "target_url": "/reader/book_world_civilization",
       "is_clickable": true,
       "order": 10,
       "is_active": true,

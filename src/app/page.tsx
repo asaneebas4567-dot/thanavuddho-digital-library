@@ -257,7 +257,26 @@ export default function Home() {
     .filter(Boolean) as Book[];
 
   // 4. ห้องเรียน อารยธรรมโลก (Deep Blue / Navy)
-  const worldCivLeadBook = poolMap.get('book_world_civilization');
+  const worldCivLeadBook: Book = customBooks.find(b => b.id === 'book_world_civilization') || poolMap.get('book_world_civilization') || ({
+    id: 'book_world_civilization',
+    title: 'อารยธรรมโลก (World Civilization)',
+    subtitle: 'เรียนรู้ประวัติศาสตร์และความเป็นไปของมนุษยชาติ',
+    author_id: 'author_001',
+    author: 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
+    description: 'หนังสือชุดอารยธรรมโลก เรียนรู้ประวัติศาสตร์ ความเป็นไปของมนุษยชาติ รากฐานความเจริญ และบทเรียนสำคัญจากอดีตสู่อนาคต รวบรวมทุกบทเรียนแบบครบชุดจาก PubHTML5 Bookcase',
+    cover: '/images/books/world-civilization.jpg',
+    cover_image: '/images/books/world-civilization.jpg',
+    pages: 500,
+    category_id: 'cat_world_civ',
+    category_ids: ['cat_world_civ'],
+    is_copyright: true,
+    copyright_notice: 'หนังสือลิขสิทธิ์',
+    pdf_url: 'https://pubhtml5.com/bookcase/gxekw/',
+    reader_url: 'https://pubhtml5.com/bookcase/gxekw/',
+    source_url: 'https://pubhtml5.com/bookcase/gxekw/',
+    status: 'published' as const,
+  } as unknown as Book);
+
   const otherWorldCivBooks = allBooksPool.filter((b: any) => 
     b.id !== 'book_world_civilization' && (
       b.category_ids?.includes('cat_world_civ') ||
@@ -266,9 +285,9 @@ export default function Home() {
     )
   );
   const worldCivBooks = [
-    ...(worldCivLeadBook ? [worldCivLeadBook] : []),
+    worldCivLeadBook,
     ...otherWorldCivBooks
-  ].slice(0, 12);
+  ];
 
   // 5. ไฮไลต์ชุดหนังสือดิจิทัล (Curated BKK Book Featured Highlight Pool)
   const featuredHighlightIds = [

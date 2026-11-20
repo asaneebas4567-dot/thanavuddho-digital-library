@@ -6,8 +6,8 @@
     "author_id": "author_001",
     "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
     "description": "หนังสือชุดอารยธรรมโลก เรียนรู้ประวัติศาสตร์ ความเป็นไปของมนุษยชาติ รากฐานความเจริญ และบทเรียนสำคัญจากอดีตสู่อนาคต รวบรวมทุกบทเรียนแบบครบชุดจาก PubHTML5 Bookcase",
-    "cover_image": "/images/banners/banner-world-civilization.jpg",
-    "cover": "/images/banners/banner-world-civilization.jpg",
+    "cover_image": "/images/books/world-civilization.jpg",
+    "cover": "/images/books/world-civilization.jpg",
     "content_type": "book",
     "category_ids": [
       "cat_world_civ"
