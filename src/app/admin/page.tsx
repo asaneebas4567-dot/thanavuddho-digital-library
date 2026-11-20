@@ -2415,6 +2415,51 @@ export default function AdminDashboardPage() {
                       onClick={(e) => {
                         const form = (e.target as HTMLElement).closest('form');
                         if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-samdun-tao-kap-dee.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_สมดุลเท่ากับดี';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'สมดุลเท่ากับดี';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-50 border border-slate-200 text-[10.5px] font-semibold text-teal-800 shadow-2xs"
+                    >
+                      + แบนเนอร์สมดุลเท่ากับดี
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-khwam-sook-360.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_ความสุข-360-องศา';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'บริหารความสุข 360 องศา';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-sky-50 border border-slate-200 text-[10.5px] font-semibold text-sky-800 shadow-2xs"
+                    >
+                      + แบนเนอร์บริหารความสุข 360°
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-tam-luang-pee-pai-go-inter.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_ตามหลวงพี่ไปโกอินเตอร์';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'ตามหลวงพี่ไป Go Inter';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 text-[10.5px] font-semibold text-blue-900 shadow-2xs"
+                    >
+                      + แบนเนอร์ตามหลวงพี่ไป Go Inter
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
                           (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/books/tam-jai-hai-prom-buak.jpg';
                           (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_tam_jai_hai_prom_buak';
                           (form.elements.namedItem('title') as HTMLInputElement).value = 'ทำใจให้พร้อมบวก';
