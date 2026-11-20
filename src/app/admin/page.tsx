@@ -2370,6 +2370,21 @@ export default function AdminDashboardPage() {
                       onClick={(e) => {
                         const form = (e.target as HTMLElement).closest('form');
                         if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-phro-mai-roo-si-na-roo-than-cheewit.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_เพราะไม่รู้สินะ-ตอน-รู้ทันชีวิต';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'เพราะไม่รู้สินะ ตอน รู้ทันชีวิต';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-emerald-50 border border-slate-200 text-[10.5px] font-semibold text-emerald-800 shadow-2xs"
+                    >
+                      + แบนเนอร์เพราะไม่รู้สินะ (รู้ทันชีวิต)
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
                           (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/books/tam-jai-hai-prom-buak.jpg';
                           (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_tam_jai_hai_prom_buak';
                           (form.elements.namedItem('title') as HTMLInputElement).value = 'ทำใจให้พร้อมบวก';
