@@ -2400,6 +2400,21 @@ export default function AdminDashboardPage() {
                       onClick={(e) => {
                         const form = (e.target as HTMLElement).closest('form');
                         if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-mongkol-chiwit-thang-kaona.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_มงคลชีวิตฉบับทางก้าวหน้า-1';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'มงคลชีวิต ฉบับ "ทางก้าวหน้า"';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-50 border border-slate-200 text-[10.5px] font-semibold text-amber-900 shadow-2xs"
+                    >
+                      + แบนเนอร์มงคลชีวิต ฉบับ "ทางก้าวหน้า"
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
                           (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/books/tam-jai-hai-prom-buak.jpg';
                           (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_tam_jai_hai_prom_buak';
                           (form.elements.namedItem('title') as HTMLInputElement).value = 'ทำใจให้พร้อมบวก';
