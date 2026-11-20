@@ -18,21 +18,16 @@
       "fit_mode": "contain"
     },
     {
-      "id": "showcase-book-tamjai",
-      "type": "BOOK_SHOWCASE",
-      "book_id": "book_tam_jai_hai_prom_buak",
+      "id": "showcase-banner-tamjai",
+      "type": "IMAGE_ONLY",
       "title": "ทำใจให้พร้อมบวก",
-      "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
-      "description": "สร้างสุขที่แท้จริง เปลี่ยนวิกฤตเป็นโอกาส ด้วยสูตรสำเร็จ 3 ประการ: ยอมรับ เข้าใจ เกิดประโยชน์",
-      "image_url": "/images/books/tam-jai-hai-prom-buak.jpg",
-      "image_url_mobile": "/images/books/tam-jai-hai-prom-buak.jpg",
+      "image_url": "/images/banners/banner-tam-jai-hai-prom-buak.jpg",
+      "image_url_mobile": "/images/banners/banner-tam-jai-hai-prom-buak.jpg",
       "target_url": "/reader/book_tam_jai_hai_prom_buak",
       "is_clickable": true,
       "order": 2,
       "is_active": true,
-      "fit_mode": "contain",
-      "badge": "📖 หนังสือแนะนำ",
-      "action_label": "เปิดอ่านหนังสือ (Flipbook)"
+      "fit_mode": "contain"
     },
     {
       "id": "showcase-banner-yoo-sook",

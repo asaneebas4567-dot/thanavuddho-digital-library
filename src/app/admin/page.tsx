@@ -2355,6 +2355,21 @@ export default function AdminDashboardPage() {
                       onClick={(e) => {
                         const form = (e.target as HTMLElement).closest('form');
                         if (form) {
+                          (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/banners/banner-tam-jai-hai-prom-buak.jpg';
+                          (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_tam_jai_hai_prom_buak';
+                          (form.elements.namedItem('title') as HTMLInputElement).value = 'ทำใจให้พร้อมบวก';
+                        }
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-pink-50 border border-slate-200 text-[10.5px] font-semibold text-pink-700 shadow-2xs"
+                    >
+                      + แบนเนอร์ทำใจให้พร้อมบวก (สีชมพู)
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const form = (e.target as HTMLElement).closest('form');
+                        if (form) {
                           (form.elements.namedItem('image_url') as HTMLInputElement).value = '/images/books/tam-jai-hai-prom-buak.jpg';
                           (form.elements.namedItem('target_url') as HTMLInputElement).value = '/reader/book_tam_jai_hai_prom_buak';
                           (form.elements.namedItem('title') as HTMLInputElement).value = 'ทำใจให้พร้อมบวก';
