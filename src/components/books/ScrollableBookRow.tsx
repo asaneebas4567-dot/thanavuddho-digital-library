@@ -146,11 +146,11 @@ function BookCoverItem({
   return (
     <Link 
       href={isBorrowed ? `/reader/${book.id}` : `/books/${book.id}`}
-      className="shrink-0 w-[128px] min-[370px]:w-[145px] sm:w-[160px] md:w-[172px] group/card cursor-pointer select-none block"
+      className="shrink-0 w-[150px] min-[370px]:w-[165px] sm:w-[185px] md:w-[205px] lg:w-[218px] group/card cursor-pointer select-none block"
       title={`${book.title} (คลิกเพื่อเข้าสู่หน้าหนังสือ)`}
     >
-      {/* 1. Book Poster with 3D Spine and Polite Lift */}
-      <div className="relative aspect-[1/1.42] w-full rounded-xl overflow-hidden bg-white shadow-[2px_4px_12px_rgba(0,0,0,0.10)] border border-slate-200/90 group-hover/card:border-sky-400 group-hover/card:shadow-[3px_8px_18px_rgba(7,159,232,0.22)] group-hover/card:-translate-y-1.5 transition-all duration-300">
+      {/* 1. Book Poster with 3D Spine and Polite Lift (MEB Style Big Cover) */}
+      <div className="relative aspect-[1/1.42] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.08)] border border-slate-200/90 group-hover/card:border-sky-400 group-hover/card:shadow-[0_12px_28px_rgba(7,159,232,0.24)] group-hover/card:-translate-y-1.5 transition-all duration-300">
         
         {/* Book Spine 3D Highlight Line on Left */}
         <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-r from-black/25 via-white/20 to-transparent pointer-events-none z-10" />
@@ -176,55 +176,57 @@ function BookCoverItem({
           </div>
         )}
 
-        {/* Badges on Cover - ทุกเล่มขึ้นลิขสิทธิ์ */}
-        <div className="absolute top-1.5 left-1.5 flex flex-col gap-1 z-20 select-none">
+        {/* Badges on Cover - สไตล์ป้ายส่วนลด/ลิขสิทธิ์บนปกมุมขวาบนแบบ MEB */}
+        <div className="absolute top-1.5 right-1.5 flex flex-col items-end gap-1 z-20 select-none">
+          <div className="bg-rose-600 text-white font-extrabold text-[8.5px] leading-none px-1.5 py-0.5 rounded shadow-xs">
+            ลิขสิทธิ์
+          </div>
           {isBorrowed && (
-            <div className="bg-emerald-600/95 text-white font-bold text-[7.5px] leading-none px-1.5 py-0.5 rounded shadow-xs flex items-center gap-0.5">
+            <div className="bg-emerald-600 text-white font-bold text-[8px] leading-none px-1.5 py-0.5 rounded shadow-xs flex items-center gap-0.5">
               <Check size={8} /> ยืมแล้ว
             </div>
           )}
-          <div className="bg-rose-700/90 text-white font-semibold text-[8px] leading-none px-1.5 py-0.5 rounded shadow-xs">
-            <span>ลิขสิทธิ์</span>
-          </div>
         </div>
 
         {/* Subtle Hover Action Indicator */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#073B65]/70 via-black/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity flex items-end justify-center p-2.5 z-20">
-          <span className="w-full py-1.5 rounded-lg bg-white text-[#073B65] font-bold text-[11px] shadow-md flex items-center justify-center gap-1.5">
-            <BookOpen size={12} className="text-[#079FE8]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#073B65]/75 via-black/25 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity flex items-end justify-center p-2.5 z-20">
+          <span className="w-full py-1.5 rounded-lg bg-white text-[#073B65] font-bold text-[11.5px] shadow-md flex items-center justify-center gap-1.5">
+            <BookOpen size={13} className="text-[#079FE8]" />
             <span>{isBorrowed ? 'เปิดอ่าน' : 'ดูรายละเอียด'}</span>
           </span>
         </div>
 
       </div>
 
-      {/* 2. Book Metadata Under Poster */}
+      {/* 2. Book Metadata Under Poster (MEB Book Card Style) */}
       <div className="mt-2 px-0.5">
-        <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium mb-0.5">
-          {pages ? (
-            <span className="font-semibold text-slate-600">{pages} หน้า</span>
-          ) : (
-            <span className="text-[10px] text-slate-400">ฉบับดิจิทัล</span>
-          )}
-          {readCount > 0 && (
-            <span className="flex items-center gap-0.5 text-slate-500 font-semibold text-[10px]">
-              <Eye size={11} className="text-[#079FE8]" /> {readCount.toLocaleString()}
-            </span>
-          )}
-        </div>
-
-        {/* Book Title (2 lines clamp, high contrast) */}
+        
+        {/* Book Title (2 lines clamp, bold, high contrast) */}
         <h3 
-          className="font-semibold text-xs sm:text-[13px] text-slate-800 line-clamp-2 leading-snug min-h-[2.2rem] group-hover/card:text-[#079FE8] transition-colors"
+          className="font-bold text-xs sm:text-[13.5px] text-slate-800 line-clamp-2 leading-snug min-h-[2.3rem] group-hover/card:text-[#079FE8] transition-colors"
           title={book.title}
         >
           {book.title}
         </h3>
         
         {/* Author Name */}
-        <p className="text-[11px] text-slate-500 truncate mt-0.5">
+        <p className="text-[11px] sm:text-xs text-slate-500 truncate mt-0.5">
           {authorName}
         </p>
+
+        {/* Rating and Price/Free Badge Row (MEB Style) */}
+        <div className="flex items-center justify-between mt-2 pt-1 border-t border-slate-100">
+          <div className="flex items-center gap-1 text-[11px] text-rose-500 font-extrabold tracking-tight">
+            <span>♥♥♥♥♥</span>
+            {readCount > 0 && (
+              <span className="text-[10px] text-slate-400 font-normal">({readCount})</span>
+            )}
+          </div>
+          <span className="px-2 py-0.5 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-[10.5px] shadow-2xs transition-colors">
+            อ่านฟรี
+          </span>
+        </div>
+
       </div>
 
     </Link>

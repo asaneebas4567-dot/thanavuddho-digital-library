@@ -71,7 +71,7 @@ export default function TopBannerCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(3);
+  const [visibleCount, setVisibleCount] = useState(4);
   const [progressKey, setProgressKey] = useState(0);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -81,16 +81,18 @@ export default function TopBannerCarousel({
   const mouseStartXRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Responsive items count: Mobile 1, Tablet 2, Desktop 3
+  // Responsive items count: Mobile 1, Small Tablet 2, Tablet/Small Desktop 3, Wide Desktop 4
   useEffect(() => {
     const handleResize = () => {
       if (typeof window === 'undefined') return;
       if (window.innerWidth < 640) {
         setVisibleCount(1);
-      } else if (window.innerWidth < 1024) {
+      } else if (window.innerWidth < 880) {
         setVisibleCount(2);
-      } else {
+      } else if (window.innerWidth < 1200) {
         setVisibleCount(3);
+      } else {
+        setVisibleCount(4);
       }
     };
 
@@ -222,7 +224,7 @@ export default function TopBannerCarousel({
         }
       `}</style>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-7">
         
         {/* 1. Header Bar: Title + Badge + Controls */}
         <div className="flex items-center justify-between gap-2.5 mb-3.5">
@@ -309,14 +311,14 @@ export default function TopBannerCarousel({
               return (
                 <div 
                   key={`${item.id}-${index}`}
-                  className="px-1.5 sm:px-2 shrink-0"
+                  className="px-1 sm:px-1.5 shrink-0"
                   style={{ width: `${cardWidthPercent}%` }}
                 >
                   {/* ========================================================= */}
-                  {/* TYPE A: IMAGE ONLY (แสดงเฉพาะภาพต้นฉบับ ไม่ซ้อนข้อความหรือปุ่ม) */}
+                  {/* TYPE A: IMAGE ONLY (แสดงเฉพาะภาพต้นฉบับ เต็มขอบ ไร้ขอบขาว)  */}
                   {/* ========================================================= */}
                   {item.type === 'IMAGE_ONLY' ? (
-                    <div className="group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-white/40 h-[195px] sm:h-[210px] hover:-translate-y-1">
+                    <div className="group relative rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-white/20 aspect-[2/1] w-full hover:-translate-y-1 bg-slate-900/10">
                       {isClickable ? (
                         <Link 
                           href={targetUrl}
@@ -327,9 +329,9 @@ export default function TopBannerCarousel({
                             src={encodeURI(item.image_url)}
                             alt={item.title || 'รูปภาพประชาสัมพันธ์'}
                             fill
-                            priority={index < 3}
-                            className={`${fitMode === 'cover' ? 'object-cover' : 'object-contain'} group-hover:scale-102 transition-transform duration-300`}
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            priority={index < 4}
+                            className="object-cover group-hover:scale-103 transition-transform duration-300"
+                            sizes="(max-width: 640px) 100vw, (max-width: 880px) 50vw, (max-width: 1200px) 33vw, 25vw"
                             unoptimized
                           />
                         </Link>
@@ -339,9 +341,9 @@ export default function TopBannerCarousel({
                             src={encodeURI(item.image_url)}
                             alt={item.title || 'รูปภาพประชาสัมพันธ์'}
                             fill
-                            priority={index < 3}
-                            className={`${fitMode === 'cover' ? 'object-cover' : 'object-contain'}`}
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            priority={index < 4}
+                            className="object-cover"
+                            sizes="(max-width: 640px) 100vw, (max-width: 880px) 50vw, (max-width: 1200px) 33vw, 25vw"
                             unoptimized
                           />
                         </div>
@@ -350,10 +352,10 @@ export default function TopBannerCarousel({
                   ) : 
 
                   /* ========================================================= */
-                  /* TYPE C: PROMOTIONAL BANNER (ภาพแบนเนอร์เต็มพื้นที่)       */
+                  /* TYPE C: PROMOTIONAL BANNER (ภาพแบนเนอร์เต็มพื้นที่ 2:1)     */
                   /* ========================================================= */
                   item.type === 'PROMOTIONAL_BANNER' ? (
-                    <div className="group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-white/40 h-[195px] sm:h-[210px] hover:-translate-y-1">
+                    <div className="group relative rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-white/20 aspect-[2/1] w-full hover:-translate-y-1 bg-slate-900/10">
                       {isClickable ? (
                         <Link 
                           href={targetUrl}
@@ -364,9 +366,9 @@ export default function TopBannerCarousel({
                             src={encodeURI(item.image_url)}
                             alt={item.title || 'แบนเนอร์ประชาสัมพันธ์'}
                             fill
-                            priority={index < 3}
-                            className={`${fitMode === 'contain' ? 'object-contain' : 'object-cover'} group-hover:scale-102 transition-transform duration-300`}
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            priority={index < 4}
+                            className="object-cover group-hover:scale-103 transition-transform duration-300"
+                            sizes="(max-width: 640px) 100vw, (max-width: 880px) 50vw, (max-width: 1200px) 33vw, 25vw"
                             unoptimized
                           />
                         </Link>
@@ -376,9 +378,9 @@ export default function TopBannerCarousel({
                             src={encodeURI(item.image_url)}
                             alt={item.title || 'แบนเนอร์ประชาสัมพันธ์'}
                             fill
-                            priority={index < 3}
-                            className={`${fitMode === 'contain' ? 'object-contain' : 'object-cover'}`}
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            priority={index < 4}
+                            className="object-cover"
+                            sizes="(max-width: 640px) 100vw, (max-width: 880px) 50vw, (max-width: 1200px) 33vw, 25vw"
                             unoptimized
                           />
                         </div>
@@ -387,15 +389,15 @@ export default function TopBannerCarousel({
                   ) : 
 
                   /* ========================================================= */
-                  /* TYPE B: BOOK SHOWCASE (ปก 2D แท้จากฐานข้อมูล พร้อมข้อมูลจริง) */
+                  /* TYPE B: BOOK SHOWCASE (ปก 2D เต็มความสูง ไร้กล่องขาวโล่ง)    */
                   /* ========================================================= */
                   (
-                    <div className="group relative rounded-2xl overflow-hidden bg-white p-3.5 sm:p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100 flex flex-row items-center gap-3.5 sm:gap-4 h-[195px] sm:h-[210px] hover:-translate-y-1">
+                    <div className="group relative rounded-xl sm:rounded-2xl overflow-hidden bg-gradient-to-br from-white via-slate-50 to-sky-50/50 p-2.5 sm:p-3.5 shadow-sm hover:shadow-xl transition-all duration-300 border border-white/80 flex flex-row items-center gap-2.5 sm:gap-3.5 aspect-[2/1] w-full hover:-translate-y-1">
                       
-                      {/* Left: Authentic 2D Book Cover (No fake 3D overlay) */}
+                      {/* Left: Authentic 2D Book Cover */}
                       <Link
                         href={targetUrl}
-                        className="relative w-20 sm:w-24 md:w-28 shrink-0 aspect-[3/4.2] rounded-md sm:rounded-lg overflow-hidden bg-slate-50 shadow-md border border-slate-200/80 group-hover:shadow-lg transition-shadow duration-300 block cursor-pointer"
+                        className="relative h-full aspect-[1/1.42] shrink-0 rounded-lg overflow-hidden bg-slate-100 shadow-md border border-slate-200/80 group-hover:shadow-lg transition-shadow duration-300 block cursor-pointer"
                         title={item.title}
                       >
                         {item.image_url ? (
@@ -403,9 +405,9 @@ export default function TopBannerCarousel({
                             src={encodeURI(item.image_url)}
                             alt={`ปก ${item.title}`}
                             fill
-                            loading={index < 3 ? 'eager' : 'lazy'}
-                            className={`${fitMode === 'cover' ? 'object-cover' : 'object-contain'} group-hover:scale-103 transition-transform duration-300`}
-                            sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 128px"
+                            loading={index < 4 ? 'eager' : 'lazy'}
+                            className="object-cover group-hover:scale-104 transition-transform duration-300"
+                            sizes="(max-width: 640px) 96px, 140px"
                             unoptimized
                           />
                         ) : (
@@ -424,19 +426,19 @@ export default function TopBannerCarousel({
 
                       {/* Right: Book Metadata & Action */}
                       <div className="flex-1 min-w-0 flex flex-col justify-between h-full py-0.5">
-                        <div>
+                        <div className="min-w-0">
                           {/* Badges Line */}
-                          <div className="flex items-center flex-wrap gap-1.5 mb-1.5">
+                          <div className="flex items-center flex-wrap gap-1 mb-1">
                             {item.badge ? (
-                              <span className="text-[9.5px] font-bold text-sky-800 bg-sky-100/90 border border-sky-200/90 px-1.5 py-0.5 rounded-full">
+                              <span className="text-[9px] font-bold text-sky-800 bg-sky-100/90 border border-sky-200/90 px-1.5 py-0.2 rounded-full truncate">
                                 {item.badge}
                               </span>
                             ) : (
-                              <span className="text-[9.5px] font-bold text-emerald-800 bg-emerald-100/90 border border-emerald-200/90 px-1.5 py-0.5 rounded-full">
-                                📖 หนังสือแนะนำ
+                              <span className="text-[9px] font-bold text-emerald-800 bg-emerald-100/90 border border-emerald-200/90 px-1.5 py-0.2 rounded-full">
+                                📖 แนะนำ
                               </span>
                             )}
-                            <span className="text-[9.5px] font-bold text-rose-800 bg-rose-100/90 border border-rose-200/90 px-1.5 py-0.5 rounded-full">
+                            <span className="text-[9px] font-bold text-rose-800 bg-rose-100/90 border border-rose-200/90 px-1.5 py-0.2 rounded-full">
                               ลิขสิทธิ์
                             </span>
                           </div>
@@ -444,38 +446,31 @@ export default function TopBannerCarousel({
                           {/* Title */}
                           <Link href={targetUrl}>
                             <h3 
-                              className="text-xs sm:text-sm md:text-base font-bold text-slate-800 group-hover:text-sky-700 transition-colors line-clamp-1 sm:line-clamp-2 leading-snug"
+                              className="text-xs sm:text-[13px] font-bold text-slate-800 group-hover:text-sky-700 transition-colors line-clamp-1 leading-snug"
                               title={item.title}
                             >
                               {item.title}
                             </h3>
                           </Link>
 
-                          {/* Author */}
-                          {item.author && (
-                            <p className="text-[11px] font-medium text-slate-500 truncate mt-0.5">
-                              {item.author}
-                            </p>
-                          )}
-
                           {/* Description */}
                           {item.description && (
-                            <p className="text-[11px] sm:text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+                            <p className="text-[10px] sm:text-[11px] text-slate-600 mt-0.5 line-clamp-2 leading-relaxed">
                               {item.description}
                             </p>
                           )}
                         </div>
 
                         {/* Action Button */}
-                        <div className="mt-2.5 pt-1.5">
+                        <div className="mt-1">
                           <Link
                             href={targetUrl}
-                            className="inline-flex items-center gap-1 sm:gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                            className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#079FE8] hover:bg-[#0588c7] text-white text-[10.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer"
                             title={`เปิดอ่านหนังสือ: ${item.title}`}
                           >
-                            <BookOpen size={12} className="shrink-0" />
-                            <span>{item.action_label || 'เปิดอ่านหนังสือ (Flipbook)'}</span>
-                            <ChevronRight size={13} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                            <BookOpen size={11} className="shrink-0" />
+                            <span>{item.action_label || 'เปิดอ่าน (Flipbook)'}</span>
+                            <ChevronRight size={11} className="shrink-0" />
                           </Link>
                         </div>
 

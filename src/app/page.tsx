@@ -320,7 +320,7 @@ export default function Home() {
       />
 
       {/* 2. Main Content Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full space-y-8 sm:space-y-10 pt-4 sm:pt-6 pb-24 lg:pb-16">
+      <div className="max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-7 w-full space-y-8 sm:space-y-10 pt-4 sm:pt-6 pb-24 lg:pb-16">
         
         {/* 1. Webtoon Ranking Shelf (Weekly TOP 5) - Showcase books first */}
         <div id="ranking" className="pt-1">

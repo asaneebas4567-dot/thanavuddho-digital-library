@@ -15,7 +15,7 @@
       "is_clickable": true,
       "order": 1,
       "is_active": true,
-      "fit_mode": "contain"
+      "fit_mode": "cover"
     },
     {
       "id": "showcase-banner-tamjai",
@@ -27,7 +27,7 @@
       "is_clickable": true,
       "order": 2,
       "is_active": true,
-      "fit_mode": "contain"
+      "fit_mode": "cover"
     },
     {
       "id": "showcase-banner-yoo-sook",
@@ -39,7 +39,7 @@
       "is_clickable": true,
       "order": 3,
       "is_active": true,
-      "fit_mode": "contain"
+      "fit_mode": "cover"
     },
     {
       "id": "showcase-banner-world-civ",
@@ -51,7 +51,7 @@
       "is_clickable": true,
       "order": 4,
       "is_active": true,
-      "fit_mode": "contain"
+      "fit_mode": "cover"
     },
     {
       "id": "showcase-banner-phro-mai-roo",
@@ -63,7 +63,7 @@
       "is_clickable": true,
       "order": 5,
       "is_active": true,
-      "fit_mode": "contain"
+      "fit_mode": "cover"
     },
     {
       "id": "showcase-banner-rak-thae",
@@ -75,7 +75,7 @@
       "is_clickable": true,
       "order": 6,
       "is_active": true,
-      "fit_mode": "contain"
+      "fit_mode": "cover"
     },
     {
       "id": "showcase-banner-mongkol",
@@ -87,7 +87,7 @@
       "is_clickable": true,
       "order": 7,
       "is_active": true,
-      "fit_mode": "contain"
+      "fit_mode": "cover"
     },
     {
       "id": "showcase-banner-samdun",
@@ -99,7 +99,7 @@
       "is_clickable": true,
       "order": 8,
       "is_active": true,
-      "fit_mode": "contain"
+      "fit_mode": "cover"
     },
     {
       "id": "showcase-banner-happiness-360",
@@ -111,7 +111,7 @@
       "is_clickable": true,
       "order": 9,
       "is_active": true,
-      "fit_mode": "contain"
+      "fit_mode": "cover"
     },
     {
       "id": "showcase-banner-go-inter",
@@ -123,7 +123,7 @@
       "is_clickable": true,
       "order": 10,
       "is_active": true,
-      "fit_mode": "contain"
+      "fit_mode": "cover"
     },
     {
       "id": "showcase-book-khao-sook",
@@ -138,7 +138,7 @@
       "is_clickable": true,
       "order": 11,
       "is_active": true,
-      "fit_mode": "contain",
+      "fit_mode": "cover",
       "badge": "🤝 มิตรภาพ & สังคม",
       "action_label": "เปิดอ่านหนังสือ (Flipbook)"
     },
@@ -155,7 +155,7 @@
       "is_clickable": true,
       "order": 12,
       "is_active": true,
-      "fit_mode": "contain",
+      "fit_mode": "cover",
       "badge": "🌸 พัฒนาจิตใจ",
       "action_label": "เปิดอ่านหนังสือ (Flipbook)"
     },
@@ -172,7 +172,7 @@
       "is_clickable": true,
       "order": 13,
       "is_active": true,
-      "fit_mode": "contain",
+      "fit_mode": "cover",
       "badge": "✨ เล่มมาใหม่",
       "action_label": "เปิดอ่านหนังสือ (Flipbook)"
     }
