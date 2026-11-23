@@ -377,7 +377,7 @@ function BooksContent() {
 
   return (
     <div className="bg-[#F8FAFC] min-h-screen py-6 sm:py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1720px] mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="mb-6">

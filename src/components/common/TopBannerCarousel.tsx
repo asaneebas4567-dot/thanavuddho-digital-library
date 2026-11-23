@@ -306,7 +306,8 @@ export default function TopBannerCarousel({
             {items.map((item, index) => {
               const targetUrl = item.target_url || (item.book_id ? `/reader/${item.book_id}` : '#');
               const isClickable = item.is_clickable !== false;
-              const fitMode = item.fit_mode || (item.type === 'PROMOTIONAL_BANNER' ? 'cover' : 'contain');
+              const fitMode = item.fit_mode || 'cover';
+              const isContain = fitMode === 'contain';
 
               return (
                 <div 
@@ -318,7 +319,7 @@ export default function TopBannerCarousel({
                   {/* TYPE A: IMAGE ONLY (แสดงเฉพาะภาพต้นฉบับ เต็มขอบ ไร้ขอบขาว)  */}
                   {/* ========================================================= */}
                   {item.type === 'IMAGE_ONLY' ? (
-                    <div className="group relative rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-white/20 aspect-[2/1] w-full hover:-translate-y-1 bg-slate-900/10">
+                    <div className={`group relative rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-white/20 aspect-[2/1] w-full hover:-translate-y-1 ${isContain ? 'bg-gradient-to-r from-[#B9E6F5] via-[#D8F0FA] to-[#B9E6F5]' : 'bg-slate-900/10'}`}>
                       {isClickable ? (
                         <Link 
                           href={targetUrl}
@@ -330,7 +331,7 @@ export default function TopBannerCarousel({
                             alt={item.title || 'รูปภาพประชาสัมพันธ์'}
                             fill
                             priority={index < 4}
-                            className="object-cover group-hover:scale-103 transition-transform duration-300"
+                            className={`${isContain ? 'object-contain' : 'object-cover'} group-hover:scale-102 transition-transform duration-300`}
                             sizes="(max-width: 640px) 100vw, (max-width: 880px) 50vw, (max-width: 1200px) 33vw, 25vw"
                             unoptimized
                           />
@@ -342,7 +343,7 @@ export default function TopBannerCarousel({
                             alt={item.title || 'รูปภาพประชาสัมพันธ์'}
                             fill
                             priority={index < 4}
-                            className="object-cover"
+                            className={isContain ? 'object-contain' : 'object-cover'}
                             sizes="(max-width: 640px) 100vw, (max-width: 880px) 50vw, (max-width: 1200px) 33vw, 25vw"
                             unoptimized
                           />

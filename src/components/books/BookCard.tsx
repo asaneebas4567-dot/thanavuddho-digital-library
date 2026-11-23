@@ -47,13 +47,13 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
     <div className="group relative bg-white border border-slate-200/90 rounded-2xl shadow-2xs hover:shadow-md hover:border-[#079FE8]/60 transition-all duration-200 flex flex-col h-full overflow-hidden">
       
       {/* Cover Artwork Container */}
-      <div className="relative aspect-[3/4] w-full bg-slate-50/70 overflow-hidden flex items-center justify-center p-2.5 min-[370px]:p-3.5 sm:p-5 border-b border-slate-100">
+      <div className="relative aspect-[3/4] w-full bg-slate-50/70 overflow-hidden flex items-center justify-center p-1.5 min-[370px]:p-2 sm:p-2.5 border-b border-slate-100">
         
         {/* Subtle shadow on hover */}
         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
 
-        {/* 3D Book Frame */}
-        <div className="book-cover-3d relative w-24 min-[370px]:w-28 sm:w-36 aspect-[1/1.42] rounded-md overflow-hidden bg-slate-900 ring-1 ring-black/10 group-hover:scale-102 transition-transform duration-200 shadow-sm">
+        {/* 3D Book Frame - Enlarged to fill space prominently */}
+        <div className="book-cover-3d relative w-[80%] min-[370px]:w-[84%] sm:w-[86%] max-w-[230px] aspect-[1/1.42] rounded-lg overflow-hidden bg-slate-900 ring-1 ring-black/10 group-hover:scale-103 transition-transform duration-200 shadow-md">
           
           {/* Copyright & Borrowed Badges - ทุกเล่มขึ้นลิขสิทธิ์ */}
           <div className="absolute top-1.5 right-1.5 flex flex-col items-end gap-1 z-20 select-none">
