@@ -272,7 +272,7 @@ export default function Home() {
     subtitle: 'เรียนรู้ประวัติศาสตร์และความเป็นไปของมนุษยชาติ',
     author_id: 'author_001',
     author: 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)',
-    description: 'หนังสือชุดอารยธรรมโลก เรียนรู้ประวัติศาสตร์ ความเป็นไปของมนุษยชาติ รากฐานความเจริญ และบทเรียนสำคัญจากอดีตสู่อนาคต รวบรวมทุกบทเรียนแบบครบชุดจาก PubHTML5 Bookcase',
+    description: 'หนังสือชุดอารยธรรมโลก เรียนรู้ประวัติศาสตร์ ความเป็นไปของมนุษยชาติ รากฐานความเจริญ และบทเรียนสำคัญจากอดีตสู่อนาคต',
     cover: '/images/books/world-civilization.jpg',
     cover_image: '/images/books/world-civilization.jpg',
     pages: 500,
@@ -280,9 +280,9 @@ export default function Home() {
     category_ids: ['cat_world_civ'],
     is_copyright: true,
     copyright_notice: 'หนังสือลิขสิทธิ์',
-    pdf_url: 'https://pubhtml5.com/bookcase/gxekw/',
-    reader_url: 'https://pubhtml5.com/bookcase/gxekw/',
-    source_url: 'https://pubhtml5.com/bookcase/gxekw/',
+    pdf_url: 'https://online.pubhtml5.com/tpxal/pzdt/index.html',
+    reader_url: 'https://online.pubhtml5.com/tpxal/pzdt/index.html',
+    source_url: 'https://online.pubhtml5.com/tpxal/pzdt/index.html',
     status: 'published' as const,
   } as unknown as Book);
 
