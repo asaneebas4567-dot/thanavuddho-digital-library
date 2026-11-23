@@ -162,7 +162,7 @@ function BooksContent() {
     const seenTitles = new Map<string, Book>();
 
     const addBook = (book: Book) => {
-      if (!book || !book.id || IGNORED_BOOK_IDS.has(book.id)) return;
+      if (!book || !book.id || IGNORED_BOOK_IDS.has(book.id) || (book as any).is_external_store) return;
       if (seenIds.has(book.id)) return;
 
       // Ensure every book is marked with digital copyright

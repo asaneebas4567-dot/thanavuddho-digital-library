@@ -25,7 +25,7 @@ const allBooksCatalog = (() => {
   const map = new Map<string, any>();
   for (const b of dbBooks) map.set(b.id, b);
   for (const b of (persistentBooksJson as any[])) map.set(b.id, b);
-  return Array.from(map.values());
+  return Array.from(map.values()).filter((b: any) => !b.is_external_store);
 })();
 
 // Real snippet extraction around the matched search query
