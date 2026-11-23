@@ -25,7 +25,16 @@ const allBooksCatalog = (() => {
   const map = new Map<string, any>();
   for (const b of dbBooks) map.set(b.id, b);
   for (const b of (persistentBooksJson as any[])) map.set(b.id, b);
-  return Array.from(map.values()).filter((b: any) => !b.is_external_store);
+  return Array.from(map.values()).filter((b: any) => {
+    if (!b || b.is_external_store) return false;
+    const t = b.title || '';
+    if (t.includes('เลี้ยงลูกสไตล์สุข') || b.id?.includes('liang_look_style_sook')) return false;
+    if (t.includes('24 ชม') || b.id?.includes('24_chom')) return false;
+    if (t.includes('ดีชั่ว') || b.id?.includes('dee_chua')) return false;
+    if (t.includes('ขัดเกลาความคิด') || b.id?.includes('khad_klao')) return false;
+    if (t.includes('ตัวเราไม่ธรรมดา') || b.id?.includes('tua_rao')) return false;
+    return true;
+  });
 })();
 
 // Real snippet extraction around the matched search query

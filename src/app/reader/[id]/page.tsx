@@ -18,6 +18,16 @@ function resolveReaderBook(rawId: string): any {
   const decodedId = decodeURIComponent(rawId).trim();
   const trimmedRaw = rawId.trim();
 
+  const isExcluded = (idStr: string) => {
+    const s = (idStr || '').toLowerCase();
+    return s.includes('dee_chua') || s.includes('ดีชั่ว') ||
+           s.includes('24_chom') || s.includes('24 ชม') ||
+           s.includes('tua_rao') || s.includes('ตัวเรา') ||
+           s.includes('khad_klao') || s.includes('ขัดเกลา') ||
+           s.includes('liang_look') || s.includes('เลี้ยงลูกสไตล์สุข');
+  };
+  if (isExcluded(rawId) || isExcluded(decodedId)) return null;
+
   // Legacy ID mapping for placeholder IDs
   const LEGACY_ID_MAP: Record<string, string> = {
     'book_001': 'book_มงคลชีวิตฉบับทางก้าวหน้า-1',
@@ -68,8 +78,7 @@ function resolveReaderBook(rawId: string): any {
     if (found) return found;
   }
 
-  // 6. Safe fallback: first available book instead of throwing 404
-  return allPool[0] || null;
+  return null;
 }
 
 function BookReaderContent({ bookId }: { bookId: string }) {
@@ -79,7 +88,38 @@ function BookReaderContent({ bookId }: { bookId: string }) {
 
   const foundBook = resolveReaderBook(bookId);
 
-  const rawCover = foundBook?.cover_image || foundBook?.cover || '';
+  if (!foundBook) {
+    return (
+      <div className="min-h-screen bg-[#F0F8FD]/60 flex flex-col justify-between font-sans">
+        <header className="bg-white border-b border-[#DCEAF3] px-4 sm:px-6 py-3 flex items-center justify-between shadow-xs">
+          <Link
+            href="/books"
+            className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#073B65] hover:text-[#079FE8] transition-colors"
+          >
+            <ArrowLeft size={16} />
+            <span>กลับไปหน้ารวมหนังสือ</span>
+          </Link>
+        </header>
+        <main className="flex-1 flex items-center justify-center p-4 sm:p-6">
+          <div className="max-w-md w-full bg-white rounded-3xl border border-[#DCEAF3] shadow-xl p-6 sm:p-8 text-center space-y-4">
+            <div className="w-16 h-16 rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center mx-auto shadow-inner">
+              <BookOpen size={32} />
+            </div>
+            <h1 className="text-lg font-bold text-[#073B65]">ไม่พบหนังสือเล่มนี้</h1>
+            <p className="text-xs text-[#64748B]">หนังสือเล่มนี้ถูกนำออกจากระบบแล้ว หรือไม่มีเนื้อหาให้อ่านในห้องสมุดดิจิทัล</p>
+            <Link
+              href="/books"
+              className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-[#079FE8] text-white font-bold text-sm shadow-md hover:bg-[#0680BA] transition-colors"
+            >
+              เลือกอ่านหนังสือเล่มอื่น
+            </Link>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  const rawCover = foundBook.cover_image || foundBook.cover || '';
   const secureCover = rawCover.startsWith('http://online.pubhtml5.com')
     ? rawCover.replace('http://', 'https://')
     : (rawCover || '/images/books/book-placeholder.jpg');

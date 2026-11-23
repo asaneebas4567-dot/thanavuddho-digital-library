@@ -134,9 +134,7 @@ export default function Home() {
     if (s.includes('ข้อคิดรอบตัว')) return 'canon_kho_khit_rob_tua';
     if (s.includes('ศาสตร์') && s.includes('สมาธิ')) return 'canon_science_of_meditation';
     if (s.includes('มังกรสอนใจ')) return 'canon_mangkon_son_jai';
-    if (s.includes('ขัดเกลาความคิด')) return 'canon_khad_glao_khwam_kid';
     if (s.includes('ไขปัญหาความเชื่อ')) return 'canon_khai_panha_khwam_cheua';
-    if (s.includes('ดีชั่ว') && s.includes('กรรมหรือบังเอิญ')) return 'canon_dee_chua';
 
     // For "ทันโลกทันธรรม" volumes
     const matchTL = s.match(/ทันโลก\s*ทันธรรม\s*(?:เล่ม)?\s*([1-5])/);
@@ -156,11 +154,24 @@ export default function Home() {
     'pubhtml5_99201494', 'pubhtml5_85353008'
   ]);
 
+  const isExcludedBook = (b: Book) => {
+    if (!b) return true;
+    if (IGNORED_BOOK_IDS.has(b.id)) return true;
+    if ((b as any).is_external_store) return true;
+    const t = b.title || '';
+    if (t.includes('เลี้ยงลูกสไตล์สุข') || b.id.includes('liang_look_style_sook')) return true;
+    if (t.includes('24 ชม') || b.id.includes('24_chom')) return true;
+    if (t.includes('ดีชั่ว') || b.id.includes('dee_chua')) return true;
+    if (t.includes('ขัดเกลาความคิด') || b.id.includes('khad_klao')) return true;
+    if (t.includes('ตัวเราไม่ธรรมดา') || b.id.includes('tua_rao')) return true;
+    return false;
+  };
+
   const poolMap = new Map<string, Book>();
   const seenTitles = new Map<string, Book>();
 
   const addPoolBook = (b: Book) => {
-    if (!b || !b.id || IGNORED_BOOK_IDS.has(b.id)) return;
+    if (!b || !b.id || isExcludedBook(b)) return;
     
     // Ensure every book is marked as digital copyright
     b.is_copyright = true;
@@ -223,7 +234,6 @@ export default function Home() {
 
   // 2. ครอบครัว ความรัก & สุขภาพกายใจ (นำเล่มลิขสิทธิ์ขึ้นแสดงแถวหน้า)
   const familyHealthBookIds = [
-    'book_liang_look_style_sook',
     'book_ความลับของความรัก',
     'book_ความรักรสอูมามิ',
     'book_khao_kor_sook_rao_kor_sook',

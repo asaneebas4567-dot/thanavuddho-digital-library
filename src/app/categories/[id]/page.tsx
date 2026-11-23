@@ -39,7 +39,20 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
 
   // Deduplicate books by id
   const seenBookIds = new Set<string>();
+  const isExcluded = (b: any) => {
+    if (!b) return true;
+    if (b.is_external_store) return true;
+    const t = b.title || '';
+    if (t.includes('เลี้ยงลูกสไตล์สุข') || b.id?.includes('liang_look_style_sook')) return true;
+    if (t.includes('24 ชม') || b.id?.includes('24_chom')) return true;
+    if (t.includes('ดีชั่ว') || b.id?.includes('dee_chua')) return true;
+    if (t.includes('ขัดเกลาความคิด') || b.id?.includes('khad_klao')) return true;
+    if (t.includes('ตัวเราไม่ธรรมดา') || b.id?.includes('tua_rao')) return true;
+    return false;
+  };
+
   const categoryBooks = allMergedBooks.filter(b => {
+    if (isExcluded(b)) return false;
     if (seenBookIds.has(b.id)) return false;
     const matches = allowedIds.includes(b.category_id) || b.category_ids?.some((cid: string) => allowedIds.includes(cid));
     if (matches) seenBookIds.add(b.id);

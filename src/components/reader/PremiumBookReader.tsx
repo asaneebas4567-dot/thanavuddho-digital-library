@@ -107,7 +107,6 @@ export function resolveBookPdfUrl(book: {
     'book_love-myself-รักในตัวตน': '/books/pdf/love-myself-rak-nai-tua-ton.pdf',
     'book_secret-of-love-รักลูกอย่างไรไม่ให้เสียน้ำตา': '/books/pdf/secret-of-love-rak-look.pdf',
     'book_the-lover-รักเป็นจะเห็นใจ': '/books/pdf/the-lover-rak-pen-ja-hen-jai.pdf',
-    'book_ขัดเกลาความคิด': '/books/pdf/khad-klao-khwam-kid.pdf',
     'book_ข้อคิดรอบตัว': '/books/pdf/kho-khit-rob-tua.pdf',
     'book_ทันโลก-ทันธรรม-3': '/books/pdf/than-lok-than-dhamma-3.pdf',
     'book_ทันโลกทันธรรม1': '/books/pdf/than-lok-than-dhamma-1.pdf',
@@ -141,7 +140,6 @@ export function resolveBookPdfUrl(book: {
     'pubhtml5_23054983': '/books/pdf/kho-khit-rob-tua.pdf',
     'pubhtml5_68005005': '/books/pdf/อย่ามโน.pdf',
     'pubhtml5_89853151': '/books/pdf/phra-traipidok-dhammachai.pdf',
-    'pubhtml5_33738617': '/books/pdf/khad-klao-khwam-kid.pdf',
     'pubhtml5_16604262': '/books/pdf/เส้นทางพระบรมฯ.pdf',
     'pubhtml5_10811287': '/books/pdf/khai-panha-khwam-chuea.pdf',
     'pubhtml5_86887339': '/books/pdf/than-lok-than-dhamma-3.pdf',
@@ -154,9 +152,6 @@ export function resolveBookPdfUrl(book: {
   if (EXACT_ID_MAP[`book_${rawId}`]) return EXACT_ID_MAP[`book_${rawId}`];
 
   // 3. Precise Semantic / Title Mappings for Authentic Library Books
-  if (title.includes('ขัดเกลาความคิด') || id.includes('khad_klao')) {
-    return '/books/pdf/khad-klao-khwam-kid.pdf';
-  }
   if (title.includes('ทันโลกทันธรรม 3') || title.includes('ทันโลก ทันธรรม 3') || id.includes('than_lok_3')) {
     return '/books/pdf/than-lok-than-dhamma-3.pdf';
   }

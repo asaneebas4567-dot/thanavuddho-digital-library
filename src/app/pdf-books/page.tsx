@@ -50,7 +50,19 @@ export default function PdfBooksPage() {
         copyright_notice: 'หนังสือลิขสิทธิ์',
       }));
 
-    return [...customPdfBooks, ...libPdfBooks];
+    const isExcluded = (b: any) => {
+      if (!b) return true;
+      if (b.is_external_store) return true;
+      const t = b.title || '';
+      if (t.includes('เลี้ยงลูกสไตล์สุข') || b.id?.includes('liang_look_style_sook')) return true;
+      if (t.includes('24 ชม') || b.id?.includes('24_chom')) return true;
+      if (t.includes('ดีชั่ว') || b.id?.includes('dee_chua')) return true;
+      if (t.includes('ขัดเกลาความคิด') || b.id?.includes('khad_klao')) return true;
+      if (t.includes('ตัวเราไม่ธรรมดา') || b.id?.includes('tua_rao')) return true;
+      return false;
+    };
+
+    return [...customPdfBooks, ...libPdfBooks].filter(b => !isExcluded(b));
   }, []);
 
   // Pick 3 random recommended PDF books

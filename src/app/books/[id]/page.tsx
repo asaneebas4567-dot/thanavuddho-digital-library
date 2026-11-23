@@ -27,6 +27,16 @@ function resolveBook(rawId: string): any {
   const decodedId = decodeURIComponent(rawId).trim();
   const trimmedRaw = rawId.trim();
 
+  const isExcluded = (idStr: string) => {
+    const s = (idStr || '').toLowerCase();
+    return s.includes('dee_chua') || s.includes('ดีชั่ว') ||
+           s.includes('24_chom') || s.includes('24 ชม') ||
+           s.includes('tua_rao') || s.includes('ตัวเรา') ||
+           s.includes('khad_klao') || s.includes('ขัดเกลา') ||
+           s.includes('liang_look') || s.includes('เลี้ยงลูกสไตล์สุข');
+  };
+  if (isExcluded(rawId) || isExcluded(decodedId)) return null;
+
   // Legacy ID mapping for placeholder IDs
   const LEGACY_ID_MAP: Record<string, string> = {
     'book_001': 'book_มงคลชีวิตฉบับทางก้าวหน้า-1',
@@ -74,8 +84,7 @@ function resolveBook(rawId: string): any {
     if (found) return found;
   }
 
-  // 6. Fallback: Return first authentic book rather than 404
-  return allPool[0] || null;
+  return null;
 }
 
 export default async function BookDetailPage({ params }: { params: Promise<{ id: string }> }) {
