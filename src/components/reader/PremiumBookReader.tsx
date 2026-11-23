@@ -266,8 +266,7 @@ export function resolveBookPdfUrl(book: {
     return `/api/pdf-proxy?url=${encodeURIComponent(candidate)}`;
   }
 
-  // 5. Ultimate Fallback to Authentic Library Book
-  return '/books/pdf/tam-jai-hai-prom-buak.pdf';
+  return candidate || '';
 }
 
 function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) {
@@ -576,24 +575,9 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
           .catch(() => {});
       })
       .catch(err => {
-        console.warn('PDF primary load failed, loading library authentic fallback:', err);
-        // Automatic fallback to verified local PDF so flipbook mode ALWAYS works seamlessly!
-        if (rawPdfUrl !== '/books/pdf/tam-jai-hai-prom-buak.pdf') {
-          loadPdfDocument('/books/pdf/tam-jai-hai-prom-buak.pdf')
-            .then(doc => {
-              setPdfDoc(doc);
-              setPdfActualPageCount(doc.numPages);
-              setIsPdfLoading(false);
-            })
-            .catch(fallbackErr => {
-              console.error('All PDF fallbacks failed:', fallbackErr);
-              setPdfError('ไม่สามารถโหลดเอกสารได้ กรุณาลองใหม่อีกครั้ง');
-              setIsPdfLoading(false);
-            });
-        } else {
-          setPdfError('ไม่สามารถโหลดเอกสารได้ กรุณาลองใหม่อีกครั้ง');
-          setIsPdfLoading(false);
-        }
+        console.warn('PDF primary load failed:', err);
+        setPdfError('ไม่สามารถโหลดเอกสาร PDF ของหนังสือเล่มนี้ได้ในรูปแบบ 3D Flipbook');
+        setIsPdfLoading(false);
       });
   }, [rawPdfUrl]);
 
@@ -1541,6 +1525,16 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
             <p className="text-xs text-zinc-300 mb-4 leading-relaxed">{pdfError}</p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
+              {(book.reader_url || book.source_url || (book as any).drive_file_id) && (
+                <button
+                  onClick={() => router.push(`/reader/${book.id}?mode=embed`)}
+                  className="w-full sm:w-auto px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                >
+                  <BookOpen size={14} />
+                  <span>เปิดอ่านผ่าน Web Viewer</span>
+                </button>
+              )}
+
               <button
                 onClick={loadPdf}
                 className="w-full sm:w-auto px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5"

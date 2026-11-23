@@ -332,23 +332,24 @@ function BookReaderContent({ bookId }: { bookId: string }) {
     );
   }
 
-  // Check if book is strictly an external PubHTML5 flipbook with no local PDF (World Civilization series 1-14)
-  const isExternalPubHtml5Only = Boolean(
-    (book.category_id === 'cat_world_civ' || (book.category_ids && book.category_ids.includes('cat_world_civ'))) &&
-    !book.pdf_url?.startsWith('/books/pdf/')
+  // Check if book has a verified local PDF
+  const hasLocalPdf = Boolean(book.pdf_url?.startsWith('/books/pdf/'));
+
+  // Check if book is an external flipbook/web reader (PubHTML5 / Google Drive preview)
+  const isExternalEmbed = Boolean(
+    book.reader_type === 'external' ||
+    book.has_flipbook === false ||
+    (book.reader_url && (book.reader_url.includes('pubhtml5.com') || book.reader_url.includes('drive.google.com'))) ||
+    (book.pdf_url && (book.pdf_url.includes('pubhtml5.com') || book.pdf_url.includes('drive.google.com'))) ||
+    (!hasLocalPdf && (book.reader_url || (book as any).drive_file_id))
   );
 
-  // 1. Explicit query param requested
-  if (modeParam === 'embed' && (book.reader_url || book.source_url || book.pdf_url || (book as any).drive_file_id)) {
-    return <PubHtml5Reader book={book} hasLocalPdf={true} />;
+  // 1. Explicit embed query param requested, OR book only exists as external web embed
+  if (modeParam === 'embed' || (!hasLocalPdf && isExternalEmbed && modeParam !== 'flip')) {
+    return <PubHtml5Reader book={book} hasLocalPdf={hasLocalPdf} />;
   }
 
-  // 2. World Civilization external webtoon / PubHTML5 series without local PDF
-  if (isExternalPubHtml5Only && modeParam !== 'flip') {
-    return <PubHtml5Reader book={book} hasLocalPdf={false} />;
-  }
-
-  // 3. For ALL Library books: Launch the complete 3D Flipbook Reader system (ระบบของที่ทำมา)
+  // 2. Launch 3D Flipbook Reader for books with verified local PDF
   return <PremiumBookReader book={book} initialPage={initialPage} />;
 }
 

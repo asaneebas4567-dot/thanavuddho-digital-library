@@ -183,42 +183,42 @@ function QuizGamificationContent() {
               <Trophy size={14} className="text-[#D9A441]" /> ระบบแบบทดสอบความรู้และสะสมคะแนน
             </div>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight mb-4">
-              ทดสอบปัญญาธรรม <span className="text-sky-200">4 ระดับความเข้าใจ</span>
+              ทดสอบปัญญาธรรม <span className="text-sky-300">4 ระดับความเข้าใจ</span>
             </h1>
-            <p className="text-sky-100/90 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+            <p className="text-white text-sm sm:text-base font-medium leading-relaxed mb-6 max-w-2xl drop-shadow-xs">
               วัดระดับความเข้าใจ สะสมคะแนน XP ปลดล็อกเหรียญตรา และรับใบประกาศนียบัตรประมวลความรู้ธรรมศึกษา ครอบคลุมตั้งแต่แบบทดสอบรายบทจนถึงภาพรวมท้ายเล่ม
             </p>
 
             {/* User Gamification Stats Bar */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
-              <div className="bg-black/30 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/20 flex items-center gap-3">
+              <div className="bg-black/40 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/30 flex items-center gap-3 shadow-md">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D9A441] to-[#B88328] text-white flex items-center justify-center font-bold text-lg shadow-sm">
                   ⚡
                 </div>
                 <div>
-                  <div className="text-[11px] text-sky-200">คะแนนสะสม (Total XP)</div>
-                  <div className="text-lg font-black text-[#D9A441]">{userXP.toLocaleString()} XP</div>
+                  <div className="text-xs text-sky-100 font-bold">คะแนนสะสม (Total XP)</div>
+                  <div className="text-lg font-black text-amber-300">{userXP.toLocaleString()} XP</div>
                 </div>
               </div>
 
-              <div className="bg-black/30 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/20 flex items-center gap-3">
+              <div className="bg-black/40 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/30 flex items-center gap-3 shadow-md">
                 <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center font-bold text-lg shadow-sm">
                   🏅
                 </div>
                 <div>
-                  <div className="text-[11px] text-sky-200">เหรียญที่ปลดล็อก</div>
+                  <div className="text-xs text-sky-100 font-bold">เหรียญที่ปลดล็อก</div>
                   <div className="text-lg font-black text-white">
                     {badges.filter(b => b.earned).length} / {badges.length} เหรียญ
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 flex items-center gap-3">
+              <div className="bg-black/40 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/30 flex items-center gap-3 shadow-md">
                 <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center font-bold text-lg shadow-sm">
                   📜
                 </div>
                 <div>
-                  <div className="text-[11px] text-sky-200">วุฒิบัตรดิจิทัล</div>
+                  <div className="text-xs text-sky-100 font-bold">วุฒิบัตรดิจิทัล</div>
                   <div className="text-lg font-black text-white">
                     {certificate ? 'พร้อมรับรอง' : 'สอบ Level 4 เพื่อรับ'}
                   </div>

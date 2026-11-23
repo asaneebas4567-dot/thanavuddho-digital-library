@@ -207,7 +207,7 @@ export default function Footer() {
               <h4 className="font-bold text-base sm:text-lg text-white tracking-tight">
                 Address / ข้อมูลการติดต่อ
               </h4>
-              <p className="text-xs sm:text-sm text-sky-100/90 leading-relaxed max-w-sm">
+              <p className="text-xs sm:text-sm text-white/95 leading-relaxed max-w-sm">
                 หอสมุดดิจิทัล พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)<br />
                 เพื่อการศึกษา วิจัย และเผยแผ่พระพุทธศาสนาสู่สากล
               </p>
@@ -247,7 +247,7 @@ export default function Footer() {
               <h4 className="font-bold text-base sm:text-lg text-white tracking-tight">
                 เลือกซื้อหนังสือธรรมะฉบับเต็ม
               </h4>
-              <p className="text-xs text-sky-200 font-medium max-w-sm">
+              <p className="text-xs text-white/95 font-medium max-w-sm">
                 ค้นหาและเลือกซื้อหนังสือของพระอาจารย์บน Google Play Store
               </p>
 
@@ -257,12 +257,12 @@ export default function Footer() {
                   href="https://play.google.com/store/search?q=%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%A2%20%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B8%E0%B8%91%E0%B9%82%E0%B8%92&c=books"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 bg-[#052946] hover:bg-[#041e33] text-white px-4 py-2.5 rounded-xl border border-[#079FE8]/60 hover:border-sky-300 transition-all shadow-md active:scale-95 group cursor-pointer"
+                  className="flex items-center gap-2.5 bg-[#0B4E85] hover:bg-[#063359] text-white px-4 py-2.5 rounded-xl border-2 border-[#079FE8] hover:border-sky-300 transition-all shadow-md active:scale-95 group cursor-pointer"
                   title="เลือกซื้อหนังสือพระมหาสมชาย ฐานวุฑโฒ บน Google Play Store"
                 >
-                  <Smartphone size={20} className="text-[#079FE8] group-hover:scale-110 transition-transform" />
+                  <Smartphone size={20} className="text-sky-300 group-hover:scale-110 transition-transform" />
                   <div className="text-left leading-tight">
-                    <p className="text-[10px] text-sky-200 uppercase font-semibold tracking-wider">เลือกซื้อหนังสือได้ที่</p>
+                    <p className="text-[10px] text-sky-200 uppercase font-bold tracking-wider">เลือกซื้อหนังสือได้ที่</p>
                     <p className="text-xs sm:text-sm font-bold text-white">Google Play Store ↗</p>
                   </div>
                 </a>
@@ -274,25 +274,27 @@ export default function Footer() {
               <h4 className="font-bold text-base sm:text-lg text-white tracking-tight">
                 Contact Us / ติดต่อสอบถาม
               </h4>
-              <p className="text-xs sm:text-sm text-sky-100/90 leading-relaxed">
+              <p className="text-xs sm:text-sm text-white/95 leading-relaxed">
                 ศูนย์เผยแผ่ธรรมะเพื่อประชาชน<br />
                 ห้องสมุดดิจิทัลและสื่อธรรมะออนไลน์
               </p>
-              <p className="text-xs text-sky-300 font-mono font-semibold pt-1">
-                Customer Service : thanavuddho.library@gmail.com
-              </p>
+              <div className="pt-1">
+                <p className="text-xs text-sky-100 font-mono font-bold bg-[#052946] px-3 py-1.5 rounded-lg border border-[#079FE8]/40 inline-block shadow-xs">
+                  Customer Service : thanavuddho.library@gmail.com
+                </p>
+              </div>
             </div>
 
           </div>
 
           {/* BOTTOM STRIP: Powered by | Copyright | Back to top */}
-          <div className="border-t border-sky-800/80 pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-sky-200">
+          <div className="border-t border-sky-700/80 pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/90 font-medium">
             <div>
               v.2.4.84 Powered by Thanavuddho Library System
             </div>
             
             <div className="text-center">
-              Copyright © 2026 All Right Reserved. | <Link href="/welcome" className="hover:text-white hover:underline">เงื่อนไขการให้บริการ</Link> | <Link href="/welcome" className="hover:text-white hover:underline">นโยบายความเป็นส่วนตัว</Link>
+              Copyright © 2026 All Right Reserved. | <Link href="/welcome" className="text-sky-200 hover:text-white underline">เงื่อนไขการให้บริการ</Link> | <Link href="/welcome" className="text-sky-200 hover:text-white underline">นโยบายความเป็นส่วนตัว</Link>
             </div>
 
             {/* Back to top circle button */}
