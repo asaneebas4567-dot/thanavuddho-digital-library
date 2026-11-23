@@ -146,13 +146,13 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
           <span>กลับไปหน้ารวมหนังสือ</span>
         </Link>
 
-        {/* Main Book Detail Card */}
+        {/* Main Book Detail Card: MEB Layout */}
         <div className="bg-white rounded-3xl shadow-sm border border-slate-200/80 overflow-hidden mb-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
             
-            {/* Left: Cover Showcase with 3D Spine */}
-            <div className="md:col-span-5 bg-gradient-to-b from-slate-50 to-slate-100/50 p-8 sm:p-10 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100">
-              <div className="book-cover-3d relative w-full max-w-[240px] aspect-[1/1.42] rounded-xl overflow-hidden bg-slate-900 ring-1 ring-black/10 shadow-lg">
+            {/* Left: Cover Showcase with 3D Spine (Balanced on Mobile, Prominent on Desktop) */}
+            <div className="md:col-span-5 bg-gradient-to-b from-slate-50 to-slate-100/50 p-6 sm:p-8 md:p-10 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100">
+              <div className="book-cover-3d relative w-44 sm:w-52 md:w-full md:max-w-[280px] lg:max-w-[310px] aspect-[1/1.42] rounded-2xl overflow-hidden bg-slate-900 ring-1 ring-black/10 shadow-2xl">
                 {book.cover && book.cover !== '/images/books/book-placeholder.jpg' ? (
                   <Image 
                     src={book.cover} 
@@ -179,43 +179,70 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
                   </div>
                 )}
 
-                {/* Copyright Red Badge - ตัวแดงเด่นชัดเจน */}
-                <div className="absolute top-2 right-2 bg-gradient-to-r from-red-600 to-rose-600 text-white font-extrabold text-[9px] px-2.5 py-0.5 rounded-full shadow-md z-20 border border-red-300 flex items-center gap-1 select-none">
+                {/* Copyright Red Badge */}
+                <div className="absolute top-2.5 right-2.5 bg-gradient-to-r from-red-600 to-rose-600 text-white font-extrabold text-[9px] px-2.5 py-0.5 rounded-full shadow-md z-20 border border-red-300 flex items-center gap-1 select-none">
                   <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                  หนังสือลิขสิทธิ์
+                  ลิขสิทธิ์
+                </div>
+
+                <div className="absolute top-0 left-3 bg-[#00ba70] text-white text-[9.5px] font-bold px-2 py-1 rounded-b-md shadow-md z-20 uppercase tracking-wider">
+                  E-Book
                 </div>
               </div>
 
               {/* Cover Sub-stats */}
               <div className="mt-4 flex items-center gap-4 text-xs text-slate-500 font-medium">
-                <span className="flex items-center gap-1 text-amber-600 font-bold">
+                <span className="flex items-center gap-1 text-emerald-600 font-bold">
                   <Star size={14} fill="currentColor" /> 4.95
                 </span>
                 <span>•</span>
-                <span title="ยอดเปิดอ่านจริง">{realReadCount > 0 ? `${realReadCount.toLocaleString()} ครั้งที่อ่าน` : '0 ครั้งที่อ่าน'}</span>
+                <span title="ยอดเปิดอ่านจริง">{realReadCount > 0 ? `${realReadCount.toLocaleString()} ครั้งที่อ่าน` : 'ฉบับสมบูรณ์'}</span>
               </div>
             </div>
             
-            {/* Right: Details */}
+            {/* Right: Details (MEB Architecture) */}
             <div className="md:col-span-7 p-6 sm:p-8 md:p-10 flex flex-col justify-between">
               <div>
-                <div className="flex justify-between items-start mb-3 gap-3">
-                  <div>
-                    <span className="inline-block text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 mb-2">
-                      {category?.name || 'หมวดธรรมปฏิบัติ'}
+                <h1 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight tracking-tight mb-2">
+                  {book.title}
+                </h1>
+
+                {/* Byline / Links in MEB Emerald */}
+                <div className="space-y-1 text-xs sm:text-sm text-slate-600 font-medium mb-4">
+                  <p>
+                    <span>โดย </span>
+                    <span className="text-[#00ba70] hover:underline font-bold">
+                      {book.author_id === 'a1' || book.author_id === 'author_001' ? 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)' : (author?.name || 'พระครูปลัดสุวัฒนโพธิคุณ')}
                     </span>
-                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight tracking-tight">
-                      {book.title}
-                    </h1>
-                    <p className="text-sm font-semibold text-slate-600 mt-2 flex items-center gap-1.5">
-                      <span>ประพันธ์โดย:</span>
-                      <span className="text-slate-900 font-bold">{book.author_id === 'a1' || book.author_id === 'author_001' ? 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)' : (author?.name || 'พระครูปลัดสุวัฒนโพธิคุณ')}</span>
-                      <CheckCircle2 size={15} className="text-blue-600" />
-                    </p>
-                  </div>
+                  </p>
+                  <p>
+                    <span>สำนักพิมพ์ </span>
+                    <span className="text-[#00ba70] hover:underline font-semibold">
+                      {book.publisher || 'มูลนิธิธรรมะคุ้มครองโลก'}
+                    </span>
+                  </p>
+                  <p>
+                    <span>หมวดหมู่ </span>
+                    <span className="text-[#00ba70] hover:underline font-semibold">
+                      {category?.name || 'หมวดธรรมปฏิบัติ / พัฒนาตนเอง'}
+                    </span>
+                  </p>
                 </div>
 
-                {/* Red Copyright Banner - ข้อความตัวแดงๆ เด่นชัดเจน */}
+                {/* Rating Row: 5 Hearts */}
+                <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-600 font-medium mb-4 pb-3 border-b border-slate-100">
+                  <span className="font-extrabold text-slate-900 text-sm sm:text-base">5.00</span>
+                  <div className="flex items-center gap-0.5 text-rose-500" aria-label="5 Hearts">
+                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
+                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
+                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
+                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
+                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
+                  </div>
+                  <span className="text-slate-400 font-normal">4.95 Rating (ธรรมบรรณาการ)</span>
+                </div>
+
+                {/* Red Copyright Banner */}
                 <div className="bg-gradient-to-r from-red-50 via-rose-50 to-red-50 border-2 border-red-200/90 rounded-2xl p-4 my-4 shadow-2xs">
                   <div className="flex items-center gap-2 flex-wrap mb-1.5">
                     <span className="font-extrabold text-red-600 text-sm sm:text-base tracking-wide flex items-center gap-1.5">
@@ -236,18 +263,36 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-3 text-xs text-slate-500 my-4 py-3 border-y border-slate-100">
-                  <div>ปีที่พิมพ์: <strong className="text-slate-900">{book.publication_year}</strong></div>
-                  <div>•</div>
-                  <div>จำนวนหน้า: <strong className="text-slate-900">{totalPages} หน้า</strong></div>
-                  <div>•</div>
-                  <div>ภาษา: <strong className="text-slate-900">{book.language || 'ไทย'}</strong></div>
-                  <div>•</div>
-                  <div>สถานะ: <strong className="text-emerald-700">ฉบับสมบูรณ์ (อ่านออนไลน์)</strong></div>
+                {/* MEB 2-Column Key-Value Specifications */}
+                <div className="bg-slate-50/70 rounded-2xl p-4 border border-slate-200/70 space-y-2 text-xs sm:text-sm my-4">
+                  <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200/50">
+                    <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">ประเภทไฟล์</span>
+                    <span className="col-span-7 sm:col-span-8 text-slate-900 font-semibold">
+                      pdf, 3D Flipbook <span className="text-emerald-600 font-normal">(เปิดอ่านออนไลน์)</span>
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200/50">
+                    <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">วันที่เผยแพร่</span>
+                    <span className="col-span-7 sm:col-span-8 text-slate-900 font-semibold">
+                      ปี พ.ศ. {book.publication_year}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200/50">
+                    <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">ความยาว</span>
+                    <span className="col-span-7 sm:col-span-8 text-slate-900 font-semibold">
+                      {totalPages} หน้า <span className="text-slate-500 font-normal">(ฉบับเต็ม)</span>
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-12 gap-2 py-1">
+                    <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">สิทธิ์การเข้าถึง</span>
+                    <span className="col-span-7 sm:col-span-8 text-[#00ba70] font-bold">
+                      ยืมอ่านฟรี 14 วัน <span className="text-slate-500 font-normal text-xs">(ลิขสิทธิ์ถูกต้อง)</span>
+                    </span>
+                  </div>
                 </div>
 
                 <div className="mb-6">
-                  <h3 className="font-bold text-xs uppercase tracking-wider text-slate-400 mb-2">คำอธิบายหนังสือ</h3>
+                  <h3 className="font-bold text-xs uppercase tracking-wider text-slate-400 mb-2">เรื่องย่อ / คำอธิบายหนังสือ</h3>
                   <p className="text-slate-700 text-sm leading-relaxed">
                     {book.description || 'รวบรวมหลักธรรมคำสอนและแนวทางการดำเนินชีวิตอย่างมีความสุขและสงบใจ ผสานมุมมองพุทธศาสตร์เข้ากับชีวิตประจำวัน เพื่อประโยชน์ในการศึกษาและพัฒนาจิตใจ'}
                   </p>

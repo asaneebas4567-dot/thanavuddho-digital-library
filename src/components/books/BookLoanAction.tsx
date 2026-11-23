@@ -154,54 +154,63 @@ export default function BookLoanAction({
         </div>
       </div>
 
-      {/* Action Buttons */}
+      {/* Action Buttons: MEB Style Twin Pills */}
       <div className="flex flex-wrap items-center gap-3">
+        {/* ทดลองอ่าน Button */}
+        <Link 
+          href={`/reader/${bookId}?from=/books/${bookId}`} 
+          className="rounded-full border-2 border-[#00ba70] text-[#00ba70] hover:bg-emerald-50 px-6 py-3 font-extrabold text-sm sm:text-base transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-95 w-full sm:w-auto"
+        >
+          <BookOpen size={18} />
+          <span>ทดลองอ่าน</span>
+        </Link>
+
         {borrowed ? (
           <>
-            {/* 1. Read Button (Unlocked) */}
+            {/* 1. Read Button (Unlocked) - MEB Solid Green */}
             <Link 
               href={`/reader/${bookId}?from=/books/${bookId}`} 
-              className="flex items-center justify-center gap-2 bg-[#073B65] hover:bg-[#052946] text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-all shadow-md active:scale-98 w-full sm:w-auto"
+              className="flex-1 flex items-center justify-center gap-2 bg-[#00ba70] hover:bg-[#00a362] text-white px-8 py-3.5 rounded-full font-extrabold text-sm sm:text-base transition-all shadow-md hover:shadow-lg active:scale-98 w-full sm:w-auto text-center"
             >
-              <BookOpen size={18} className="text-[#D9A441]" />
-              <span>เปิดอ่านหนังสือที่ยืมแล้ว ({totalPages} หน้า)</span>
+              <BookOpen size={18} />
+              <span>เปิดอ่านหนังสือ (ยืมแล้ว)</span>
             </Link>
 
             {/* 2. Return Button */}
             <button
               type="button"
               onClick={handleReturn}
-              className="flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition-colors border border-slate-300/80 cursor-pointer w-full sm:w-auto"
+              className="flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-full bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 font-bold text-xs sm:text-sm transition-colors border border-slate-200 cursor-pointer w-full sm:w-auto"
             >
-              <RotateCcw size={16} />
-              <span>คืนหนังสือเล่มนี้</span>
+              <RotateCcw size={15} />
+              <span>คืนหนังสือ</span>
             </button>
           </>
         ) : (
           <>
-            {/* 1. Borrow Button */}
+            {/* 1. Borrow Button - MEB Solid Green Pill */}
             {activeLoanCount < maxLoans ? (
               <button
                 type="button"
                 onClick={handleBorrow}
-                className="flex items-center justify-center gap-2 bg-[#079FE8] hover:bg-[#0588c7] text-white px-8 py-3.5 rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg active:scale-98 cursor-pointer w-full sm:w-auto"
+                className="flex-1 flex items-center justify-center gap-2 bg-[#00ba70] hover:bg-[#00a362] text-white px-8 py-3.5 rounded-full font-extrabold text-sm sm:text-base transition-all shadow-md hover:shadow-lg active:scale-98 cursor-pointer w-full sm:w-auto"
               >
                 <BookMarked size={18} />
-                <span>📘 กดยืมหนังสือเล่มนี้ (อ่านได้ 14 วัน)</span>
+                <span>ยืมหนังสือ (อ่านฟรี 14 วัน)</span>
               </button>
             ) : (
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
                 <button
                   type="button"
                   disabled
-                  className="flex items-center justify-center gap-2 bg-slate-200 text-slate-500 px-6 py-3.5 rounded-xl font-bold text-sm cursor-not-allowed w-full sm:w-auto"
+                  className="flex items-center justify-center gap-2 bg-slate-200 text-slate-500 px-6 py-3.5 rounded-full font-bold text-sm cursor-not-allowed w-full sm:w-auto"
                 >
                   <Lock size={16} />
                   <span>ยืมครบโควตา 3 เล่มแล้ว</span>
                 </button>
                 <Link
                   href="/dashboard"
-                  className="text-xs font-bold text-[#079FE8] hover:underline"
+                  className="text-xs font-bold text-[#00ba70] hover:underline"
                 >
                   ไปยังชั้นหนังสือเพื่อคืนเล่มเดิม →
                 </Link>
@@ -215,19 +224,12 @@ export default function BookLoanAction({
           href="https://play.google.com/store/search?q=%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%A2%20%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B8%E0%B8%91%E0%B9%82%E0%B8%92&c=books"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs sm:text-sm border border-slate-300/80 shadow-2xs transition-all active:scale-98 w-full sm:w-auto cursor-pointer"
+          className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-full bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs sm:text-sm border border-slate-300 shadow-2xs transition-all active:scale-98 w-full sm:w-auto cursor-pointer"
           title="เลือกซื้อหนังสือฉบับเต็มบน Google Play Books"
         >
           <span className="text-base">📱</span>
-          <span>ซื้อหนังสือบน Google Play</span>
+          <span>Google Play Books</span>
         </a>
-
-        <Link
-          href="/dashboard"
-          className="text-xs font-semibold text-slate-500 hover:text-[#073B65] ml-auto py-2"
-        >
-          ชั้นหนังสือที่ยืมไว้ ({activeLoanCount}/{maxLoans}) →
-        </Link>
       </div>
 
       {/* Floating feedback toast */}
