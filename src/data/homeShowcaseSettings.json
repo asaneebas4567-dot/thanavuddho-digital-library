@@ -124,58 +124,7 @@
       "order": 10,
       "is_active": true,
       "fit_mode": "cover"
-    },
-    {
-      "id": "showcase-book-khao-sook",
-      "type": "BOOK_SHOWCASE",
-      "book_id": "book_khao_kor_sook_rao_kor_sook",
-      "title": "เขาก็สุข เราก็สุข",
-      "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
-      "description": "เปลี่ยนศัตรูให้เป็นมิตร ศิลปะป้องกันใจ และสร้างมิตรภาพอันงดงามร่วมกันในสังคม",
-      "image_url": "/images/books/khao-kor-sook-rao-kor-sook.jpg",
-      "image_url_mobile": "/images/books/khao-kor-sook-rao-kor-sook.jpg",
-      "target_url": "/reader/book_khao_kor_sook_rao_kor_sook",
-      "is_clickable": true,
-      "order": 11,
-      "is_active": true,
-      "fit_mode": "cover",
-      "badge": "🤝 มิตรภาพ & สังคม",
-      "action_label": "เปิดอ่านหนังสือ (Flipbook)"
-    },
-    {
-      "id": "showcase-book-ya-mano",
-      "type": "BOOK_SHOWCASE",
-      "book_id": "book_อย่ามโน",
-      "title": "อย่ามโน!! รักแท้มันใหญ่มาก",
-      "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
-      "description": "ดึงสติรู้เท่าทันความคิด สลายภาพลวงตาด้วยสัมมาทิฏฐิ เข้าใจความรักและชีวิตอย่างแท้จริง",
-      "image_url": "/images/books/อย่ามโน.jpg",
-      "image_url_mobile": "/images/books/อย่ามโน.jpg",
-      "target_url": "/reader/book_อย่ามโน",
-      "is_clickable": true,
-      "order": 12,
-      "is_active": true,
-      "fit_mode": "cover",
-      "badge": "🌸 พัฒนาจิตใจ",
-      "action_label": "เปิดอ่านหนังสือ (Flipbook)"
-    },
-    {
-      "id": "showcase-book-liang-look",
-      "type": "BOOK_SHOWCASE",
-      "book_id": "book_liang_look_style_sook",
-      "title": "เลี้ยงลูกสไตล์สุข",
-      "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
-      "description": "วิธีบ่มเพาะลูกวัยใสให้เป็นลูกแก้วสารพัดนึก ให้โตขึ้นเป็นทั้งเด็กเก่งและดี ตามหลักพุทธวิธี",
-      "image_url": "/images/books/liang-look-style-sook.jpg",
-      "image_url_mobile": "/images/books/liang-look-style-sook.jpg",
-      "target_url": "/reader/book_liang_look_style_sook",
-      "is_clickable": true,
-      "order": 13,
-      "is_active": true,
-      "fit_mode": "cover",
-      "badge": "✨ เล่มมาใหม่",
-      "action_label": "เปิดอ่านหนังสือ (Flipbook)"
     }
   ],
-  "updatedAt": "2026-11-20T21:00:00.000Z"
+  "updatedAt": "2026-11-23T13:45:00.000Z"
 }
