@@ -8,6 +8,7 @@ import { books as dbBooks, categories as dbCategories } from '@/data/mockData';
 import persistentBooks from '@/data/persistentBooks.json';
 import BookCard from '@/components/books/BookCard';
 import BookPreviewModal from '@/components/books/BookPreviewModal';
+import SpecialStoreBooksSection from '@/components/home/SpecialStoreBooksSection';
 import { Book } from '@/types';
 
 function BooksContent() {
@@ -537,6 +538,11 @@ function BooksContent() {
             </button>
           </div>
         )}
+
+        {/* Commercial Store Books Showcase (MEB Market & Google Play Store) */}
+        <div className="mt-12 pt-8 border-t border-slate-200/80">
+          <SpecialStoreBooksSection />
+        </div>
 
       </div>
 
