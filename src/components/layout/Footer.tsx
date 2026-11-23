@@ -195,9 +195,9 @@ export default function Footer() {
       </div>
 
       {/* ========================================================= */}
-      {/* 2. LOWER SECTION: Thanavuddho Deep Blue & Sky Brand Bar    */}
+      {/* 2. LOWER SECTION: Bangkok e-Library style Brand Bar (Emerald Theme - High Contrast) */}
       {/* ========================================================= */}
-      <div className="bg-[#073B65] text-white py-8 sm:py-10 border-t-2 border-[#079FE8]">
+      <div className="bg-[#043327] text-white py-8 sm:py-10 border-t-2 border-emerald-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 pb-6 sm:pb-8">
@@ -207,7 +207,7 @@ export default function Footer() {
               <h4 className="font-bold text-base sm:text-lg text-white tracking-tight">
                 Address / ข้อมูลการติดต่อ
               </h4>
-              <p className="text-xs sm:text-sm text-white/95 leading-relaxed max-w-sm">
+              <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed max-w-sm">
                 หอสมุดดิจิทัล พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)<br />
                 เพื่อการศึกษา วิจัย และเผยแผ่พระพุทธศาสนาสู่สากล
               </p>
@@ -216,7 +216,7 @@ export default function Footer() {
                   href="https://www.facebook.com/ThanavuddhoStory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#1877F2] flex items-center justify-center transition-all border border-white/20"
+                  className="w-8 h-8 rounded-full bg-emerald-900/90 hover:bg-[#1877F2] flex items-center justify-center transition-all border border-emerald-600/50 shadow-xs"
                   title="Facebook"
                 >
                   <FacebookIcon size={16} />
@@ -225,7 +225,7 @@ export default function Footer() {
                   href="https://www.tiktok.com/@thanavuddhostory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-black flex items-center justify-center transition-all border border-white/20"
+                  className="w-8 h-8 rounded-full bg-emerald-900/90 hover:bg-black flex items-center justify-center transition-all border border-emerald-600/50 shadow-xs"
                   title="TikTok"
                 >
                   <TiktokIcon size={16} />
@@ -234,7 +234,7 @@ export default function Footer() {
                   href="https://www.youtube.com/@ThanavuddhoStory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#FF0000] flex items-center justify-center transition-all border border-white/20"
+                  className="w-8 h-8 rounded-full bg-emerald-900/90 hover:bg-[#FF0000] flex items-center justify-center transition-all border border-emerald-600/50 shadow-xs"
                   title="YouTube"
                 >
                   <YoutubeIcon size={16} />
@@ -247,22 +247,22 @@ export default function Footer() {
               <h4 className="font-bold text-base sm:text-lg text-white tracking-tight">
                 เลือกซื้อหนังสือธรรมะฉบับเต็ม
               </h4>
-              <p className="text-xs text-white/95 font-medium max-w-sm">
+              <p className="text-xs text-emerald-100 font-medium max-w-sm">
                 ค้นหาและเลือกซื้อหนังสือของพระอาจารย์บน Google Play Store
               </p>
 
-              {/* Google Play Store Badge (High Contrast & Clear Fonts) */}
+              {/* Google Play Store Badge (High Contrast Green Pill) */}
               <div className="flex items-center gap-2.5 pt-1">
                 <a
                   href="https://play.google.com/store/search?q=%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%A2%20%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B8%E0%B8%91%E0%B9%82%E0%B8%92&c=books"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 bg-[#0B4E85] hover:bg-[#063359] text-white px-4 py-2.5 rounded-xl border-2 border-[#079FE8] hover:border-sky-300 transition-all shadow-md active:scale-95 group cursor-pointer"
+                  className="flex items-center gap-2.5 bg-emerald-900/90 hover:bg-emerald-800 text-white px-4 py-2.5 rounded-xl border-2 border-emerald-400 hover:border-emerald-200 transition-all shadow-md active:scale-95 group cursor-pointer"
                   title="เลือกซื้อหนังสือพระมหาสมชาย ฐานวุฑโฒ บน Google Play Store"
                 >
-                  <Smartphone size={20} className="text-sky-300 group-hover:scale-110 transition-transform" />
+                  <Smartphone size={20} className="text-emerald-300 group-hover:scale-110 transition-transform" />
                   <div className="text-left leading-tight">
-                    <p className="text-[10px] text-sky-200 uppercase font-bold tracking-wider">เลือกซื้อหนังสือได้ที่</p>
+                    <p className="text-[10px] text-emerald-200 uppercase font-bold tracking-wider">เลือกซื้อหนังสือได้ที่</p>
                     <p className="text-xs sm:text-sm font-bold text-white">Google Play Store ↗</p>
                   </div>
                 </a>
@@ -274,12 +274,12 @@ export default function Footer() {
               <h4 className="font-bold text-base sm:text-lg text-white tracking-tight">
                 Contact Us / ติดต่อสอบถาม
               </h4>
-              <p className="text-xs sm:text-sm text-white/95 leading-relaxed">
+              <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed">
                 ศูนย์เผยแผ่ธรรมะเพื่อประชาชน<br />
                 ห้องสมุดดิจิทัลและสื่อธรรมะออนไลน์
               </p>
               <div className="pt-1">
-                <p className="text-xs text-sky-100 font-mono font-bold bg-[#052946] px-3 py-1.5 rounded-lg border border-[#079FE8]/40 inline-block shadow-xs">
+                <p className="text-xs text-emerald-100 font-mono font-bold bg-emerald-900/90 px-3 py-1.5 rounded-lg border border-emerald-600/60 inline-block shadow-xs">
                   Customer Service : thanavuddho.library@gmail.com
                 </p>
               </div>
@@ -288,20 +288,20 @@ export default function Footer() {
           </div>
 
           {/* BOTTOM STRIP: Powered by | Copyright | Back to top */}
-          <div className="border-t border-sky-700/80 pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/90 font-medium">
+          <div className="border-t border-emerald-800/80 pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-emerald-100 font-medium">
             <div>
               v.2.4.84 Powered by Thanavuddho Library System
             </div>
             
             <div className="text-center">
-              Copyright © 2026 All Right Reserved. | <Link href="/welcome" className="text-sky-200 hover:text-white underline">เงื่อนไขการให้บริการ</Link> | <Link href="/welcome" className="text-sky-200 hover:text-white underline">นโยบายความเป็นส่วนตัว</Link>
+              Copyright © 2026 All Right Reserved. | <Link href="/welcome" className="text-emerald-300 hover:text-white underline">เงื่อนไขการให้บริการ</Link> | <Link href="/welcome" className="text-emerald-300 hover:text-white underline">นโยบายความเป็นส่วนตัว</Link>
             </div>
 
             {/* Back to top circle button */}
             <div className="flex items-center gap-2">
               <button
                 onClick={scrollToTop}
-                className="w-9 h-9 rounded-full bg-white text-[#073B65] shadow-lg flex items-center justify-center hover:bg-[#079FE8] hover:text-white hover:scale-110 active:scale-95 transition-all cursor-pointer font-bold"
+                className="w-9 h-9 rounded-full bg-white text-emerald-900 shadow-lg flex items-center justify-center hover:bg-emerald-500 hover:text-white hover:scale-110 active:scale-95 transition-all cursor-pointer font-bold"
                 title="กลับสู่ด้านบน"
                 aria-label="กลับสู่ด้านบน"
               >
