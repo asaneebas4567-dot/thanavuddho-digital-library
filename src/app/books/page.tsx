@@ -499,9 +499,9 @@ function BooksContent() {
           </div>
         </div>
 
-        {/* Books Grid */}
+        {/* Books Grid - MEB Style Multi-column Responsive Layout */}
         {filteredBooks.length > 0 ? (
-          <div className="grid grid-cols-1 min-[360px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 min-[360px]:gap-3.5 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5 sm:gap-5 lg:gap-6">
             {filteredBooks.map((book) => (
               <BookCard 
                 key={book.id} 
