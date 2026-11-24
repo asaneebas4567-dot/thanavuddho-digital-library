@@ -12,7 +12,8 @@ import {
   Bookmark,
   Award,
   ArrowRight,
-  Headphones
+  Headphones,
+  ShieldCheck
 } from 'lucide-react';
 import { books as mockBooks, authors, categories } from '@/lib/mock-data';
 import { books as dbBooks, author as dbAuthor, categories as dbCategories } from '@/data/mockData';
@@ -185,61 +186,48 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
                   ลิขสิทธิ์
                 </div>
 
-                <div className="absolute top-0 left-3 bg-[#00ba70] text-white text-[9.5px] font-bold px-2 py-1 rounded-b-md shadow-md z-20 uppercase tracking-wider">
+                <div className="absolute top-0 left-3 bg-[#079FE8] text-white text-[9.5px] font-bold px-2 py-1 rounded-b-md shadow-md z-20 uppercase tracking-wider">
                   E-Book
                 </div>
               </div>
 
               {/* Cover Sub-stats */}
               <div className="mt-4 flex items-center gap-4 text-xs text-slate-500 font-medium">
-                <span className="flex items-center gap-1 text-emerald-600 font-bold">
-                  <Star size={14} fill="currentColor" /> 4.95
+                <span className="flex items-center gap-1 text-[#079FE8] font-bold">
+                  <ShieldCheck size={14} /> ฉบับสมบูรณ์ ({totalPages} หน้า)
                 </span>
                 <span>•</span>
-                <span title="ยอดเปิดอ่านจริง">{realReadCount > 0 ? `${realReadCount.toLocaleString()} ครั้งที่อ่าน` : 'ฉบับสมบูรณ์'}</span>
+                <span title="ยอดเปิดอ่านจริง">{realReadCount > 0 ? `${realReadCount.toLocaleString()} ครั้งที่อ่าน` : 'อ่านฟรีในระบบ'}</span>
               </div>
             </div>
             
-            {/* Right: Details (MEB Architecture) */}
+            {/* Right: Details (Standard Sky Blue Theme) */}
             <div className="md:col-span-7 p-6 sm:p-8 md:p-10 flex flex-col justify-between">
               <div>
                 <h1 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight tracking-tight mb-2">
                   {book.title}
                 </h1>
 
-                {/* Byline / Links in MEB Emerald */}
+                {/* Byline / Links in Standard Sky Blue */}
                 <div className="space-y-1 text-xs sm:text-sm text-slate-600 font-medium mb-4">
                   <p>
                     <span>โดย </span>
-                    <span className="text-[#00ba70] hover:underline font-bold">
+                    <span className="text-[#079FE8] hover:underline font-bold">
                       {book.author_id === 'a1' || book.author_id === 'author_001' ? 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)' : (author?.name || 'พระครูปลัดสุวัฒนโพธิคุณ')}
                     </span>
                   </p>
                   <p>
                     <span>สำนักพิมพ์ </span>
-                    <span className="text-[#00ba70] hover:underline font-semibold">
+                    <span className="text-[#079FE8] hover:underline font-semibold">
                       {book.publisher || 'มูลนิธิธรรมะคุ้มครองโลก'}
                     </span>
                   </p>
                   <p>
                     <span>หมวดหมู่ </span>
-                    <span className="text-[#00ba70] hover:underline font-semibold">
+                    <span className="text-[#079FE8] hover:underline font-semibold">
                       {category?.name || 'หมวดธรรมปฏิบัติ / พัฒนาตนเอง'}
                     </span>
                   </p>
-                </div>
-
-                {/* Rating Row: 5 Hearts */}
-                <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-600 font-medium mb-4 pb-3 border-b border-slate-100">
-                  <span className="font-extrabold text-slate-900 text-sm sm:text-base">5.00</span>
-                  <div className="flex items-center gap-0.5 text-rose-500" aria-label="5 Hearts">
-                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
-                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
-                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
-                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
-                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
-                  </div>
-                  <span className="text-slate-400 font-normal">4.95 Rating (ธรรมบรรณาการ)</span>
                 </div>
 
                 {/* Red Copyright Banner */}
@@ -263,20 +251,8 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
                   </p>
                 </div>
 
-                {/* MEB 2-Column Key-Value Specifications */}
-                <div className="bg-slate-50/70 rounded-2xl p-4 border border-slate-200/70 space-y-2 text-xs sm:text-sm my-4">
-                  <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200/50">
-                    <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">ประเภทไฟล์</span>
-                    <span className="col-span-7 sm:col-span-8 text-slate-900 font-semibold">
-                      pdf, 3D Flipbook <span className="text-emerald-600 font-normal">(เปิดอ่านออนไลน์)</span>
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200/50">
-                    <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">วันที่เผยแพร่</span>
-                    <span className="col-span-7 sm:col-span-8 text-slate-900 font-semibold">
-                      ปี พ.ศ. {book.publication_year}
-                    </span>
-                  </div>
+                {/* 2-Column Key-Value Specifications: Clean */}
+                <div className="bg-slate-50/80 rounded-2xl p-4 border border-slate-200/70 space-y-2 text-xs sm:text-sm my-4">
                   <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200/50">
                     <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">ความยาว</span>
                     <span className="col-span-7 sm:col-span-8 text-slate-900 font-semibold">
@@ -285,7 +261,7 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
                   </div>
                   <div className="grid grid-cols-12 gap-2 py-1">
                     <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">สิทธิ์การเข้าถึง</span>
-                    <span className="col-span-7 sm:col-span-8 text-[#00ba70] font-bold">
+                    <span className="col-span-7 sm:col-span-8 text-[#079FE8] font-bold">
                       ยืมอ่านฟรี 14 วัน <span className="text-slate-500 font-normal text-xs">(ลิขสิทธิ์ถูกต้อง)</span>
                     </span>
                   </div>

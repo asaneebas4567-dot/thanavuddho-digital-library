@@ -236,29 +236,9 @@ function BookReaderContent({ bookId }: { bookId: string }) {
 
   if (!isBorrowed && !isPreviewUnlocked) {
     const totalPages = book.pages || book.page_count || 120;
-    const year = book.publication_year || 2565;
     const author = book.author || (book.author_id === 'author_001' ? 'พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)' : 'พระครูปลัดสุวัฒนโพธิคุณ');
     const publisher = book.publisher || 'มูลนิธิธรรมะคุ้มครองโลก';
     const categoryName = (book as any).category_name || (book as any).category || 'หมวดธรรมปฏิบัติ / พัฒนาตนเอง';
-
-    const handleShare = async () => {
-      const url = typeof window !== 'undefined' ? `${window.location.origin}/books/${book.id || bookId}` : '';
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: book.title || 'หนังสือธรรมะ',
-            text: `อ่านหนังสือธรรมะ "${book.title}" บน Thanavuddho Digital Library`,
-            url
-          });
-          return;
-        } catch {}
-      }
-      if (navigator.clipboard) {
-        await navigator.clipboard.writeText(url);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2500);
-      }
-    };
 
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col justify-between font-sans">
@@ -266,7 +246,7 @@ function BookReaderContent({ bookId }: { bookId: string }) {
         <header className="bg-white border-b border-slate-200 px-4 sm:px-6 py-3.5 flex items-center justify-between shadow-xs z-10">
           <Link
             href={book.id ? `/books/${book.id}` : '/books'}
-            className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#073B65] hover:text-[#00ba70] transition-colors"
+            className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#073B65] hover:text-[#079FE8] transition-colors"
           >
             <ArrowLeft size={16} />
             <span>ย้อนกลับไปหน้ารายละเอียดหนังสือ</span>
@@ -274,23 +254,23 @@ function BookReaderContent({ bookId }: { bookId: string }) {
 
           <Link
             href="/dashboard"
-            className="text-xs sm:text-sm font-bold text-[#00ba70] hover:underline flex items-center gap-1.5"
+            className="text-xs sm:text-sm font-bold text-[#079FE8] hover:underline flex items-center gap-1.5"
           >
             <BookMarked size={15} />
             <span>ชั้นหนังสือของฉัน (ยืมอยู่ {activeLoanCount}/{maxLoans})</span>
           </Link>
         </header>
 
-        {/* Center Content: MEB Sizing & Layout (Desktop Spacious, Mobile Balanced) */}
+        {/* Center Content: Sizing & Layout (Spacious Desktop, Balanced Mobile) */}
         <main className="flex-1 flex items-center justify-center p-3 sm:p-5 md:p-8">
-          <div className="max-w-[95vw] sm:max-w-2xl md:max-w-4xl lg:max-w-5xl w-full bg-white rounded-3xl border border-slate-200/90 shadow-2xl p-5 sm:p-7 md:p-10 animate-in fade-in zoom-in-95 duration-200">
+          <div className="max-w-[95vw] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl w-full bg-white rounded-3xl border border-slate-200/90 shadow-xl p-5 sm:p-7 md:p-9 animate-in fade-in zoom-in-95 duration-200">
             
             {/* Main Presentation: Two Column Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
               
-              {/* Left Column: Book Poster (Desktop: w-72 to w-80, Mobile: w-44 to w-52 compact) */}
+              {/* Left Column: Book Poster (Desktop: w-64 to w-72, Mobile: w-44 to w-52 compact) */}
               <div className="md:col-span-5 flex flex-col items-center">
-                <div className="w-44 sm:w-52 md:w-full md:max-w-[300px] lg:max-w-[320px]">
+                <div className="w-44 sm:w-52 md:w-full md:max-w-[260px] lg:max-w-[280px]">
                   <div className="book-cover-3d relative aspect-[1/1.42] rounded-2xl overflow-hidden bg-slate-900 ring-1 ring-black/10 shadow-2xl transition-all">
                     <Image
                       src={secureCover}
@@ -307,20 +287,20 @@ function BookReaderContent({ bookId }: { bookId: string }) {
                       ลิขสิทธิ์
                     </div>
 
-                    {/* E-Book Ribbon */}
-                    <div className="absolute top-0 left-3 bg-[#00ba70] text-white text-[9.5px] font-bold px-2 py-1 rounded-b-md shadow-md z-20 uppercase tracking-wider">
+                    {/* E-Book Ribbon (Sky Blue Theme) */}
+                    <div className="absolute top-0 left-3 bg-[#079FE8] text-white text-[9.5px] font-bold px-2 py-1 rounded-b-md shadow-md z-20 uppercase tracking-wider">
                       E-Book
                     </div>
                   </div>
 
                   {/* Below Poster Stats */}
-                  <div className="mt-3.5 flex items-center justify-center gap-3 text-xs text-slate-500 font-medium">
-                    <span className="flex items-center gap-1" title="ยอดเปิดอ่าน">
+                  <div className="mt-3 flex items-center justify-center gap-3 text-xs text-slate-500 font-medium">
+                    <span className="flex items-center gap-1">
                       <Eye size={14} className="text-slate-400" />
                       <span>ฉบับสมบูรณ์ ({totalPages} หน้า)</span>
                     </span>
                     <span>•</span>
-                    <span className="flex items-center gap-1 text-[#00ba70] font-bold">
+                    <span className="flex items-center gap-1 text-[#079FE8] font-bold">
                       <ShieldCheck size={14} />
                       ลิขสิทธิ์ถูกต้อง
                     </span>
@@ -328,7 +308,7 @@ function BookReaderContent({ bookId }: { bookId: string }) {
                 </div>
               </div>
 
-              {/* Right Column: Title, MEB Byline, Twin Action Pills, Rating, Icons, Specs */}
+              {/* Right Column: Title, Blue Byline, Heart/Details, Primary Borrow Button, Specs, DRM Card */}
               <div className="md:col-span-7 flex flex-col justify-start">
                 
                 {/* Book Title */}
@@ -336,41 +316,54 @@ function BookReaderContent({ bookId }: { bookId: string }) {
                   {book.title || 'หนังสือธรรมะ'}
                 </h1>
 
-                {/* Byline / Links in MEB Green Style */}
+                {/* Byline / Links in Standard Sky Blue Theme */}
                 <div className="space-y-1 text-xs sm:text-sm text-slate-600 font-medium mb-4">
                   <p>
                     <span>โดย </span>
-                    <span className="text-[#00ba70] hover:underline font-bold cursor-pointer">
+                    <span className="text-[#079FE8] hover:underline font-bold cursor-pointer">
                       {author}
                     </span>
                   </p>
                   <p>
                     <span>สำนักพิมพ์ </span>
-                    <span className="text-[#00ba70] hover:underline font-semibold cursor-pointer">
+                    <span className="text-[#079FE8] hover:underline font-semibold cursor-pointer">
                       {publisher}
                     </span>
                   </p>
                   <p>
                     <span>หมวดหมู่ </span>
-                    <span className="text-[#00ba70] hover:underline font-semibold cursor-pointer">
+                    <span className="text-[#079FE8] hover:underline font-semibold cursor-pointer">
                       {categoryName}
                     </span>
                   </p>
                 </div>
 
-                {/* Action Buttons: MEB Twin Pills (ทดลองอ่าน + ยืมหนังสือ) */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-5">
-                  {/* 1. ปุ่ม "ทดลองอ่าน" (White with green border pill) */}
+                {/* Quick Action Buttons: Heart + Book Details Link */}
+                <div className="flex items-center gap-3 mb-4">
                   <button
                     type="button"
-                    onClick={() => setIsPreviewUnlocked(true)}
-                    className="rounded-full border-2 border-[#00ba70] text-[#00ba70] hover:bg-emerald-50 px-6 py-2.5 sm:py-3 font-extrabold text-sm sm:text-base transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-95"
+                    onClick={() => setIsWished(!isWished)}
+                    className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
+                      isWished 
+                        ? 'bg-rose-50 border-rose-300 text-rose-600 shadow-xs scale-105' 
+                        : 'bg-white border-slate-200 text-slate-600 hover:border-[#079FE8] hover:text-[#079FE8]'
+                    }`}
                   >
-                    <BookOpen size={18} />
-                    <span>ทดลองอ่าน</span>
+                    <Heart size={15} fill={isWished ? '#e11d48' : 'none'} className={isWished ? 'text-rose-600' : 'text-slate-400'} />
+                    <span>{isWished ? 'บันทึกในรายการที่อยากได้แล้ว' : 'อยากได้'}</span>
                   </button>
 
-                  {/* 2. ปุ่ม "ยืมหนังสือ (อ่านฟรี 14 วัน)" - Signature Solid Green Pill */}
+                  <Link
+                    href={book.id ? `/books/${book.id}` : '/books'}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-[#079FE8] hover:text-[#079FE8] transition-colors"
+                  >
+                    <FileText size={15} className="text-slate-400" />
+                    <span>หน้ารายละเอียด</span>
+                  </Link>
+                </div>
+
+                {/* Primary Action Button: Signature Blue Pill Button */}
+                <div className="mb-4">
                   {activeLoanCount < maxLoans ? (
                     <button
                       type="button"
@@ -385,129 +378,70 @@ function BookReaderContent({ bookId }: { bookId: string }) {
                           setBorrowFeedback(res.message);
                         }
                       }}
-                      className="flex-1 rounded-full bg-[#00ba70] hover:bg-[#00a362] text-white px-8 py-2.5 sm:py-3 font-extrabold text-sm sm:text-base shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 text-center"
+                      className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#079FE8] to-[#073B65] hover:from-[#0588c7] hover:to-[#052946] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-lg transition-all active:scale-98 cursor-pointer flex items-center justify-center gap-2"
                     >
                       <BookMarked size={18} />
-                      <span>ยืมหนังสือ (อ่านฟรี 14 วัน)</span>
+                      <span>📘 กดยืมหนังสือเพื่อเริ่มอ่านทันที (ว่าง {maxLoans - activeLoanCount} เล่ม)</span>
                     </button>
                   ) : (
-                    <div className="flex-1 flex flex-col sm:flex-row items-center gap-2">
+                    <div className="space-y-2">
                       <button
                         type="button"
                         disabled
-                        className="flex-1 rounded-full bg-slate-200 text-slate-500 px-6 py-2.5 sm:py-3 font-bold text-sm cursor-not-allowed text-center"
+                        className="w-full py-3.5 px-6 rounded-full bg-slate-200 text-slate-500 font-bold text-sm cursor-not-allowed text-center"
                       >
                         ยืมครบโควตา 3 เล่มแล้ว
                       </button>
-                      <Link
-                        href="/dashboard"
-                        className="text-xs font-bold text-[#00ba70] hover:underline whitespace-nowrap"
-                      >
-                        คืนเล่มเดิม →
-                      </Link>
+                      <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center justify-between gap-2">
+                        <span>คุณยืมหนังสือครบโควตา 3 เล่มแล้ว</span>
+                        <Link
+                          href="/dashboard"
+                          className="font-bold text-[#079FE8] hover:underline"
+                        >
+                          ไปยังชั้นหนังสือเพื่อคืนเล่มเดิม →
+                        </Link>
+                      </div>
                     </div>
+                  )}
+
+                  {borrowFeedback && (
+                    <p className="mt-2 text-xs text-rose-600 font-semibold">{borrowFeedback}</p>
                   )}
                 </div>
 
-                {/* Rating Row (MEB Pink Hearts & Score) */}
-                <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-600 font-medium mb-4 pb-3 border-b border-slate-100">
-                  <span className="font-extrabold text-slate-900 text-sm sm:text-base">5.00</span>
-                  <div className="flex items-center gap-0.5 text-rose-500" aria-label="5 Hearts">
-                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
-                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
-                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
-                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
-                    <Heart size={15} fill="#f43f5e" className="text-rose-500" />
-                  </div>
-                  <span className="text-slate-400 font-normal">4.9 Rating (ธรรมบรรณาการ)</span>
-                </div>
-
-                {/* Quick Action Icons Row (MEB Style: อยากได้, หน้ารายละเอียด, แชร์) */}
-                <div className="flex items-center justify-around sm:justify-start sm:gap-8 mb-5 py-1 text-slate-600">
-                  <button
-                    onClick={() => setIsWished(!isWished)}
-                    className="flex flex-col items-center gap-1 group cursor-pointer"
-                  >
-                    <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all ${
-                      isWished 
-                        ? 'bg-rose-50 border-rose-300 text-rose-500 scale-105' 
-                        : 'border-slate-200 text-slate-600 group-hover:border-[#00ba70] group-hover:text-[#00ba70]'
-                    }`}>
-                      <Heart size={17} fill={isWished ? '#f43f5e' : 'none'} />
-                    </div>
-                    <span className="text-[11px] font-medium text-slate-600">
-                      {isWished ? 'บันทึกแล้ว' : 'อยากได้'}
-                    </span>
-                  </button>
-
-                  <Link
-                    href={book.id ? `/books/${book.id}` : '/books'}
-                    className="flex flex-col items-center gap-1 group cursor-pointer"
-                  >
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 text-slate-600 group-hover:border-[#00ba70] group-hover:text-[#00ba70] flex items-center justify-center transition-all">
-                      <FileText size={17} />
-                    </div>
-                    <span className="text-[11px] font-medium text-slate-600">หน้ารายละเอียด</span>
-                  </Link>
-
-                  <button
-                    onClick={handleShare}
-                    className="flex flex-col items-center gap-1 group cursor-pointer"
-                  >
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 text-slate-600 group-hover:border-[#00ba70] group-hover:text-[#00ba70] flex items-center justify-center transition-all">
-                      {copied ? <Check size={17} className="text-emerald-500" /> : <Share2 size={17} />}
-                    </div>
-                    <span className="text-[11px] font-medium text-slate-600">
-                      {copied ? 'คัดลอกแล้ว' : 'แชร์'}
-                    </span>
-                  </button>
-                </div>
-
-                {/* MEB 2-Column Key-Value Specifications Table */}
-                <div className="bg-slate-50/80 rounded-2xl p-4 sm:p-5 border border-slate-200/70 space-y-2 text-xs sm:text-sm mb-4">
-                  <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200/50">
-                    <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">ประเภทไฟล์</span>
-                    <span className="col-span-7 sm:col-span-8 text-slate-900 font-semibold">
-                      pdf, 3D Flipbook <span className="text-emerald-600 font-normal">(เปิดอ่านออนไลน์)</span>
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200/50">
-                    <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">วันที่เผยแพร่</span>
-                    <span className="col-span-7 sm:col-span-8 text-slate-900 font-semibold">
-                      ปี พ.ศ. {year}
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200/50">
+                {/* Specifications: Only Length & Access Rights */}
+                <div className="bg-slate-50 rounded-2xl p-3.5 sm:p-4 border border-slate-200/70 space-y-2 text-xs sm:text-sm mb-3.5">
+                  <div className="grid grid-cols-12 gap-2 py-0.5 border-b border-slate-200/50">
                     <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">ความยาว</span>
                     <span className="col-span-7 sm:col-span-8 text-slate-900 font-semibold">
                       {totalPages} หน้า <span className="text-slate-500 font-normal">(ฉบับเต็ม)</span>
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-12 gap-2 py-1">
+                  <div className="grid grid-cols-12 gap-2 py-0.5">
                     <span className="col-span-5 sm:col-span-4 text-slate-500 font-medium">สิทธิ์การเข้าถึง</span>
-                    <span className="col-span-7 sm:col-span-8 text-[#00ba70] font-bold">
+                    <span className="col-span-7 sm:col-span-8 text-[#079FE8] font-bold">
                       ยืมอ่านฟรี 14 วัน <span className="text-slate-500 font-normal text-xs">(ลิขสิทธิ์ถูกต้อง)</span>
                     </span>
                   </div>
                 </div>
 
-                {/* DRM Explanation & Quota */}
-                <div className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-950 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck size={18} className="text-[#00ba70] shrink-0" />
-                    <span>ตามระเบียบลิขสิทธิ์ ยืมอ่านฟรีได้คราวละ {maxLoans} เล่ม (อ่านได้ 14 วัน)</span>
+                {/* DRM Explanation Card (Preserved from original design in Sky Blue) */}
+                <div className="p-4 rounded-2xl bg-[#F0F8FD] border border-[#DCEAF3] text-left space-y-2">
+                  <div className="flex items-center gap-2 text-xs font-bold text-[#073B65]">
+                    <ShieldCheck size={16} className="text-[#079FE8] shrink-0" />
+                    <span>หนังสือลิขสิทธิ์ดิจิทัล (Digital Rights Management)</span>
                   </div>
-                  <span className="font-extrabold text-[#00ba70] bg-white px-2.5 py-1 rounded-full border border-emerald-200 shrink-0">
-                    โควตา {activeLoanCount}/{maxLoans} เล่ม
-                  </span>
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    ตามข้อกำหนดการคุ้มครองลิขสิทธิ์ดิจิทัลของห้องสมุด ระบบได้ปิดการอ่านโดยตรง ผู้ใช้งานจำเป็นต้องทำรายการยืมก่อนเปิดอ่าน โดยสามารถยืมหนังสือเก็บไว้ได้สูงสุด <strong>{maxLoans} เล่ม</strong> พร้อมกัน (อ่านได้ไม่จำกัดตลอดระยะเวลายืม 14 วัน)
+                  </p>
+                  <div className="pt-2 border-t border-[#DCEAF3] flex items-center justify-between text-xs font-semibold text-[#073B65]">
+                    <span>โควตายืมปัจจุบัน:</span>
+                    <span className={activeLoanCount >= maxLoans ? 'text-rose-600 font-bold' : 'text-[#079FE8] font-bold'}>
+                      {activeLoanCount} / {maxLoans} เล่ม
+                    </span>
+                  </div>
                 </div>
-
-                {borrowFeedback && (
-                  <p className="mt-2 text-xs text-rose-600 font-semibold">{borrowFeedback}</p>
-                )}
 
               </div>
 
@@ -520,7 +454,7 @@ function BookReaderContent({ bookId }: { bookId: string }) {
                   <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
                   หนังสือลิขสิทธิ์
                 </span>
-                <span className="text-[10px] font-bold bg-red-600 text-white px-2 py-0.5 rounded-full">
+                <span className="text-[10.5px] font-bold bg-red-600 text-white px-2 py-0.5 rounded-full">
                   สงวนลิขสิทธิ์ตามกฎหมาย
                 </span>
                 {book.isbn && (
@@ -531,17 +465,6 @@ function BookReaderContent({ bookId }: { bookId: string }) {
               </div>
               <p className="text-red-700 text-xs sm:text-sm leading-relaxed font-medium">
                 หนังสือเล่มนี้เป็นลิขสิทธิ์ของ {publisher} ได้รับอนุญาตให้เผยแผ่เพื่อการศึกษาและปฏิบัติธรรม อนุญาตให้อ่านออนไลน์ในระบบหอสมุดดิจิทัล ห้ามทำซ้ำ ดัดแปลง หรือจำหน่ายในเชิงพาณิชย์
-              </p>
-            </div>
-
-            {/* Synopsis / คำอธิบายหนังสือ */}
-            <div className="bg-slate-50/80 rounded-2xl p-4 sm:p-5 border border-slate-200/70 mt-4">
-              <h4 className="font-bold text-xs sm:text-sm text-slate-900 mb-1.5 flex items-center gap-2">
-                <FileCheck size={15} className="text-[#00ba70]" />
-                เรื่องย่อ / เกี่ยวกับหนังสือเล่มนี้
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                {book.description || 'รวบรวมหลักธรรมคำสอนและแนวทางการดำเนินชีวิตอย่างมีความสุขและสงบใจ เพื่อการศึกษาและพัฒนาจิตใจ ผสานมุมมองพุทธศาสตร์เข้ากับชีวิตประจำวัน'}
               </p>
             </div>
 
