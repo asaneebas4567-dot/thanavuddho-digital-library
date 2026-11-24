@@ -81,18 +81,16 @@ export default function TopBannerCarousel({
   const mouseStartXRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Responsive items count: Mobile 1, Small Tablet 2, Tablet/Small Desktop 3, Wide Desktop 4
+  // Responsive items count: Mobile 1, Small Tablet 2, Tablet/Small Desktop 3, Wide Desktop 3 (Larger, more prominent cards)
   useEffect(() => {
     const handleResize = () => {
       if (typeof window === 'undefined') return;
       if (window.innerWidth < 640) {
         setVisibleCount(1);
-      } else if (window.innerWidth < 880) {
+      } else if (window.innerWidth < 960) {
         setVisibleCount(2);
-      } else if (window.innerWidth < 1200) {
-        setVisibleCount(3);
       } else {
-        setVisibleCount(4);
+        setVisibleCount(3);
       }
     };
 
@@ -485,9 +483,9 @@ export default function TopBannerCarousel({
           </div>
         </div>
 
-        {/* 3. Bottom Indicator Dots */}
+        {/* 3. Bottom Indicator Dots (Subtle & Blended with Blue Gradient) */}
         {totalCards > visibleCount && (
-          <div className="flex items-center justify-center gap-1.5 mt-3">
+          <div className="flex items-center justify-center gap-1.5 mt-3.5">
             {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
               <button
                 key={idx}
@@ -495,10 +493,10 @@ export default function TopBannerCarousel({
                   setCurrentIndex(idx);
                   setProgressKey((k) => k + 1);
                 }}
-                className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${
+                className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${
                   idx === currentIndex
-                    ? 'w-7 bg-sky-400 shadow-2xs'
-                    : 'w-2 bg-white/40 hover:bg-white/70'
+                    ? 'w-6 bg-sky-300/80 shadow-xs'
+                    : 'w-1.5 bg-white/20 hover:bg-white/40'
                 }`}
                 title={`ไปที่หน้าต่างชุดที่ ${idx + 1}`}
                 aria-label={`ไปที่หน้าต่างชุดที่ ${idx + 1}`}
@@ -507,12 +505,12 @@ export default function TopBannerCarousel({
           </div>
         )}
 
-        {/* 4. Autoplay Progress Countdown Bar */}
+        {/* 4. Autoplay Progress Countdown Bar (Subtle & Blended) */}
         {isPlaying && !isHovered && totalCards > visibleCount && (
-          <div className="max-w-[160px] mx-auto h-0.5 bg-white/20 rounded-full overflow-hidden mt-1.5">
+          <div className="max-w-[120px] mx-auto h-0.5 bg-white/10 rounded-full overflow-hidden mt-1.5">
             <div 
               key={progressKey}
-              className="h-full bg-gradient-to-r from-amber-300 via-sky-300 to-white banner-progress-bar-active rounded-full"
+              className="h-full bg-sky-200/40 banner-progress-bar-active rounded-full"
             />
           </div>
         )}
