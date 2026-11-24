@@ -47,9 +47,14 @@ export default function DailyReadingSummaryModal({
   const handleClaim = () => {
     setIsClaiming(true);
     triggerFlyingCoins({ count: 15, sound: true });
+    // Execute exit without delaying too much
     setTimeout(() => {
       onClaimAndExit(coinsAwarded);
-    }, 700);
+    }, 350);
+  };
+
+  const handleDirectExit = () => {
+    onClaimAndExit(0);
   };
 
   return (
@@ -57,7 +62,7 @@ export default function DailyReadingSummaryModal({
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black/75 backdrop-blur-xs transition-opacity"
-        onClick={onContinueReading}
+        onClick={handleDirectExit}
       />
 
       {/* Lazada-Style Gamified Modal */}
@@ -68,9 +73,10 @@ export default function DailyReadingSummaryModal({
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(251,191,36,0.25)_0%,transparent_70%)] pointer-events-none" />
           
           <button
-            onClick={onContinueReading}
+            onClick={handleDirectExit}
             className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-            aria-label="ปิด"
+            aria-label="ปิดและออก"
+            title="ปิดและออกทันที"
           >
             <X size={16} />
           </button>

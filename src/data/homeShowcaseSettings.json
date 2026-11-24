@@ -11,8 +11,8 @@
       "title": "มุทิตาสักการะ วาระอายุวัฒนมงคล ๖๕ ปี พระครูปลัดสุวัฒนโพธิคุณ",
       "image_url": "/images/banners/banner-muthita-65-years.jpg",
       "image_url_mobile": "/images/banners/banner-muthita-65-years.jpg",
-      "target_url": "/welcome",
-      "is_clickable": true,
+      "target_url": "#",
+      "is_clickable": false,
       "order": 1,
       "is_active": true,
       "fit_mode": "cover"

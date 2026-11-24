@@ -357,7 +357,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
   }, [currentPage]);
 
   // -------------------------------------------------------------------------
-  // STEP 5: ROBUST SINGLE-CLICK BACK NAVIGATION WITH DAILY READING REWARD SUMMARY
+  // STEP 5: ROBUST SINGLE-CLICK BACK NAVIGATION
   // -------------------------------------------------------------------------
   const [showExitSummaryModal, setShowExitSummaryModal] = useState(false);
 
@@ -365,7 +365,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
     // 1. Direct return if 'from' query param was passed
     const fromParam = searchParams.get('from');
     if (fromParam) {
-      router.push(fromParam);
+      window.location.href = fromParam;
       return;
     }
 
@@ -374,7 +374,7 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
       try {
         const refUrl = new URL(document.referrer);
         if (refUrl.origin === window.location.origin && !refUrl.pathname.startsWith('/reader/')) {
-          router.push(refUrl.pathname + refUrl.search);
+          window.location.href = refUrl.pathname + refUrl.search;
           return;
         }
       } catch {
@@ -384,19 +384,16 @@ function PremiumFlipbookCore({ book, initialPage = 1 }: PremiumBookReaderProps) 
 
     // 3. Fallback: navigate directly to book details
     if (book.id) {
-      router.push(`/books/${book.id}`);
+      window.location.href = `/books/${book.id}`;
     } else {
-      router.push('/books');
+      window.location.href = '/books';
     }
-  }, [router, searchParams, book.id]);
+  }, [searchParams, book.id]);
 
   const handleGoBack = useCallback(() => {
-    if (totalSessionSeconds >= 10) {
-      setShowExitSummaryModal(true);
-    } else {
-      handleExecuteExit();
-    }
-  }, [totalSessionSeconds, handleExecuteExit]);
+    // Single click instant back without blocking modal
+    handleExecuteExit();
+  }, [handleExecuteExit]);
 
   const handleClaimReadingRewardAndExit = useCallback(async (pointsEarned: number) => {
     setShowExitSummaryModal(false);

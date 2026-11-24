@@ -106,7 +106,7 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
     // 1. If explicit 'from' parameter provided in URL
     const fromParam = searchParams.get('from');
     if (fromParam) {
-      router.push(fromParam);
+      window.location.href = fromParam;
       return;
     }
 
@@ -115,7 +115,7 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
       try {
         const refUrl = new URL(document.referrer);
         if (refUrl.origin === window.location.origin && !refUrl.pathname.startsWith('/reader/')) {
-          router.push(refUrl.pathname + refUrl.search);
+          window.location.href = refUrl.pathname + refUrl.search;
           return;
         }
       } catch {
@@ -125,19 +125,16 @@ export default function PubHtml5Reader({ book, hasLocalPdf }: PubHtml5ReaderProp
 
     // 3. Fallback: navigate directly to book details
     if (book.id) {
-      router.push(`/books/${book.id}`);
+      window.location.href = `/books/${book.id}`;
     } else {
-      router.push('/books');
+      window.location.href = '/books';
     }
-  }, [router, searchParams, book.id]);
+  }, [searchParams, book.id]);
 
   const handleGoBack = useCallback(() => {
-    if (sessionSeconds >= 10) {
-      setShowExitSummaryModal(true);
-    } else {
-      handleExecuteExit();
-    }
-  }, [sessionSeconds, handleExecuteExit]);
+    // Single click instant back without blocking modal
+    handleExecuteExit();
+  }, [handleExecuteExit]);
 
   const handleClaimReadingRewardAndExit = useCallback(async (pointsEarned: number) => {
     setShowExitSummaryModal(false);
