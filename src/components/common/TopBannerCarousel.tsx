@@ -483,9 +483,9 @@ export default function TopBannerCarousel({
           </div>
         </div>
 
-        {/* 3. Bottom Indicator Dots (Clean & Blended with Blue Gradient) */}
+        {/* 3. Bottom Indicator Dots (Ultra Faint & Faded into Background) */}
         {totalCards > visibleCount && (
-          <div className="flex items-center justify-center gap-1.5 mt-3">
+          <div className="flex items-center justify-center gap-1.5 mt-3 opacity-30 hover:opacity-75 transition-opacity duration-300">
             {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
               <button
                 key={idx}
@@ -495,8 +495,8 @@ export default function TopBannerCarousel({
                 }}
                 className={`h-1 transition-all duration-300 rounded-full cursor-pointer ${
                   idx === currentIndex
-                    ? 'w-5 bg-sky-200/50'
-                    : 'w-1 bg-white/10 hover:bg-white/20'
+                    ? 'w-5 bg-white/40'
+                    : 'w-1 bg-white/15'
                 }`}
                 title={`ไปที่หน้าต่างชุดที่ ${idx + 1}`}
                 aria-label={`ไปที่หน้าต่างชุดที่ ${idx + 1}`}
@@ -507,10 +507,10 @@ export default function TopBannerCarousel({
 
         {/* 4. Autoplay Progress Countdown Bar (Ultra Subtle & Seamless) */}
         {isPlaying && !isHovered && totalCards > visibleCount && (
-          <div className="max-w-[100px] mx-auto h-[1px] bg-white/5 rounded-full overflow-hidden mt-1">
+          <div className="max-w-[100px] mx-auto h-[1px] bg-white/5 rounded-full overflow-hidden mt-1 opacity-20">
             <div 
               key={progressKey}
-              className="h-full bg-sky-300/25 banner-progress-bar-active rounded-full"
+              className="h-full bg-white/30 banner-progress-bar-active rounded-full"
             />
           </div>
         )}
