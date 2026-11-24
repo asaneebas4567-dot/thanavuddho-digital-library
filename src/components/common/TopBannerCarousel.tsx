@@ -71,7 +71,7 @@ export default function TopBannerCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [visibleCount, setVisibleCount] = useState(3);
   const [progressKey, setProgressKey] = useState(0);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -483,9 +483,9 @@ export default function TopBannerCarousel({
           </div>
         </div>
 
-        {/* 3. Bottom Indicator Dots (Subtle & Blended with Blue Gradient) */}
+        {/* 3. Bottom Indicator Dots (Clean & Blended with Blue Gradient) */}
         {totalCards > visibleCount && (
-          <div className="flex items-center justify-center gap-1.5 mt-3.5">
+          <div className="flex items-center justify-center gap-1.5 mt-3">
             {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
               <button
                 key={idx}
@@ -493,10 +493,10 @@ export default function TopBannerCarousel({
                   setCurrentIndex(idx);
                   setProgressKey((k) => k + 1);
                 }}
-                className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${
+                className={`h-1 transition-all duration-300 rounded-full cursor-pointer ${
                   idx === currentIndex
-                    ? 'w-6 bg-sky-300/80 shadow-xs'
-                    : 'w-1.5 bg-white/20 hover:bg-white/40'
+                    ? 'w-5 bg-sky-200/50'
+                    : 'w-1 bg-white/10 hover:bg-white/20'
                 }`}
                 title={`ไปที่หน้าต่างชุดที่ ${idx + 1}`}
                 aria-label={`ไปที่หน้าต่างชุดที่ ${idx + 1}`}
@@ -505,12 +505,12 @@ export default function TopBannerCarousel({
           </div>
         )}
 
-        {/* 4. Autoplay Progress Countdown Bar (Subtle & Blended) */}
+        {/* 4. Autoplay Progress Countdown Bar (Ultra Subtle & Seamless) */}
         {isPlaying && !isHovered && totalCards > visibleCount && (
-          <div className="max-w-[120px] mx-auto h-0.5 bg-white/10 rounded-full overflow-hidden mt-1.5">
+          <div className="max-w-[100px] mx-auto h-[1px] bg-white/5 rounded-full overflow-hidden mt-1">
             <div 
               key={progressKey}
-              className="h-full bg-sky-200/40 banner-progress-bar-active rounded-full"
+              className="h-full bg-sky-300/25 banner-progress-bar-active rounded-full"
             />
           </div>
         )}
