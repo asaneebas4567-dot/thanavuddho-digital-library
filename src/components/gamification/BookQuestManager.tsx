@@ -278,91 +278,9 @@ export default function BookQuestManager({
     }) || null;
   }, [allBookQuests, currentPage]);
 
-  // ---------------------------------------------------------------------------
-  // Active Chapter Dwell Timer (Anti-skimming: 1.5 in 5 minutes ratio = 30%)
-  // ---------------------------------------------------------------------------
-  useEffect(() => {
-    if (!pageQuest || typeof window === 'undefined') return;
-
-    let lastInteraction = Date.now();
-    const handleInteraction = () => {
-      lastInteraction = Date.now();
-    };
-
-    window.addEventListener('mousemove', handleInteraction, { passive: true });
-    window.addEventListener('keydown', handleInteraction, { passive: true });
-    window.addEventListener('touchstart', handleInteraction, { passive: true });
-    window.addEventListener('scroll', handleInteraction, { passive: true });
-
-    const interval = setInterval(() => {
-      if (document.visibilityState === 'visible' && Date.now() - lastInteraction < 60000) {
-        setChapterDwellSeconds(prev => {
-          const current = prev[pageQuest.id] || 0;
-          const nextVal = current + 1;
-          const updated = { ...prev, [pageQuest.id]: nextVal };
-
-          if (nextVal % 5 === 0) {
-            try {
-              localStorage.setItem(`dhamma_chapter_dwell_${bookId}`, JSON.stringify(updated));
-            } catch {}
-          }
-          return updated;
-        });
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener('mousemove', handleInteraction);
-      window.removeEventListener('keydown', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
-      window.removeEventListener('scroll', handleInteraction);
-    };
-  }, [pageQuest, bookId]);
-
-  // Pacing calculation for current page quest
-  const pageQuestPacing = useMemo(() => {
-    if (!pageQuest) return null;
-    const pageCount = (pageQuest.triggerPageEnd ?? pageQuest.triggerPage) - pageQuest.triggerPage + 1;
-    return calculateChapterRequiredDwellTime(pageCount, 'A5', ACADEMIC_READING_BENCHMARKS.DISCOUNT_FACTOR_ACADEMIC);
-  }, [pageQuest]);
-
-  const pageQuestSpentSeconds = pageQuest ? (chapterDwellSeconds[pageQuest.id] || 0) : 0;
-  const isPageQuestUnlocked = useMemo(() => {
-    if (!pageQuest || !pageQuestPacing) return false;
-    if (completedQuestIds.includes(pageQuest.id)) return true;
-    return pageQuestSpentSeconds >= pageQuestPacing.requiredDwellSeconds;
-  }, [pageQuest, pageQuestPacing, pageQuestSpentSeconds, completedQuestIds]);
-
-  // Pacing calculation for active quest in modal
-  const activeQuestPacing = useMemo(() => {
-    if (!activeQuest) return null;
-    const pageCount = (activeQuest.triggerPageEnd ?? activeQuest.triggerPage) - activeQuest.triggerPage + 1;
-    return calculateChapterRequiredDwellTime(pageCount, 'A5', ACADEMIC_READING_BENCHMARKS.DISCOUNT_FACTOR_ACADEMIC);
-  }, [activeQuest]);
-
-  const activeQuestSpentSeconds = activeQuest ? (chapterDwellSeconds[activeQuest.id] || 0) : 0;
-  const isActiveQuestUnlocked = useMemo(() => {
-    if (!activeQuest || !activeQuestPacing) return false;
-    if (completedQuestIds.includes(activeQuest.id) || attempts[activeQuest.id]) return true;
-    return activeQuestSpentSeconds >= activeQuestPacing.requiredDwellSeconds;
-  }, [activeQuest, activeQuestPacing, activeQuestSpentSeconds, completedQuestIds, attempts]);
-
-  // Play discover chime and show unlock toast when reaching threshold
-  const unlockAnnouncedRef = useRef<Record<string, boolean>>({});
-  useEffect(() => {
-    if (pageQuest && pageQuestPacing && !completedQuestIds.includes(pageQuest.id)) {
-      if (pageQuestSpentSeconds >= pageQuestPacing.requiredDwellSeconds && !unlockAnnouncedRef.current[pageQuest.id]) {
-        unlockAnnouncedRef.current[pageQuest.id] = true;
-        playWebAudioSound('discover', soundEnabled);
-        setChapterToast({
-          show: true,
-          title: `ปลดล็อกเควสท์สำเร็จ: ${pageQuest.title}`,
-          detail: `คุณศึกษาบทนี้ครบ ${pageQuestPacing.requiredMinutesDisplay} แล้ว พร้อมตอบคำถามรับแต้มสะสม!`
-        });
-      }
-    }
-  }, [pageQuest, pageQuestPacing, pageQuestSpentSeconds, completedQuestIds, soundEnabled]);
+  // Quests are immediately accessible without dwell timer delay
+  const isPageQuestUnlocked = true;
+  const isActiveQuestUnlocked = true;
 
   // When user lands on a page with an undiscovered quest, mark it as discovered
   useEffect(() => {
@@ -381,17 +299,12 @@ export default function BookQuestManager({
     }
   }, [pageQuest, bookId, discoveredQuestIds]);
 
-  // Auto-trigger Mandatory Interstitial Checkpoint Quest when landing on a page with uncompleted quest
-  const autoTriggeredQuestsRef = useRef<Record<string, boolean>>({});
+  // Auto-trigger Mandatory Interstitial Checkpoint Quest IMMEDIATELY when landing on a page with uncompleted quest
   useEffect(() => {
     if (!pageQuest || typeof window === 'undefined') return;
     const isCompleted = completedQuestIds.includes(pageQuest.id);
-    if (!isCompleted && !activeQuest && !autoTriggeredQuestsRef.current[pageQuest.id]) {
-      autoTriggeredQuestsRef.current[pageQuest.id] = true;
-      const timer = setTimeout(() => {
-        openQuestModal(pageQuest, true);
-      }, 400);
-      return () => clearTimeout(timer);
+    if (!isCompleted && (!activeQuest || activeQuest.id !== pageQuest.id)) {
+      openQuestModal(pageQuest, true);
     }
   }, [pageQuest, completedQuestIds, activeQuest]);
 
@@ -503,8 +416,8 @@ export default function BookQuestManager({
   };
 
   const closeQuestModal = (force: boolean = false) => {
-    // If it's a mandatory checkpoint and not yet completed, strictly block closing!
-    if (isMandatoryCheckpoint && !force && activeQuest && !completedQuestIds.includes(activeQuest.id)) {
+    // If quest is not yet completed, strictly block closing! Must answer and pass first!
+    if (activeQuest && !completedQuestIds.includes(activeQuest.id) && !force) {
       return;
     }
     setActiveQuest(null);
@@ -686,117 +599,7 @@ export default function BookQuestManager({
       )}
 
       {/* =========================================================================
-          1. FLOATING QUEST BEACON / PILL (Non-intrusive notification)
-         ========================================================================= */}
-      {pageQuest && !isBeaconDismissed && (
-        <div className="fixed bottom-14 sm:bottom-16 left-1/2 -translate-x-1/2 z-40 w-auto max-w-[90vw] sm:max-w-md pointer-events-none animate-in fade-in slide-in-from-bottom-3 duration-300">
-          <div 
-            onClick={() => openQuestModal(pageQuest)}
-            className={`pointer-events-auto group relative flex items-center gap-2 sm:gap-2.5 p-2 sm:p-2.5 rounded-2xl cursor-pointer shadow-2xl backdrop-blur-xl border transition-all duration-300 hover:scale-[1.02] active:scale-98 ${
-              pageQuest.isLegendary
-                ? 'bg-gradient-to-r from-amber-950/95 via-yellow-950/90 to-amber-900/95 text-amber-100 border-amber-400/80 shadow-amber-500/25 ring-2 ring-amber-400/40 ring-offset-1 ring-offset-black'
-                : isCurrentPageQuestCompleted
-                ? 'bg-slate-900/95 text-emerald-100 border-emerald-500/50 shadow-black/50'
-                : pageQuestAttempt && !pageQuestAttempt.isCorrect
-                ? 'bg-slate-900/95 text-rose-200 border-rose-500/40 shadow-black/50'
-                : pageQuest.questType === 'main'
-                ? 'bg-slate-900/95 text-amber-100 border-amber-400/80 shadow-amber-500/20'
-                : 'bg-slate-900/95 text-white border-amber-500/40 shadow-black/50'
-            }`}
-          >
-            {/* Glowing Icon */}
-            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 shadow-md ${
-              pageQuest.isLegendary
-                ? 'bg-gradient-to-tr from-yellow-500 via-amber-400 to-amber-200 text-slate-950 animate-pulse'
-                : isCurrentPageQuestCompleted
-                ? 'bg-emerald-500 text-white'
-                : pageQuestAttempt && !pageQuestAttempt.isCorrect
-                ? 'bg-rose-600 text-white'
-                : pageQuest.questType === 'main'
-                ? 'bg-amber-400 text-slate-950'
-                : 'bg-amber-500 text-slate-950'
-            }`}>
-              {pageQuest.isLegendary ? (
-                <Crown size={20} className="fill-amber-900 text-slate-950" />
-              ) : isCurrentPageQuestCompleted ? (
-                <CheckCircle2 size={20} />
-              ) : pageQuestAttempt && !pageQuestAttempt.isCorrect ? (
-                <X size={20} />
-              ) : pageQuest.questType === 'main' ? (
-                <Compass size={20} className="text-slate-950" />
-              ) : (
-                <Sparkles size={18} />
-              )}
-            </div>
-
-            {/* Content Text */}
-            <div className="min-w-0 flex-1 pr-1">
-              <div className="flex items-center gap-1.5 flex-wrap">
-                <span className={`text-[10px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded ${
-                  pageQuest.isLegendary
-                    ? 'bg-amber-400 text-slate-950 font-extrabold'
-                    : isCurrentPageQuestCompleted
-                    ? 'bg-emerald-500/20 text-emerald-300'
-                    : pageQuestAttempt && !pageQuestAttempt.isCorrect
-                    ? 'bg-rose-500/20 text-rose-300'
-                    : pageQuest.questType === 'main'
-                    ? 'bg-amber-400 text-slate-950 font-bold'
-                    : 'bg-amber-500/20 text-amber-300'
-                }`}>
-                  {pageQuest.categoryTag}
-                </span>
-                {isCurrentPageQuestCompleted ? (
-                  <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded flex items-center gap-0.5">
-                    <Check size={10} /> สำเร็จแล้ว (+{pageQuest.loot.points} แต้ม)
-                  </span>
-                ) : pageQuestAttempt && !pageQuestAttempt.isCorrect ? (
-                  <span className="text-[10px] font-bold bg-rose-500/20 text-rose-300 px-1.5 py-0.2 rounded flex items-center gap-0.5">
-                    <X size={10} /> สิ้นสุดแล้ว (0 แต้ม)
-                  </span>
-                ) : !isPageQuestUnlocked ? (
-                  <span className="text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
-                    <Clock size={10} className="animate-pulse" />
-                    <span>อ่านศึกษา: {pageQuestSpentSeconds}ว./{pageQuestPacing?.requiredDwellSeconds}ว. ({Math.min(100, Math.round((pageQuestSpentSeconds / (pageQuestPacing?.requiredDwellSeconds || 1)) * 100))}%)</span>
-                  </span>
-                ) : (
-                  <span className="text-[10px] font-bold bg-sky-500/30 text-sky-200 border border-sky-400/40 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
-                    <Sparkles size={10} className="text-amber-300" />
-                    <span>ปลดล็อกแล้ว! +{pageQuest.loot.points} แต้ม</span>
-                  </span>
-                )}
-              </div>
-              <div className="font-extrabold text-xs sm:text-sm truncate mt-0.5 group-hover:text-amber-300 transition-colors">
-                {pageQuest.title}
-              </div>
-              <div className="text-[10px] sm:text-[11px] opacity-75 truncate">
-                {!isPageQuestUnlocked && !isCurrentPageQuestCompleted
-                  ? `📖 อยู่ในช่วงหน้า ${pageQuest.printedPageStart || pageQuest.triggerPage}–${pageQuest.printedPageEnd || pageQuest.triggerPageEnd || pageQuest.triggerPage} • ต้องอ่านศึกษาอย่างน้อย ${pageQuestPacing?.requiredMinutesDisplay} (เกณฑ์ 1.5 ใน 5)`
-                  : `📖 หน้าหนังสือ ${pageQuest.printedPageStart || pageQuest.triggerPage}–${pageQuest.printedPageEnd || pageQuest.triggerPageEnd || pageQuest.triggerPage} (PDF หน้า ${pageQuest.triggerPage}) • แตะเพื่อตอบคำถาม`}
-              </div>
-            </div>
-
-            {/* Action Chevron & Dismiss (X) */}
-            <div className="flex items-center gap-1 shrink-0">
-              <div className="p-1.5 rounded-lg bg-white/10 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
-                <ChevronRight size={15} />
-              </div>
-              {/* Do NOT show X dismiss button if quest is not yet completed (must answer first!) */}
-              {isCurrentPageQuestCompleted && (
-                <button
-                  onClick={(e) => dismissBeaconForPage(pageQuest.id, e)}
-                  className="p-1.5 rounded-lg hover:bg-white/20 text-slate-400 hover:text-white transition-colors"
-                  title="ซ่อนการแจ้งเตือนในหน้านี้"
-                >
-                  <X size={13} />
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* =========================================================================
-          2. FLOATING ALL-QUESTS JOURNAL TRIGGER BUTTON (Top right shortcut)
+          1. FLOATING ALL-QUESTS JOURNAL TRIGGER BUTTON (Top right shortcut)
          ========================================================================= */}
       <div className="fixed top-14 sm:top-16 right-3 sm:right-5 z-40 flex flex-col gap-1.5 items-end">
         <button
@@ -810,14 +613,18 @@ export default function BookQuestManager({
       </div>
 
       {/* =========================================================================
-          3. MAIN QUEST MODAL (Interactive Dhamma Quiz & Lore View)
+          2. MAIN QUEST MODAL (Interactive Dhamma Quiz & Lore View)
          ========================================================================= */}
       {activeQuest && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
-          {/* Backdrop */}
+          {/* Backdrop: Strictly un-dismissible while quest is incomplete */}
           <div 
-            onClick={() => closeQuestModal(false)}
-            className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity" 
+            onClick={() => {
+              if (completedQuestIds.includes(activeQuest.id)) {
+                closeQuestModal(true);
+              }
+            }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity" 
           />
 
           {/* Modal Container: Clean White, Deep Navy Header & Soft Border */}
@@ -831,7 +638,7 @@ export default function BookQuestManager({
                     <Sparkles size={13} className="text-[#079FE8]" />
                     <span>{isMandatoryCheckpoint ? '🎬 ด่านเควสท์คั่นจังหวะการอ่าน' : (activeQuest.categoryTag || 'ภารกิจทดสอบปัญญาธรรม')}</span>
                   </span>
-                  {isMandatoryCheckpoint && !completedQuestIds.includes(activeQuest.id) && (
+                  {!completedQuestIds.includes(activeQuest.id) && (
                     <span className="text-[11px] font-black text-rose-950 bg-rose-100 border border-rose-300 px-2.5 py-0.5 rounded-full animate-pulse flex items-center gap-1">
                       <span>🔒</span>
                       <span>ตอบคำถามให้ถูกต้องเพื่ออ่านต่อ</span>
@@ -856,8 +663,8 @@ export default function BookQuestManager({
                   >
                     {soundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
                   </button>
-                  {/* Close button X is REMOVED if it's a mandatory checkpoint and not yet passed! */}
-                  {(!isMandatoryCheckpoint || completedQuestIds.includes(activeQuest.id)) && (
+                  {/* Close button X is shown ONLY IF quest is already completed (never show during mandatory uncompleted checkpoint!) */}
+                  {completedQuestIds.includes(activeQuest.id) && (
                     <button 
                       onClick={() => closeQuestModal(true)}
                       className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
@@ -880,86 +687,21 @@ export default function BookQuestManager({
 
             {/* Modal Body */}
             <div className="p-5 sm:p-7 space-y-5 overflow-y-auto flex-1 bg-[#F0F8FD]/30">
-              {!isMandatoryCheckpoint && !isActiveQuestUnlocked && activeQuestPacing ? (
-                /* Locked Study Screen (Anti-skimming / Real Reading Verification) - Only for manual drawer browse */
-                <div className="py-2 space-y-4 text-center sm:text-left">
-                  <div className="p-6 rounded-2xl bg-white border border-[#DCEAF3] shadow-xs space-y-5">
-                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#079FE8]/15 to-[#073B65]/10 border border-[#079FE8]/30 flex items-center justify-center shrink-0 text-[#079FE8]">
-                        <Hourglass size={28} className="animate-pulse" />
-                      </div>
-                      <div className="flex-1 space-y-1 text-center sm:text-left">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#EBF7FD] text-[#079FE8] border border-[#C5E7FA]">
-                          <Clock size={13} />
-                          <span>ช่วงเวลาศึกษาเนื้อหาบทเรียน (Anti-Skimming Active Reading)</span>
-                        </div>
-                        <h3 className="text-lg sm:text-xl font-bold text-[#073B65] mt-1">
-                          กรุณาศึกษาเนื้อหาก่อนเริ่มทำแบบทดสอบ
-                        </h3>
-                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                          บทนี้ครอบคลุม PDF หน้า {activeQuest.triggerPage}{activeQuest.triggerPageEnd && activeQuest.triggerPageEnd !== activeQuest.triggerPage ? ` ถึง ${activeQuest.triggerPageEnd}` : ''} (ความยาว {activeQuestPacing.chapterPageCount} หน้า) ระบบจะปลดล็อกแบบทดสอบเมื่อท่านศึกษาเนื้อหาอย่างต่อเนื่อง
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Progress Bar & Countdown Box */}
-                    <div className="p-4 rounded-xl bg-[#F0F8FD] border border-[#DCEAF3] space-y-3">
-                      <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-[#073B65]">
-                        <span className="flex items-center gap-1.5">
-                          <Timer size={15} className="text-[#079FE8]" />
-                          <span>เวลาศึกษาแล้ว: {activeQuestSpentSeconds} วินาที</span>
-                        </span>
-                        <span className="text-[#079FE8]">
-                          เป้าหมายขั้นต่ำ: {activeQuestPacing.requiredDwellSeconds} วินาที ({activeQuestPacing.requiredMinutesDisplay})
-                        </span>
-                      </div>
-
-                      {/* Visual progress bar */}
-                      <div className="w-full bg-[#DCEAF3] rounded-full h-3 overflow-hidden">
-                        <div 
-                          className="bg-gradient-to-r from-[#079FE8] to-[#073B65] h-full rounded-full transition-all duration-300"
-                          style={{
-                            width: `${Math.min(100, Math.round((activeQuestSpentSeconds / activeQuestPacing.requiredDwellSeconds) * 100))}%`
-                          }}
-                        />
-                      </div>
-
-                      <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-500">
-                        <span>ความคืบหน้า {Math.min(100, Math.round((activeQuestSpentSeconds / activeQuestPacing.requiredDwellSeconds) * 100))}%</span>
-                        <span className="font-bold text-[#073B65]">
-                          อีก {Math.max(0, activeQuestPacing.requiredDwellSeconds - activeQuestSpentSeconds)} วินาที จะปลดล็อกคำถาม
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Action Button to return to reading */}
-                    <button
-                      type="button"
-                      onClick={() => closeQuestModal(true)}
-                      className="w-full py-3.5 px-5 rounded-xl bg-[#073B65] hover:bg-[#0A4D82] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
-                    >
-                      <BookOpen size={18} />
-                      <span>📖 ปิดหน้าต่างนี้เพื่ออ่านต่อ (เปิดหน้าถัดไปได้ทันที)</span>
-                    </button>
-                  </div>
+              {/* Question Header & Points Reward Pill */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1 border-b border-[#DCEAF3]">
+                <div className="text-base sm:text-lg font-bold text-[#073B65] flex items-center gap-2">
+                  <HelpCircle size={20} className="text-[#079FE8] shrink-0" />
+                  <span>คำถามไขปริศนาธรรม</span>
+                  {currentQuestions.length > 1 && (
+                    <span className="text-xs sm:text-sm font-semibold text-[#079FE8] bg-[#F0F8FD] px-2.5 py-0.5 rounded-lg border border-[#DCEAF3]">
+                      ข้อ {currentQuestionIndex + 1}/{currentQuestions.length}
+                    </span>
+                  )}
                 </div>
-              ) : (
-                <>
-                  {/* Question Header & Points Reward Pill */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1 border-b border-[#DCEAF3]">
-                    <div className="text-base sm:text-lg font-bold text-[#073B65] flex items-center gap-2">
-                      <HelpCircle size={20} className="text-[#079FE8] shrink-0" />
-                      <span>คำถามไขปริศนาธรรม</span>
-                      {currentQuestions.length > 1 && (
-                        <span className="text-xs sm:text-sm font-semibold text-[#079FE8] bg-[#F0F8FD] px-2.5 py-0.5 rounded-lg border border-[#DCEAF3]">
-                          ข้อ {currentQuestionIndex + 1}/{currentQuestions.length}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-[#B88328] font-bold bg-[#FDF6E9] border border-[#F5E6C8] px-3 py-1 rounded-full w-fit">
-                      <span>🪙 รางวัลเมื่อผ่าน: +{activeQuest.loot.points} แต้ม</span>
-                    </div>
-                  </div>
+                <div className="flex items-center gap-1.5 text-xs sm:text-sm text-[#B88328] font-bold bg-[#FDF6E9] border border-[#F5E6C8] px-3 py-1 rounded-full w-fit">
+                  <span>🪙 รางวัลเมื่อผ่าน: +{activeQuest.loot.points} แต้ม</span>
+                </div>
+              </div>
 
                   {/* Multi-Question Tabs (ข้อ 1 .. ข้อ 5) */}
                   {currentQuestions.length > 1 && (
@@ -1195,8 +937,6 @@ export default function BookQuestManager({
                       )}
                     </div>
                   )}
-                </>
-              )}
             </div>
 
             {/* Modal Footer */}
@@ -1372,10 +1112,7 @@ export default function BookQuestManager({
                       const questAttempt = attempts[quest.id];
                       const isCurrent = currentPage >= quest.triggerPage && currentPage <= (quest.triggerPageEnd || quest.triggerPage);
 
-                      const questSpent = chapterDwellSeconds[quest.id] || 0;
-                      const questPages = (quest.triggerPageEnd ?? quest.triggerPage) - quest.triggerPage + 1;
-                      const questPacing = calculateChapterRequiredDwellTime(questPages, 'A5', ACADEMIC_READING_BENCHMARKS.DISCOUNT_FACTOR_ACADEMIC);
-                      const isQuestDwellUnlocked = isCompleted || !!questAttempt || questSpent >= questPacing.requiredDwellSeconds;
+                      const isQuestDwellUnlocked = true;
 
                       return (
                         <div
@@ -1411,14 +1148,9 @@ export default function BookQuestManager({
                                   <span className="text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200 flex items-center gap-0.5">
                                     <X size={11} /> ตอบไม่ถูก (0 แต้ม)
                                   </span>
-                                ) : isQuestDwellUnlocked ? (
+                                ) : (
                                   <span className="text-[10px] text-amber-800 font-bold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
                                     พร้อมตอบ (+{quest.loot.points} แต้ม)
-                                  </span>
-                                ) : (
-                                  <span className="text-[10px] text-sky-800 font-medium bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 flex items-center gap-1">
-                                    <Clock size={10} className="text-sky-600" />
-                                    ศึกษา {questSpent}/{questPacing.requiredDwellSeconds}ว.
                                   </span>
                                 )}
                               </div>
@@ -1464,25 +1196,18 @@ export default function BookQuestManager({
                               className={`flex-1 py-1.5 px-2.5 rounded-xl text-[11px] font-extrabold transition-colors cursor-pointer flex items-center justify-center gap-1 shadow-xs ${
                                 questAttempt
                                   ? 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                                  : isQuestDwellUnlocked
-                                  ? 'bg-amber-600 hover:bg-amber-700 text-white'
-                                  : 'bg-sky-100 text-sky-800 hover:bg-sky-200 border border-sky-300'
+                                  : 'bg-amber-600 hover:bg-amber-700 text-white'
                               }`}
                             >
                               {questAttempt ? (
                                 <>
                                   <Compass size={12} />
-                                  <span>ดูผลภารกิจ</span>
-                                </>
-                              ) : isQuestDwellUnlocked ? (
-                                <>
-                                  <Compass size={12} />
-                                  <span>เปิดภารกิจ</span>
+                                  <span>ดูผลเควสท์</span>
                                 </>
                               ) : (
                                 <>
-                                  <Clock size={12} className="text-sky-600 animate-pulse" />
-                                  <span>ศึกษา ({questSpent}/{questPacing.requiredDwellSeconds}ว.)</span>
+                                  <Compass size={12} />
+                                  <span>เปิดเควสท์</span>
                                 </>
                               )}
                             </button>
