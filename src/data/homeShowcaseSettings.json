@@ -124,6 +124,54 @@
       "order": 10,
       "is_active": true,
       "fit_mode": "cover"
+    },
+    {
+      "id": "showcase-banner-khwam-rak-rot-umami",
+      "type": "IMAGE_ONLY",
+      "title": "ความรัก รสอูมามิ",
+      "image_url": "/images/banners/banner-khwam-rak-rot-umami.jpg",
+      "image_url_mobile": "/images/banners/banner-khwam-rak-rot-umami.jpg",
+      "target_url": "/reader/book_ความรักรสอูมามิ",
+      "is_clickable": true,
+      "order": 11,
+      "is_active": true,
+      "fit_mode": "cover"
+    },
+    {
+      "id": "showcase-banner-khwam-lap-khong-khwam-rak",
+      "type": "IMAGE_ONLY",
+      "title": "ความลับของความรัก",
+      "image_url": "/images/banners/banner-khwam-lap-khong-khwam-rak.jpg",
+      "image_url_mobile": "/images/banners/banner-khwam-lap-khong-khwam-rak.jpg",
+      "target_url": "/reader/book_ความลับของความรัก",
+      "is_clickable": true,
+      "order": 12,
+      "is_active": true,
+      "fit_mode": "cover"
+    },
+    {
+      "id": "showcase-banner-ya-mano-rak-thae",
+      "type": "IMAGE_ONLY",
+      "title": "อย่ามโน!! รักแท้มันใหญ่มาก",
+      "image_url": "/images/banners/banner-ya-mano-rak-thae-man-yai-mak.jpg",
+      "image_url_mobile": "/images/banners/banner-ya-mano-rak-thae-man-yai-mak.jpg",
+      "target_url": "/reader/pubhtml5_68005005",
+      "is_clickable": true,
+      "order": 13,
+      "is_active": true,
+      "fit_mode": "cover"
+    },
+    {
+      "id": "showcase-banner-yoo-nai-lok-mai",
+      "type": "IMAGE_ONLY",
+      "title": "อยู่ในโลกใหม่อย่างไม่เป็นโรค",
+      "image_url": "/images/banners/banner-yoo-nai-lok-mai-yang-mai-pen-rok.jpg",
+      "image_url_mobile": "/images/banners/banner-yoo-nai-lok-mai-yang-mai-pen-rok.jpg",
+      "target_url": "/reader/book_yoo_nai_lok_mai_yang_mai_pen_rok",
+      "is_clickable": true,
+      "order": 14,
+      "is_active": true,
+      "fit_mode": "cover"
     }
   ],
   "updatedAt": "2026-11-23T13:45:00.000Z"
