@@ -323,7 +323,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50/50">
       
-      {/* 1. ไฮไลต์ชุดหนังสือและสื่อเด่น (Flexible Showcase System - Updated Showcase Pool) */}
+      {/* 1. ไฮไลต์ชุดหนังสือและสื่อเด่น (Flexible Showcase System) */}
       <TopBannerCarousel 
         showcaseItems={(homeSettings as any)?.showcaseItems} 
         autoPlayIntervalMs={8000} 
@@ -340,7 +340,7 @@ export default function Home() {
           />
         </div>
 
-        {/* 2. ศูนย์รวมเควสต์ธรรมะ & กระเป๋าแต้มสะสม (Sleek Compact Bar) */}
+        {/* 2. ศูนย์รวมเควสท์ธรรมะ & กระเป๋าแต้มสะสม (Sleek Compact Bar) */}
         <HomeQuestWidget />
 
         {/* Shelf 0: หนังสือลิขสิทธิ์มาใหม่ล่าสุด (Rose/Red Pastel Tint) */}

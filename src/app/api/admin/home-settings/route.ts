@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import homeSettingsData from '@/data/homeShowcaseSettings.json';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -12,13 +11,11 @@ export async function GET() {
   try {
     if (fs.existsSync(SETTINGS_FILE)) {
       const data = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf-8'));
-      if (data && data.showcaseItems && data.showcaseItems.length >= homeSettingsData.showcaseItems.length) {
-        return NextResponse.json({ success: true, settings: data });
-      }
+      return NextResponse.json({ success: true, settings: data });
     }
-    return NextResponse.json({ success: true, settings: homeSettingsData });
+    return NextResponse.json({ success: true, settings: {} });
   } catch (err: any) {
-    return NextResponse.json({ success: true, settings: homeSettingsData });
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }
 

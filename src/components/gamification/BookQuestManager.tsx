@@ -191,6 +191,7 @@ export default function BookQuestManager({
 
   // 3. Active Quest Modal & Drawer State
   const [activeQuest, setActiveQuest] = useState<BookEasterEggQuest | null>(null);
+  const [isMandatoryCheckpoint, setIsMandatoryCheckpoint] = useState<boolean>(false);
   const [internalDrawerOpen, setInternalDrawerOpen] = useState<boolean>(false);
   const [drawerTab, setDrawerTab] = useState<'all' | 'active' | 'completed' | 'badges'>('all');
   
@@ -356,7 +357,7 @@ export default function BookQuestManager({
         playWebAudioSound('discover', soundEnabled);
         setChapterToast({
           show: true,
-          title: `ปลดล็อกเควสต์สำเร็จ: ${pageQuest.title}`,
+          title: `ปลดล็อกเควสท์สำเร็จ: ${pageQuest.title}`,
           detail: `คุณศึกษาบทนี้ครบ ${pageQuestPacing.requiredMinutesDisplay} แล้ว พร้อมตอบคำถามรับแต้มสะสม!`
         });
       }
@@ -379,6 +380,40 @@ export default function BookQuestManager({
       }
     }
   }, [pageQuest, bookId, discoveredQuestIds]);
+
+  // Auto-trigger Mandatory Interstitial Checkpoint Quest when landing on a page with uncompleted quest
+  const autoTriggeredQuestsRef = useRef<Record<string, boolean>>({});
+  useEffect(() => {
+    if (!pageQuest || typeof window === 'undefined') return;
+    const isCompleted = completedQuestIds.includes(pageQuest.id);
+    if (!isCompleted && !activeQuest && !autoTriggeredQuestsRef.current[pageQuest.id]) {
+      autoTriggeredQuestsRef.current[pageQuest.id] = true;
+      const timer = setTimeout(() => {
+        openQuestModal(pageQuest, true);
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [pageQuest, completedQuestIds, activeQuest]);
+
+  // Block page-turning keyboard shortcuts while mandatory checkpoint quest is active
+  useEffect(() => {
+    if (!isMandatoryCheckpoint || !activeQuest) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageDown', 'PageUp', 'Space'].includes(e.code) ||
+        ['ArrowLeft', 'ArrowRight', ' '].includes(e.key)
+      ) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown, { capture: true });
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown, { capture: true });
+    };
+  }, [isMandatoryCheckpoint, activeQuest]);
 
   // Check chapter reading completion when user reaches the end page of a chapter (Requires minimum dwell time)
   useEffect(() => {
@@ -443,19 +478,20 @@ export default function BookQuestManager({
     }
   }, [openQuestId, allBookQuests]);
 
-  const openQuestModal = (quest: BookEasterEggQuest) => {
+  const openQuestModal = (quest: BookEasterEggQuest, isCheckpoint: boolean = false) => {
     setActiveQuest(quest);
+    setIsMandatoryCheckpoint(isCheckpoint);
     setCurrentQuestionIndex(0);
     const prevAttempt = attempts[quest.id];
-    if (prevAttempt) {
-      // Already attempted in the past: lock in previously chosen answer & show final result
+    if (prevAttempt && completedQuestIds.includes(quest.id)) {
+      // Already completed in the past: lock in previously chosen answer & show final result
       setSelectedOption(prevAttempt.selectedOption);
       setMultiAnswers(prevAttempt.selectedAnswers || { 0: prevAttempt.selectedOption });
       setQuizSubmitted(true);
       setIsAnswerCorrect(prevAttempt.isCorrect);
       setShowRewardCelebration(false);
     } else {
-      // Fresh attempt
+      // Fresh attempt or active checkpoint (allows answering and retrying until passed!)
       setSelectedOption(null);
       setMultiAnswers({});
       setQuizSubmitted(false);
@@ -466,8 +502,13 @@ export default function BookQuestManager({
     playWebAudioSound('click', soundEnabled);
   };
 
-  const closeQuestModal = () => {
+  const closeQuestModal = (force: boolean = false) => {
+    // If it's a mandatory checkpoint and not yet completed, strictly block closing!
+    if (isMandatoryCheckpoint && !force && activeQuest && !completedQuestIds.includes(activeQuest.id)) {
+      return;
+    }
     setActiveQuest(null);
+    setIsMandatoryCheckpoint(false);
     setCurrentQuestionIndex(0);
     setMultiAnswers({});
     setSelectedOption(null);
@@ -483,8 +524,8 @@ export default function BookQuestManager({
   };
 
   const handleSelectOption = (idx: number) => {
-    // Strictly forbid changing or selecting if already attempted or submitted!
-    if (quizSubmitted || (activeQuest && attempts[activeQuest.id])) return;
+    // If already completed in the past, lock selection
+    if (activeQuest && completedQuestIds.includes(activeQuest.id)) return;
     setMultiAnswers(prev => ({
       ...prev,
       [currentQuestionIndex]: idx
@@ -495,8 +536,7 @@ export default function BookQuestManager({
 
   const handleSubmitQuiz = () => {
     if (!activeQuest || currentQuestions.length === 0) return;
-    // Strict defense: If already attempted, cannot submit again!
-    if (attempts[activeQuest.id]) return;
+    if (completedQuestIds.includes(activeQuest.id)) return;
 
     // Check all questions answered
     const answeredCount = Object.keys(multiAnswers).length;
@@ -514,13 +554,13 @@ export default function BookQuestManager({
       : 1;
     const isCorrect = correctCount >= passingScore;
     
-    // Standard: Multi-question chapter quizzes (5-10 questions) award 500 points per correct answer!
+    // Standard: Multi-question chapter quizzes award 500 points per correct answer!
     // Single chapter sub-quests award standard 200 points.
     const pointsEarned = isCorrect 
       ? (currentQuestions.length > 1 ? correctCount * 500 : (activeQuest.loot?.points || 200))
       : 0;
 
-    // Permanently record attempt in attempts state & LocalStorage
+    // Record attempt
     const newAttempt: QuestAttemptRecord = {
       selectedOption: multiAnswers[0] ?? 0,
       selectedAnswers: multiAnswers,
@@ -574,8 +614,8 @@ export default function BookQuestManager({
             chapterTitle: activeQuest.title,
             customPoints: pointsEarned,
             customDetail: currentQuestions.length > 1
-              ? `ผ่านเควสต์ท้ายบท ตอบถูก ${correctCount}/${currentQuestions.length} ข้อ (+${pointsEarned} P)`
-              : `ผ่านเควสต์ย่อยประจำบท (+${pointsEarned} P)`
+              ? `ผ่านเควสท์ท้ายบท ตอบถูก ${correctCount}/${currentQuestions.length} ข้อ (+${pointsEarned} P)`
+              : `ผ่านเควสท์ย่อยประจำบท (+${pointsEarned} P)`
           });
         }
       }
@@ -585,7 +625,7 @@ export default function BookQuestManager({
         setCompletedSteps(activeQuest.objectiveSteps.map(s => s.stepNumber));
       }
     } else {
-      // FAILED: NO RETRY. Points = 0.
+      // Incorrect answer: play alert sound and allow retry
       playWebAudioSound('error', soundEnabled);
     }
   };
@@ -740,13 +780,16 @@ export default function BookQuestManager({
               <div className="p-1.5 rounded-lg bg-white/10 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
                 <ChevronRight size={15} />
               </div>
-              <button
-                onClick={(e) => dismissBeaconForPage(pageQuest.id, e)}
-                className="p-1.5 rounded-lg hover:bg-white/20 text-slate-400 hover:text-white transition-colors"
-                title="ซ่อนการแจ้งเตือนในหน้านี้"
-              >
-                <X size={13} />
-              </button>
+              {/* Do NOT show X dismiss button if quest is not yet completed (must answer first!) */}
+              {isCurrentPageQuestCompleted && (
+                <button
+                  onClick={(e) => dismissBeaconForPage(pageQuest.id, e)}
+                  className="p-1.5 rounded-lg hover:bg-white/20 text-slate-400 hover:text-white transition-colors"
+                  title="ซ่อนการแจ้งเตือนในหน้านี้"
+                >
+                  <X size={13} />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -762,7 +805,7 @@ export default function BookQuestManager({
           title="เปิดสมุดภารกิจ Quest Journal & Easter Eggs"
         >
           <Compass size={14} className="text-sky-100 group-hover:rotate-45 transition-transform" />
-          <span>เควสต์ ({completedQuestIds.length}/{allBookQuests.length})</span>
+          <span>เควสท์ ({completedQuestIds.length}/{allBookQuests.length})</span>
         </button>
       </div>
 
@@ -773,21 +816,27 @@ export default function BookQuestManager({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
           {/* Backdrop */}
           <div 
-            onClick={closeQuestModal}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity" 
+            onClick={() => closeQuestModal(false)}
+            className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity" 
           />
 
           {/* Modal Container: Clean White, Deep Navy Header & Soft Border */}
-          <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl shadow-2xl border border-[#DCEAF3] z-10 text-[#243447] flex flex-col bg-white transition-all duration-300">
+          <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl shadow-2xl border-2 border-sky-400/80 z-10 text-[#243447] flex flex-col bg-white transition-all duration-300">
             {/* Modal Header: Crisp White Background with Deep Navy Title */}
             <div className="p-5 sm:p-6 bg-white border-b border-[#DCEAF3] relative text-[#243447]">
               {/* Top Controls */}
               <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#F0F8FD] text-[#079FE8] border border-[#DCEAF3] flex items-center gap-1.5 shadow-2xs">
                     <Sparkles size={13} className="text-[#079FE8]" />
-                    <span>{activeQuest.categoryTag || 'ภารกิจทดสอบปัญญาธรรม'}</span>
+                    <span>{isMandatoryCheckpoint ? '🎬 ด่านเควสท์คั่นจังหวะการอ่าน' : (activeQuest.categoryTag || 'ภารกิจทดสอบปัญญาธรรม')}</span>
                   </span>
+                  {isMandatoryCheckpoint && !completedQuestIds.includes(activeQuest.id) && (
+                    <span className="text-[11px] font-black text-rose-950 bg-rose-100 border border-rose-300 px-2.5 py-0.5 rounded-full animate-pulse flex items-center gap-1">
+                      <span>🔒</span>
+                      <span>ตอบคำถามให้ถูกต้องเพื่ออ่านต่อ</span>
+                    </span>
+                  )}
                   {activeQuest.isLegendary && (
                     <div className="flex items-center text-[#D9A441] text-xs">
                       <Star size={13} className="fill-[#D9A441] text-[#D9A441]" />
@@ -807,13 +856,16 @@ export default function BookQuestManager({
                   >
                     {soundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
                   </button>
-                  <button 
-                    onClick={closeQuestModal}
-                    className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
-                    aria-label="ปิดหน้าต่างเควสต์"
-                  >
-                    <X size={20} />
-                  </button>
+                  {/* Close button X is REMOVED if it's a mandatory checkpoint and not yet passed! */}
+                  {(!isMandatoryCheckpoint || completedQuestIds.includes(activeQuest.id)) && (
+                    <button 
+                      onClick={() => closeQuestModal(true)}
+                      className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
+                      aria-label="ปิดหน้าต่างเควสท์"
+                    >
+                      <X size={20} />
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -828,8 +880,8 @@ export default function BookQuestManager({
 
             {/* Modal Body */}
             <div className="p-5 sm:p-7 space-y-5 overflow-y-auto flex-1 bg-[#F0F8FD]/30">
-              {!isActiveQuestUnlocked && activeQuestPacing ? (
-                /* Locked Study Screen (Anti-skimming / Real Reading Verification) */
+              {!isMandatoryCheckpoint && !isActiveQuestUnlocked && activeQuestPacing ? (
+                /* Locked Study Screen (Anti-skimming / Real Reading Verification) - Only for manual drawer browse */
                 <div className="py-2 space-y-4 text-center sm:text-left">
                   <div className="p-6 rounded-2xl bg-white border border-[#DCEAF3] shadow-xs space-y-5">
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
@@ -880,28 +932,10 @@ export default function BookQuestManager({
                       </div>
                     </div>
 
-                    {/* Research Reference Card */}
-                    <div className="p-4 rounded-xl bg-amber-50/60 border border-amber-200/70 text-left space-y-2 text-xs sm:text-sm">
-                      <div className="flex items-center gap-1.5 font-bold text-amber-900">
-                        <BookOpen size={16} className="text-amber-700 shrink-0" />
-                        <span>เกณฑ์การวัดเวลาอ่านตามหลักสถิติวิจัย (Reading Speed Research)</span>
-                      </div>
-                      <p className="text-slate-700 leading-relaxed font-normal text-xs sm:text-[13px]">
-                        อ้างอิงงานวิจัยมาตรฐานสากล (Scholar Within / Brysbaert 2019): ผู้ใหญ่อ่านหนังสือในใจเฉลี่ย 238 คำ/นาที หนังสือ 1 หน้ามีประมาณ 150-250 คำ สำหรับบทที่มี {activeQuestPacing.chapterPageCount} หน้า ใช้เวลาอ่านปกติประมาณ {activeQuestPacing.recommendedMinutesDisplay}
-                      </p>
-                      <p className="text-slate-700 leading-relaxed font-normal text-xs sm:text-[13px]">
-                        🎯 <strong>สูตรคำนวณ:</strong> กำหนดเวลาอ่านขั้นต่ำที่ <strong>1.5 ส่วน ใน 5 ส่วน (30%)</strong> เพื่อป้องกันการกดข้ามหน้าเร็วๆ และส่งเสริมให้ผู้ศึกษาได้ซึมซับปัญญาธรรมอย่างแท้จริง
-                      </p>
-                      <div className="pt-1 border-t border-amber-200/50 text-[11px] text-amber-800 flex items-center gap-1.5">
-                        <ShieldCheck size={14} className="text-amber-700 shrink-0" />
-                        <span>เวลานับเฉพาะขณะเปิดอ่านหน้านี้และมีปฏิสัมพันธ์ (หยุดนับเมื่อสลับหน้าต่างหรือทิ้งหน้าจอไว้นานเกินไป)</span>
-                      </div>
-                    </div>
-
                     {/* Action Button to return to reading */}
                     <button
                       type="button"
-                      onClick={closeQuestModal}
+                      onClick={() => closeQuestModal(true)}
                       className="w-full py-3.5 px-5 rounded-xl bg-[#073B65] hover:bg-[#0A4D82] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
                       <BookOpen size={18} />
@@ -978,7 +1012,7 @@ export default function BookQuestManager({
                     </div>
                   )}
 
-                  {/* Active Question Box: Comfortable, Clear, Legible Typography (font-semibold, relaxed leading) */}
+                  {/* Active Question Box */}
                   <div className="p-4 sm:p-5 rounded-2xl bg-sky-50/70 border border-sky-200/80 text-slate-800 shadow-xs">
                     <div className="text-sky-700 font-bold text-xs sm:text-sm uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                       <span>คำถามข้อที่ {activeQuestionItem?.questionNumber || currentQuestionIndex + 1} จาก {currentQuestions.length}:</span>
@@ -988,7 +1022,7 @@ export default function BookQuestManager({
                     </h3>
                   </div>
 
-                  {/* Options for Active Question: Spacious, Clean Cards */}
+                  {/* Options for Active Question */}
                   <div className="space-y-3">
                     {activeQuestionItem?.options.map((opt, oIdx) => {
                       const isSelected = multiAnswers[currentQuestionIndex] === oIdx;
@@ -1011,9 +1045,9 @@ export default function BookQuestManager({
                           key={oIdx}
                           type="button"
                           onClick={() => handleSelectOption(oIdx)}
-                          disabled={quizSubmitted}
+                          disabled={quizSubmitted && !!isAnswerCorrect}
                           className={`w-full text-left p-4 sm:p-4.5 rounded-2xl text-sm sm:text-base font-normal sm:font-medium leading-relaxed transition-all duration-200 flex items-center justify-between gap-3.5 ${
-                            quizSubmitted ? 'cursor-not-allowed' : 'cursor-pointer active:scale-99'
+                            quizSubmitted && !!isAnswerCorrect ? 'cursor-not-allowed' : 'cursor-pointer active:scale-99'
                           } ${optionStyle}`}
                         >
                           <span className="flex-1">{opt}</span>
@@ -1071,34 +1105,58 @@ export default function BookQuestManager({
                         <CheckCircle2 size={18} />
                         <span>
                           {Object.keys(multiAnswers).length < currentQuestions.length
-                            ? `กรุณาตอบคำถามให้ครบทุกข้อ (${Object.keys(multiAnswers).length}/${currentQuestions.length} ข้อ)`
-                            : `ยืนยันส่งคำตอบทั้งหมด (${currentQuestions.length} ข้อ)`}
+                            ? `กรุณาเลือกคำตอบให้ครบ (${Object.keys(multiAnswers).length}/${currentQuestions.length} ข้อ)`
+                            : `ยืนยันส่งคำตอบ (+${activeQuest.loot.points} แต้ม)`}
                         </span>
                       </button>
                     ) : isAnswerCorrect ? (
-                      <div className="w-full py-3.5 px-4 rounded-2xl bg-emerald-100 border-2 border-emerald-500 text-emerald-900 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs">
-                        <CheckCircle2 size={18} className="text-emerald-700" />
-                        <span>
-                          ผ่านภารกิจสำเร็จแล้ว!
-                          {currentQuestions.length > 1 && (
-                            <span className="ml-1 text-emerald-800">
-                              (ตอบถูก {attempts[activeQuest.id]?.correctCount ?? currentQuestions.length}/{currentQuestions.length} ข้อ)
-                            </span>
-                          )}
-                          {' '}(+{activeQuest.loot.points} แต้ม)
-                        </span>
+                      <div className="space-y-3">
+                        <div className="w-full py-3.5 px-4 rounded-2xl bg-emerald-100 border-2 border-emerald-500 text-emerald-900 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs">
+                          <CheckCircle2 size={18} className="text-emerald-700" />
+                          <span>ผ่านด่านเควสท์สำเร็จแล้ว! (+{activeQuest.loot.points} แต้ม)</span>
+                        </div>
+
+                        {/* Direct Proceed Button to Continue Reading */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            closeQuestModal(true);
+                            playWebAudioSound('click', soundEnabled);
+                          }}
+                          className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-sm sm:text-base shadow-xl hover:shadow-2xl transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-98 animate-pulse"
+                        >
+                          <CheckCircle2 size={20} />
+                          <span>✨ ยอดเยี่ยมมาก! แตะเพื่ออ่านเนื้อหาตอนต่อไป ➔</span>
+                        </button>
                       </div>
                     ) : (
-                      <div className="w-full py-3.5 px-4 rounded-2xl bg-rose-100 border-2 border-rose-400 text-rose-900 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs">
-                        <X size={18} className="text-rose-700" />
-                        <span>
-                          ตอบถูก {attempts[activeQuest.id]?.correctCount ?? 0}/{currentQuestions.length} ข้อ (ไม่ผ่านเกณฑ์) — สิ้นสุดภารกิจนี้ (0 แต้ม)
-                        </span>
+                      <div className="space-y-3">
+                        <div className="w-full py-3.5 px-4 rounded-2xl bg-rose-100 border-2 border-rose-400 text-rose-900 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs">
+                          <X size={18} className="text-rose-700" />
+                          <span>
+                            ตอบถูก {attempts[activeQuest.id]?.correctCount ?? 0}/{currentQuestions.length} ข้อ — ยังไม่ผ่านด่าน
+                          </span>
+                        </div>
+
+                        {/* Retry Button to re-attempt until correct */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setQuizSubmitted(false);
+                            setIsAnswerCorrect(null);
+                            setMultiAnswers({});
+                            setSelectedOption(null);
+                            playWebAudioSound('click', soundEnabled);
+                          }}
+                          className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-98"
+                        >
+                          <span>🔄 ลองตอบใหม่อีกครั้งเพื่อผ่านด่านเควสท์</span>
+                        </button>
                       </div>
                     )}
                   </div>
 
-                  {/* Feedback & Explanation Box: Clear and Easy to Read */}
+                  {/* Feedback & Explanation Box */}
                   {quizSubmitted && (
                     <div className={`p-5 rounded-2xl border text-xs sm:text-sm leading-relaxed animate-in fade-in duration-300 shadow-xs ${
                       isAnswerCorrect 
@@ -1114,11 +1172,6 @@ export default function BookQuestManager({
                           <p className="text-sm sm:text-base text-emerald-900 leading-relaxed font-normal">
                             {activeQuestionItem?.explanation || activeQuest.explanation}
                           </p>
-                          {currentQuestions.length > 1 && (
-                            <p className="text-xs text-emerald-700 font-medium pt-1">
-                              💡 ท่านสามารถคลิกเปลี่ยนแถบข้อ 1-{currentQuestions.length} ด้านบน เพื่อตรวจดูคำเฉลยของแต่ละข้อได้
-                            </p>
-                          )}
                           <div className="pt-2 flex items-center gap-2 text-xs font-semibold text-emerald-800">
                             <Check size={14} />
                             <span>ได้รับเหรียญตรา: {activeQuest.loot.badgeIcon} {activeQuest.loot.badgeName} (+{activeQuest.loot.points} แต้ม)</span>
@@ -1128,18 +1181,15 @@ export default function BookQuestManager({
                         <div className="space-y-2">
                           <div className="font-bold text-base text-rose-800 flex items-center gap-2">
                             <AlertCircle size={18} />
-                            <span>ผลการทดสอบยังไม่ผ่านเกณฑ์</span>
+                            <span>คำแนะนำธรรมะเพื่อช่วยทบทวนความเข้าใจ</span>
                           </div>
                           <div className="pt-1 border-t border-rose-200 text-slate-800">
-                            <strong className="text-slate-800 block mb-1 text-sm font-semibold">คติธรรมและคำเฉลยจากหนังสือ (ข้อ {currentQuestionIndex + 1}):</strong>
                             <p className="text-sm sm:text-base leading-relaxed text-slate-700 font-normal">
                               {activeQuestionItem?.explanation || activeQuest.explanation}
                             </p>
-                            {currentQuestions.length > 1 && (
-                              <p className="text-xs text-sky-800 font-medium pt-1.5">
-                                💡 ท่านสามารถคลิกเปลี่ยนแถบข้อ 1-{currentQuestions.length} ด้านบน เพื่อตรวจดูคำเฉลยของแต่ละข้อได้
-                              </p>
-                            )}
+                            <p className="text-xs text-amber-800 font-semibold pt-1.5">
+                              💡 อ่านคำอธิบายด้านบน แล้วกดปุ่ม &quot;ลองตอบใหม่อีกครั้ง&quot; เพื่อเลือกคำตอบที่ถูกต้องแล้วไปต่อ
+                            </p>
                           </div>
                         </div>
                       )}
@@ -1151,27 +1201,36 @@ export default function BookQuestManager({
 
             {/* Modal Footer */}
             <div className="p-4 sm:p-5 border-t border-slate-200/80 flex items-center justify-between text-xs sm:text-sm bg-white">
-              <button
-                onClick={() => {
-                  onJumpToPage(activeQuest.triggerPage);
-                  closeQuestModal();
-                }}
-                className="flex items-center gap-2 text-sky-700 hover:text-sky-800 font-semibold transition-colors cursor-pointer"
-              >
-                <BookOpen size={16} />
-                <span>เปิดดูเนื้อหาหน้านี้ในหนังสือ (PDF หน้า {activeQuest.triggerPage})</span>
-              </button>
+              {isMandatoryCheckpoint && !completedQuestIds.includes(activeQuest.id) ? (
+                <div className="w-full text-center text-xs font-bold text-slate-500 py-1 flex items-center justify-center gap-1.5">
+                  <span>🔒</span>
+                  <span>กรุณาตอบคำถามไขปริศนาธรรมข้อนี้เพื่อปลดล็อกการอ่านหน้าถัดไป</span>
+                </div>
+              ) : (
+                <>
+                  <button
+                    onClick={() => {
+                      onJumpToPage(activeQuest.triggerPage);
+                      closeQuestModal(true);
+                    }}
+                    className="flex items-center gap-2 text-sky-700 hover:text-sky-800 font-semibold transition-colors cursor-pointer"
+                  >
+                    <BookOpen size={16} />
+                    <span>เปิดดูเนื้อหาหน้านี้ในหนังสือ (PDF หน้า {activeQuest.triggerPage})</span>
+                  </button>
 
-              <button
-                onClick={() => {
-                  closeQuestModal();
-                  setDrawerOpen(true);
-                }}
-                className="flex items-center gap-1.5 text-slate-600 hover:text-slate-900 font-semibold transition-colors cursor-pointer"
-              >
-                <span>ดูสมุดภารกิจทั้งหมด</span>
-                <ArrowRight size={15} />
-              </button>
+                  <button
+                    onClick={() => {
+                      closeQuestModal(true);
+                      setDrawerOpen(true);
+                    }}
+                    className="flex items-center gap-1.5 text-slate-600 hover:text-slate-900 font-semibold transition-colors cursor-pointer"
+                  >
+                    <span>ดูสมุดเควสท์ทั้งหมด</span>
+                    <ArrowRight size={15} />
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
