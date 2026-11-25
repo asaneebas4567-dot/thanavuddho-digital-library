@@ -138,17 +138,15 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
           </p>
         </div>
 
-        {/* Rating and Price/Read Button Row (MEB Style) */}
+        {/* Price/Read Button Row (Theme Sky Blue 70-30 Rule - No hearts rating) */}
         <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-slate-100">
-          <div className="flex items-center gap-1 text-[11px] text-rose-500 font-extrabold tracking-tight font-ui">
-            <span>♥♥♥♥♥</span>
-            {readCount > 0 && (
-              <span className="text-[10px] text-slate-400 font-normal">({readCount})</span>
-            )}
+          <div className="text-[11px] text-slate-500 font-reading flex items-center gap-1">
+            <BookOpen size={12} className="text-[#079FE8]" />
+            <span>{readCount > 0 ? `${readCount.toLocaleString()} อ่าน` : 'ฉบับดิจิทัล'}</span>
           </div>
           <Link
             href={isBorrowed ? `/reader/${book.id}?from=/books` : `/books/${book.id}`}
-            className="px-2.5 py-1 rounded-md bg-[#00ba51] hover:bg-[#009b43] text-white font-extrabold font-ui text-[11px] shadow-2xs transition-colors flex items-center gap-1"
+            className="px-3 py-1 rounded-md bg-[#079FE8] hover:bg-[#0588c7] text-white font-bold font-ui text-[11px] shadow-2xs transition-colors flex items-center gap-1 active:scale-95"
           >
             {isBorrowed ? 'อ่านเลย' : 'อ่านฟรี'}
           </Link>

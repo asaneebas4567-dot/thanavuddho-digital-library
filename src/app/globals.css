@@ -154,15 +154,15 @@
 
 /* ==========================================================================
    Multi-Tier Thai Typography Architecture (MEB & Digital Library Standard)
-   - Headlines & Book Titles: Kanit (Bold, Modern Thai Sans with strong visual identity)
-   - Reading Body, Articles & Book Texts: Sarabun (Official Thai Standard with loops, highly readable)
-   - System UI, Navigation, Tabs, Badges & Inputs: Prompt (Clean, crisp, modern)
+   - Big Headings, Titles & Book Showcase: Kanit / Prompt (Bold, Round, Modern Display)
+   - Small Text, Descriptions, Details & Reading: Sarabun (Standard Upright Thai with Loops, Effortless Readability)
+   - UI Buttons, Badges & Navigation: Prompt (Clean, Crisp Sans-Serif)
    ========================================================================== */
 
-/* Base font for all general UI elements */
+/* Base font: All body text, descriptions, details and small text default to standard upright Sarabun */
 html,
 body {
-  font-family: var(--font-prompt), 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-sarabun), 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Tahoma, sans-serif;
   background: var(--background);
   color: #0F172A;
   -webkit-font-smoothing: antialiased;
@@ -173,21 +173,36 @@ body {
   width: 100%;
 }
 
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: var(--font-prompt), 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* All small text, captions, descriptions, subtext and paragraphs MUST use standard upright font */
+p,
+article,
+small,
+.text-xs,
+.text-sm,
+.text-\[9px\],
+.text-\[10px\],
+.text-\[10\.5px\],
+.text-\[11px\],
+.text-\[12px\],
+.text-\[13px\],
+.reading-body,
+.dhamma-content,
+.font-reading,
+.font-text {
+  font-family: var(--font-sarabun), 'Sarabun', -apple-system, BlinkMacSystemFont, Tahoma, sans-serif;
 }
 
-/* Headings & Book Titles: Kanit (Prominent, High-impact Thai Display like MEB) */
+p, article, .reading-body, .dhamma-content {
+  line-height: 1.8;
+  color: #1E293B;
+}
+
+/* Headings & Book Titles: Bold Round Display font (Kanit / Prompt like MEB) */
 h1, h2, h3, h4, h5, h6,
 .font-heading,
 .font-book-title,
-.book-title {
+.book-title,
+.font-kanit {
   font-family: var(--font-kanit), 'Kanit', var(--font-prompt), 'Prompt', sans-serif;
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
@@ -195,30 +210,33 @@ h1, h2, h3, h4, h5, h6,
   text-rendering: optimizeLegibility;
 }
 
-/* Reading Content, Dhamma Articles, Chapter Text: Sarabun (Standard Thai Reading Font with loops) */
-p,
-article,
-.reading-body,
-.dhamma-content,
-.font-reading {
-  font-family: var(--font-sarabun), 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.8;
-  color: #1E293B;
+/* UI Controls, Navigation Links & Action Buttons */
+button,
+input,
+optgroup,
+select,
+textarea,
+.font-ui,
+.nav-link {
+  font-family: var(--font-prompt), 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Explicit Utility Classes for Typography Pairing */
+/* Explicit Utility Classes */
 .font-ui {
   font-family: var(--font-prompt), 'Prompt', sans-serif !important;
 }
 
 .font-kanit,
 .font-title {
-  font-family: var(--font-kanit), 'Kanit', sans-serif !important;
+  font-family: var(--font-kanit), 'Kanit', var(--font-prompt), 'Prompt', sans-serif !important;
 }
 
 .font-sarabun,
-.font-text {
-  font-family: var(--font-sarabun), 'Sarabun', sans-serif !important;
+.font-text,
+.font-reading {
+  font-family: var(--font-sarabun), 'Sarabun', Tahoma, sans-serif !important;
 }
 
 /* Modern Card & Book 3D Spine Effects */
