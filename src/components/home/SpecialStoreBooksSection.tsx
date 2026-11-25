@@ -216,13 +216,13 @@ export default function SpecialStoreBooksSection({ customBooks = [] }: SpecialSt
         
         {/* Left: Section Title & Count */}
         <div className="min-w-0">
-          <h2 className="text-lg sm:text-xl font-semibold text-[#073B65] tracking-tight flex items-center gap-2 truncate">
+          <h2 className="text-lg sm:text-xl font-bold font-heading text-[#073B65] tracking-tight flex items-center gap-2 truncate">
             <span>หนังสือฉบับวางจำหน่าย & ร้านค้าภายนอก</span>
-            <span className="text-[11px] font-medium text-slate-400">
+            <span className="text-[11px] font-medium text-slate-400 font-ui">
               ({allCommercialBooks.length} เล่ม)
             </span>
           </h2>
-          <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+          <p className="text-xs text-slate-500 line-clamp-1 mt-0.5 font-reading">
             รวมผลงานหนังสือของพระอาจารย์ที่มีวางจำหน่ายบน MEB Market และ Google Play Store (หมวดสั่งซื้อ ไม่เปิดให้อ่านฟรีในระบบ)
           </p>
         </div>

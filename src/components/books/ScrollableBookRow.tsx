@@ -285,14 +285,14 @@ export default function ScrollableBookRow({
         
         {/* Left: Category Names */}
         <div className="min-w-0">
-          <h2 className="text-lg sm:text-xl font-semibold text-[#073B65] tracking-tight flex items-center gap-2 truncate">
+          <h2 className="text-lg sm:text-xl font-bold font-heading text-[#073B65] tracking-tight flex items-center gap-2 truncate">
             <span>{title}</span>
-            <span className="text-[11px] font-medium text-slate-400">
+            <span className="text-[11px] font-medium text-slate-400 font-ui">
               ({books.length} เล่ม)
             </span>
           </h2>
           {subtitle && (
-            <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+            <p className="text-xs text-slate-500 line-clamp-1 mt-0.5 font-reading">
               {subtitle}
             </p>
           )}

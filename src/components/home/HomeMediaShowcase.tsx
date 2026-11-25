@@ -83,13 +83,13 @@ export default function HomeMediaShowcase() {
               <VideoIcon size={20} />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg md:text-xl font-bold text-[#073B65] tracking-tight flex items-center gap-2">
+              <h2 className="text-base sm:text-lg md:text-xl font-bold font-heading text-[#073B65] tracking-tight flex items-center gap-2">
                 <span>วิดีโอธรรมเทศนา & คลิปสั้น</span>
-                <span className="text-[10px] font-semibold text-[#073B65] bg-sky-50 border border-sky-200/80 px-2 py-0.5 rounded-full hidden sm:inline-block">
+                <span className="text-[10px] font-semibold text-[#073B65] bg-sky-50 border border-sky-200/80 px-2 py-0.5 rounded-full hidden sm:inline-block font-ui">
                   Dhamma Videos
                 </span>
               </h2>
-              <p className="text-[11px] sm:text-xs text-slate-600 line-clamp-1 mt-0.5">
+              <p className="text-[11px] sm:text-xs text-slate-600 line-clamp-1 mt-0.5 font-reading">
                 รับชมคลิปเทศนาพร้อมการกรองขนาดแนวนอน (16:9) และคลิปสั้นแนวตั้ง (9:16)
               </p>
             </div>

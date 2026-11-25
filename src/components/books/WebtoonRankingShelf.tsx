@@ -129,10 +129,10 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
             <TrendingUp size={13} className="text-[#079FE8]" />
             <span>สถิติการอ่านจริงประจำสัปดาห์</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-[#073B65] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black font-heading text-[#073B65] tracking-tight">
             จัดอันดับหนังสือยอดนิยม (Weekly TOP 5)
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 font-normal mt-0.5">
+          <p className="text-xs sm:text-sm text-slate-500 font-normal mt-0.5 font-reading">
             จัดลำดับตามจำนวนการอ่านจริงในระบบ เรียงจากมากไปหาน้อย ครบ 5 อันดับ
           </p>
         </div>
