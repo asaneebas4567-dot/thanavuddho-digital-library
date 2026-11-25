@@ -125,22 +125,22 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
             </span>
           </div>
 
-          {/* Title (Bold, 2 lines clamp, high contrast) */}
-          <h3 className="text-sm sm:text-[14.5px] font-bold text-slate-900 mb-1 line-clamp-2 leading-snug group-hover:text-[#079FE8] transition-colors min-h-[2.4rem]">
+          {/* Title (Bold, 2 lines clamp, high contrast like MEB) */}
+          <h3 className="text-sm sm:text-[14.5px] font-bold font-heading text-slate-900 mb-1 line-clamp-2 leading-snug group-hover:text-[#079FE8] transition-colors min-h-[2.4rem] tracking-tight">
             <Link href={`/books/${book.id}`}>
               {book.title}
             </Link>
           </h3>
 
           {/* Author */}
-          <p className="text-xs text-slate-500 truncate mt-0.5">
+          <p className="text-xs text-slate-500 truncate mt-0.5 font-reading">
             {author}
           </p>
         </div>
 
         {/* Rating and Price/Read Button Row (MEB Style) */}
         <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-slate-100">
-          <div className="flex items-center gap-1 text-[11px] text-rose-500 font-extrabold tracking-tight">
+          <div className="flex items-center gap-1 text-[11px] text-rose-500 font-extrabold tracking-tight font-ui">
             <span>♥♥♥♥♥</span>
             {readCount > 0 && (
               <span className="text-[10px] text-slate-400 font-normal">({readCount})</span>
@@ -148,7 +148,7 @@ export default function BookCard({ book, onQuickView }: BookCardProps) {
           </div>
           <Link
             href={isBorrowed ? `/reader/${book.id}?from=/books` : `/books/${book.id}`}
-            className="px-2.5 py-1 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-[11px] shadow-2xs transition-colors"
+            className="px-2.5 py-1 rounded-md bg-[#00ba51] hover:bg-[#009b43] text-white font-extrabold font-ui text-[11px] shadow-2xs transition-colors flex items-center gap-1"
           >
             {isBorrowed ? 'อ่านเลย' : 'อ่านฟรี'}
           </Link>

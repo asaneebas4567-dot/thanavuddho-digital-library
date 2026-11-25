@@ -145,68 +145,24 @@
   --color-surface: #FFFFFF;
   --color-border: #E2E8F0;
   --color-border-subtle: #F1F5F9;
-  --font-sans: 'Sarabun', 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: var(--font-prompt), 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: var(--font-kanit), 'Kanit', var(--font-prompt), 'Prompt', sans-serif;
+  --font-reading: var(--font-sarabun), 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-book: var(--font-kanit), 'Kanit', sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
 /* ==========================================================================
-   Natural, Legible, Humane Thai Typography (Sarabun Standard)
-   - Eliminates robotic "AI" blockiness with clear, comfortable Thai loops (มีหัว)
-   - Soft, natural weights (300, 400, 500, 600)
-   - Disables chunky faux-bold synthesis
+   Multi-Tier Thai Typography Architecture (MEB & Digital Library Standard)
+   - Headlines & Book Titles: Kanit (Bold, Modern Thai Sans with strong visual identity)
+   - Reading Body, Articles & Book Texts: Sarabun (Official Thai Standard with loops, highly readable)
+   - System UI, Navigation, Tabs, Badges & Inputs: Prompt (Clean, crisp, modern)
    ========================================================================== */
-*,
-*::before,
-*::after,
-html,
-body,
-p,
-span,
-a,
-div,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: 'Prompt', 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  font-synthesis: none !important;
-  letter-spacing: normal;
-  -webkit-font-smoothing: antialiased !important;
-  -moz-osx-font-smoothing: grayscale !important;
-  text-rendering: optimizeLegibility !important;
-}
 
-/* Headings: Clean, natural semi-bold with crystal sharp rendering */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Prompt', 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  font-weight: 600 !important;
-  font-synthesis: none !important;
-  letter-spacing: -0.01em;
-  -webkit-font-smoothing: antialiased !important;
-  -moz-osx-font-smoothing: grayscale !important;
-  text-rendering: optimizeLegibility !important;
-}
-
-.font-black,
-.font-extrabold {
-  font-weight: 600 !important;
-}
-
-/* Relaxed reading line-height and crisp high contrast */
-p, article, .reading-body {
-  line-height: 1.8;
-  color: #1E293B;
-}
-
+/* Base font for all general UI elements */
 html,
 body {
+  font-family: var(--font-prompt), 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: var(--background);
   color: #0F172A;
   -webkit-font-smoothing: antialiased;
@@ -215,6 +171,54 @@ body {
   overflow-x: hidden;
   max-width: 100vw;
   width: 100%;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: var(--font-prompt), 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings & Book Titles: Kanit (Prominent, High-impact Thai Display like MEB) */
+h1, h2, h3, h4, h5, h6,
+.font-heading,
+.font-book-title,
+.book-title {
+  font-family: var(--font-kanit), 'Kanit', var(--font-prompt), 'Prompt', sans-serif;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Reading Content, Dhamma Articles, Chapter Text: Sarabun (Standard Thai Reading Font with loops) */
+p,
+article,
+.reading-body,
+.dhamma-content,
+.font-reading {
+  font-family: var(--font-sarabun), 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.8;
+  color: #1E293B;
+}
+
+/* Explicit Utility Classes for Typography Pairing */
+.font-ui {
+  font-family: var(--font-prompt), 'Prompt', sans-serif !important;
+}
+
+.font-kanit,
+.font-title {
+  font-family: var(--font-kanit), 'Kanit', sans-serif !important;
+}
+
+.font-sarabun,
+.font-text {
+  font-family: var(--font-sarabun), 'Sarabun', sans-serif !important;
 }
 
 /* Modern Card & Book 3D Spine Effects */

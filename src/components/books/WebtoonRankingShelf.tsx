@@ -259,12 +259,12 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-xs sm:text-[13px] text-slate-900 group-hover:text-[#079FE8] transition-colors line-clamp-2 leading-snug">
+                  <h3 className="font-heading font-bold text-xs sm:text-[13px] text-slate-900 group-hover:text-[#079FE8] transition-colors line-clamp-2 leading-snug tracking-tight">
                     {book.title}
                   </h3>
                 </div>
 
-                <p className="text-[11px] text-slate-500 truncate mt-2">
+                <p className="text-[11px] text-slate-500 truncate mt-2 font-reading">
                   พระครูปลัดสุวัฒนโพธิคุณ
                 </p>
               </div>

@@ -201,28 +201,28 @@ function BookCoverItem({
       {/* 2. Book Metadata Under Poster (MEB Book Card Style) */}
       <div className="mt-2 px-0.5">
         
-        {/* Book Title (2 lines clamp, bold, high contrast) */}
+        {/* Book Title (2 lines clamp, bold, high contrast like MEB) */}
         <h3 
-          className="font-bold text-xs sm:text-[13.5px] text-slate-800 line-clamp-2 leading-snug min-h-[2.3rem] group-hover/card:text-[#079FE8] transition-colors"
+          className="font-heading font-bold text-xs sm:text-[13.5px] text-slate-900 line-clamp-2 leading-snug min-h-[2.3rem] group-hover/card:text-[#079FE8] transition-colors tracking-tight"
           title={book.title}
         >
           {book.title}
         </h3>
         
         {/* Author Name */}
-        <p className="text-[11px] sm:text-xs text-slate-500 truncate mt-0.5">
+        <p className="text-[11px] sm:text-xs text-slate-500 truncate mt-0.5 font-reading">
           {authorName}
         </p>
 
         {/* Rating and Price/Free Badge Row (MEB Style) */}
         <div className="flex items-center justify-between mt-2 pt-1 border-t border-slate-100">
-          <div className="flex items-center gap-1 text-[11px] text-rose-500 font-extrabold tracking-tight">
+          <div className="flex items-center gap-1 text-[11px] text-rose-500 font-extrabold tracking-tight font-ui">
             <span>♥♥♥♥♥</span>
             {readCount > 0 && (
               <span className="text-[10px] text-slate-400 font-normal">({readCount})</span>
             )}
           </div>
-          <span className="px-2 py-0.5 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-[10.5px] shadow-2xs transition-colors">
+          <span className="px-2 py-0.5 rounded-md bg-[#00ba51] text-white font-extrabold font-ui text-[10.5px] shadow-2xs transition-colors">
             อ่านฟรี
           </span>
         </div>

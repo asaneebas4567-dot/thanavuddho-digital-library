@@ -321,16 +321,16 @@ export default function SpecialStoreBooksSection({ customBooks = [] }: SpecialSt
                     <span className="text-[#079FE8] font-bold text-[10.5px]">{price}</span>
                   </div>
 
-                  {/* Book Title (2 lines clamp, high contrast) */}
+                  {/* Book Title (2 lines clamp, high contrast like MEB) */}
                   <h3 
-                    className="font-semibold text-xs sm:text-[13px] text-slate-800 line-clamp-2 leading-snug min-h-[2.2rem] group-hover/card:text-[#079FE8] transition-colors"
+                    className="font-heading font-bold text-xs sm:text-[13px] text-slate-900 line-clamp-2 leading-snug min-h-[2.2rem] group-hover/card:text-[#079FE8] transition-colors tracking-tight"
                     title={book.title}
                   >
                     {book.title}
                   </h3>
                   
                   {/* Author Name */}
-                  <p className="text-[11px] text-slate-500 truncate mt-0.5">
+                  <p className="text-[11px] text-slate-500 truncate mt-0.5 font-reading">
                     {authorName}
                   </p>
                 </div>

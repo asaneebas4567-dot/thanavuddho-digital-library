@@ -188,8 +188,8 @@ export default async function ArticleReaderPage({ params }: { params: Promise<{ 
               </div>
             )}
 
-            {/* 5. Main Content Paragraphs with Styled Headings & Text */}
-            <div className="space-y-5 text-slate-800 text-sm sm:text-base leading-relaxed pt-4 border-t border-slate-100">
+            {/* 5. Main Content Paragraphs with Styled Headings & Text (Sarabun Standard Reading Font) */}
+            <div className="space-y-5 text-slate-800 text-base sm:text-[17px] leading-[1.85] pt-4 border-t border-slate-100 font-reading">
               {article.content.split('\n').filter(p => p.trim() !== '').map((paragraph, index) => {
                 const trimmed = paragraph.trim();
                 
