@@ -484,13 +484,15 @@ export default function RewardsShopPage() {
                           </p>
 
                           {/* Shopee/Lazada Style Prominent Price / Points Display */}
-                          <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-baseline gap-1.5 flex-wrap">
-                            <span className="text-xl sm:text-2xl font-black text-rose-600 tracking-tight">
-                              {item.points.toLocaleString()}
-                            </span>
-                            <span className="text-xs font-bold text-rose-600">แต้ม</span>
-                            <span className="text-[11px] text-slate-400 font-medium ml-1">
-                              (ใช้แต้มบุญแลกฟรี)
+                          <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between">
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-2xl sm:text-3xl font-black text-[#EE4D2D] tracking-tight">
+                                {item.points.toLocaleString()}
+                              </span>
+                              <span className="text-xs font-black text-[#EE4D2D]">แต้ม</span>
+                            </div>
+                            <span className="px-2 py-0.5 rounded-md bg-orange-50 text-[#EE4D2D] border border-orange-200 text-[10px] font-bold">
+                              ใช้แต้มบุญแลกฟรี 🎁
                             </span>
                           </div>
                         </div>

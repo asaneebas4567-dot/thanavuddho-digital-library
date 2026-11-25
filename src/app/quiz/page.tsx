@@ -46,6 +46,130 @@ function QuizGamificationContent() {
 
   const { recordEarn, availablePoints } = useLearningPoints();
 
+  // Helper for Colorful Thematic Stickers & Emotion Styling (Article Card Style)
+  const getQuizTheme = (quiz: Quiz) => {
+    const title = quiz.title.toLowerCase();
+    
+    if (quiz.level === 'comprehensive' || title.includes('ท้ายเล่ม')) {
+      if (title.includes('มงคลชีวิต')) {
+        return {
+          stickerEmoji: '👑',
+          stickerTitle: 'มงคล 38 ประการ',
+          emotionTag: '✨ ก้าวหน้า & มงคลสูงสุด',
+          bgGradient: 'from-amber-500/25 via-orange-400/20 to-amber-100/40',
+          borderAccent: 'border-amber-300 hover:border-amber-500 hover:shadow-amber-500/15',
+          badgeBg: 'bg-amber-100 text-amber-950 border-amber-300',
+          badgeTextColor: 'text-amber-950',
+          actionBtnGradient: 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 shadow-amber-500/30',
+          xpColor: 'bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black',
+        };
+      }
+      if (title.includes('พร้อมบวก') || title.includes('ทำใจ')) {
+        return {
+          stickerEmoji: '💖',
+          stickerTitle: 'ใจพร้อมบวก',
+          emotionTag: '🌸 คิดบวก & เบิกบานใจ',
+          bgGradient: 'from-pink-500/25 via-rose-400/20 to-pink-100/40',
+          borderAccent: 'border-rose-300 hover:border-rose-500 hover:shadow-rose-500/15',
+          badgeBg: 'bg-rose-100 text-rose-950 border-rose-300',
+          badgeTextColor: 'text-rose-950',
+          actionBtnGradient: 'bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:to-pink-600 shadow-rose-500/30',
+          xpColor: 'bg-gradient-to-r from-rose-500 to-pink-500 text-white font-black',
+        };
+      }
+      if (title.includes('อย่ามโน')) {
+        return {
+          stickerEmoji: '🧠',
+          stickerTitle: 'รู้ทันจิต & สติ',
+          emotionTag: '💡 ตื่นรู้ & คลายกังวล',
+          bgGradient: 'from-purple-500/25 via-indigo-400/20 to-purple-100/40',
+          borderAccent: 'border-purple-300 hover:border-purple-500 hover:shadow-purple-500/15',
+          badgeBg: 'bg-purple-100 text-purple-950 border-purple-300',
+          badgeTextColor: 'text-purple-950',
+          actionBtnGradient: 'bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-700 hover:from-purple-700 hover:to-indigo-600 shadow-purple-500/30',
+          xpColor: 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-black',
+        };
+      }
+      if (title.includes('สมดุล')) {
+        return {
+          stickerEmoji: '⚖️',
+          stickerTitle: 'สมดุลเท่ากับดี',
+          emotionTag: '🌿 ชีวิตสมดุล & สายกลาง',
+          bgGradient: 'from-emerald-500/25 via-teal-400/20 to-emerald-100/40',
+          borderAccent: 'border-emerald-300 hover:border-emerald-500 hover:shadow-emerald-500/15',
+          badgeBg: 'bg-emerald-100 text-emerald-950 border-emerald-300',
+          badgeTextColor: 'text-emerald-950',
+          actionBtnGradient: 'bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-700 hover:from-emerald-700 hover:to-teal-600 shadow-emerald-500/30',
+          xpColor: 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black',
+        };
+      }
+      if (title.includes('สุข')) {
+        return {
+          stickerEmoji: '🤝',
+          stickerTitle: 'เขาก็สุข เราก็สุข',
+          emotionTag: '🕊️ เมตตาจิต & สันติภาพ',
+          bgGradient: 'from-sky-500/25 via-cyan-400/20 to-sky-100/40',
+          borderAccent: 'border-sky-300 hover:border-sky-500 hover:shadow-sky-500/15',
+          badgeBg: 'bg-sky-100 text-sky-950 border-sky-300',
+          badgeTextColor: 'text-sky-950',
+          actionBtnGradient: 'bg-gradient-to-r from-sky-600 via-cyan-500 to-sky-700 hover:from-sky-700 hover:to-cyan-600 shadow-sky-500/30',
+          xpColor: 'bg-gradient-to-r from-sky-600 to-cyan-600 text-white font-black',
+        };
+      }
+      return {
+        stickerEmoji: '🏆',
+        stickerTitle: 'ประมวลปัญญาธรรม',
+        emotionTag: '⭐ ยอดปัญญา & ความสำเร็จ',
+        bgGradient: 'from-amber-500/25 via-orange-400/20 to-yellow-100/40',
+        borderAccent: 'border-amber-300 hover:border-amber-500 hover:shadow-amber-500/15',
+        badgeBg: 'bg-amber-100 text-amber-950 border-amber-300',
+        badgeTextColor: 'text-amber-950',
+        actionBtnGradient: 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 shadow-amber-500/30',
+        xpColor: 'bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black',
+      };
+    }
+
+    if (quiz.level === 'chapter') {
+      return {
+        stickerEmoji: '💡',
+        stickerTitle: 'จุดประกายสติรายบท',
+        emotionTag: '🧘 สมาธิ & สติปัญญา',
+        bgGradient: 'from-teal-500/25 via-emerald-400/20 to-teal-100/40',
+        borderAccent: 'border-teal-300 hover:border-teal-500 hover:shadow-teal-500/15',
+        badgeBg: 'bg-teal-100 text-teal-950 border-teal-300',
+        badgeTextColor: 'text-teal-950',
+        actionBtnGradient: 'bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 shadow-teal-500/30',
+        xpColor: 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-black',
+      };
+    }
+
+    if (quiz.level === 'book') {
+      return {
+        stickerEmoji: '📘',
+        stickerTitle: 'ปัญญารอบรู้ทั้งเล่ม',
+        emotionTag: '📚 เข้าใจชีวิต & สัจธรรม',
+        bgGradient: 'from-blue-500/25 via-sky-400/20 to-indigo-100/40',
+        borderAccent: 'border-blue-300 hover:border-blue-500 hover:shadow-blue-500/15',
+        badgeBg: 'bg-blue-100 text-blue-950 border-blue-300',
+        badgeTextColor: 'text-blue-950',
+        actionBtnGradient: 'bg-gradient-to-r from-blue-600 via-sky-500 to-blue-700 hover:from-blue-700 hover:to-sky-600 shadow-blue-500/30',
+        xpColor: 'bg-gradient-to-r from-blue-600 to-sky-600 text-white font-black',
+      };
+    }
+
+    return {
+      stickerEmoji: '🌸',
+      stickerTitle: 'เชี่ยวชาญหมวดธรรม',
+      emotionTag: '💖 ลึกซึ้ง & มีปัญญา',
+      bgGradient: 'from-purple-500/25 via-violet-400/20 to-pink-100/40',
+      borderAccent: 'border-purple-300 hover:border-purple-500 hover:shadow-purple-500/15',
+      badgeBg: 'bg-purple-100 text-purple-950 border-purple-300',
+      badgeTextColor: 'text-purple-950',
+      actionBtnGradient: 'bg-gradient-to-r from-purple-600 via-violet-500 to-purple-700 hover:from-purple-700 hover:to-violet-600 shadow-purple-500/30',
+      xpColor: 'bg-gradient-to-r from-purple-600 to-violet-600 text-white font-black',
+    };
+  };
+
   // Combine End-of-Book Comprehensive Exams (500 P), custom book quizzes, and system quizzes
   const allQuizzes = useMemo(() => {
     const custom = getCustomBookQuizzes();
@@ -173,53 +297,47 @@ function QuizGamificationContent() {
   const currentQ: QuizQuestion | undefined = activeQuiz?.questions[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen bg-[#F0F8FD]/40 py-10 pb-28">
+    <div className="min-h-screen bg-[#F0F8FD]/40 py-6 sm:py-8 pb-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header Hero (Deep Navy to Primary Blue) */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#073B65] via-[#0B4E85] to-[#079FE8] text-white p-8 sm:p-12 mb-10 shadow-xl shadow-sky-950/10">
+        {/* Header Hero (Ultra-Compact, High-Contrast & Clear) */}
+        <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#073B65] via-[#0B4E85] to-[#079FE8] text-white p-4 sm:p-6 mb-4 shadow-lg shadow-sky-950/10">
           <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/15 text-white text-xs font-bold border border-white/20 mb-3">
-              <Trophy size={14} className="text-[#D9A441]" /> ระบบแบบทดสอบความรู้และสะสมคะแนน
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/20 text-yellow-300 text-[10px] sm:text-[11px] font-bold border border-white/30 mb-1.5">
+              <Trophy size={12} className="text-[#D9A441]" /> ระบบแบบทดสอบความรู้และสะสมคะแนน
             </div>
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight mb-4">
-              ทดสอบปัญญาธรรม <span className="text-sky-300">4 ระดับความเข้าใจ</span>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight mb-1 text-white">
+              ทดสอบปัญญาธรรม <span className="text-yellow-300">4 ระดับความเข้าใจ</span>
             </h1>
-            <p className="text-white text-sm sm:text-base font-medium leading-relaxed mb-6 max-w-2xl drop-shadow-xs">
+            <p className="text-white font-medium text-xs sm:text-[13px] leading-relaxed mb-3 max-w-2xl drop-shadow-xs">
               วัดระดับความเข้าใจ สะสมคะแนน XP ปลดล็อกเหรียญตรา และรับใบประกาศนียบัตรประมวลความรู้ธรรมศึกษา ครอบคลุมตั้งแต่แบบทดสอบรายบทจนถึงภาพรวมท้ายเล่ม
             </p>
 
-            {/* User Gamification Stats Bar */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <div className="bg-black/40 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/30 flex items-center gap-3 shadow-md">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D9A441] to-[#B88328] text-white flex items-center justify-center font-bold text-lg shadow-sm">
-                  ⚡
-                </div>
+            {/* User Gamification Stats Bar - Compact Inline Badges */}
+            <div className="flex flex-wrap items-center gap-2 pt-0.5">
+              <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/40 flex items-center gap-2 shadow-xs">
+                <span className="text-sm">⚡</span>
                 <div>
-                  <div className="text-xs text-sky-100 font-bold">คะแนนสะสม (Total XP)</div>
-                  <div className="text-lg font-black text-amber-300">{userXP.toLocaleString()} XP</div>
+                  <div className="text-[9px] text-white/90 uppercase font-bold tracking-wider">คะแนนสะสม (Total XP)</div>
+                  <div className="text-sm sm:text-base font-black text-amber-300 leading-tight">{userXP.toLocaleString()} XP</div>
                 </div>
               </div>
 
-              <div className="bg-black/40 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/30 flex items-center gap-3 shadow-md">
-                <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center font-bold text-lg shadow-sm">
-                  🏅
-                </div>
+              <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/40 flex items-center gap-2 shadow-xs">
+                <span className="text-sm">🏅</span>
                 <div>
-                  <div className="text-xs text-sky-100 font-bold">เหรียญที่ปลดล็อก</div>
-                  <div className="text-lg font-black text-white">
+                  <div className="text-[9px] text-white/90 uppercase font-bold tracking-wider">เหรียญที่ปลดล็อก</div>
+                  <div className="text-sm sm:text-base font-black text-white leading-tight">
                     {badges.filter(b => b.earned).length} / {badges.length} เหรียญ
                   </div>
                 </div>
               </div>
 
-              <div className="bg-black/40 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/30 flex items-center gap-3 shadow-md">
-                <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center font-bold text-lg shadow-sm">
-                  📜
-                </div>
+              <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/40 flex items-center gap-2 shadow-xs">
+                <span className="text-sm">📜</span>
                 <div>
-                  <div className="text-xs text-sky-100 font-bold">วุฒิบัตรดิจิทัล</div>
-                  <div className="text-lg font-black text-white">
+                  <div className="text-[9px] text-white/90 uppercase font-bold tracking-wider">วุฒิบัตรดิจิทัล</div>
+                  <div className="text-sm sm:text-base font-black text-white leading-tight">
                     {certificate ? 'พร้อมรับรอง' : 'สอบ Level 4 เพื่อรับ'}
                   </div>
                 </div>
@@ -450,7 +568,7 @@ function QuizGamificationContent() {
         )}
 
         {/* Level Navigation Tabs (4 ระดับ) */}
-        <div className="flex items-center gap-2 sm:gap-3 mb-6 overflow-x-auto no-scrollbar pb-2">
+        <div className="flex items-center gap-2 sm:gap-2.5 mb-4 overflow-x-auto no-scrollbar pb-1">
           {[
             { id: 'all', label: 'ทั้งหมด', icon: Layers },
             { id: 'comprehensive', label: '🎓 ข้อสอบท้ายเล่ม 500 แต้ม (End-of-Book)', icon: GraduationCap },
@@ -464,89 +582,108 @@ function QuizGamificationContent() {
               <button
                 key={lvl.id}
                 onClick={() => setSelectedLevel(lvl.id as any)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-[13px] font-bold whitespace-nowrap transition-all cursor-pointer ${
                   isActive 
                     ? 'bg-[#073B65] text-white shadow-md shadow-[#073B65]/20' 
                     : 'bg-white border border-[#DCEAF3] text-[#243447] hover:border-[#079FE8]'
                 }`}
               >
-                <Icon size={16} />
+                <Icon size={15} />
                 <span>{lvl.label}</span>
               </button>
             );
           })}
         </div>
 
-        {/* End-of-Book Exam Standards & Status Guide */}
-        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2">
+        {/* End-of-Book Exam Standards & Status Guide (Compact) */}
+        <div className="mb-5 p-3.5 sm:p-4 rounded-2xl bg-white border border-sky-200/80 shadow-2xs text-xs sm:text-[13px] text-slate-700 leading-relaxed space-y-1.5">
           <div className="flex items-center gap-2 font-bold text-[#073B65]">
-            <GraduationCap className="w-5 h-5 text-[#079FE8]" />
+            <GraduationCap className="w-4 h-4 text-[#079FE8]" />
             <span>ข้อสอบประมวลความรู้ท้ายเล่ม (500 คะแนน)</span>
           </div>
-          <div className="text-slate-600 text-xs leading-relaxed space-y-1">
+          <div className="text-slate-600 text-xs leading-relaxed space-y-0.5">
             <p>
-              • <strong>ไม่มีการเด้งขัดจังหวะขณะอ่าน:</strong> ข้อสอบประมวลความรู้ท้ายเล่มจะไม่ปรากฏขึ้นระหว่างอ่านหนังสือ ผู้เรียนสามารถศึกษาเนื้อหาและเข้ามาทำข้อสอบวัดผลได้ที่หน้านี้
+              • <strong>ไม่มีการเด้งขัดจังหวะขณะอ่าน:</strong> ผู้เรียนสามารถศึกษาเนื้อหาและเข้ามาทำข้อสอบวัดผลได้ที่หน้านี้โดยตรง
             </p>
             <p>
-              • <strong>เล่มที่มีข้อสอบท้ายเล่ม:</strong> มงคลชีวิต 38 ประการ ฉบับทางก้าวหน้า, ทำใจให้พร้อมบวก, อย่ามโน, สมดุลเท่ากับดี และ เขาก็สุข เราก็สุข
-            </p>
-            <p className="text-slate-500 font-normal">
-              • <strong>สถานะหนังสือเล่มอื่น ๆ:</strong> อยู่ระหว่างจัดเตรียมชุดข้อสอบวัดผล
+              • <strong>เล่มที่มีข้อสอบท้ายเล่ม:</strong> มงคลชีวิต 38 ประการ, ทำใจให้พร้อมบวก, อย่ามโน, สมดุลเท่ากับดี และ เขาก็สุข เราก็สุข
             </p>
           </div>
         </div>
 
-        {/* Quiz Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        {/* Quiz Cards Grid - Colorful Cards with Thematic Emotion Stickers & Gradients */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-14">
           {filteredQuizzes.map(quiz => {
-            const isLevel4 = quiz.level === 'comprehensive';
+            const theme = getQuizTheme(quiz);
             return (
               <div 
                 key={quiz.id}
-                className={`bg-white rounded-3xl border p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-lg transition-all ${
-                  isLevel4 ? 'border-sky-400 ring-2 ring-sky-500/20 bg-gradient-to-b from-white to-sky-50/30' : 'border-gray-100'
-                }`}
+                className={`group flex flex-col bg-white rounded-3xl border ${theme.borderAccent} shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1`}
               >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className={`text-xs font-bold px-3 py-1 rounded-full ${
-                      quiz.level === 'chapter' ? 'bg-blue-50 text-blue-800' :
-                      quiz.level === 'book' ? 'bg-purple-50 text-purple-800' :
-                      quiz.level === 'category' ? 'bg-rose-50 text-rose-800' :
-                      'bg-sky-600 text-white font-bold'
-                    }`}>
+                {/* 1. Thematic Visual Art Banner with Dhamma Sticker & Emotions */}
+                <div className={`relative h-28 sm:h-32 w-full bg-gradient-to-br ${theme.bgGradient} p-4 sm:p-5 flex flex-col justify-between overflow-hidden border-b border-slate-100/90`}>
+                  {/* Decorative background glow circles */}
+                  <div className="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-white/40 blur-lg pointer-events-none" />
+                  <div className="absolute right-10 top-1 w-16 h-16 rounded-full bg-white/30 blur-md pointer-events-none" />
+
+                  {/* Top Badges Row */}
+                  <div className="flex items-center justify-between gap-2 relative z-10">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold border shadow-2xs backdrop-blur-md ${theme.badgeBg}`}>
                       {quiz.level_label}
                     </span>
 
-                    <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-xl flex items-center gap-1">
-                      <Sparkles size={12} /> +{quiz.xp_reward} XP
+                    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black shadow-sm ${theme.xpColor}`}>
+                      <Sparkles size={12} className="fill-white" /> +{quiz.xp_reward} XP
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 leading-snug">
-                    {quiz.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-6">
-                    {quiz.description}
-                  </p>
+                  {/* Center/Bottom: Large Dhamma Sticker Badge with Emotion Tag */}
+                  <div className="flex items-end justify-between relative z-10">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-11 h-11 rounded-2xl bg-white shadow-md border border-white/80 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shrink-0">
+                        <span>{theme.stickerEmoji}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500 block">
+                          {theme.stickerTitle}
+                        </span>
+                        <span className="text-xs sm:text-sm font-black text-slate-800 drop-shadow-2xs">
+                          {theme.emotionTag}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                  <div className="text-[11px] sm:text-xs text-gray-500 flex flex-wrap items-center gap-2">
-                    <span>{quiz.questions.length} คำถาม</span>
-                    <span>•</span>
-                    <span>จำกัดเวลา {quiz.time_limit_minutes} นาที</span>
-                    <span>•</span>
-                    <span>เกณฑ์ผ่าน {quiz.passing_score}%</span>
+                {/* 2. Card Content Body */}
+                <div className="p-5 sm:p-6 flex flex-col flex-grow justify-between gap-4">
+                  <div>
+                    <h3 className="text-base sm:text-lg font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug mb-1.5 line-clamp-2">
+                      {quiz.title}
+                    </h3>
+                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal line-clamp-2">
+                      {quiz.description}
+                    </p>
                   </div>
 
-                  <button
-                    onClick={() => handleStartQuiz(quiz)}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs transition-all shadow-sm shadow-sky-600/20 cursor-pointer"
-                  >
-                    <span>เริ่มทำข้อสอบ</span>
-                    <ArrowRight size={14} />
-                  </button>
+                  {/* 3. Footer with Question Specs & Action Button */}
+                  <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div className="text-[11px] sm:text-xs text-slate-500 font-medium flex flex-wrap items-center gap-2">
+                      <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md font-semibold">{quiz.questions.length} คำถาม</span>
+                      <span>•</span>
+                      <span>จำกัด {quiz.time_limit_minutes} นาที</span>
+                      <span>•</span>
+                      <span>ผ่าน {quiz.passing_score}%</span>
+                    </div>
+
+                    <button
+                      onClick={() => handleStartQuiz(quiz)}
+                      className={`w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl ${theme.actionBtnGradient} text-white font-black text-xs transition-all shadow-md active:scale-95 cursor-pointer`}
+                    >
+                      <span>เริ่มทำข้อสอบ</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
                 </div>
               </div>
             );

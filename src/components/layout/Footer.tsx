@@ -249,7 +249,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Center: Thanavuddho e-Library (Exact Match) */}
+            {/* Center: Thanavuddho e-Library (Active Official Store Link Only) */}
             <div className="flex flex-col items-start md:items-center justify-center text-left md:text-center space-y-2.5">
               <h4 className="font-extrabold text-base sm:text-lg text-white tracking-tight">
                 Thanavuddho e-Library
@@ -258,29 +258,19 @@ export default function Footer() {
                 เข้าอ่านออนไลน์ได้ทันที ทุกอุปกรณ์โดยไม่ต้องติดตั้ง
               </p>
 
-              {/* 2 App Badges (Pure White Text) */}
+              {/* Single Active Google Play Store Button */}
               <div className="flex items-center gap-2.5 pt-1">
-                {/* App Store / iOS */}
-                <div className="flex items-center gap-2 bg-black/75 text-white px-3.5 py-1.5 rounded-xl border border-white/40 shadow-xs cursor-default">
-                  <div className="text-lg leading-none text-white"></div>
-                  <div className="text-left leading-tight">
-                    <p className="text-[9px] text-white uppercase font-bold tracking-wider">เปิดอ่านบน</p>
-                    <p className="text-xs font-black text-white">App Store / iOS</p>
-                  </div>
-                </div>
-
-                {/* Google Play / Web (Active link to Store) */}
                 <a
                   href="https://play.google.com/store/search?q=%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%A2%20%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B8%E0%B8%91%E0%B9%82%E0%B8%92&c=books"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-black/75 hover:bg-black text-white px-3.5 py-1.5 rounded-xl border border-white/40 hover:border-white transition-all shadow-xs cursor-pointer group"
+                  className="flex items-center gap-2.5 bg-black/75 hover:bg-black text-white px-5 py-2.5 rounded-xl border border-white/40 hover:border-white transition-all shadow-md cursor-pointer group"
                   title="เปิดอ่านบน Google Play / Web"
                 >
-                  <Smartphone size={16} className="text-white group-hover:scale-110 transition-transform" />
+                  <Smartphone size={18} className="text-white group-hover:scale-110 transition-transform shrink-0" />
                   <div className="text-left leading-tight">
-                    <p className="text-[9px] text-white uppercase font-bold tracking-wider">เปิดอ่านบน</p>
-                    <p className="text-xs font-black text-white">Google Play / Web</p>
+                    <p className="text-[10px] text-white uppercase font-bold tracking-wider">เปิดอ่านบน</p>
+                    <p className="text-xs sm:text-sm font-black text-white">Google Play / Web ↗</p>
                   </div>
                 </a>
               </div>
