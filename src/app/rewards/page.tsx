@@ -444,22 +444,19 @@ export default function RewardsShopPage() {
                       key={item.id}
                       className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-zinc-200/80 hover:border-sky-400/80 shadow-sm hover:shadow-xl transition-all duration-300"
                     >
-                      {/* Product Visual Container (Custom Boxset / Pastel Book / Clean Product Mockup) */}
+                      {/* Product Visual Container */}
                       <div className="relative">
                         <RewardCardVisual item={item} />
 
-                        {/* Top Badges */}
-                        <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none z-20">
-                          <span className="px-2.5 py-1 rounded-full bg-zinc-950/85 backdrop-blur-md text-[#D9A441] text-[11px] font-mono font-extrabold border border-[#D9A441]/40 shadow-md">
-                            🪙 {item.points.toLocaleString()} P
-                          </span>
-
-                          {item.badge && (
-                            <span className="px-2.5 py-1 rounded-full bg-[#D9A441] text-white text-[10px] font-black shadow-md">
-                              {item.badge}
+                        {/* Top Badge: Promotional / Exclusive tag */}
+                        {item.badge && (
+                          <div className="absolute top-2.5 left-2.5 pointer-events-none z-20">
+                            <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[10px] font-black shadow-md flex items-center gap-1">
+                              <Sparkles size={11} className="fill-white" />
+                              <span>{item.badge}</span>
                             </span>
-                          )}
-                        </div>
+                          </div>
+                        )}
 
                         {/* Stock indicator badge at bottom right */}
                         <div className="absolute bottom-2.5 right-3 pointer-events-none z-20">
@@ -473,35 +470,51 @@ export default function RewardsShopPage() {
                         </div>
                       </div>
 
-                      {/* Card Content */}
-                      <div className="p-4 sm:p-5 flex flex-col flex-grow justify-between gap-4">
+                      {/* Card Content - Lazada / Shopee E-Commerce Format */}
+                      <div className="p-4 sm:p-5 flex flex-col flex-grow justify-between gap-3">
                         <div>
-                          <h3 className="text-base font-extrabold text-foreground group-hover:text-sky-700 transition-colors line-clamp-2 leading-snug">
+                          {/* Title */}
+                          <h3 className="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors line-clamp-2 leading-snug">
                             {item.title}
                           </h3>
-                          <p className="text-xs text-muted-foreground line-clamp-2 mt-1.5 leading-relaxed font-normal">
+
+                          {/* Description */}
+                          <p className="text-xs text-slate-500 line-clamp-2 mt-1.5 leading-relaxed font-normal">
                             {item.description}
                           </p>
+
+                          {/* Shopee/Lazada Style Prominent Price / Points Display */}
+                          <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-baseline gap-1.5 flex-wrap">
+                            <span className="text-xl sm:text-2xl font-black text-rose-600 tracking-tight">
+                              {item.points.toLocaleString()}
+                            </span>
+                            <span className="text-xs font-bold text-rose-600">แต้ม</span>
+                            <span className="text-[11px] text-slate-400 font-medium ml-1">
+                              (ใช้แต้มบุญแลกฟรี)
+                            </span>
+                          </div>
                         </div>
 
                         {/* Points Progress / Redeem Button Area */}
-                        <div className="pt-3 border-t border-zinc-100 flex flex-col gap-2.5">
+                        <div className="pt-2 flex flex-col gap-2">
                           {!canAfford ? (
                             /* Progress bar showing deficit */
                             <div className="space-y-1.5">
                               <div className="flex items-center justify-between text-[11px] font-semibold">
-                                <span className="text-sky-700">ขาดอีก {neededPoints.toLocaleString()} P</span>
-                                <span className="text-zinc-400 font-mono">{progressPct}%</span>
+                                <span className="text-slate-600">
+                                  ขาดอีก <strong className="text-rose-600 font-bold">{neededPoints.toLocaleString()}</strong> แต้ม
+                                </span>
+                                <span className="text-slate-400 font-mono text-[10px]">{progressPct}%</span>
                               </div>
-                              <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                              <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
                                 <div
-                                  className="h-full bg-gradient-to-r from-sky-400 to-sky-600 rounded-full"
+                                  className="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full"
                                   style={{ width: `${progressPct}%` }}
                                 />
                               </div>
                               <button
                                 disabled
-                                className="w-full py-2.5 rounded-xl bg-zinc-100 text-zinc-400 font-bold text-xs cursor-not-allowed"
+                                className="w-full py-2.5 rounded-xl bg-slate-100 text-slate-400 font-bold text-xs cursor-not-allowed text-center"
                               >
                                 คะแนนยังไม่เพียงพอ
                               </button>
@@ -509,17 +522,17 @@ export default function RewardsShopPage() {
                           ) : isOutOfStock ? (
                             <button
                               disabled
-                              className="w-full py-2.5 rounded-xl bg-zinc-100 text-zinc-400 font-bold text-xs cursor-not-allowed"
+                              className="w-full py-2.5 rounded-xl bg-slate-100 text-slate-400 font-bold text-xs cursor-not-allowed text-center"
                             >
                               ของรางวัลหมดชั่วคราว
                             </button>
                           ) : (
                             <button
                               onClick={() => handleOpenRedeemModal(item)}
-                              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#D9A441] via-amber-500 to-[#B88328] hover:from-amber-600 hover:to-amber-700 text-white font-extrabold text-xs shadow-md transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
+                              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-orange-500 hover:from-rose-500 hover:to-orange-400 text-white font-extrabold text-xs shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
                             >
-                              <Gift className="w-4 h-4 text-yellow-100" />
-                              <span>แลกของรางวัลชิ้นนี้</span>
+                              <Gift className="w-4 h-4 text-white" />
+                              <span>กดแลกของรางวัล</span>
                             </button>
                           )}
                         </div>
