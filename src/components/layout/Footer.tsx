@@ -207,7 +207,7 @@ export default function Footer() {
               <h4 className="font-extrabold text-base sm:text-lg text-white tracking-tight">
                 Address / ข้อมูลการติดต่อ
               </h4>
-              <p className="text-xs sm:text-sm text-white/95 leading-relaxed max-w-sm font-normal">
+              <p className="text-xs sm:text-sm text-white leading-relaxed max-w-sm font-medium">
                 หอสมุดดิจิทัล พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)<br />
                 เพื่อการศึกษา วิจัย และเผยแผ่พระพุทธศาสนาสู่สากล
               </p>
@@ -216,7 +216,7 @@ export default function Footer() {
                   href="https://www.facebook.com/ThanavuddhoStory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-emerald-800/80 hover:bg-[#1877F2] text-white flex items-center justify-center transition-all shadow-xs border border-white/20"
+                  className="w-8 h-8 rounded-full bg-emerald-800 hover:bg-[#1877F2] text-white flex items-center justify-center transition-all shadow-xs border border-white/40"
                   title="Facebook"
                 >
                   <FacebookIcon size={16} />
@@ -225,7 +225,7 @@ export default function Footer() {
                   href="https://www.tiktok.com/@thanavuddhostory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-emerald-800/80 hover:bg-black text-white flex items-center justify-center transition-all shadow-xs border border-white/20"
+                  className="w-8 h-8 rounded-full bg-emerald-800 hover:bg-black text-white flex items-center justify-center transition-all shadow-xs border border-white/40"
                   title="TikTok"
                 >
                   <TiktokIcon size={16} />
@@ -234,14 +234,14 @@ export default function Footer() {
                   href="https://www.youtube.com/@ThanavuddhoStory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-emerald-800/80 hover:bg-[#FF0000] text-white flex items-center justify-center transition-all shadow-xs border border-white/20"
+                  className="w-8 h-8 rounded-full bg-emerald-800 hover:bg-[#FF0000] text-white flex items-center justify-center transition-all shadow-xs border border-white/40"
                   title="YouTube"
                 >
                   <YoutubeIcon size={16} />
                 </a>
                 <a 
                   href="/" 
-                  className="w-8 h-8 rounded-full bg-emerald-800/80 hover:bg-emerald-700 text-white flex items-center justify-center transition-all shadow-xs border border-white/20"
+                  className="w-8 h-8 rounded-full bg-emerald-800 hover:bg-emerald-600 text-white flex items-center justify-center transition-all shadow-xs border border-white/40"
                   title="Website"
                 >
                   <Globe size={16} />
@@ -254,18 +254,18 @@ export default function Footer() {
               <h4 className="font-extrabold text-base sm:text-lg text-white tracking-tight">
                 Thanavuddho e-Library
               </h4>
-              <p className="text-xs text-white/95 font-medium">
+              <p className="text-xs text-white font-medium">
                 เข้าอ่านออนไลน์ได้ทันที ทุกอุปกรณ์โดยไม่ต้องติดตั้ง
               </p>
 
-              {/* 2 App Badges (Crisp White Text, Google Play clicks to official store) */}
+              {/* 2 App Badges (Pure White Text) */}
               <div className="flex items-center gap-2.5 pt-1">
                 {/* App Store / iOS */}
-                <div className="flex items-center gap-2 bg-black/60 text-white px-3.5 py-1.5 rounded-xl border border-white/25 shadow-xs cursor-default">
+                <div className="flex items-center gap-2 bg-black/75 text-white px-3.5 py-1.5 rounded-xl border border-white/40 shadow-xs cursor-default">
                   <div className="text-lg leading-none text-white"></div>
                   <div className="text-left leading-tight">
-                    <p className="text-[9px] text-white/80 uppercase font-semibold">เปิดอ่านบน</p>
-                    <p className="text-xs font-bold text-white">App Store / iOS</p>
+                    <p className="text-[9px] text-white uppercase font-bold tracking-wider">เปิดอ่านบน</p>
+                    <p className="text-xs font-black text-white">App Store / iOS</p>
                   </div>
                 </div>
 
@@ -274,13 +274,13 @@ export default function Footer() {
                   href="https://play.google.com/store/search?q=%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%A2%20%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B8%E0%B8%91%E0%B9%82%E0%B8%92&c=books"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-black/60 hover:bg-black text-white px-3.5 py-1.5 rounded-xl border border-white/25 hover:border-emerald-300 transition-all shadow-xs cursor-pointer group"
+                  className="flex items-center gap-2 bg-black/75 hover:bg-black text-white px-3.5 py-1.5 rounded-xl border border-white/40 hover:border-white transition-all shadow-xs cursor-pointer group"
                   title="เปิดอ่านบน Google Play / Web"
                 >
-                  <Smartphone size={16} className="text-emerald-400 group-hover:scale-110 transition-transform" />
+                  <Smartphone size={16} className="text-white group-hover:scale-110 transition-transform" />
                   <div className="text-left leading-tight">
-                    <p className="text-[9px] text-white/80 uppercase font-semibold">เปิดอ่านบน</p>
-                    <p className="text-xs font-bold text-white">Google Play / Web</p>
+                    <p className="text-[9px] text-white uppercase font-bold tracking-wider">เปิดอ่านบน</p>
+                    <p className="text-xs font-black text-white">Google Play / Web</p>
                   </div>
                 </a>
               </div>
@@ -291,12 +291,12 @@ export default function Footer() {
               <h4 className="font-extrabold text-base sm:text-lg text-white tracking-tight">
                 Contact Us / ติดต่อสอบถาม
               </h4>
-              <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-normal">
+              <p className="text-xs sm:text-sm text-white leading-relaxed font-medium">
                 เปิดบริการออนไลน์ฟรีตลอด 24 ชั่วโมง<br />
                 สำหรับนักเรียน นักศึกษา และประชาชนทั่วไป
               </p>
               <div className="pt-1">
-                <p className="text-xs text-white font-mono font-bold">
+                <p className="text-xs text-white font-mono font-bold tracking-tight">
                   Customer Service : thanavuddho.library@gmail.com
                 </p>
               </div>
@@ -305,20 +305,20 @@ export default function Footer() {
           </div>
 
           {/* BOTTOM STRIP: Powered by | Copyright | Back to top */}
-          <div className="border-t border-white/20 pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/90 font-medium">
+          <div className="border-t border-white/30 pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white font-medium">
             <div>
               v.2.4.84 Powered by Thanavuddho Library System
             </div>
             
             <div className="text-center">
-              Copyright © 2026 All Right Reserved. | <Link href="/welcome" className="text-white hover:underline font-semibold">เงื่อนไขการให้บริการ</Link> | <Link href="/welcome" className="text-white hover:underline font-semibold">นโยบายความเป็นส่วนตัว</Link>
+              Copyright © 2026 All Right Reserved. | <Link href="/welcome" className="text-white hover:underline font-bold">เงื่อนไขการให้บริการ</Link> | <Link href="/welcome" className="text-white hover:underline font-bold">นโยบายความเป็นส่วนตัว</Link>
             </div>
 
             {/* Back to top circle button (BKK style) */}
             <div className="flex items-center gap-2">
               <button
                 onClick={scrollToTop}
-                className="w-9 h-9 rounded-full bg-white text-[#0B6647] shadow-lg flex items-center justify-center hover:bg-emerald-50 hover:scale-110 active:scale-95 transition-all cursor-pointer font-bold"
+                className="w-9 h-9 rounded-full bg-white text-[#0B6647] shadow-lg flex items-center justify-center hover:bg-emerald-100 hover:scale-110 active:scale-95 transition-all cursor-pointer font-bold"
                 title="กลับสู่ด้านบน"
                 aria-label="กลับสู่ด้านบน"
               >
