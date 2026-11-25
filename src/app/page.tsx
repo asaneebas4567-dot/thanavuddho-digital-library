@@ -323,7 +323,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50/50">
       
-      {/* 1. ไฮไลต์ชุดหนังสือและสื่อเด่น (Flexible Showcase System) */}
+      {/* 1. ไฮไลต์ชุดหนังสือและสื่อเด่น (Flexible Showcase System - Updated Showcase Pool) */}
       <TopBannerCarousel 
         showcaseItems={(homeSettings as any)?.showcaseItems} 
         autoPlayIntervalMs={8000} 

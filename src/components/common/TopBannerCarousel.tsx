@@ -40,14 +40,17 @@ export default function TopBannerCarousel({
   // Re-sync items when showcaseItems prop updates
   useEffect(() => {
     if (showcaseItems && showcaseItems.length > 0) {
-      setItems(showcaseItems.filter(item => item.is_active));
+      const active = showcaseItems
+        .filter(item => item.is_active)
+        .sort((a, b) => (a.order || 0) - (b.order || 0));
+      setItems(active);
     }
   }, [showcaseItems]);
 
   // Fetch updated settings from backend API on mount
   useEffect(() => {
     let isMounted = true;
-    fetch('/api/admin/home-settings', { cache: 'no-store' })
+    fetch(`/api/admin/home-settings?t=${Date.now()}`, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         if (isMounted && data.success && data.settings?.showcaseItems) {
