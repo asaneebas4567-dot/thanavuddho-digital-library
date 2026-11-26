@@ -1,5 +1,46 @@
 [
   {
+    "id": "book_dee_chua",
+    "title": "\"ดีชั่ว\" เกิดด้วยกรรมหรือบังเอิญ",
+    "subtitle": "เหตุแห่งกรรมและคำสอนเรื่องผลแห่งกรรมตามหลักพุทธธรรม",
+    "author_id": "author_001",
+    "author": "พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)",
+    "description": "หนังสือธรรมะอันทรงคุณค่า โดย พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ) อธิบายเรื่องกฎแห่งกรรม กัปไขลง-กัปไขขึ้น ความรุนแรงที่ส่งผลข้ามภพข้ามชาติ เหตุแห่งผลกรรม และวิธีปลูกบุญให้งอกงามด้วยจิตใจที่งดงาม สร้างความสว่างแห่งปัญญาด้วยการอ่าน",
+    "cover_image": "/images/books/dee-chua.png",
+    "cover": "/images/books/dee-chua.png",
+    "content_type": "book",
+    "category_ids": [
+      "cat_dharma",
+      "cat_lifestyle",
+      "cat_self_dev"
+    ],
+    "category_id": "cat_dharma",
+    "tags": [
+      "ดีชั่ว",
+      "ดีชั่ว เกิดด้วยกรรมหรือบังเอิญ",
+      "กฎแห่งกรรม",
+      "ผลกรรม",
+      "สร้างบุญ",
+      "ธรรมะกับชีวิตประจำวัน"
+    ],
+    "publication_year": 2563,
+    "page_count": 57,
+    "pages": 57,
+    "language": "th",
+    "pdf_url": "/books/pdf/dee-chua.pdf",
+    "reader_url": "/books/pdf/dee-chua.pdf",
+    "status": "published",
+    "is_copyright": true,
+    "copyright_status": "approved",
+    "copyright_notice": "หนังสือลิขสิทธิ์ฉบับเผยแพร่ทางการ",
+    "publisher": "มูลนิธิธรรมะคุ้มครองโลก",
+    "isbn": "978-616-7803-19-7",
+    "verified": true,
+    "featured": true,
+    "has_flipbook": true,
+    "reader_type": "flipbook"
+  },
+  {
     "id": "book_mua_jai_sai",
     "title": "เมื่อใจใส ๆ อะไร ๆ ก็ง่าย",
     "subtitle": "ธรรมะกับการดำเนินชีวิต เพื่อใจใส สว่าง และมีความสุขในทุกวัน",

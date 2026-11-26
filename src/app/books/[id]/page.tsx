@@ -30,8 +30,7 @@ function resolveBook(rawId: string): any {
 
   const isExcluded = (idStr: string) => {
     const s = (idStr || '').toLowerCase();
-    return s.includes('dee_chua') || s.includes('ดีชั่ว') ||
-           s.includes('24_chom') || s.includes('24 ชม') ||
+    return s.includes('24_chom') || s.includes('24 ชม') ||
            s.includes('tua_rao') || s.includes('ตัวเรา') ||
            s.includes('khad_klao') || s.includes('ขัดเกลา') ||
            s.includes('liang_look') || s.includes('เลี้ยงลูกสไตล์สุข');

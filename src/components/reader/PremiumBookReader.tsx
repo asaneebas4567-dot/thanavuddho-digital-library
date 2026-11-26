@@ -86,6 +86,9 @@ export function resolveBookPdfUrl(book: {
 
   // 2. Strict ID Mapping Table for All Library Books
   const EXACT_ID_MAP: Record<string, string> = {
+    'book_dee_chua': '/books/pdf/dee-chua.pdf',
+    'book_ดีชั่ว': '/books/pdf/dee-chua.pdf',
+    'book_ดีชั่ว_เกิดด้วยกรรมหรือบังเอิญ': '/books/pdf/dee-chua.pdf',
     'book_mua_jai_sai': '/books/pdf/mua-jai-sai.pdf',
     'book_เมื่อใจใสใส_อะไรๆ_ก็ง่าย': '/books/pdf/mua-jai-sai.pdf',
     'book_เมื่อใจใส_ๆ_อะไร_ๆ_ก็ง่าย': '/books/pdf/mua-jai-sai.pdf',

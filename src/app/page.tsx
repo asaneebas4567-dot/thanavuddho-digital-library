@@ -162,7 +162,6 @@ export default function Home() {
     const t = b.title || '';
     if (t.includes('เลี้ยงลูกสไตล์สุข') || b.id.includes('liang_look_style_sook')) return true;
     if (t.includes('24 ชม') || b.id.includes('24_chom')) return true;
-    if (t.includes('ดีชั่ว') || b.id.includes('dee_chua')) return true;
     if (t.includes('ขัดเกลาความคิด') || b.id.includes('khad_klao')) return true;
     if (t.includes('ตัวเราไม่ธรรมดา') || b.id.includes('tua_rao')) return true;
     return false;
@@ -218,6 +217,7 @@ export default function Home() {
   // 1. ปรัชญา จิตวิทยา & ฝึกสมาธิ (นำเล่มลิขสิทธิ์ที่สกัดปกขึ้นแถวหน้า)
   const psychologyMindBookIds = [
     'book_mua_jai_sai',
+    'book_dee_chua',
     'book_tam_jai_hai_prom_buak',
     'book_khao_kor_sook_rao_kor_sook',
     'book_อย่ามโน',
