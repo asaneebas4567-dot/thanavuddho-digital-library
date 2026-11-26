@@ -217,6 +217,7 @@ export default function Home() {
 
   // 1. ปรัชญา จิตวิทยา & ฝึกสมาธิ (นำเล่มลิขสิทธิ์ที่สกัดปกขึ้นแถวหน้า)
   const psychologyMindBookIds = [
+    'book_mua_jai_sai',
     'book_tam_jai_hai_prom_buak',
     'book_khao_kor_sook_rao_kor_sook',
     'book_อย่ามโน',

@@ -91,6 +91,7 @@ next-env.d.ts
 !/public/books/pdf/phra-traipidok-dhammachai.pdf
 !/public/books/pdf/mang-korn-sorn-jai.pdf
 !/public/books/pdf/khai-panha-khwam-chuea.pdf
+!/public/books/pdf/mua-jai-sai.pdf
 /public/audios/*
 !/public/audios/sample.mp3
 /public/videos/*

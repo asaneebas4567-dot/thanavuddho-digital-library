@@ -86,6 +86,9 @@ export function resolveBookPdfUrl(book: {
 
   // 2. Strict ID Mapping Table for All Library Books
   const EXACT_ID_MAP: Record<string, string> = {
+    'book_mua_jai_sai': '/books/pdf/mua-jai-sai.pdf',
+    'book_เมื่อใจใสใส_อะไรๆ_ก็ง่าย': '/books/pdf/mua-jai-sai.pdf',
+    'book_เมื่อใจใส_ๆ_อะไร_ๆ_ก็ง่าย': '/books/pdf/mua-jai-sai.pdf',
     'book_รักเเท้ไม่ได้มีเเค่ในนิยาย': '/books/pdf/รักเเท้ไม่ได้มีเเค่ในนิยาย.pdf',
     'book_เปิดพรมเเดนโลกเเห่งธรรมok': '/books/pdf/เปิดพรมเเดนโลกเเห่งธรรมok.pdf',
     'book_hope-magazine-vol-18': '/books/pdf/hope-magazine-vol-18.pdf',

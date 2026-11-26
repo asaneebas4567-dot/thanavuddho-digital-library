@@ -6,6 +6,18 @@
   "bannerButtonText": "สำรวจคลังหนังสือธรรมะ",
   "showcaseItems": [
     {
+      "id": "showcase-banner-mua-jai-sai",
+      "type": "IMAGE_ONLY",
+      "title": "เมื่อใจใส ๆ อะไร ๆ ก็ง่าย (หนังสือใหม่ล่าสุด ปี ๒๕๖๙)",
+      "image_url": "/images/banners/banner-mua-jai-sai.jpg",
+      "image_url_mobile": "/images/banners/banner-mua-jai-sai.jpg",
+      "target_url": "/reader/book_mua_jai_sai",
+      "is_clickable": true,
+      "order": 1,
+      "is_active": true,
+      "fit_mode": "cover"
+    },
+    {
       "id": "showcase-abbot-65th",
       "type": "IMAGE_ONLY",
       "title": "มุทิตาสักการะ วาระอายุวัฒนมงคล ๖๕ ปี พระครูปลัดสุวัฒนโพธิคุณ",
@@ -13,7 +25,7 @@
       "image_url_mobile": "/images/banners/banner-muthita-65-years.jpg",
       "target_url": "#",
       "is_clickable": false,
-      "order": 1,
+      "order": 2,
       "is_active": true,
       "fit_mode": "cover"
     },
@@ -25,7 +37,7 @@
       "image_url_mobile": "/images/banners/banner-tam-jai-hai-prom-buak.jpg",
       "target_url": "/reader/book_tam_jai_hai_prom_buak",
       "is_clickable": true,
-      "order": 2,
+      "order": 3,
       "is_active": true,
       "fit_mode": "cover"
     },
@@ -37,7 +49,7 @@
       "image_url_mobile": "/images/banners/banner-yoo-sook-digital-official.jpg",
       "target_url": "/reader/book_yoo_sook_nai_yook_digital",
       "is_clickable": true,
-      "order": 3,
+      "order": 4,
       "is_active": true,
       "fit_mode": "cover"
     },
