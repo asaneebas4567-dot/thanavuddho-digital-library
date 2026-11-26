@@ -173,10 +173,12 @@ body {
   width: 100%;
 }
 
-/* All small text, captions, descriptions, subtext and paragraphs MUST use standard upright font */
+/* Explicit rule: All paragraphs, spans, details, metadata, subtext MUST use Sarabun */
 p,
+span:not(.font-heading):not(.font-kanit):not(.font-ui):not([class*="font-bold"]):not([class*="font-black"]),
 article,
 small,
+label,
 .text-xs,
 .text-sm,
 .text-\[9px\],
@@ -189,7 +191,7 @@ small,
 .dhamma-content,
 .font-reading,
 .font-text {
-  font-family: var(--font-sarabun), 'Sarabun', -apple-system, BlinkMacSystemFont, Tahoma, sans-serif;
+  font-family: var(--font-sarabun), 'Sarabun', -apple-system, BlinkMacSystemFont, Tahoma, sans-serif !important;
 }
 
 p, article, .reading-body, .dhamma-content {

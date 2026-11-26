@@ -250,21 +250,21 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
               {/* Metadata */}
               <div className="mt-3 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mb-1">
-                    {pages > 0 && <span className="text-slate-700 font-semibold">{pages} หน้า</span>}
-                    {pages > 0 && <span>•</span>}
-                    <span className="flex items-center gap-1 font-semibold text-slate-600">
+                  <div className="flex items-center gap-1.5 text-[12px] text-slate-500 font-normal mb-1 font-reading">
+                    {pages > 0 && <span className="text-slate-600">{pages} หน้า</span>}
+                    {pages > 0 && <span className="text-slate-300">•</span>}
+                    <span className="flex items-center gap-1 text-slate-500">
                       <Eye size={12} className="text-[#079FE8]" />
                       <span>{realReads.toLocaleString()} อ่าน</span>
                     </span>
                   </div>
 
-                  <h3 className="font-heading font-bold text-xs sm:text-[13px] text-slate-900 group-hover:text-[#079FE8] transition-colors line-clamp-2 leading-snug tracking-tight">
+                  <h3 className="font-heading font-bold text-sm sm:text-[14px] text-slate-900 group-hover:text-[#079FE8] transition-colors line-clamp-2 leading-snug tracking-tight">
                     {book.title}
                   </h3>
                 </div>
 
-                <p className="text-[11px] text-slate-500 truncate mt-2 font-reading">
+                <p className="text-[12px] text-slate-500 truncate mt-1.5 font-reading font-normal">
                   พระครูปลัดสุวัฒนโพธิคุณ
                 </p>
               </div>

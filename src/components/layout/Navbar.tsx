@@ -271,10 +271,10 @@ export default function Navbar() {
 
       </div>
 
-      {/* 2. Sub-Nav Bar (Deep Navy with high-contrast active tabs) */}
-      <div className="hidden lg:block border-t border-white/15 bg-[#073B65]/90 backdrop-blur-md shadow-inner">
+      {/* 2. Sub-Nav Bar (Clean Navigation Bar with prominent readable tabs like MEB) */}
+      <div className="hidden lg:block border-t border-white/15 bg-[#073B65]/95 backdrop-blur-md shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center space-x-2 py-2">
+          <div className="flex items-center justify-center space-x-3 py-2.5">
             {navLinks.map((link) => {
               const active = isActive(link.href);
               const Icon = link.icon;
@@ -282,18 +282,21 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  className={`group relative inline-flex items-center gap-2 px-5 py-2 rounded-xl text-[14.5px] font-semibold font-ui transition-all duration-200 cursor-pointer ${
                     active
-                      ? 'bg-white text-[#073B65] shadow-md ring-2 ring-white/60 scale-[1.02]'
-                      : 'bg-white/10 hover:bg-white/20 text-white/90 hover:text-white border border-white/15 hover:border-white/40 shadow-xs'
+                      ? 'bg-white text-[#073B65] shadow-md font-bold scale-[1.03] ring-2 ring-sky-300'
+                      : 'bg-white/10 hover:bg-white/20 text-white/95 hover:text-white border border-white/20 hover:border-white/40 shadow-xs hover:scale-[1.01]'
                   }`}
                 >
-                  <Icon size={14} className={active ? 'text-[#079FE8]' : 'text-white/80 group-hover:text-white'} />
-                  <span>{link.label}</span>
+                  <Icon size={17} className={active ? 'text-[#079FE8]' : 'text-white/80 group-hover:text-white'} />
+                  <span className="tracking-wide">{link.label}</span>
                   {(link as any).badge && (
-                    <span className="bg-[#079FE8] text-white text-[9px] font-bold px-1.5 py-0.2 rounded-full shadow-xs">
+                    <span className="bg-[#079FE8] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
                       {(link as any).badge}
                     </span>
+                  )}
+                  {active && (
+                    <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-8 h-1 bg-[#079FE8] rounded-full" />
                   )}
                 </Link>
               );
