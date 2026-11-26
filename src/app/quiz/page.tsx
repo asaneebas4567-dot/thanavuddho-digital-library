@@ -310,7 +310,7 @@ function QuizGamificationContent() {
               ทดสอบปัญญาธรรม <span className="text-yellow-300">4 ระดับความเข้าใจ</span>
             </h1>
             <p className="text-white font-medium text-xs sm:text-[13px] leading-relaxed mb-3 max-w-2xl drop-shadow-xs">
-              วัดระดับความเข้าใจ สะสมคะแนน XP ปลดล็อกเหรียญตรา และรับใบประกาศนียบัตรประมวลความรู้ธรรมศึกษา ครอบคลุมตั้งแต่แบบทดสอบรายบทจนถึงภาพรวมท้ายเล่ม
+              วัดระดับความเข้าใจ สะสมแต้มคะแนน ปลดล็อกเหรียญตรา และรับใบประกาศนียบัตรประมวลความรู้ธรรมศึกษา ครอบคลุมตั้งแต่แบบทดสอบรายบทจนถึงภาพรวมท้ายเล่ม
             </p>
 
             {/* User Gamification Stats Bar - Compact Inline Badges */}
@@ -318,8 +318,8 @@ function QuizGamificationContent() {
               <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/40 flex items-center gap-2 shadow-xs">
                 <span className="text-sm">⚡</span>
                 <div>
-                  <div className="text-[9px] text-white/90 uppercase font-bold tracking-wider">คะแนนสะสม (Total XP)</div>
-                  <div className="text-sm sm:text-base font-black text-amber-300 leading-tight">{userXP.toLocaleString()} XP</div>
+                  <div className="text-[9px] text-white/90 uppercase font-bold tracking-wider">คะแนนสะสม</div>
+                  <div className="text-sm sm:text-base font-black text-amber-300 leading-tight">{userXP.toLocaleString()} แต้ม</div>
                 </div>
               </div>
 
@@ -479,7 +479,7 @@ function QuizGamificationContent() {
                   <div className="flex flex-wrap items-center justify-center gap-3">
                     {userScore >= activeQuiz.passing_score && (
                       <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-sm">
-                        <Sparkles size={16} /> ได้รับ +{activeQuiz.xp_reward} XP
+                        <Sparkles size={16} /> ได้รับ +{activeQuiz.xp_reward} แต้ม
                       </span>
                     )}
 
@@ -633,7 +633,7 @@ function QuizGamificationContent() {
                     </span>
 
                     <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black shadow-sm ${theme.xpColor}`}>
-                      <Sparkles size={12} className="fill-white" /> +{quiz.xp_reward} XP
+                      <Sparkles size={12} className="fill-white" /> +{quiz.xp_reward} แต้ม
                     </span>
                   </div>
 

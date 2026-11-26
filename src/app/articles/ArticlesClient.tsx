@@ -203,7 +203,7 @@ export default function ArticlesClient({ initialArticles }: ArticlesClientProps)
             href="/quiz"
             className="px-6 py-3 rounded-2xl bg-white text-amber-900 font-black text-xs sm:text-sm hover:bg-amber-50 shadow-md transition-all active:scale-95 shrink-0"
           >
-            เข้าสู่แบบทดสอบ XP ปัญญาธรรม &rarr;
+            เข้าสู่แบบทดสอบปัญญาธรรม &rarr;
           </Link>
         </div>
 

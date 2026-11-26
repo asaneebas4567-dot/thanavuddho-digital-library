@@ -140,7 +140,7 @@ export default function Footer() {
               <ul className="space-y-2 text-xs sm:text-sm text-slate-600 font-normal">
                 <li>
                   <Link href="/quiz" className="hover:text-[#079FE8] transition-colors block">
-                    แบบทดสอบความรู้ท้ายเล่ม (รับ XP)
+                    แบบทดสอบความรู้ท้ายเล่ม (สะสมแต้ม)
                   </Link>
                 </li>
                 <li>

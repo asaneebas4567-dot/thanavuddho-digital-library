@@ -82,7 +82,7 @@ export default function Navbar() {
       activeIconColor: 'text-emerald-600'
     },
     { 
-      label: 'แบบทดสอบ XP', 
+      label: 'แบบทดสอบ', 
       href: '/quiz', 
       icon: Trophy,
       iconColor: 'text-sky-100 group-hover:text-white',
