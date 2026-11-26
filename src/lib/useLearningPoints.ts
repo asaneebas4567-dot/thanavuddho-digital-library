@@ -87,12 +87,22 @@ export function useLearningPoints() {
           const remainingQuota = Math.max(0, dailyCap - dailyLearning);
           const isCapReached = dailyLearning >= dailyCap;
 
+          const serverPoints = data.user?.points || 0;
+          const localPoints = parseInt(localStorage.getItem('dhamma_reward_points') || '0', 10);
+          const savedUserStr = localStorage.getItem('thanavuddho_auth_user') || localStorage.getItem('dhamma_auth_user');
+          let savedUserPoints = 0;
+          if (savedUserStr) {
+            try { savedUserPoints = JSON.parse(savedUserStr).points || 0; } catch {}
+          }
+          // Always pick the maximum verified points to protect against serverless reset
+          const effectivePoints = Math.max(serverPoints, localPoints, savedUserPoints);
+
           setLearningState({
             isLoggedIn: Boolean(savedUserStr),
             userEmail: email,
             userName: data.user?.name || name,
             userPicture: data.user?.picture || picture,
-            availablePoints: data.user?.points || 0,
+            availablePoints: effectivePoints,
             todayPoints: data.today?.pointsEarnedToday || 0,
             dailyLearningPoints: dailyLearning,
             dailyLearningCap: dailyCap,
@@ -107,7 +117,19 @@ export function useLearningPoints() {
           });
 
           // Sync localStorage reward points
-          localStorage.setItem('dhamma_reward_points', (data.user?.points || 0).toString());
+          localStorage.setItem('dhamma_reward_points', effectivePoints.toString());
+
+          // If local points were higher than server, sync back to server so server catches up
+          if (effectivePoints > serverPoints && email && !email.startsWith('guest_')) {
+            fetch('/api/user/sync', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 
+                email, 
+                pointsDelta: effectivePoints - serverPoints 
+              }),
+            }).catch(() => {});
+          }
         }
       } else {
         // Fallback local storage

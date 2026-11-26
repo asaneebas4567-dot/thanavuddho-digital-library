@@ -48,8 +48,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           .then(res => res.json())
           .then(data => {
             if (data.success && data.user) {
-              setUser(data.user);
-              localStorage.setItem(STORAGE_KEY, JSON.stringify(data.user));
+              // Preserve highest point balance to protect against serverless cold restarts without persistent disk
+              const localRewardPoints = parseInt(localStorage.getItem('dhamma_reward_points') || '0', 10);
+              const maxPoints = Math.max(data.user.points || 0, parsed.points || 0, localRewardPoints);
+              
+              const mergedUser: UserSession = {
+                ...data.user,
+                points: maxPoints
+              };
+
+              setUser(mergedUser);
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(mergedUser));
+              localStorage.setItem('dhamma_reward_points', maxPoints.toString());
+
+              // If local points were higher than server (due to cold start), sync back up to server
+              if (maxPoints > (data.user.points || 0)) {
+                fetch('/api/user/sync', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ 
+                    email: parsed.email, 
+                    loans: mergedUser.loans, 
+                    pointsDelta: maxPoints - (data.user.points || 0) 
+                  }),
+                }).catch(() => {});
+              }
             }
           })
           .catch(() => {});
