@@ -68,6 +68,13 @@ export default function Navbar() {
       activeIconColor: 'text-sky-600'
     },
     { 
+      label: 'พอดแคสต์', 
+      href: '/audios', 
+      icon: Headphones,
+      iconColor: 'text-purple-200 group-hover:text-purple-100',
+      activeIconColor: 'text-purple-600'
+    },
+    { 
       label: 'วิดีโอ', 
       href: '/videos', 
       icon: Video,
