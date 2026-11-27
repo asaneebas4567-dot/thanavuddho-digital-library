@@ -214,18 +214,6 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
                   </div>
                 )}
 
-                {/* Rank Number Badge with Distinct Trophy / Colors */}
-                <div className={`absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center text-xs font-black shadow-md ${rank.badgeBg} z-20`}>
-                  {rank.crown ? (
-                    <span className="flex items-center gap-0.5">
-                      <Crown size={12} className="text-amber-100 fill-amber-100 drop-shadow-xs" />
-                      <span>1</span>
-                    </span>
-                  ) : (
-                    <span>{index + 1}</span>
-                  )}
-                </div>
-
                 {/* Status Badges: Borrowed & Copyright - ทุกเล่มขึ้นลิขสิทธิ์ */}
                 <div className="absolute top-2 right-2 z-20 flex flex-col items-end gap-1 select-none">
                   {isBorrowed && (
@@ -248,12 +236,22 @@ export default function WebtoonRankingShelf({ books, onSelectBook }: WebtoonRank
               </div>
 
               {/* Metadata */}
-              <div className="mt-3 flex-1 flex flex-col justify-between">
+              <div className="mt-2.5 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-1.5 text-[12px] text-slate-500 font-normal mb-1 font-reading">
-                    {pages > 0 && <span className="text-slate-600">{pages} หน้า</span>}
-                    {pages > 0 && <span className="text-slate-300">•</span>}
-                    <span className="flex items-center gap-1 text-slate-500">
+                  {/* Rank Badge & Reads Strip (ย้ายตัวเลขอันดับออกจากหน้าปก เพื่อไม่ให้บังรูปพระอาจารย์หรือองค์ประกอบหน้าปก) */}
+                  <div className="flex items-center justify-between gap-1.5 mb-1.5">
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-black shadow-xs ${rank.badgeBg}`}>
+                      {rank.crown ? (
+                        <>
+                          <Crown size={11} className="text-amber-100 fill-amber-100 drop-shadow-xs" />
+                          <span>อันดับ 1</span>
+                        </>
+                      ) : (
+                        <span>อันดับ {index + 1}</span>
+                      )}
+                    </span>
+
+                    <span className="flex items-center gap-1 text-[11px] text-slate-500 font-reading">
                       <Eye size={12} className="text-[#079FE8]" />
                       <span>{realReads.toLocaleString()} อ่าน</span>
                     </span>

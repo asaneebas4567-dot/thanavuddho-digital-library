@@ -75,19 +75,6 @@ export default function VideoCard({ video, onSelect }: VideoCardProps) {
               </>
             )}
           </span>
-
-          {/* Availability Status Badge */}
-          {isAvailable ? (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/90 text-white text-[10px] font-bold shadow-sm">
-              <Sparkles className="w-2.5 h-2.5" />
-              <span>พร้อมรับชม</span>
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-sky-600/90 text-white text-[10px] font-bold shadow-sm">
-              <AlertCircle className="w-2.5 h-2.5" />
-              <span>รอเผยแพร่</span>
-            </span>
-          )}
         </div>
 
         {/* Center Hover Play Button */}

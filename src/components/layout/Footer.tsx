@@ -195,7 +195,7 @@ export default function Footer() {
       </div>
 
       {/* ========================================================= */}
-      {/* 2. LOWER SECTION: Bangkok e-Library style Brand Bar (Exact Match to Reference Image 2) */}
+      {/* 2. LOWER SECTION: Bangkok e-Library style Brand Bar (Pure Crisp White on Green) */}
       {/* ========================================================= */}
       <div className="bg-[#0B6647] text-white py-8 sm:py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -203,11 +203,11 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 pb-6 sm:pb-8">
             
             {/* Left: Address / ข้อมูลการติดต่อ */}
-            <div className="space-y-2">
-              <h4 className="font-extrabold text-base sm:text-lg text-white tracking-tight">
+            <div className="space-y-2.5">
+              <h4 className="font-heading font-black text-lg sm:text-xl text-white tracking-wide">
                 Address / ข้อมูลการติดต่อ
               </h4>
-              <p className="text-xs sm:text-sm text-white leading-relaxed max-w-sm font-medium">
+              <p className="text-sm sm:text-base text-white leading-relaxed max-w-sm font-reading font-medium">
                 หอสมุดดิจิทัล พระครูปลัดสุวัฒนโพธิคุณ (สมชาย ฐานวุฑฺโฒ)<br />
                 เพื่อการศึกษา วิจัย และเผยแผ่พระพุทธศาสนาสู่สากล
               </p>
@@ -216,45 +216,45 @@ export default function Footer() {
                   href="https://www.facebook.com/ThanavuddhoStory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-emerald-800 hover:bg-[#1877F2] text-white flex items-center justify-center transition-all shadow-xs border border-white/40"
+                  className="w-9 h-9 rounded-full bg-emerald-800/90 hover:bg-[#1877F2] text-white flex items-center justify-center transition-all shadow-sm border border-white/60 hover:scale-110"
                   title="Facebook"
                 >
-                  <FacebookIcon size={16} />
+                  <FacebookIcon size={18} />
                 </a>
                 <a 
                   href="https://www.tiktok.com/@thanavuddhostory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-emerald-800 hover:bg-black text-white flex items-center justify-center transition-all shadow-xs border border-white/40"
+                  className="w-9 h-9 rounded-full bg-emerald-800/90 hover:bg-black text-white flex items-center justify-center transition-all shadow-sm border border-white/60 hover:scale-110"
                   title="TikTok"
                 >
-                  <TiktokIcon size={16} />
+                  <TiktokIcon size={18} />
                 </a>
                 <a 
                   href="https://www.youtube.com/@ThanavuddhoStory" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-8 h-8 rounded-full bg-emerald-800 hover:bg-[#FF0000] text-white flex items-center justify-center transition-all shadow-xs border border-white/40"
+                  className="w-9 h-9 rounded-full bg-emerald-800/90 hover:bg-[#FF0000] text-white flex items-center justify-center transition-all shadow-sm border border-white/60 hover:scale-110"
                   title="YouTube"
                 >
-                  <YoutubeIcon size={16} />
+                  <YoutubeIcon size={18} />
                 </a>
                 <a 
                   href="/" 
-                  className="w-8 h-8 rounded-full bg-emerald-800 hover:bg-emerald-600 text-white flex items-center justify-center transition-all shadow-xs border border-white/40"
+                  className="w-9 h-9 rounded-full bg-emerald-800/90 hover:bg-emerald-600 text-white flex items-center justify-center transition-all shadow-sm border border-white/60 hover:scale-110"
                   title="Website"
                 >
-                  <Globe size={16} />
+                  <Globe size={18} />
                 </a>
               </div>
             </div>
 
             {/* Center: Thanavuddho e-Library (Active Official Store Link Only) */}
-            <div className="flex flex-col items-start md:items-center justify-center text-left md:text-center space-y-2.5">
-              <h4 className="font-extrabold text-base sm:text-lg text-white tracking-tight">
+            <div className="flex flex-col items-start md:items-center justify-center text-left md:text-center space-y-3">
+              <h4 className="font-heading font-black text-lg sm:text-xl text-white tracking-wide">
                 Thanavuddho e-Library
               </h4>
-              <p className="text-xs text-white font-medium">
+              <p className="text-sm sm:text-base text-white font-reading font-medium">
                 เข้าอ่านออนไลน์ได้ทันที ทุกอุปกรณ์โดยไม่ต้องติดตั้ง
               </p>
 
@@ -264,29 +264,29 @@ export default function Footer() {
                   href="https://play.google.com/store/search?q=%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%A2%20%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B8%E0%B8%91%E0%B9%82%E0%B8%92&c=books"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 bg-black/75 hover:bg-black text-white px-5 py-2.5 rounded-xl border border-white/40 hover:border-white transition-all shadow-md cursor-pointer group"
+                  className="flex items-center gap-3 bg-emerald-900/90 hover:bg-emerald-950 text-white px-5 py-3 rounded-2xl border-2 border-white/60 hover:border-white transition-all shadow-lg cursor-pointer group"
                   title="เปิดอ่านบน Google Play / Web"
                 >
-                  <Smartphone size={18} className="text-white group-hover:scale-110 transition-transform shrink-0" />
+                  <Smartphone size={22} className="text-white group-hover:scale-110 transition-transform shrink-0" />
                   <div className="text-left leading-tight">
-                    <p className="text-[10px] text-white uppercase font-bold tracking-wider">เปิดอ่านบน</p>
-                    <p className="text-xs sm:text-sm font-black text-white">Google Play / Web ↗</p>
+                    <p className="text-[11px] text-white uppercase font-bold tracking-wider">เปิดอ่านบน</p>
+                    <p className="text-sm sm:text-base font-black text-white">Google Play / Web ↗</p>
                   </div>
                 </a>
               </div>
             </div>
 
             {/* Right: Contact Us */}
-            <div className="flex flex-col items-start md:items-end justify-center text-left md:text-right space-y-2">
-              <h4 className="font-extrabold text-base sm:text-lg text-white tracking-tight">
+            <div className="flex flex-col items-start md:items-end justify-center text-left md:text-right space-y-2.5">
+              <h4 className="font-heading font-black text-lg sm:text-xl text-white tracking-wide">
                 Contact Us / ติดต่อสอบถาม
               </h4>
-              <p className="text-xs sm:text-sm text-white leading-relaxed font-medium">
+              <p className="text-sm sm:text-base text-white leading-relaxed font-reading font-medium">
                 เปิดบริการออนไลน์ฟรีตลอด 24 ชั่วโมง<br />
                 สำหรับนักเรียน นักศึกษา และประชาชนทั่วไป
               </p>
               <div className="pt-1">
-                <p className="text-xs text-white font-mono font-bold tracking-tight">
+                <p className="text-sm sm:text-base text-white font-mono font-bold tracking-tight">
                   Customer Service : thanavuddho.library@gmail.com
                 </p>
               </div>
@@ -295,12 +295,12 @@ export default function Footer() {
           </div>
 
           {/* BOTTOM STRIP: Powered by | Copyright | Back to top */}
-          <div className="border-t border-white/30 pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white font-medium">
-            <div>
+          <div className="border-t border-white/40 pt-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-white font-reading font-medium">
+            <div className="text-white font-semibold">
               v.2.4.84 Powered by Thanavuddho Library System
             </div>
             
-            <div className="text-center">
+            <div className="text-center text-white">
               Copyright © 2026 All Right Reserved. | <Link href="/welcome" className="text-white hover:underline font-bold">เงื่อนไขการให้บริการ</Link> | <Link href="/welcome" className="text-white hover:underline font-bold">นโยบายความเป็นส่วนตัว</Link>
             </div>
 
@@ -308,11 +308,11 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <button
                 onClick={scrollToTop}
-                className="w-9 h-9 rounded-full bg-white text-[#0B6647] shadow-lg flex items-center justify-center hover:bg-emerald-100 hover:scale-110 active:scale-95 transition-all cursor-pointer font-bold"
+                className="w-10 h-10 rounded-full bg-white text-[#0B6647] shadow-lg flex items-center justify-center hover:bg-emerald-50 hover:scale-110 active:scale-95 transition-all cursor-pointer font-bold"
                 title="กลับสู่ด้านบน"
                 aria-label="กลับสู่ด้านบน"
               >
-                <ArrowUp size={16} />
+                <ArrowUp size={18} />
               </button>
             </div>
           </div>

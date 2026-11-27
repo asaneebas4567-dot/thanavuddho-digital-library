@@ -161,21 +161,6 @@ export default function HomeMediaShowcase() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
                     )}
 
-                    {/* Status Badge */}
-                    <div className="absolute top-2 left-2 z-10">
-                      {vid.is_available ? (
-                        <span className="text-[9.5px] font-extrabold text-emerald-800 bg-emerald-50/95 border border-emerald-300/80 px-2 py-0.5 rounded-full shadow-2xs flex items-center gap-1">
-                          <CheckCircle2 size={10} className="text-emerald-600" />
-                          <span>พร้อมรับชม</span>
-                        </span>
-                      ) : (
-                        <span className="text-[9.5px] font-bold text-slate-700 bg-slate-50/95 border border-slate-300/80 px-2 py-0.5 rounded-full shadow-2xs flex items-center gap-1">
-                          <AlertCircle size={10} className="text-slate-500" />
-                          <span>เตรียมเปิดให้บริการ</span>
-                        </span>
-                      )}
-                    </div>
-
                     {/* Center Play Button (Only if available) */}
                     {vid.is_available && (
                       <div className="absolute inset-0 flex items-center justify-center opacity-85 group-hover:opacity-100 transition-opacity">

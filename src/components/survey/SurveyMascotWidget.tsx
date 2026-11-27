@@ -154,6 +154,7 @@ export default function SurveyMascotWidget() {
   // Widget Open State (Default to false for minimized on mobile, true for expanded on desktop)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [viewMode, setViewMode] = useState<'info' | 'embed'>('info');
 
   // Keep expanded on tablet/desktop (>=768px), auto-minimize to sleek pill on small mobile (<768px)
@@ -162,6 +163,20 @@ export default function SurveyMascotWidget() {
       setIsMinimized(true);
     }
   }, []);
+
+  // Auto-collapse to compact corner pill on scroll so it never obstructs reading or browsing
+  useEffect(() => {
+    const handleScroll = () => {
+      if (typeof window !== 'undefined') {
+        setIsScrolled(window.scrollY > 80);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const shouldMinimize = isMinimized || isScrolled;
 
   // Claim Status State
   const [isClaimed, setIsClaimed] = useState(false);
@@ -293,23 +308,23 @@ export default function SurveyMascotWidget() {
       {/* ------------------------------------------------------------- */}
       <div 
         className={`fixed z-40 transition-all duration-300 ease-out select-none ${
-          isMinimized 
+          shouldMinimize 
             ? 'left-0 bottom-20 sm:bottom-24' 
             : 'left-2 sm:left-4 lg:left-6 bottom-20 sm:bottom-24'
         }`}
       >
-        {isMinimized ? (
-          /* Minimized Badge Tab - Compact & non-intrusive on mobile */
+        {shouldMinimize ? (
+          /* Minimized Badge Tab - Auto-collapsed on scroll so it never obstructs reading */
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-1.5 bg-gradient-to-r from-[#073B65] to-[#079FE8] text-white py-1.5 sm:py-2 px-2.5 sm:px-3 rounded-r-2xl shadow-lg border-y border-r border-[#D9A441]/60 hover:pl-3.5 transition-all cursor-pointer group active:scale-95"
+            className="flex items-center gap-1.5 bg-gradient-to-r from-[#073B65] via-[#084c82] to-[#079FE8] text-white py-1.5 sm:py-2 px-2.5 sm:px-3 rounded-r-2xl shadow-xl border-y border-r border-[#D9A441]/80 hover:pl-4 transition-all duration-300 cursor-pointer group active:scale-95"
             title="เปิดตัวช่วยแบบประเมิน รับ 200 แต้ม"
           >
-            <div className="w-5 h-5 rounded-full bg-[#D9A441] flex items-center justify-center text-[#78350F] font-black text-[10px] shadow-sm animate-bounce">
+            <div className="w-5 h-5 rounded-full bg-[#D9A441] flex items-center justify-center text-[#78350F] font-black text-[10px] shadow-sm group-hover:scale-110 transition-transform">
               🪙
             </div>
             <span className="text-[11px] sm:text-xs font-black tracking-tight whitespace-nowrap">
-              ประเมิน +200P
+              ประเมิน +200 แต้ม
             </span>
           </button>
         ) : (
